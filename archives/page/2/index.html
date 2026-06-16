@@ -50,7 +50,8 @@
     <style id="dark-mode-css">
     body.dark { background: #111; color: #eee; }
     body.dark a { color: #eee; }
-    body.dark .header a { color: #eee; }
+    body.dark #header a { color: #eee; }
+    body.dark #header #nav a { color: #eee; }
     body.dark #title h1 { color: #eee; }
     body.dark .blog-post h1,
     body.dark .blog-post h2,
@@ -71,26 +72,9 @@
     body.dark input, body.dark textarea { background: #222; color: #eee; border-color: #444; }
     body.dark .pagination a { color: #ccc; }
     body.dark .tags-overview a { color: #eee; }
-    #dark-toggle { font-size: 1.1em; cursor: pointer; user-select: none; }
+    body.dark .post-item .meta { color: #aaa; }
+    #dark-toggle { font-size: 1.1em; cursor: pointer; user-select: none; text-decoration: none; }
     </style>
-    <script>
-    (function(){
-      var saved = localStorage.getItem('dark-mode');
-      if (saved === 'true' || (saved === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.body.classList.add('dark');
-      }
-      document.addEventListener('DOMContentLoaded', function(){
-        var btn = document.getElementById('dark-toggle');
-        if (btn) {
-          btn.addEventListener('click', function(e){
-            e.preventDefault();
-            document.body.classList.toggle('dark');
-            localStorage.setItem('dark-mode', document.body.classList.contains('dark'));
-          });
-        }
-      });
-    })();
-    </script>
     <!-- persian styles -->
     
     <!-- rss -->
@@ -156,30 +140,6 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/06_03_%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">PyTorch 神经网络</a>
-    
-
-
-</span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
         <a class="" href="/2026/06/16/05_01_ndarray%E5%9F%BA%E7%A1%80/">NumPy ndarray 基础</a>
     
 
@@ -204,7 +164,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/">广播、矩阵运算与线性代数</a>
+        <a class="" href="/2026/06/16/06_01_%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/">PyTorch 张量基础</a>
     
 
 
@@ -252,6 +212,30 @@
 
         <span>
     
+        <a class="" href="/2026/06/16/06_03_%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">PyTorch 神经网络</a>
+    
+
+
+</span>
+      </li>
+    
+      
+      
+      
+      
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
+        
+      
+    </div>
+
+
+        <span>
+    
         <a class="" href="/2026/06/16/07_02_OpenGL%E4%B8%8E%E4%B8%89%E7%BB%B4%E5%8F%AF%E8%A7%86%E5%8C%96/">OpenGL 基础与 3D 可视化</a>
     
 
@@ -276,7 +260,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/07_01_Matplotlib%E7%BB%98%E5%9B%BE/">Matplotlib 绘图</a>
+        <a class="" href="/2026/06/16/08_01_os_sys_pathlib/">os、sys、pathlib — 系统操作</a>
     
 
 
@@ -300,7 +284,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/08_01_os_sys_pathlib/">os、sys、pathlib — 系统操作</a>
+        <a class="" href="/2026/06/16/07_01_Matplotlib%E7%BB%98%E5%9B%BE/">Matplotlib 绘图</a>
     
 
 
@@ -441,6 +425,20 @@
 
 <script src="/js/main.js"></script>
 
+<!-- dark mode toggle -->
+<script>
+$(function(){
+  var saved = localStorage.getItem('dark-mode');
+  if (saved === 'true' || (saved === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.body.classList.add('dark');
+  }
+  $('#dark-toggle').on('click', function(e){
+    e.preventDefault();
+    $('body').toggleClass('dark');
+    localStorage.setItem('dark-mode', $('body').hasClass('dark'));
+  });
+});
+</script>
 <!-- search -->
 
 <!-- Baidu Analytics -->

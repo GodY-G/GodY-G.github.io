@@ -50,7 +50,8 @@
     <style id="dark-mode-css">
     body.dark { background: #111; color: #eee; }
     body.dark a { color: #eee; }
-    body.dark .header a { color: #eee; }
+    body.dark #header a { color: #eee; }
+    body.dark #header #nav a { color: #eee; }
     body.dark #title h1 { color: #eee; }
     body.dark .blog-post h1,
     body.dark .blog-post h2,
@@ -71,26 +72,9 @@
     body.dark input, body.dark textarea { background: #222; color: #eee; border-color: #444; }
     body.dark .pagination a { color: #ccc; }
     body.dark .tags-overview a { color: #eee; }
-    #dark-toggle { font-size: 1.1em; cursor: pointer; user-select: none; }
+    body.dark .post-item .meta { color: #aaa; }
+    #dark-toggle { font-size: 1.1em; cursor: pointer; user-select: none; text-decoration: none; }
     </style>
-    <script>
-    (function(){
-      var saved = localStorage.getItem('dark-mode');
-      if (saved === 'true' || (saved === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.body.classList.add('dark');
-      }
-      document.addEventListener('DOMContentLoaded', function(){
-        var btn = document.getElementById('dark-toggle');
-        if (btn) {
-          btn.addEventListener('click', function(e){
-            e.preventDefault();
-            document.body.classList.toggle('dark');
-            localStorage.setItem('dark-mode', document.body.classList.contains('dark'));
-          });
-        }
-      });
-    })();
-    </script>
     <!-- persian styles -->
     
     <!-- rss -->
@@ -156,30 +140,6 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/01_01_%E5%8F%98%E9%87%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">变量与数据类型</a>
-    
-
-
-</span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
         <a class="" href="/2026/06/16/01_02_%E8%BF%90%E7%AE%97%E7%AC%A6/">运算符</a>
     
 
@@ -228,31 +188,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/03_01_%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/">类与对象</a>
-    
-
-
-</span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/02_03_%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E6%8E%A8%E5%AF%BC%E5%BC%8F/">迭代器、生成器与推导式</a>
+        <a class="" href="/2026/06/16/01_04_%E5%87%BD%E6%95%B0/">函数</a>
     
 
 
@@ -300,7 +236,55 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/01_04_%E5%87%BD%E6%95%B0/">函数</a>
+        <a class="" href="/2026/06/16/01_01_%E5%8F%98%E9%87%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">变量与数据类型</a>
+    
+
+
+</span>
+      </li>
+    
+      
+      
+      
+      
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2026/06/16/02_03_%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E6%8E%A8%E5%AF%BC%E5%BC%8F/">迭代器、生成器与推导式</a>
+    
+
+
+</span>
+      </li>
+    
+      
+      
+      
+      
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2026/06/16/03_01_%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/">类与对象</a>
     
 
 
@@ -372,7 +356,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/06_01_%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/">PyTorch 张量基础</a>
+        <a class="" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/">广播、矩阵运算与线性代数</a>
     
 
 
@@ -439,6 +423,20 @@
 
 <script src="/js/main.js"></script>
 
+<!-- dark mode toggle -->
+<script>
+$(function(){
+  var saved = localStorage.getItem('dark-mode');
+  if (saved === 'true' || (saved === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.body.classList.add('dark');
+  }
+  $('#dark-toggle').on('click', function(e){
+    e.preventDefault();
+    $('body').toggleClass('dark');
+    localStorage.setItem('dark-mode', $('body').hasClass('dark'));
+  });
+});
+</script>
 <!-- search -->
 
 <!-- Baidu Analytics -->

@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="About Me Graduated from Suzhou University of Science and Technology (2026), B.Arch. Currently focused on computer graphics and 3D reconstruction. Bridging architectural design background into the digi">
+    <meta name="description" content="关于我 2026 年毕业于苏州科技大学建筑学专业，现专注于计算机图形学与三维重建方向的学习与研究。 本科期间系统接受了建筑设计训练——从场地调研、方案构思到建筑表达，具有对空间感知与视觉呈现的敏感度。 将建筑学背景中对空间的理解迁移到数字世界——以 3D Gaussian Splatting 为切入点，学习三维重建、可微渲染与计算机视觉。   本站记录本人成长过程中的学习笔记与思考。  技能">
 <meta property="og:type" content="website">
-<meta property="og:title" content="About">
+<meta property="og:title" content="关于">
 <meta property="og:url" content="https://gody-g.github.io/about/index.html">
 <meta property="og:site_name" content="GodY">
-<meta property="og:description" content="About Me Graduated from Suzhou University of Science and Technology (2026), B.Arch. Currently focused on computer graphics and 3D reconstruction. Bridging architectural design background into the digi">
+<meta property="og:description" content="关于我 2026 年毕业于苏州科技大学建筑学专业，现专注于计算机图形学与三维重建方向的学习与研究。 本科期间系统接受了建筑设计训练——从场地调研、方案构思到建筑表达，具有对空间感知与视觉呈现的敏感度。 将建筑学背景中对空间的理解迁移到数字世界——以 3D Gaussian Splatting 为切入点，学习三维重建、可微渲染与计算机视觉。   本站记录本人成长过程中的学习笔记与思考。  技能">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-02T18:27:50.000Z">
-<meta property="article:modified_time" content="2026-06-16T07:25:21.335Z">
+<meta property="article:modified_time" content="2026-06-16T07:33:40.329Z">
 <meta property="article:author" content="GodY-G">
 <meta name="twitter:card" content="summary">
     
@@ -36,7 +36,7 @@
       
     
     <!-- title -->
-    <title>About</title>
+    <title>关于</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -52,7 +52,8 @@
     <style id="dark-mode-css">
     body.dark { background: #111; color: #eee; }
     body.dark a { color: #eee; }
-    body.dark .header a { color: #eee; }
+    body.dark #header a { color: #eee; }
+    body.dark #header #nav a { color: #eee; }
     body.dark #title h1 { color: #eee; }
     body.dark .blog-post h1,
     body.dark .blog-post h2,
@@ -73,26 +74,9 @@
     body.dark input, body.dark textarea { background: #222; color: #eee; border-color: #444; }
     body.dark .pagination a { color: #ccc; }
     body.dark .tags-overview a { color: #eee; }
-    #dark-toggle { font-size: 1.1em; cursor: pointer; user-select: none; }
+    body.dark .post-item .meta { color: #aaa; }
+    #dark-toggle { font-size: 1.1em; cursor: pointer; user-select: none; text-decoration: none; }
     </style>
-    <script>
-    (function(){
-      var saved = localStorage.getItem('dark-mode');
-      if (saved === 'true' || (saved === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.body.classList.add('dark');
-      }
-      document.addEventListener('DOMContentLoaded', function(){
-        var btn = document.getElementById('dark-toggle');
-        if (btn) {
-          btn.addEventListener('click', function(e){
-            e.preventDefault();
-            document.body.classList.toggle('dark');
-            localStorage.setItem('dark-mode', document.body.classList.contains('dark'));
-          });
-        }
-      });
-    })();
-    </script>
     <!-- persian styles -->
     
     <!-- rss -->
@@ -138,37 +122,37 @@
 
   <div class="content" itemprop="articleBody">
       
-          <h2 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h2><ul>
-<li>Graduated from Suzhou University of Science and Technology (2026), B.Arch.</li>
-<li>Currently focused on computer graphics and 3D reconstruction.</li>
-<li>Bridging architectural design background into the digital world — starting with 3D Gaussian Splatting, exploring differentiable rendering and computer vision.</li>
+          <h2 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h2><ul>
+<li>2026 年毕业于苏州科技大学建筑学专业，现专注于计算机图形学与三维重建方向的学习与研究。</li>
+<li>本科期间系统接受了建筑设计训练——从场地调研、方案构思到建筑表达，具有对空间感知与视觉呈现的敏感度。</li>
+<li>将建筑学背景中对空间的理解迁移到数字世界——以 3D Gaussian Splatting 为切入点，学习三维重建、可微渲染与计算机视觉。</li>
 </ul>
 <blockquote>
-<p>This site documents my learning journey and thoughts.</p>
+<p>本站记录本人成长过程中的学习笔记与思考。</p>
 </blockquote>
-<h2 id="Skills"><a href="#Skills" class="headerlink" title="Skills"></a>Skills</h2><table>
+<h2 id="技能"><a href="#技能" class="headerlink" title="技能"></a>技能</h2><table>
 <thead>
 <tr>
-<th>Field</th>
-<th>Tools &amp; Technologies</th>
+<th>领域</th>
+<th>工具 &#x2F; 技术</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Architecture</td>
+<td>建筑设计</td>
 <td>AutoCAD, SketchUp, Rhino, V-Ray, Photoshop</td>
 </tr>
 <tr>
-<td>Programming</td>
+<td>编程</td>
 <td>C, C++, Python, NumPy, PyTorch</td>
 </tr>
 <tr>
-<td>Graphics</td>
-<td>3DGS, OpenGL, Differentiable Rendering</td>
+<td>图形学</td>
+<td>3DGS, OpenGL, 可微渲染</td>
 </tr>
 </tbody></table>
-<h2 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h2><ul>
+<h2 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h2><ul>
 <li>GitHub: <a target="_blank" rel="noopener" href="https://github.com/GodY-G">GodY-G</a></li>
-<li>Email: <a href="mailto:&#100;&#101;&#121;&#x75;&#x61;&#110;&#46;&#x67;&#97;&#111;&#x40;&#x6f;&#117;&#116;&#108;&#x6f;&#x6f;&#x6b;&#x2e;&#99;&#111;&#x6d;">deyuan.gao@outlook.com</a> &#x2F; <a href="mailto:&#103;&#x64;&#x79;&#50;&#x30;&#48;&#x32;&#x31;&#x32;&#x33;&#49;&#48;&#48;&#49;&#x30;&#64;&#49;&#x36;&#51;&#x2e;&#99;&#x6f;&#109;">gdy200212310010@163.com</a></li>
+<li>Email: <a href="mailto:&#100;&#x65;&#x79;&#x75;&#x61;&#x6e;&#x2e;&#x67;&#x61;&#x6f;&#x40;&#111;&#117;&#x74;&#x6c;&#x6f;&#111;&#x6b;&#46;&#x63;&#x6f;&#109;">deyuan.gao@outlook.com</a> &#x2F; <a href="mailto:&#x67;&#100;&#121;&#x32;&#48;&#48;&#50;&#49;&#x32;&#x33;&#49;&#48;&#48;&#49;&#48;&#x40;&#x31;&#x36;&#x33;&#x2e;&#x63;&#111;&#109;">gdy200212310010@163.com</a></li>
 </ul>
 
         
@@ -221,6 +205,20 @@
 
 <script src="/js/main.js"></script>
 
+<!-- dark mode toggle -->
+<script>
+$(function(){
+  var saved = localStorage.getItem('dark-mode');
+  if (saved === 'true' || (saved === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.body.classList.add('dark');
+  }
+  $('#dark-toggle').on('click', function(e){
+    e.preventDefault();
+    $('body').toggleClass('dark');
+    localStorage.setItem('dark-mode', $('body').hasClass('dark'));
+  });
+});
+</script>
 <!-- search -->
 
 <!-- Baidu Analytics -->
