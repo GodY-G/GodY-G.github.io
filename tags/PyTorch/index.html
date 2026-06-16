@@ -46,6 +46,16 @@
     
 <link rel="stylesheet" href="/css/style.css">
 
+    <style>
+    #header-search { text-align: right; margin-top: 4px; }
+    #header-search-input {
+      border: none; border-bottom: 1px solid #ccc; background: transparent;
+      font-size: 13px; padding: 4px 0; width: 160px; outline: none;
+      color: #333; transition: border-color .2s;
+    }
+    #header-search-input:focus { border-bottom-color: #111; }
+    @media (max-width: 600px) { #header-search { display: none; } }
+    </style>
     <!-- persian styles -->
     
     <!-- rss -->
@@ -84,6 +94,11 @@
    -->
     </ul>
   </div>
+  <div id="header-search">
+    <form action="/search/" method="get">
+      <input type="text" name="q" id="header-search-input" placeholder="Search...">
+    </form>
+  </div>
 </header>
 
         
@@ -98,6 +113,30 @@
       
       
         <li class="post-year"><h2>2026</h2></li>
+      
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2026/06/16/06_01_%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/">[Python, PyTorch]PyTorch 张量基础</a>
+    
+
+
+</span>
+      </li>
+    
+      
+      
+      
       
       <li class="post-item">
         
@@ -137,30 +176,6 @@
         <span>
     
         <a class="" href="/2026/06/16/06_03_%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">[Python, PyTorch]PyTorch 神经网络</a>
-    
-
-
-</span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/06_01_%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/">[Python, PyTorch]PyTorch 张量基础</a>
     
 
 

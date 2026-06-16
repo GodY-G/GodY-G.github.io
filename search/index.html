@@ -48,6 +48,16 @@
     
 <link rel="stylesheet" href="/css/style.css">
 
+    <style>
+    #header-search { text-align: right; margin-top: 4px; }
+    #header-search-input {
+      border: none; border-bottom: 1px solid #ccc; background: transparent;
+      font-size: 13px; padding: 4px 0; width: 160px; outline: none;
+      color: #333; transition: border-color .2s;
+    }
+    #header-search-input:focus { border-bottom-color: #111; }
+    @media (max-width: 600px) { #header-search { display: none; } }
+    </style>
     <!-- persian styles -->
     
     <!-- rss -->
@@ -86,16 +96,41 @@
    -->
     </ul>
   </div>
+  <div id="header-search">
+    <form action="/search/" method="get">
+      <input type="text" name="q" id="header-search-input" placeholder="Search...">
+    </form>
+  </div>
 </header>
 
         
         <section id="search">
-  <form>
+  <form id="search-form" onsubmit="return false;">
     <input type="text" class="search-input" id="search-input" placeholder="Search...">
   </form>
   <div id="search-result"></div>
   <p class="search-no-result">No results found.</p>
 </section>
+
+<script>
+(function(){
+  // Read query param from header search
+  var params = new URLSearchParams(window.location.search);
+  var q = params.get('q');
+  if (q) {
+    document.getElementById('search-input').value = q;
+  }
+  // Trigger search
+  var path = '/search.xml';
+  var input = document.getElementById('search-input');
+  if (input) {
+    input.focus();
+    if (q) {
+      searchFunc(path, 'search-input', 'search-result');
+    }
+  }
+})();
+</script>
 
         
         <footer id="footer">

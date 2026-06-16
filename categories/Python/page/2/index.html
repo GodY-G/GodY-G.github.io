@@ -46,6 +46,16 @@
     
 <link rel="stylesheet" href="/css/style.css">
 
+    <style>
+    #header-search { text-align: right; margin-top: 4px; }
+    #header-search-input {
+      border: none; border-bottom: 1px solid #ccc; background: transparent;
+      font-size: 13px; padding: 4px 0; width: 160px; outline: none;
+      color: #333; transition: border-color .2s;
+    }
+    #header-search-input:focus { border-bottom-color: #111; }
+    @media (max-width: 600px) { #header-search { display: none; } }
+    </style>
     <!-- persian styles -->
     
     <!-- rss -->
@@ -84,6 +94,11 @@
    -->
     </ul>
   </div>
+  <div id="header-search">
+    <form action="/search/" method="get">
+      <input type="text" name="q" id="header-search-input" placeholder="Search...">
+    </form>
+  </div>
 </header>
 
         
@@ -112,7 +127,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/08_01_os_sys_pathlib/">[Python]os、sys、pathlib — 系统操作</a>
+        <a class="" href="/2026/06/16/01_04_%E5%87%BD%E6%95%B0/">[Python]函数</a>
     
 
 
