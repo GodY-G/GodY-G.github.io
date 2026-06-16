@@ -1,119 +1,95 @@
-/* GodY's Blog - Premium Styles */
+/* GodY's Blog - Minimal Premium */
 
-/* 全局字体渲染优化 */
 body {
     -webkit-font-smoothing: antialiased;
-    letter-spacing: 0.02em;
 }
 
-/* 导航栏毛玻璃效果 */
+/* 导航栏 - 简约束边 */
 .navbar {
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
-    background: rgba(18, 18, 24, 0.75) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    background: rgba(255,255,255,0.92) !important;
+    backdrop-filter: blur(12px);
 }
 
-/* 分类/标签按钮 */
-.navbar .nav-link {
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-.navbar .nav-link:hover {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+/* 暗色模式导航栏 */
+[data-theme="dark"] .navbar {
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(18,18,24,0.85) !important;
 }
 
-/* Banner 遮罩渐变 */
-.banner {
-    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+/* 文章卡片 */
+.index-card {
+    border: none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+    border-radius: 0 !important;
+    padding: 2rem 0 !important;
+    transition: padding-left 0.3s ease, background 0.3s ease;
 }
 
-/* 文章卡片增强 */
-.index-card, .post-card {
-    border-radius: 12px !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    overflow: hidden;
+.index-card:hover {
+    padding-left: 0.8rem !important;
+    background: rgba(0,0,0,0.015);
 }
 
-.index-card:hover, .post-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-    border-color: rgba(255, 255, 255, 0.15) !important;
+[data-theme="dark"] .index-card {
+    border-bottom: 1px solid rgba(255,255,255,0.05) !important;
 }
 
-/* 文章卡片内部间距 */
-.index-card .card-body {
-    padding: 1.5rem 1.8rem;
+[data-theme="dark"] .index-card:hover {
+    background: rgba(255,255,255,0.02);
 }
 
-/* 标题样式 */
-h1, h2, h3 {
+/* 标题链接 */
+.index-card .card-title a {
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.index-card .card-title a:hover {
+    opacity: 0.6;
+}
+
+/* 日期样式 */
+.index-card .card-date {
+    font-size: 0.85rem;
+    color: #999;
     letter-spacing: 0.03em;
 }
 
-/* 代码块圆角 */
-pre, code {
-    border-radius: 8px !important;
-}
-
-/* 滚动条美化 */
-::-webkit-scrollbar {
-    width: 6px;
-}
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
+/* 分类标签 */
+.index-card .card-category a {
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #888;
+    border: 1px solid rgba(0,0,0,0.12);
     border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-/* 搜索框样式 */
-#local-search-input {
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05);
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-#local-search-input:focus {
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+    padding: 2px 8px;
+    transition: all 0.2s;
 }
 
-/* 页脚 */
-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+.index-card .card-category a:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
 }
 
-/* 标签/分类 chip */
-.tag-chip, .category-chip {
-    border-radius: 20px;
-    padding: 2px 12px;
-    font-size: 0.8em;
-    transition: background 0.2s ease;
+[data-theme="dark"] .index-card .card-category a {
+    color: #999;
+    border-color: rgba(255,255,255,0.15);
+}
+[data-theme="dark"] .index-card .card-category a:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
 }
 
-/* 淡入动画 */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* 滚动条 */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.15);
+    border-radius: 2px;
 }
 
-.index-card {
-    animation: fadeInUp 0.6s ease both;
-}
-.index-card:nth-child(1) { animation-delay: 0.05s; }
-.index-card:nth-child(2) { animation-delay: 0.10s; }
-.index-card:nth-child(3) { animation-delay: 0.15s; }
-.index-card:nth-child(4) { animation-delay: 0.20s; }
-.index-card:nth-child(5) { animation-delay: 0.25s; }
+/* 代码块 */
+pre { border-radius: 6px !important; }
