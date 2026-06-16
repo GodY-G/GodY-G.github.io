@@ -1,122 +1,107 @@
-/* ===== GodY's Blog ===== */
+/* === GodY's Blog === */
 
-/* ---- 页面容器 ---- */
-.container, .content {
-    max-width: 600px !important;
-    padding: 0 24px !important;
-}
+/* 隐藏主题默认页面元素 */
+.banner,
+.navbar .navbar-nav + .navbar-nav,
+.index-card, .index-header, .index-excerpt, .index-btm, .post-metas,
+.row.mx-auto { display: none !important; }
 
-/* ---- 导航栏 ---- */
+/* 隐藏搜索按钮（保留输入框功能） */
+.navbar form + * { display: none; }
+
+/* === 整体布局 === */
+html { overflow-y: scroll; }
+body { background: #fff; }
+
+.container { max-width: 600px !important; }
+
+/* === 导航栏 === */
 .navbar {
-    border: none !important;
-    background: #fff !important;
-    padding: 56px 0 18px !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    padding: 48px 0 12px !important;
 }
 .navbar .navbar-brand {
-    font-size: 1.2rem !important;
-    font-weight: 700 !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
     color: #1a1a1a !important;
     letter-spacing: -0.02em;
 }
 .navbar .nav-link {
-    font-size: 0.78rem !important;
+    font-size: 13px !important;
     color: #b0b0b0 !important;
-    padding: 0 8px !important;
     font-weight: 500;
+    padding: 0 7px !important;
+    transition: color .2s;
 }
 .navbar .nav-link:hover { color: #555 !important; }
 
-/* ---- 标语 ---- */
-.slogan, .index-slogan {
-    font-size: 0.78rem !important;
-    color: #c5c5c5 !important;
+/* === 自定义首页 === */
+.home-wrap { margin-top: 20px; }
+
+.home-slogan {
+    font-size: 13px;
+    color: #c0c0c0;
     font-style: italic;
-    margin: 4px 0 56px 128px !important;
+    margin-bottom: 48px;
+    padding-left: 120px;
 }
 
-/* ---- 博文条目 ---- */
-.post-item {
-    display: flex !important;
-    align-items: flex-start !important;
-    gap: 14px !important;
-    margin-bottom: 30px !important;
-    padding: 0 !important;
-    border: none !important;
+.home-section {
+    font-size: 11px;
+    color: #d0d0d0;
+    letter-spacing: 0.06em;
+    margin-bottom: 22px;
+    padding-left: 120px;
 }
 
-/* 日期（左侧列，右对齐） */
-.post-date {
-    flex: 0 0 114px !important;
-    text-align: right !important;
-    padding-top: 4px !important;
+.home-item { margin-bottom: 28px; }
+
+.home-item-link {
+    display: flex;
+    align-items: flex-start;
+    text-decoration: none;
+    transition: opacity .2s;
 }
-.post-date-meta {
-    font-size: 0.72rem !important;
-    color: #c0c0c0 !important;
-    line-height: 1.55 !important;
-    letter-spacing: 0.03em !important;
+.home-item-link:hover { opacity: .45; }
+
+.home-date {
+    flex: 0 0 108px;
+    text-align: right;
+    padding-right: 16px;
+    font-size: 12px;
+    color: #c2c2c2;
+    line-height: 1.55;
+    letter-spacing: 0.03em;
+    padding-top: 2px;
 }
-.post-date-meta br + * {
-    font-size: 0.68rem !important;
-    color: #d5d5d5 !important;
+.home-date br + * { font-size: 11px; color: #d5d5d5; }
+
+.home-title {
+    flex: 1;
+    font-size: 14px;
+    color: #2a2a2a;
+    font-weight: 500;
+    line-height: 1.5;
 }
 
-/* 标题（右侧） */
-.post-main { flex: 1 !important; }
-.post-title {
-    margin: 0 0 3px 0 !important;
-    font-size: 0.9rem !important;
-    font-weight: 500 !important;
-    line-height: 1.5 !important;
+/* === 分页 === */
+.home-paginator {
+    margin-top: 40px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0,0,0,.04);
+    font-size: 13px;
+    padding-left: 108px;
 }
-.post-title a {
-    color: #2a2a2a !important;
-    text-decoration: none !important;
-}
-.post-title a:hover { opacity: 0.35; }
+.home-paginator a { color: #888; }
 
-/* 分类 */
-.post-category a {
-    font-size: 0.65rem !important;
-    color: #c8c8c8 !important;
-    text-decoration: none !important;
-    letter-spacing: 0.04em;
-}
-.post-category a:hover { color: #999 !important; }
-
-/* ---- 默认元素隐藏 ---- */
-.banner, .index-img, .index-btm, .post-metas,
-.index-header, .index-excerpt, .index-card,
-.index-info, .post-meta, .post-metas,
-.row, .col-12, .col-md-4, .col-md-8, .col-md-12 { display: none !important; }
-
-/* ---- 文章详情页 ---- */
-.post-content { line-height: 1.85; font-size: 0.92rem; color: #333; }
-pre { border-radius: 6px !important; }
-.post-header h1 { font-size: 1.4rem; font-weight: 600; }
-.post-header .post-meta { color: #bbb; font-size: 0.85rem; }
-
-/* ---- 分页 ---- */
-.paginator {
-    margin-top: 48px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(0,0,0,0.04);
-    font-size: 0.8rem;
-}
-.paginator a { color: #888; }
-
-/* ---- 关于页 ---- */
-.about-avatar img { width: 80px; border-radius: 50%; }
-.about-info h3 { font-size: 1.3rem; font-weight: 600; margin: 12px 0 4px; }
-.about-info p { font-size: 0.88rem; color: #999; }
-
-/* ---- 滚动条 ---- */
+/* === 滚动条 === */
 ::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,.08); border-radius: 2px; }
 
-/* ---- 搜索 ---- */
-#local-search-input {
-    border: 1px solid rgba(0,0,0,0.08);
-    border-radius: 4px;
-    font-size: 0.85rem;
-}
+/* === 文章详情页 === */
+.post-content { line-height: 1.9; font-size: 15px; color: #333; }
+.post-content h1 { font-size: 20px; font-weight: 600; }
+.post-content h2 { font-size: 17px; font-weight: 600; }
+.post-content h3 { font-size: 15px; font-weight: 600; }
+pre { border-radius: 6px; }
