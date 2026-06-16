@@ -372,15 +372,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2026/06/16/06_03_%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" target="_self">
-          PyTorch 神经网络
+        <a href="/2026/06/16/06_02_%E8%87%AA%E5%8A%A8%E6%B1%82%E5%AF%BC%E4%B8%8E%E4%BC%98%E5%8C%96/" target="_self">
+          自动求导与优化器
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/06/16/06_03_%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/06/16/06_02_%E8%87%AA%E5%8A%A8%E6%B1%82%E5%AF%BC%E4%B8%8E%E4%BC%98%E5%8C%96/" target="_self">
         <div>
-          PyTorch 神经网络1. nn.Module（一切模型的基类）12345678910111213141516171819202122232425262728293031import torchimport torch.nn as nn# 基础用法class MLP(nn.Module):    def __init__(self, in_dim, hidden_dim, out_dim):
+          自动求导与优化器自动求导（autograd）是 PyTorch 的核心——它自动计算梯度，让你不需要手推反向传播。 1. 计算图基础12345678910111213141516171819202122232425262728import torch# 创建需要梯度的张量x = torch.tensor([2.0, 3.0], requires_grad=True)print(x.grad)  #
         </div>
       </a>
 
@@ -498,15 +498,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2026/06/16/05_01_ndarray%E5%9F%BA%E7%A1%80/" target="_self">
-          NumPy ndarray 基础
+        <a href="/2026/06/16/01_01_%E5%8F%98%E9%87%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" target="_self">
+          变量与数据类型
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/06/16/05_01_ndarray%E5%9F%BA%E7%A1%80/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/06/16/01_01_%E5%8F%98%E9%87%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" target="_self">
         <div>
-          NumPy ndarray 基础NumPy 的 ndarray（N-dimensional array）是 Python 科学计算的基石。它把同类型数据存储在连续内存中，运算速度比原生 Python 快 10~100 倍。 1. 创建数组12345678910111213141516171819202122232425262728import numpy as np# 从列表创建a = np.ar
+          变量与数据类型1. 变量命名规则 只能包含字母、数字、下划线，且不能以数字开头 区分大小写（name 和 Name 是两个变量） 不能使用 Python 关键字（如 if、for、class） 推荐使用 snake_case 命名风格  12345678910# 合法命名my_var = 10_name = &quot;hello&quot;user2 = 3.14MAX_SIZE = 100
         </div>
       </a>
 
@@ -530,7 +530,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/NumPy/" class="category-chain-item">NumPy</a>
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
   
   
 
@@ -547,7 +547,68 @@
             
               <a href="/tags/Python/">#Python</a>
             
-              <a href="/tags/NumPy/">#NumPy</a>
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/06/16/06_03_%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" target="_self">
+          PyTorch 神经网络
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/06/16/06_03_%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" target="_self">
+        <div>
+          PyTorch 神经网络1. nn.Module（一切模型的基类）12345678910111213141516171819202122232425262728293031import torchimport torch.nn as nn# 基础用法class MLP(nn.Module):    def __init__(self, in_dim, hidden_dim, out_dim):
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-06-16 12:00" pubdate>
+              2026-06-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PyTorch/" class="category-chain-item">PyTorch</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Python/">#Python</a>
+            
+              <a href="/tags/PyTorch/">#PyTorch</a>
             
           </div>
         
@@ -672,69 +733,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Python/">#Python</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/06/16/06_02_%E8%87%AA%E5%8A%A8%E6%B1%82%E5%AF%BC%E4%B8%8E%E4%BC%98%E5%8C%96/" target="_self">
-          自动求导与优化器
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/06/16/06_02_%E8%87%AA%E5%8A%A8%E6%B1%82%E5%AF%BC%E4%B8%8E%E4%BC%98%E5%8C%96/" target="_self">
-        <div>
-          自动求导与优化器自动求导（autograd）是 PyTorch 的核心——它自动计算梯度，让你不需要手推反向传播。 1. 计算图基础12345678910111213141516171819202122232425262728import torch# 创建需要梯度的张量x = torch.tensor([2.0, 3.0], requires_grad=True)print(x.grad)  #
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-06-16 12:00" pubdate>
-              2026-06-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/PyTorch/" class="category-chain-item">PyTorch</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Python/">#Python</a>
-            
-              <a href="/tags/PyTorch/">#PyTorch</a>
             
           </div>
         
