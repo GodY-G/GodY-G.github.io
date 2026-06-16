@@ -1,122 +1,122 @@
 /* ===== GodY's Blog ===== */
 
-body { -webkit-font-smoothing: antialiased; }
-
-/* ===== 页面容器 ===== */
+/* ---- 页面容器 ---- */
 .container, .content {
-    max-width: 620px !important;
+    max-width: 600px !important;
     padding: 0 24px !important;
 }
 
-/* ===== 导航栏 ===== */
+/* ---- 导航栏 ---- */
 .navbar {
     border: none !important;
-    background: transparent !important;
-    padding: 56px 0 20px !important;
+    background: #fff !important;
+    padding: 56px 0 18px !important;
 }
 .navbar .navbar-brand {
-    font-size: 1.3rem !important;
-    font-weight: 600 !important;
-    letter-spacing: -0.01em;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    color: #1a1a1a !important;
+    letter-spacing: -0.02em;
 }
 .navbar .nav-link {
-    font-size: 0.82rem !important;
-    color: #aaa !important;
+    font-size: 0.78rem !important;
+    color: #b0b0b0 !important;
     padding: 0 8px !important;
+    font-weight: 500;
 }
 .navbar .nav-link:hover { color: #555 !important; }
 
-/* ===== 标语 ===== */
+/* ---- 标语 ---- */
 .slogan, .index-slogan {
-    font-size: 0.8rem !important;
-    color: #c0c0c0 !important;
+    font-size: 0.78rem !important;
+    color: #c5c5c5 !important;
     font-style: italic;
-    margin: 2px 0 60px 132px !important;
-    letter-spacing: 0.02em;
+    margin: 4px 0 56px 128px !important;
 }
 
-/* ===== 文章条目 ===== */
+/* ---- 博文条目 ---- */
 .post-item {
     display: flex !important;
     align-items: flex-start !important;
-    gap: 16px !important;
-    margin-bottom: 34px !important;
-    border: none !important;
+    gap: 14px !important;
+    margin-bottom: 30px !important;
     padding: 0 !important;
-    background: transparent !important;
+    border: none !important;
 }
 
-/* 左侧日期栏 */
+/* 日期（左侧列，右对齐） */
 .post-date {
-    flex: 0 0 116px !important;
+    flex: 0 0 114px !important;
     text-align: right !important;
-    padding-top: 5px !important;
+    padding-top: 4px !important;
 }
 .post-date-meta {
-    font-size: 0.75rem !important;
-    color: #c5c5c5 !important;
+    font-size: 0.72rem !important;
+    color: #c0c0c0 !important;
     line-height: 1.55 !important;
     letter-spacing: 0.03em !important;
 }
 .post-date-meta br + * {
-    font-size: 0.7rem !important;
+    font-size: 0.68rem !important;
     color: #d5d5d5 !important;
 }
 
-/* 右侧内容 */
-.post-main {
-    flex: 1 !important;
-    min-width: 0 !important;
-}
+/* 标题（右侧） */
+.post-main { flex: 1 !important; }
 .post-title {
     margin: 0 0 3px 0 !important;
-    font-size: 0.92rem !important;
+    font-size: 0.9rem !important;
     font-weight: 500 !important;
     line-height: 1.5 !important;
 }
 .post-title a {
-    color: #333 !important;
+    color: #2a2a2a !important;
     text-decoration: none !important;
 }
-.post-title a:hover { opacity: 0.4; }
+.post-title a:hover { opacity: 0.35; }
 
-.post-category { margin-top: 1px; }
+/* 分类 */
 .post-category a {
-    font-size: 0.68rem !important;
-    color: #d0d0d0 !important;
+    font-size: 0.65rem !important;
+    color: #c8c8c8 !important;
     text-decoration: none !important;
     letter-spacing: 0.04em;
 }
 .post-category a:hover { color: #999 !important; }
 
-/* ===== 分页 ===== */
+/* ---- 默认元素隐藏 ---- */
+.banner, .index-img, .index-btm, .post-metas,
+.index-header, .index-excerpt, .index-card,
+.index-info, .post-meta, .post-metas,
+.row, .col-12, .col-md-4, .col-md-8, .col-md-12 { display: none !important; }
+
+/* ---- 文章详情页 ---- */
+.post-content { line-height: 1.85; font-size: 0.92rem; color: #333; }
+pre { border-radius: 6px !important; }
+.post-header h1 { font-size: 1.4rem; font-weight: 600; }
+.post-header .post-meta { color: #bbb; font-size: 0.85rem; }
+
+/* ---- 分页 ---- */
 .paginator {
-    margin-top: 50px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(0,0,0,0.05);
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0,0,0,0.04);
+    font-size: 0.8rem;
+}
+.paginator a { color: #888; }
+
+/* ---- 关于页 ---- */
+.about-avatar img { width: 80px; border-radius: 50%; }
+.about-info h3 { font-size: 1.3rem; font-weight: 600; margin: 12px 0 4px; }
+.about-info p { font-size: 0.88rem; color: #999; }
+
+/* ---- 滚动条 ---- */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 2px; }
+
+/* ---- 搜索 ---- */
+#local-search-input {
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 4px;
     font-size: 0.85rem;
 }
-
-/* ===== 暗色模式 ===== */
-[data-theme="dark"] body { background: #111; }
-[data-theme="dark"] .navbar .navbar-brand { color: #eee !important; }
-[data-theme="dark"] .navbar .nav-link:hover { color: #ccc !important; }
-[data-theme="dark"] .slogan { color: #555 !important; }
-[data-theme="dark"] .post-title a { color: #ddd !important; }
-[data-theme="dark"] .post-date-meta { color: #555 !important; }
-[data-theme="dark"] .post-date-meta br + * { color: #444 !important; }
-[data-theme="dark"] .post-category a { color: #555 !important; }
-[data-theme="dark"] .post-category a:hover { color: #aaa !important; }
-[data-theme="dark"] .paginator { border-top-color: rgba(255,255,255,0.06); }
-
-/* ===== 隐藏默认 banner/图片 ===== */
-.banner, .index-img, .index-btm, .post-metas, .index-header, .index-excerpt { display: none !important; }
-
-/* ===== 文章详情页 ===== */
-.post-content { line-height: 1.85; font-size: 0.95rem; }
-pre { border-radius: 6px !important; }
-
-/* ===== 滚动条 ===== */
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 2px; }
-[data-theme="dark"] ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
