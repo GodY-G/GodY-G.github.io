@@ -45,38 +45,65 @@
     <!-- Umami Analytics -->
 
 
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
 
     <style>
+    /* === Premium Overrides === */
+    body { font-family: "Inter", -apple-system, "Microsoft YaHei", sans-serif; background: #FAFAFA; }
+    .content { padding-top: 0; }
+    #header { padding: 56px 0 32px; border: none; }
+    #title h1 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+    #nav a { font-size: 13px; color: #888; letter-spacing: .01em; padding: 0 10px; }
+    #nav a:hover { color: #1A1A1A; }
+    .home-arrow { font-size: 14px; margin-right: 6px; opacity: .25; font-weight: 400; }
+
+    /* Home post list */
+    #writing .h1 { font-size: 11px; font-weight: 600; color: #B0B0B0; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 28px; display: block; }
+    .post-item { margin-bottom: 28px; display: flex; align-items: baseline; gap: 16px; }
+    .post-item .meta { flex: 0 0 110px; text-align: right; font-size: 12px; color: #C0C0C0; letter-spacing: .02em; }
+    .post-item .article-title { font-size: 15px; font-weight: 500; line-height: 1.45; }
+    .post-item .article-title a { color: #2A2A2A; text-decoration: none; transition: opacity .2s; }
+    .post-item .article-title a:hover { opacity: .4; }
+    .post-item .article-category { font-size: 11px; color: #CCC; letter-spacing: .03em; margin-top: 3px; display: block; }
+    .post-item .article-category a { color: #CCC; text-decoration: none; }
+    .post-item .article-category a:hover { color: #888; }
+
+    /* Pagination */
+    .pagination { margin-top: 40px; padding-top: 16px; border-top: 1px solid #E8E8E8; font-size: 13px; }
+    .pagination a { color: #888; }
+
+    /* Search */
     #header-search { text-align: right; margin-top: 4px; }
-    #header-search-input {
-      border: none; border-bottom: 1px solid #ccc; background: transparent;
-      font-size: 13px; padding: 4px 0; width: 160px; outline: none;
-      color: #333; transition: border-color .2s;
-    }
-    #header-search-input:focus { border-bottom-color: #111; }
-    .home-arrow { font-size: 14px; margin-right: 6px; opacity: .3; }
+    #header-search-input { border: none; border-bottom: 1px solid #D0D0D0; background: transparent; font-size: 12px; padding: 4px 0; width: 150px; outline: none; color: #555; font-family: inherit; }
+    #header-search-input:focus { border-bottom-color: #1A1A1A; }
     @media (max-width: 600px) { #header-search { display: none; } }
 
-    /* Tags page */
-    #tags-page {
-      display: flex; flex-wrap: wrap; gap: 10px;
-      margin-top: 8px;
-    }
-    .tag-item {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 16px;
-      border: 1px solid #e0e0e0; border-radius: 3px;
-      text-decoration: none; color: #555;
-      font-size: 13px; letter-spacing: .02em;
-      transition: all .2s;
-    }
-    .tag-item:hover { border-color: #111; color: #111; }
+    /* Tags */
+    #tags-page { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .tag-item { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border: 1px solid #E0E0E0; border-radius: 3px; text-decoration: none; color: #666; font-size: 13px; letter-spacing: .02em; transition: all .2s; }
+    .tag-item:hover { border-color: #1A1A1A; color: #1A1A1A; }
     .tag-name { font-weight: 500; }
-    .tag-count { color: #bbb; font-size: 12px; }
-    .tag-item:hover .tag-count { color: #666; }
+    .tag-count { color: #C0C0C0; font-size: 12px; }
+    .tag-item:hover .tag-count { color: #777; }
+
+    /* Post detail */
+    .blog-post h1 { font-size: 26px; font-weight: 700; letter-spacing: -.03em; }
+    .blog-post h2 { font-size: 18px; font-weight: 600; margin-top: 36px; }
+    .blog-post h3 { font-size: 15px; font-weight: 600; }
+    .blog-post { font-size: 15px; line-height: 1.85; color: #333; }
+    .blog-post-date { font-size: 13px; color: #B0B0B0; letter-spacing: .02em; }
+
+    /* Footer */
+    .footer { border-top: 1px solid #E8E8E8; padding: 24px 0; color: #B0B0B0; font-size: 12px; margin-top: 48px; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 2px; }
     </style>
     <!-- persian styles -->
     
@@ -113,10 +140,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="上一篇" href="/2026/06/16/02_02_%E5%AD%97%E5%85%B8%E4%B8%8E%E9%9B%86%E5%90%88/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="上一篇" href="/2026/06/16/02_01_%E5%88%97%E8%A1%A8%E4%B8%8E%E5%85%83%E7%BB%84/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="下一篇" href="/2026/06/16/04_01_%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="下一篇" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
