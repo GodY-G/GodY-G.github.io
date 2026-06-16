@@ -1,0 +1,828 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="GodY-G">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="运算符1. 算术运算符12345678910111213a, b &#x3D; 10, 3print(a + b)   # 13  加法print(a - b)   # 7   减法print(a * b)   # 30  乘法print(a &#x2F; b)   # 3.3333333333333335  除法（总是返回 float）print(a &#x2F;&#x2F; b)  # 3   整除（向下取整）print(a % b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="运算符">
+<meta property="og:url" content="https://gody-g.github.io/2026/06/03/01_02_%E8%BF%90%E7%AE%97%E7%AC%A6/index.html">
+<meta property="og:site_name" content="GodY">
+<meta property="og:description" content="运算符1. 算术运算符12345678910111213a, b &#x3D; 10, 3print(a + b)   # 13  加法print(a - b)   # 7   减法print(a * b)   # 30  乘法print(a &#x2F; b)   # 3.3333333333333335  除法（总是返回 float）print(a &#x2F;&#x2F; b)  # 3   整除（向下取整）print(a % b">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-03T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-16T03:19:22.841Z">
+<meta property="article:author" content="GodY-G">
+<meta property="article:tag" content="Python基础">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>运算符 - GodY</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"gody-g.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>GodY</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="运算符"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">运算符</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><h2 id="1-算术运算符"><a href="#1-算术运算符" class="headerlink" title="1. 算术运算符"></a>1. 算术运算符</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">a, b = <span class="hljs-number">10</span>, <span class="hljs-number">3</span><br><br><span class="hljs-built_in">print</span>(a + b)   <span class="hljs-comment"># 13  加法</span><br><span class="hljs-built_in">print</span>(a - b)   <span class="hljs-comment"># 7   减法</span><br><span class="hljs-built_in">print</span>(a * b)   <span class="hljs-comment"># 30  乘法</span><br><span class="hljs-built_in">print</span>(a / b)   <span class="hljs-comment"># 3.3333333333333335  除法（总是返回 float）</span><br><span class="hljs-built_in">print</span>(a // b)  <span class="hljs-comment"># 3   整除（向下取整）</span><br><span class="hljs-built_in">print</span>(a % b)   <span class="hljs-comment"># 1   取模（余数）</span><br><span class="hljs-built_in">print</span>(a ** b)  <span class="hljs-comment"># 1000  幂运算</span><br><br><span class="hljs-comment"># 整除的向下取整行为</span><br><span class="hljs-built_in">print</span>(-<span class="hljs-number">10</span> // <span class="hljs-number">3</span>)   <span class="hljs-comment"># -4（不是 -3！向下取整意味着更小的数）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">10</span> // -<span class="hljs-number">3</span>)   <span class="hljs-comment"># -4</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="2-比较运算符"><a href="#2-比较运算符" class="headerlink" title="2. 比较运算符"></a>2. 比较运算符</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-number">5</span> == <span class="hljs-number">5</span>)    <span class="hljs-comment"># True</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">5</span> != <span class="hljs-number">3</span>)    <span class="hljs-comment"># True</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">5</span> &gt; <span class="hljs-number">3</span>)     <span class="hljs-comment"># True</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">5</span> &lt; <span class="hljs-number">3</span>)     <span class="hljs-comment"># False</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">5</span> &gt;= <span class="hljs-number">5</span>)    <span class="hljs-comment"># True</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">5</span> &lt;= <span class="hljs-number">3</span>)    <span class="hljs-comment"># False</span><br><br><span class="hljs-comment"># 链式比较（Python 特有！）</span><br>x = <span class="hljs-number">5</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">3</span> &lt; x &lt; <span class="hljs-number">10</span>)    <span class="hljs-comment"># True（等价于 3 &lt; x and x &lt; 10）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">1</span> &lt; x &lt;= <span class="hljs-number">5</span>)    <span class="hljs-comment"># True</span><br><br><span class="hljs-comment"># 浮点比较</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span> == <span class="hljs-number">0.3</span>)  <span class="hljs-comment"># False！用 math.isclose</span><br><span class="hljs-keyword">import</span> math<br><span class="hljs-built_in">print</span>(math.isclose(<span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span>, <span class="hljs-number">0.3</span>))  <span class="hljs-comment"># True</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="3-逻辑运算符"><a href="#3-逻辑运算符" class="headerlink" title="3. 逻辑运算符"></a>3. 逻辑运算符</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># and: 短路求值，返回第一个假值或最后一个值</span><br><span class="hljs-built_in">print</span>(<span class="hljs-literal">True</span> <span class="hljs-keyword">and</span> <span class="hljs-literal">True</span>)    <span class="hljs-comment"># True</span><br><span class="hljs-built_in">print</span>(<span class="hljs-literal">True</span> <span class="hljs-keyword">and</span> <span class="hljs-literal">False</span>)   <span class="hljs-comment"># False</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">0</span> <span class="hljs-keyword">and</span> <span class="hljs-number">10</span>)         <span class="hljs-comment"># 0（短路，0 是假值直接返回）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">3</span> <span class="hljs-keyword">and</span> <span class="hljs-number">5</span>)          <span class="hljs-comment"># 5（都为真，返回最后一个）</span><br><br><span class="hljs-comment"># or: 短路求值，返回第一个真值或最后一个值</span><br><span class="hljs-built_in">print</span>(<span class="hljs-literal">True</span> <span class="hljs-keyword">or</span> <span class="hljs-literal">False</span>)    <span class="hljs-comment"># True</span><br><span class="hljs-built_in">print</span>(<span class="hljs-literal">False</span> <span class="hljs-keyword">or</span> <span class="hljs-literal">False</span>)   <span class="hljs-comment"># False</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">0</span> <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;hello&quot;</span>)     <span class="hljs-comment"># &quot;hello&quot;（0 是假值，返回下一个）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&quot;</span> <span class="hljs-keyword">or</span> [])         <span class="hljs-comment"># []（都假，返回最后一个）</span><br><br><span class="hljs-comment"># not: 取反</span><br><span class="hljs-built_in">print</span>(<span class="hljs-keyword">not</span> <span class="hljs-literal">True</span>)    <span class="hljs-comment"># False</span><br><span class="hljs-built_in">print</span>(<span class="hljs-keyword">not</span> <span class="hljs-number">0</span>)       <span class="hljs-comment"># True</span><br><span class="hljs-built_in">print</span>(<span class="hljs-keyword">not</span> [])      <span class="hljs-comment"># True</span><br><span class="hljs-built_in">print</span>(<span class="hljs-keyword">not</span> <span class="hljs-string">&quot;hi&quot;</span>)    <span class="hljs-comment"># False</span><br><br><span class="hljs-comment"># 实际应用</span><br>name = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;输入名字：&quot;</span>) <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;匿名用户&quot;</span><br><span class="hljs-comment"># 如果 input 为空字符串（假值），name = &quot;匿名用户&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="4-赋值运算符"><a href="#4-赋值运算符" class="headerlink" title="4. 赋值运算符"></a>4. 赋值运算符</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python">x = <span class="hljs-number">10</span>           <span class="hljs-comment"># 基本赋值</span><br><br>x += <span class="hljs-number">5</span>           <span class="hljs-comment"># x = x + 5  → 15</span><br>x -= <span class="hljs-number">3</span>           <span class="hljs-comment"># x = x - 3  → 12</span><br>x *= <span class="hljs-number">2</span>           <span class="hljs-comment"># x = x * 2  → 24</span><br>x /= <span class="hljs-number">4</span>           <span class="hljs-comment"># x = x / 4  → 6.0</span><br>x //= <span class="hljs-number">2</span>          <span class="hljs-comment"># x = x // 2 → 3.0</span><br>x %= <span class="hljs-number">2</span>           <span class="hljs-comment"># x = x % 2  → 1.0</span><br>x **= <span class="hljs-number">3</span>          <span class="hljs-comment"># x = x ** 3 → 1.0</span><br><br><span class="hljs-comment"># 多重赋值（Python 特有）</span><br>a, b = <span class="hljs-number">10</span>, <span class="hljs-number">20</span><br>a, b = b, a      <span class="hljs-comment"># 一行交换两个变量！</span><br><span class="hljs-built_in">print</span>(a, b)      <span class="hljs-comment"># 20 10</span><br><br><span class="hljs-comment"># 解包赋值</span><br>x, y, z = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br><span class="hljs-built_in">print</span>(x, y, z)   <span class="hljs-comment"># 1 2 3</span><br><br>first, *middle, last = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br><span class="hljs-built_in">print</span>(first)      <span class="hljs-comment"># 1</span><br><span class="hljs-built_in">print</span>(middle)     <span class="hljs-comment"># [2, 3, 4]</span><br><span class="hljs-built_in">print</span>(last)       <span class="hljs-comment"># 5</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="5-位运算符（常用于底层优化）"><a href="#5-位运算符（常用于底层优化）" class="headerlink" title="5. 位运算符（常用于底层优化）"></a>5. 位运算符（常用于底层优化）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python">a, b = <span class="hljs-number">0b1010</span>, <span class="hljs-number">0b1100</span>  <span class="hljs-comment"># 10 和 12</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bin</span>(a &amp; b))   <span class="hljs-comment"># 0b1000 → 8  按位与（都为1才为1）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bin</span>(a | b))   <span class="hljs-comment"># 0b1110 → 14 按位或（有1就是1）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bin</span>(a ^ b))   <span class="hljs-comment"># 0b0110 → 6  按位异或（不同为1）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bin</span>(~a))      <span class="hljs-comment"># -0b1011 → -11  按位取反</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bin</span>(a &lt;&lt; <span class="hljs-number">1</span>))  <span class="hljs-comment"># 0b10100 → 20  左移1位 = 乘以2</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bin</span>(a &gt;&gt; <span class="hljs-number">1</span>))  <span class="hljs-comment"># 0b101 → 5  右移1位 = 除以2</span><br><br><span class="hljs-comment"># 实际用途</span><br>is_admin = <span class="hljs-number">0b001</span><br>can_write = <span class="hljs-number">0b010</span><br>can_read = <span class="hljs-number">0b100</span><br><br>permission = is_admin | can_write | can_read  <span class="hljs-comment"># 0b111</span><br><span class="hljs-built_in">print</span>(permission &amp; can_write)  <span class="hljs-comment"># 非零 → 有写权限</span><br><span class="hljs-built_in">print</span>(permission &amp; <span class="hljs-number">0b001</span>)      <span class="hljs-comment"># 非零 → 是管理员</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="6-成员运算符"><a href="#6-成员运算符" class="headerlink" title="6. 成员运算符"></a>6. 成员运算符</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># in / not in</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;a&#x27;</span> <span class="hljs-keyword">in</span> <span class="hljs-string">&#x27;abc&#x27;</span>)           <span class="hljs-comment"># True</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">3</span> <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>])      <span class="hljs-comment"># True</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;key&#x27;</span> <span class="hljs-keyword">in</span> &#123;<span class="hljs-string">&#x27;key&#x27;</span>: <span class="hljs-number">1</span>&#125;)    <span class="hljs-comment"># True（字典查 key）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">5</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])     <span class="hljs-comment"># True</span><br><br><span class="hljs-comment"># 字符串包含</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;hello&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;hello world&quot;</span>) <span class="hljs-comment"># True</span><br><br><span class="hljs-comment"># 自定义类支持 in（实现 __contains__）</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="7-身份运算符"><a href="#7-身份运算符" class="headerlink" title="7. 身份运算符"></a>7. 身份运算符</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># is / is not — 判断是否同一个对象（比较内存地址）</span><br>a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>b = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>c = a<br><br><span class="hljs-built_in">print</span>(a == b)    <span class="hljs-comment"># True（值相等）</span><br><span class="hljs-built_in">print</span>(a <span class="hljs-keyword">is</span> b)    <span class="hljs-comment"># False（不同对象）</span><br><span class="hljs-built_in">print</span>(a <span class="hljs-keyword">is</span> c)    <span class="hljs-comment"># True（同一对象）</span><br><span class="hljs-built_in">print</span>(a <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> b) <span class="hljs-comment"># True</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="8-运算符优先级（从高到低）"><a href="#8-运算符优先级（从高到低）" class="headerlink" title="8. 运算符优先级（从高到低）"></a>8. 运算符优先级（从高到低）</h2><table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>运算符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><code>()</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>**</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>+x</code> <code>-x</code> <code>~x</code>（一元）</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>*</code> <code>/</code> <code>//</code> <code>%</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>+</code> <code>-</code>（二元）</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>&lt;&lt;</code> <code>&gt;&gt;</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>&amp;</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>^</code></td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>|</code></td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>==</code> <code>!=</code> <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code> <code>is</code> <code>is not</code> <code>in</code> <code>not in</code></td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>not</code></td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>and</code></td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>or</code></td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 不靠记忆，靠括号</span><br>result = (<span class="hljs-number">2</span> + <span class="hljs-number">3</span>) * (<span class="hljs-number">4</span> - <span class="hljs-number">1</span>) ** <span class="hljs-number">2</span>   <span class="hljs-comment"># 清晰明了</span><br><br><span class="hljs-comment"># 常见陷阱</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">2</span> + <span class="hljs-number">3</span> * <span class="hljs-number">4</span>)    <span class="hljs-comment"># 14（不是 20！）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-number">2</span>**<span class="hljs-number">3</span>**<span class="hljs-number">2</span>)      <span class="hljs-comment"># 512 = 2^(3^2)，不是 (2^3)^2 = 64</span><br><span class="hljs-built_in">print</span>(<span class="hljs-keyword">not</span> <span class="hljs-literal">True</span> == <span class="hljs-literal">False</span>)  <span class="hljs-comment"># True（not 优先级低于 ==）</span><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python%E5%9F%BA%E7%A1%80/" class="print-no-link">#Python基础</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>运算符</div>
+      <div>https://gody-g.github.io/2026/06/03/01_02_运算符/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>GodY-G</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年6月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/06/03/03_01_%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/" title="类与对象">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">类与对象</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/06/03/02_03_%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E6%8E%A8%E5%AF%BC%E5%BC%8F/" title="迭代器、生成器与推导式">
+                        <span class="hidden-mobile">迭代器、生成器与推导式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
