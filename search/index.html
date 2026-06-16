@@ -83,12 +83,24 @@
     @media (max-width: 600px) { #header-search { display: none; } }
 
     /* Tags */
-    #tags-page { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-    .tag-item { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border: 1px solid #E0E0E0; border-radius: 3px; text-decoration: none; color: #666; font-size: 13px; letter-spacing: .02em; transition: all .2s; }
-    .tag-item:hover { border-color: #1A1A1A; color: #1A1A1A; }
+    #tags-page {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .tag-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 18px;
+      border: 1px solid #E8E8E8; border-radius: 4px;
+      text-decoration: none; color: #444;
+      font-size: 13px; letter-spacing: .02em;
+      transition: all .2s; background: #FFF;
+    }
+    .tag-item:hover { border-color: #BBB; color: #1A1A1A; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
     .tag-name { font-weight: 500; }
-    .tag-count { color: #C0C0C0; font-size: 12px; }
-    .tag-item:hover .tag-count { color: #777; }
+    .tag-count { color: #C0C0C0; font-size: 12px; font-weight: 400; }
+    .tag-item:hover .tag-count { color: #999; }
 
     /* Post detail */
     .blog-post h1 { font-size: 26px; font-weight: 700; letter-spacing: -.03em; }
