@@ -1,95 +1,153 @@
-/* GodY's Blog - Minimal Premium */
+/* ========== GodY's Blog — 参考 lin0u0 风格 ========== */
 
 body {
     -webkit-font-smoothing: antialiased;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-/* 导航栏 - 简约束边 */
+/* ===== 导航栏 ===== */
 .navbar {
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-    background: rgba(255,255,255,0.92) !important;
-    backdrop-filter: blur(12px);
+    border-bottom: none !important;
+    background: transparent !important;
+    padding: 48px 0 16px;
+}
+.navbar .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a1a1a !important;
+}
+.navbar .nav-link {
+    font-size: 0.9rem;
+    color: #999 !important;
+    padding: 0 10px;
+    transition: color 0.2s;
+}
+.navbar .nav-link:hover {
+    color: #333 !important;
 }
 
-/* 暗色模式导航栏 */
-[data-theme="dark"] .navbar {
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    background: rgba(18,18,24,0.85) !important;
+/* ===== 标语 ===== */
+.slogan {
+    color: #bbb;
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-bottom: 48px;
+    padding-left: 132px;
 }
 
-/* 文章卡片 */
-.index-card {
-    border: none !important;
-    border-bottom: 1px solid rgba(0,0,0,0.06) !important;
-    border-radius: 0 !important;
-    padding: 2rem 0 !important;
-    transition: padding-left 0.3s ease, background 0.3s ease;
+/* ===== 文章列表 ===== */
+.post-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 36px;
 }
 
-.index-card:hover {
-    padding-left: 0.8rem !important;
-    background: rgba(0,0,0,0.015);
+/* 日期（左侧列） */
+.post-date {
+    flex: 0 0 116px;
+    text-align: right;
+    padding-top: 4px;
+}
+.post-date-meta {
+    font-size: 0.82rem;
+    color: #bbb;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+}
+.post-date-meta br + * {
+    font-size: 0.78rem;
+    color: #ccc;
 }
 
-[data-theme="dark"] .index-card {
-    border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+/* 文章主体（右侧列） */
+.post-main {
+    flex: 1;
+    min-width: 0;
 }
-
-[data-theme="dark"] .index-card:hover {
-    background: rgba(255,255,255,0.02);
+.post-title {
+    margin: 0 0 4px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
 }
-
-/* 标题链接 */
-.index-card .card-title a {
+.post-title a {
+    color: #222;
     text-decoration: none;
-    transition: opacity 0.3s;
+    transition: opacity 0.2s;
 }
-
-.index-card .card-title a:hover {
-    opacity: 0.6;
-}
-
-/* 日期样式 */
-.index-card .card-date {
-    font-size: 0.85rem;
-    color: #999;
-    letter-spacing: 0.03em;
+.post-title a:hover {
+    opacity: 0.45;
 }
 
 /* 分类标签 */
-.index-card .card-category a {
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+.post-category {
+    margin-top: 2px;
+}
+.post-category a {
+    font-size: 0.72rem;
+    color: #ccc;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+}
+.post-category a:hover {
     color: #888;
-    border: 1px solid rgba(0,0,0,0.12);
-    border-radius: 3px;
-    padding: 2px 8px;
-    transition: all 0.2s;
 }
 
-.index-card .card-category a:hover {
-    background: #000;
-    color: #fff;
-    border-color: #000;
+/* ===== 分页 ===== */
+.paginator {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0,0,0,0.06);
 }
 
-[data-theme="dark"] .index-card .card-category a {
-    color: #999;
-    border-color: rgba(255,255,255,0.15);
-}
-[data-theme="dark"] .index-card .card-category a:hover {
-    background: #fff;
-    color: #000;
-    border-color: #fff;
-}
-
-/* 滚动条 */
-::-webkit-scrollbar { width: 4px; }
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.15);
+    background: rgba(0,0,0,0.12);
     border-radius: 2px;
 }
 
-/* 代码块 */
+/* ===== 暗色模式 ===== */
+[data-theme="dark"] body {
+    background: #0d0d0d;
+}
+[data-theme="dark"] .navbar .navbar-brand {
+    color: #f0f0f0 !important;
+}
+[data-theme="dark"] .navbar .nav-link:hover {
+    color: #ddd !important;
+}
+[data-theme="dark"] .slogan {
+    color: #555;
+}
+[data-theme="dark"] .post-title a {
+    color: #ddd;
+}
+[data-theme="dark"] .post-date-meta {
+    color: #555;
+}
+[data-theme="dark"] .post-date-meta br + * {
+    color: #444;
+}
+[data-theme="dark"] .post-category a {
+    color: #555;
+}
+[data-theme="dark"] .post-category a:hover {
+    color: #999;
+}
+[data-theme="dark"] .paginator {
+    border-top-color: rgba(255,255,255,0.08);
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+}
+
+/* ===== 文章内页 ===== */
 pre { border-radius: 6px !important; }
+.post-content {
+    line-height: 1.8;
+}
