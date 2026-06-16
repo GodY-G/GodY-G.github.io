@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="广播、矩阵运算与线性代数1. 广播 (Broadcasting)广播是 NumPy 的核心机制：不同形状的数组在某些条件下可以自动”对齐”运算。 广播规则从最后一维向前比较，满足以下条件之一即可广播：  维度相等 其中一个维度为 1 其中一个维度不存在  12345678910111213141516171819202122232425262728293031323334import numpy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="广播、矩阵运算与线性代数">
+<meta property="og:url" content="https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/index.html">
+<meta property="og:site_name" content="GodY">
+<meta property="og:description" content="广播、矩阵运算与线性代数1. 广播 (Broadcasting)广播是 NumPy 的核心机制：不同形状的数组在某些条件下可以自动”对齐”运算。 广播规则从最后一维向前比较，满足以下条件之一即可广播：  维度相等 其中一个维度为 1 其中一个维度不存在  12345678910111213141516171819202122232425262728293031323334import numpy">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-16T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-16T03:38:36.899Z">
+<meta property="article:author" content="GodY-G">
+<meta property="article:tag" content="NumPy">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/img/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/img/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>广播、矩阵运算与线性代数</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/tags/">分类</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2026/06/16/05_01_ndarray%E5%9F%BA%E7%A1%80/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2026/06/16/06_01_%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&text=广播、矩阵运算与线性代数"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&title=广播、矩阵运算与线性代数"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&is_video=false&description=广播、矩阵运算与线性代数"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=广播、矩阵运算与线性代数&body=Check out this article: https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&title=广播、矩阵运算与线性代数"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&title=广播、矩阵运算与线性代数"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&title=广播、矩阵运算与线性代数"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&title=广播、矩阵运算与线性代数"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&name=广播、矩阵运算与线性代数&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&t=广播、矩阵运算与线性代数"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%BF%E6%92%AD%E3%80%81%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97%E4%B8%8E%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">广播、矩阵运算与线性代数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%B9%BF%E6%92%AD-Broadcasting"><span class="toc-number">1.1.</span> <span class="toc-text">1. 广播 (Broadcasting)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%BF%E6%92%AD%E8%A7%84%E5%88%99"><span class="toc-number">1.1.1.</span> <span class="toc-text">广播规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">2. 矩阵乘法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-np-linalg"><span class="toc-number">1.3.</span> <span class="toc-text">3. 线性代数 (np.linalg)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C"><span class="toc-number">1.4.</span> <span class="toc-text">4. 聚合操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%9F%A5%E6%89%BE"><span class="toc-number">1.5.</span> <span class="toc-text">5. 排序与查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5%EF%BC%883DGS-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%EF%BC%89"><span class="toc-number">1.6.</span> <span class="toc-text">6. 协方差矩阵（3DGS 核心概念）</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        广播、矩阵运算与线性代数
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">GodY-G</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/NumPy/">NumPy</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/NumPy/" rel="tag">NumPy</a>, <a class="p-category" href="/tags/Python/" rel="tag">Python</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="广播、矩阵运算与线性代数"><a href="#广播、矩阵运算与线性代数" class="headerlink" title="广播、矩阵运算与线性代数"></a>广播、矩阵运算与线性代数</h1><h2 id="1-广播-Broadcasting"><a href="#1-广播-Broadcasting" class="headerlink" title="1. 广播 (Broadcasting)"></a>1. 广播 (Broadcasting)</h2><p>广播是 NumPy 的核心机制：不同形状的数组在某些条件下可以自动”对齐”运算。</p>
+<h3 id="广播规则"><a href="#广播规则" class="headerlink" title="广播规则"></a>广播规则</h3><p>从<strong>最后一维</strong>向前比较，满足以下条件之一即可广播：</p>
+<ol>
+<li>维度相等</li>
+<li>其中一个维度为 1</li>
+<li>其中一个维度不存在</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 标量广播（最简单）</span></span><br><span class="line">a = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="built_in">print</span>(a + <span class="number">10</span>)             <span class="comment"># [11 12 13 14]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 一维 vs 二维</span></span><br><span class="line">a = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">              [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])          <span class="comment"># shape (2, 3)</span></span><br><span class="line">b = np.array([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>])         <span class="comment"># shape (3,)</span></span><br><span class="line"><span class="built_in">print</span>(a + b)</span><br><span class="line"><span class="comment"># [[11 22 33]</span></span><br><span class="line"><span class="comment">#  [14 25 36]]</span></span><br><span class="line"><span class="comment"># b 自动&quot;扩展&quot;成 (2, 3)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 列向量广播</span></span><br><span class="line">c = np.array([[<span class="number">100</span>], [<span class="number">200</span>]])       <span class="comment"># shape (2, 1)</span></span><br><span class="line"><span class="built_in">print</span>(a + c)</span><br><span class="line"><span class="comment"># [[101 102 103]</span></span><br><span class="line"><span class="comment">#  [204 205 206]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 三维广播</span></span><br><span class="line">a = np.ones((<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>))       <span class="comment"># (3, 1, 4)</span></span><br><span class="line">b = np.ones((<span class="number">2</span>, <span class="number">4</span>))          <span class="comment"># (2, 4) → 自动变成 (1, 2, 4) → (3, 2, 4)</span></span><br><span class="line">result = a + b               <span class="comment"># shape (3, 2, 4)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 常见技巧</span></span><br><span class="line">data = np.random.randn(<span class="number">100</span>, <span class="number">10</span>)</span><br><span class="line">mean = data.mean(axis=<span class="number">0</span>)              <span class="comment"># shape (10,)</span></span><br><span class="line">centered = data - mean                <span class="comment"># 每列减去均值</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># keepdims 保持维度（让广播更容易）</span></span><br><span class="line">mean_kept = data.mean(axis=<span class="number">0</span>, keepdims=<span class="literal">True</span>)  <span class="comment"># shape (1, 10)</span></span><br><span class="line">centered = data - mean_kept                   <span class="comment"># shape (100, 10)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-矩阵乘法"><a href="#2-矩阵乘法" class="headerlink" title="2. 矩阵乘法"></a>2. 矩阵乘法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ⚠️  最容易踩的坑：* 是逐元素乘，不是矩阵乘！</span></span><br><span class="line"></span><br><span class="line">A = np.array([[<span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">              [<span class="number">3</span>, <span class="number">4</span>]])       <span class="comment"># 2×2</span></span><br><span class="line">B = np.array([[<span class="number">5</span>, <span class="number">6</span>],</span><br><span class="line">              [<span class="number">7</span>, <span class="number">8</span>]])       <span class="comment"># 2×2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ✅ 矩阵乘法（三种写法）</span></span><br><span class="line">C1 = A @ B</span><br><span class="line">C2 = np.dot(A, B)</span><br><span class="line">C3 = np.matmul(A, B)</span><br><span class="line"><span class="comment"># [[19 22]</span></span><br><span class="line"><span class="comment">#  [43 50]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ❌ 这是逐元素乘，不是矩阵乘！</span></span><br><span class="line">wrong = A * B   <span class="comment"># [[5 12] [21 32]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 向量点积（内积）</span></span><br><span class="line">u = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">v = np.array([<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br><span class="line">dot = np.dot(u, v)      <span class="comment"># 32 = 1×4+2×5+3×6</span></span><br><span class="line">dot = u @ v             <span class="comment"># 同上</span></span><br><span class="line">dot = np.inner(u, v)    <span class="comment"># 同上</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 向量外积</span></span><br><span class="line">outer = np.outer(u, v)</span><br><span class="line"><span class="comment"># [[ 4  5  6]</span></span><br><span class="line"><span class="comment">#  [ 8 10 12]</span></span><br><span class="line"><span class="comment">#  [12 15 18]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 批量矩阵乘</span></span><br><span class="line">batch = np.random.randn(<span class="number">10</span>, <span class="number">3</span>, <span class="number">4</span>)   <span class="comment"># 10 个 3×4 矩阵</span></span><br><span class="line">vec = np.random.randn(<span class="number">10</span>, <span class="number">4</span>, <span class="number">5</span>)     <span class="comment"># 10 个 4×5 矩阵</span></span><br><span class="line">result = batch @ vec                 <span class="comment"># shape (10, 3, 5)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-线性代数-np-linalg"><a href="#3-线性代数-np-linalg" class="headerlink" title="3. 线性代数 (np.linalg)"></a>3. 线性代数 (np.linalg)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">A = np.array([[<span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">              [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 逆矩阵</span></span><br><span class="line">A_inv = np.linalg.inv(A)</span><br><span class="line"><span class="built_in">print</span>(A @ A_inv)  <span class="comment"># ≈ [[1. 0.] [0. 1.]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 行列式</span></span><br><span class="line"><span class="built_in">print</span>(np.linalg.det(A))  <span class="comment"># -2.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 特征值与特征向量（一般矩阵用 eig）</span></span><br><span class="line">eigvals, eigvecs = np.linalg.eig(np.array([[<span class="number">2</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">2</span>]]))</span><br><span class="line"><span class="built_in">print</span>(eigvals)           <span class="comment"># [3. 1.]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 特征值分解（对称矩阵用 eigh，更快更准）</span></span><br><span class="line">S = np.array([[<span class="number">3</span>, <span class="number">2</span>],</span><br><span class="line">              [<span class="number">2</span>, <span class="number">3</span>]])     <span class="comment"># 对称矩阵</span></span><br><span class="line">eigvals, eigvecs = np.linalg.eigh(S)</span><br><span class="line"><span class="comment"># 验证：S = QΛQᵀ</span></span><br><span class="line">Q = eigvecs</span><br><span class="line">Λ = np.diag(eigvals)</span><br><span class="line">reconstructed = Q @ Λ @ Q.T</span><br><span class="line"><span class="built_in">print</span>(np.allclose(S, reconstructed))  <span class="comment"># True</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># SVD 分解（3DGS 中 Σ 分解的关键！）</span></span><br><span class="line">U, s, Vt = np.linalg.svd(A)</span><br><span class="line">Σ = np.diag(s)</span><br><span class="line"><span class="built_in">print</span>(U @ Σ @ Vt)  <span class="comment"># ≈ A</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 解线性方程组 Ax = b</span></span><br><span class="line">A = np.array([[<span class="number">3</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">2</span>]])</span><br><span class="line">b = np.array([<span class="number">9</span>, <span class="number">8</span>])</span><br><span class="line">x = np.linalg.solve(A, b)  <span class="comment"># x = [2, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 范数</span></span><br><span class="line">x = np.array([<span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="built_in">print</span>(np.linalg.norm(x))      <span class="comment"># 5.0（L2 范数，默认）</span></span><br><span class="line"><span class="built_in">print</span>(np.linalg.norm(x, <span class="number">1</span>))   <span class="comment"># 7.0（L1 范数）</span></span><br><span class="line"><span class="built_in">print</span>(np.linalg.norm(A, <span class="string">&#x27;fro&#x27;</span>))  <span class="comment"># Frobenius 范数</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-聚合操作"><a href="#4-聚合操作" class="headerlink" title="4. 聚合操作"></a>4. 聚合操作</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">              [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 全局</span></span><br><span class="line"><span class="built_in">print</span>(a.<span class="built_in">sum</span>())     <span class="comment"># 21</span></span><br><span class="line"><span class="built_in">print</span>(a.mean())    <span class="comment"># 3.5</span></span><br><span class="line"><span class="built_in">print</span>(a.std())     <span class="comment"># 1.7078</span></span><br><span class="line"><span class="built_in">print</span>(a.<span class="built_in">min</span>())     <span class="comment"># 1</span></span><br><span class="line"><span class="built_in">print</span>(a.<span class="built_in">max</span>())     <span class="comment"># 6</span></span><br><span class="line"><span class="built_in">print</span>(a.argmax())  <span class="comment"># 5（最大值索引，按展平后的）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 按轴（axis=0 沿行方向 = 每列；axis=1 沿列方向 = 每行）</span></span><br><span class="line"><span class="built_in">print</span>(a.<span class="built_in">sum</span>(axis=<span class="number">0</span>))   <span class="comment"># [5 7 9]（每列求和）</span></span><br><span class="line"><span class="built_in">print</span>(a.<span class="built_in">sum</span>(axis=<span class="number">1</span>))   <span class="comment"># [6 15]（每行求和）</span></span><br><span class="line"><span class="built_in">print</span>(a.mean(axis=<span class="number">0</span>))  <span class="comment"># [2.5 3.5 4.5]</span></span><br><span class="line"><span class="built_in">print</span>(a.argmax(axis=<span class="number">1</span>))  <span class="comment"># [2 2]（每行最大值的列索引）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 累积操作</span></span><br><span class="line"><span class="built_in">print</span>(a.cumsum())      <span class="comment"># [1 3 6 10 15 21]（累积和）</span></span><br><span class="line"><span class="built_in">print</span>(a.cumprod())     <span class="comment"># [1 2 6 24 120 720]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-排序与查找"><a href="#5-排序与查找" class="headerlink" title="5. 排序与查找"></a>5. 排序与查找</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">6</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 排序</span></span><br><span class="line"><span class="built_in">print</span>(np.sort(a))              <span class="comment"># [1 1 2 3 4 5 6 9]</span></span><br><span class="line"><span class="built_in">print</span>(a.argsort())             <span class="comment"># [1 3 6 0 2 4 7 5]（排序后的索引）</span></span><br><span class="line"><span class="built_in">print</span>(np.partition(a, <span class="number">3</span>))      <span class="comment"># 最小的 3 个在左边（不保证顺序）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 唯一值</span></span><br><span class="line">values, counts = np.unique(a, return_counts=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(values)  <span class="comment"># [1 2 3 4 5 6 9]</span></span><br><span class="line"><span class="built_in">print</span>(counts)  <span class="comment"># [2 1 1 1 1 1 1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 搜索</span></span><br><span class="line"><span class="built_in">print</span>(np.where(a &gt; <span class="number">4</span>))         <span class="comment"># (array([4, 5, 7]),)</span></span><br><span class="line"><span class="built_in">print</span>(a[np.where(a &gt; <span class="number">4</span>)])      <span class="comment"># [5 9 6]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-协方差矩阵（3DGS-核心概念）"><a href="#6-协方差矩阵（3DGS-核心概念）" class="headerlink" title="6. 协方差矩阵（3DGS 核心概念）"></a>6. 协方差矩阵（3DGS 核心概念）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 协方差矩阵</span></span><br><span class="line">data = np.random.randn(<span class="number">1000</span>, <span class="number">3</span>)  <span class="comment"># 1000 个三维点</span></span><br><span class="line">cov = np.cov(data.T)             <span class="comment"># 3×3 协方差矩阵</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 手动计算验证</span></span><br><span class="line">centered = data - data.mean(axis=<span class="number">0</span>)</span><br><span class="line">cov_manual = centered.T @ centered / (<span class="built_in">len</span>(data) - <span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(np.allclose(cov, cov_manual))  <span class="comment"># True</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 协方差矩阵的性质</span></span><br><span class="line"><span class="comment"># 1. 对称：Σ = Σᵀ</span></span><br><span class="line"><span class="comment"># 2. 半正定：所有特征值 ≥ 0</span></span><br><span class="line"><span class="comment"># 3. 等密度面是椭球：特征向量方向 = 椭球轴，特征值大小 = 半轴长平方</span></span><br><span class="line"></span><br><span class="line">eigvals = np.linalg.eigvalsh(cov)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;特征值（应该都 &gt; 0）：<span class="subst">&#123;eigvals&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;最大/最小特征值比（条件数）：<span class="subst">&#123;eigvals.<span class="built_in">max</span>()/eigvals.<span class="built_in">min</span>():<span class="number">.2</span>f&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/tags/">分类</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%BF%E6%92%AD%E3%80%81%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97%E4%B8%8E%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">广播、矩阵运算与线性代数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%B9%BF%E6%92%AD-Broadcasting"><span class="toc-number">1.1.</span> <span class="toc-text">1. 广播 (Broadcasting)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%BF%E6%92%AD%E8%A7%84%E5%88%99"><span class="toc-number">1.1.1.</span> <span class="toc-text">广播规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">2. 矩阵乘法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-np-linalg"><span class="toc-number">1.3.</span> <span class="toc-text">3. 线性代数 (np.linalg)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C"><span class="toc-number">1.4.</span> <span class="toc-text">4. 聚合操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%9F%A5%E6%89%BE"><span class="toc-number">1.5.</span> <span class="toc-text">5. 排序与查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5%EF%BC%883DGS-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%EF%BC%89"><span class="toc-number">1.6.</span> <span class="toc-text">6. 协方差矩阵（3DGS 核心概念）</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&text=广播、矩阵运算与线性代数"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&title=广播、矩阵运算与线性代数"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&is_video=false&description=广播、矩阵运算与线性代数"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=广播、矩阵运算与线性代数&body=Check out this article: https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&title=广播、矩阵运算与线性代数"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&title=广播、矩阵运算与线性代数"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&title=广播、矩阵运算与线性代数"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&title=广播、矩阵运算与线性代数"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&name=广播、矩阵运算与线性代数&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gody-g.github.io/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/&t=广播、矩阵运算与线性代数"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2026
+    GodY-G
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/tags/">分类</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
