@@ -58,6 +58,24 @@
     #header-search-input:focus { border-bottom-color: #111; }
     .home-arrow { font-size: 14px; margin-right: 6px; opacity: .3; }
     @media (max-width: 600px) { #header-search { display: none; } }
+
+    /* Tags page */
+    #tags-page {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 8px;
+    }
+    .tag-item {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 16px;
+      border: 1px solid #e0e0e0; border-radius: 3px;
+      text-decoration: none; color: #555;
+      font-size: 13px; letter-spacing: .02em;
+      transition: all .2s;
+    }
+    .tag-item:hover { border-color: #111; color: #111; }
+    .tag-name { font-weight: 500; }
+    .tag-count { color: #bbb; font-size: 12px; }
+    .tag-item:hover .tag-count { color: #666; }
     </style>
     <!-- persian styles -->
     
@@ -110,45 +128,43 @@
 </header>
 
         
-        <div class="archive">
-  <ul class="list-with-title">
-    
-      <div class="listing-title">
-        <a href="/tags/3DGS/">3DGS</a>
-        <span class="listing-count">(3)</span>
-      </div>
-    
-      <div class="listing-title">
-        <a href="/tags/Architecture/">Architecture</a>
-        <span class="listing-count">(1)</span>
-      </div>
-    
-      <div class="listing-title">
-        <a href="/tags/NumPy/">NumPy</a>
-        <span class="listing-count">(2)</span>
-      </div>
-    
-      <div class="listing-title">
-        <a href="/tags/PyTorch/">PyTorch</a>
-        <span class="listing-count">(3)</span>
-      </div>
-    
-      <div class="listing-title">
-        <a href="/tags/Python/">Python</a>
-        <span class="listing-count">(18)</span>
-      </div>
-    
-      <div class="listing-title">
-        <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">可视化</a>
-        <span class="listing-count">(2)</span>
-      </div>
-    
-      <div class="listing-title">
-        <a href="/tags/%E6%9C%AC%E5%8D%9A%E5%AE%A2/">本博客</a>
-        <span class="listing-count">(1)</span>
-      </div>
-    
-  </ul>
+        <div id="tags-page">
+  
+    <a class="tag-item" href="/tags/3DGS/">
+      <span class="tag-name">3DGS</span>
+      <span class="tag-count">3</span>
+    </a>
+  
+    <a class="tag-item" href="/tags/Architecture/">
+      <span class="tag-name">Architecture</span>
+      <span class="tag-count">1</span>
+    </a>
+  
+    <a class="tag-item" href="/tags/NumPy/">
+      <span class="tag-name">NumPy</span>
+      <span class="tag-count">2</span>
+    </a>
+  
+    <a class="tag-item" href="/tags/PyTorch/">
+      <span class="tag-name">PyTorch</span>
+      <span class="tag-count">3</span>
+    </a>
+  
+    <a class="tag-item" href="/tags/Python/">
+      <span class="tag-name">Python</span>
+      <span class="tag-count">18</span>
+    </a>
+  
+    <a class="tag-item" href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">
+      <span class="tag-name">可视化</span>
+      <span class="tag-count">2</span>
+    </a>
+  
+    <a class="tag-item" href="/tags/%E6%9C%AC%E5%8D%9A%E5%AE%A2/">
+      <span class="tag-name">本博客</span>
+      <span class="tag-count">1</span>
+    </a>
+  
 </div>
 
         
