@@ -50,24 +50,50 @@
 <link rel="stylesheet" href="/css/style.css">
 
     <!-- dark mode -->
-    <style>
-    @media (prefers-color-scheme: dark) {
-      body { background: #111; color: #ccc; }
-      .header a, .blog-post h1, .blog-post h2, .blog-post h3, .article-title a { color: #ddd; }
-      .article-date, .article-category-link, .post-meta, .blog-post-date { color: #888; }
-      .blog-post a, .article-entry a { color: #aaa; }
-      .listing-title a { color: #ccc; }
-      pre, code { background: #1a1a1a; color: #ccc; border-color: #333; }
-      blockquote { border-left-color: #444; color: #aaa; }
-      .article-entry img { opacity: .85; }
-      hr { border-color: #333; }
-      .footer { color: #666; }
-      input, textarea { background: #222; color: #ccc; border-color: #444; }
-      .pagination a { color: #aaa; }
-      .archive .listing-title a { color: #ddd; }
-      .archive .listing-count { color: #666; }
-    }
+    <style id="dark-mode-css">
+    body.dark { background: #111; color: #eee; }
+    body.dark a { color: #eee; }
+    body.dark .header a { color: #eee; }
+    body.dark #title h1 { color: #eee; }
+    body.dark .blog-post h1,
+    body.dark .blog-post h2,
+    body.dark .blog-post h3 { color: #eee; }
+    body.dark .article-title a { color: #eee; }
+    body.dark .article-date,
+    body.dark .article-category-link,
+    body.dark .post-meta,
+    body.dark .blog-post-date { color: #aaa; }
+    body.dark .article-entry a { color: #ddd; }
+    body.dark .listing-title a { color: #eee; }
+    body.dark .listing-count { color: #888; }
+    body.dark pre, body.dark code { background: #1a1a1a; color: #ddd; border-color: #333; }
+    body.dark blockquote { border-left-color: #555; color: #bbb; }
+    body.dark img { opacity: .85; }
+    body.dark hr { border-color: #333; }
+    body.dark .footer { color: #888; }
+    body.dark input, body.dark textarea { background: #222; color: #eee; border-color: #444; }
+    body.dark .pagination a { color: #ccc; }
+    body.dark .tags-overview a { color: #eee; }
+    #dark-toggle { font-size: 1.1em; cursor: pointer; user-select: none; }
     </style>
+    <script>
+    (function(){
+      var saved = localStorage.getItem('dark-mode');
+      if (saved === 'true' || (saved === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.body.classList.add('dark');
+      }
+      document.addEventListener('DOMContentLoaded', function(){
+        var btn = document.getElementById('dark-toggle');
+        if (btn) {
+          btn.addEventListener('click', function(e){
+            e.preventDefault();
+            document.body.classList.toggle('dark');
+            localStorage.setItem('dark-mode', document.body.classList.contains('dark'));
+          });
+        }
+      });
+    })();
+    </script>
     <!-- persian styles -->
     
     <!-- rss -->
@@ -101,10 +127,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="上一篇" href="/2026/06/16/04_01_%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="上一篇" href="/2026/06/16/03_01_%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="下一篇" href="/2026/06/16/05_01_ndarray%E5%9F%BA%E7%A1%80/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="下一篇" href="/2026/06/16/01_03_%E6%8E%A7%E5%88%B6%E6%B5%81/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
