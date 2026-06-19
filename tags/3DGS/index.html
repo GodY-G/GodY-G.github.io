@@ -104,19 +104,36 @@
     mark { background: #FFF3A3; color: #333; padding: 1px 3px; border-radius: 2px; }
 
     /* Post detail */
-    .post-back { margin-bottom: 20px; }
-    .post-back a { font-size: 12px; color: #BBB; text-decoration: none; letter-spacing: .03em; transition: color .2s; }
-    .post-back a:hover { color: #555; }
-    article.post header .posttitle { font-size: 26px; font-weight: 700; letter-spacing: -.03em; }
-    article.post header .posttitle::after {
-      content: "~ ~ ~"; display: block;
-      font-size: 14px; font-weight: 400; color: #D0D0D0;
-      letter-spacing: .15em; margin-top: 10px;
+    .post-back { margin-bottom: 16px; }
+    .post-back a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid #DDD; color: #BBB;
+      text-decoration: none; font-size: 16px;
+      transition: all .2s;
     }
-    article.post header .meta { font-size: 13px; color: #B0B0B0; letter-spacing: .02em; margin-top: 4px; }
-    article.post .e-content { font-size: 15px; line-height: 1.85; color: #333; }
+    .post-back a:hover { border-color: #888; color: #555; }
+
+    article.post header .posttitle {
+      font-size: 26px; font-weight: 700; letter-spacing: -.03em;
+    }
+    article.post header .posttitle::after {
+      content: "";
+      display: block; width: 50%; height: 0;
+      margin: 20px auto 0;
+      border-bottom: 2px solid #E0E0E0;
+      border-radius: 2px;
+    }
+
+    article.post .e-content { font-size: 15px; line-height: 1.85; color: #333; margin-top: 24px; }
     article.post .e-content h2 { font-size: 18px; font-weight: 600; margin-top: 36px; }
     article.post .e-content h3 { font-size: 15px; font-weight: 600; }
+
+    /* Post footer (author + date + category at bottom) */
+    .post-footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #ECECEC; }
+    .post-footer .post-meta-bottom { font-size: 13px; color: #B0B0B0; letter-spacing: .02em; }
+    .post-footer .post-meta-bottom a { color: #B0B0B0; text-decoration: none; }
+    .post-footer .post-meta-bottom a:hover { color: #777; }
 
     /* Footer */
     .footer { border-top: 1px solid #E8E8E8; padding: 24px 0; color: #B0B0B0; font-size: 12px; margin-top: 48px; }
