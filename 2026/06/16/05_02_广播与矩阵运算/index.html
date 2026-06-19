@@ -108,16 +108,19 @@
     mark { background: #FFF3A3; color: #333; padding: 1px 3px; border-radius: 2px; }
 
     /* Post detail */
-    .blog-post h1 { font-size: 26px; font-weight: 700; letter-spacing: -.03em; }
-    .blog-post h2 { font-size: 18px; font-weight: 600; margin-top: 36px; }
-    .blog-post h3 { font-size: 15px; font-weight: 600; }
-    .blog-post { font-size: 15px; line-height: 1.85; color: #333; }
-    .blog-post-date { font-size: 13px; color: #B0B0B0; letter-spacing: .02em; }
-    .blog-post h1::after {
+    .post-back { margin-bottom: 20px; }
+    .post-back a { font-size: 12px; color: #BBB; text-decoration: none; letter-spacing: .03em; transition: color .2s; }
+    .post-back a:hover { color: #555; }
+    article.post header .posttitle { font-size: 26px; font-weight: 700; letter-spacing: -.03em; }
+    article.post header .posttitle::after {
       content: "~ ~ ~"; display: block;
       font-size: 14px; font-weight: 400; color: #D0D0D0;
-      letter-spacing: .15em; margin-top: 14px;
+      letter-spacing: .15em; margin-top: 10px;
     }
+    article.post header .meta { font-size: 13px; color: #B0B0B0; letter-spacing: .02em; margin-top: 4px; }
+    article.post .e-content { font-size: 15px; line-height: 1.85; color: #333; }
+    article.post .e-content h2 { font-size: 18px; font-weight: 600; margin-top: 36px; }
+    article.post .e-content h3 { font-size: 15px; font-weight: 600; }
 
     /* Footer */
     .footer { border-top: 1px solid #E8E8E8; padding: 24px 0; color: #B0B0B0; font-size: 12px; margin-top: 48px; }
@@ -161,10 +164,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="上一篇" href="/2026/06/16/08_02_json_datetime_re/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="上一篇" href="/2026/06/16/04_01_%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="下一篇" href="/2026/06/03/Architecture-Graduation-project/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="下一篇" href="/2026/06/16/06_01_%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -204,6 +207,7 @@
     <div class="content index py4 ">
         
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="post-back"><a href="/">&#8592; Home</a></div>
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
