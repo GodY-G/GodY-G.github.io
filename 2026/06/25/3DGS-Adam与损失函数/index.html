@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="一、Adam 优化器 1.1 从 SGD 到 Adam 的递进 12345SGD：    θ &#x3D; θ - lr·g                     ← 裸梯度，震荡Momentum：v &#x3D; β·v + lr·g, θ &#x3D; θ - v       ← 加惯性Adam：   m &#x3D; β₁·m + (1-β₁)·g              ← 动量（平滑方向）         v &#x3D; β₂·v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[3DGS]Adam与损失函数">
+<meta property="og:url" content="https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="GodY">
+<meta property="og:description" content="一、Adam 优化器 1.1 从 SGD 到 Adam 的递进 12345SGD：    θ &#x3D; θ - lr·g                     ← 裸梯度，震荡Momentum：v &#x3D; β·v + lr·g, θ &#x3D; θ - v       ← 加惯性Adam：   m &#x3D; β₁·m + (1-β₁)·g              ← 动量（平滑方向）         v &#x3D; β₂·v">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-25T12:20:21.000Z">
+<meta property="article:modified_time" content="2026-06-25T12:21:32.923Z">
+<meta property="article:author" content="GodY-G">
+<meta property="article:tag" content="3DGS">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/img/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/img/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>[3DGS]Adam与损失函数</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <style>
+    /* === Premium Overrides === */
+    body { font-family: "Inter", -apple-system, "Microsoft YaHei", sans-serif; background: #FAFAFA; }
+    .content { padding-top: 0; }
+    #header { padding: 56px 0 32px; border: none; }
+    #title h1 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+    #nav a { font-size: 13px; color: #888; letter-spacing: .01em; padding: 0 10px; }
+    #nav a:hover { color: #1A1A1A; }
+    .home-arrow { font-size: 14px; margin-right: 6px; opacity: .25; font-weight: 400; }
+
+    /* Home post list */
+    #writing .h1 { font-size: 11px; font-weight: 600; color: #B0B0B0; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 28px; display: block; }
+    .post-item { margin-bottom: 28px; display: flex; align-items: baseline; gap: 16px; }
+    .post-item .meta { flex: 0 0 110px; text-align: right; font-size: 12px; color: #C0C0C0; letter-spacing: .02em; }
+    .post-item .article-title { font-size: 15px; font-weight: 500; line-height: 1.45; }
+    .post-item .article-title a { color: #2A2A2A; text-decoration: none; transition: opacity .2s; }
+    .post-item .article-title a:hover { opacity: .4; }
+    .post-item .article-category { font-size: 11px; color: #CCC; letter-spacing: .03em; margin-top: 3px; display: block; }
+    .post-item .article-category a { color: #CCC; text-decoration: none; }
+    .post-item .article-category a:hover { color: #888; }
+
+    /* Pagination */
+    .pagination { margin-top: 40px; padding-top: 16px; border-top: 1px solid #E8E8E8; font-size: 13px; }
+    .pagination a { color: #888; }
+
+    /* Search */
+    #header-search { text-align: right; margin-top: 4px; }
+    #header-search-input { border: none; border-bottom: 1px solid #D0D0D0; background: transparent; font-size: 12px; padding: 4px 0; width: 150px; outline: none; color: #555; font-family: inherit; }
+    #header-search-input:focus { border-bottom-color: #1A1A1A; }
+    @media (max-width: 600px) { #header-search { display: none; } }
+
+    /* Tags */
+    #tags-page {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .tag-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 18px;
+      border: 1px solid #E8E8E8; border-radius: 4px;
+      text-decoration: none; color: #444;
+      font-size: 13px; letter-spacing: .02em;
+      transition: all .2s; background: #FFF;
+    }
+    .tag-item:hover { border-color: #BBB; color: #1A1A1A; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+    .tag-name { font-weight: 500; }
+    .tag-count { color: #C0C0C0; font-size: 12px; font-weight: 400; }
+    .tag-item:hover .tag-count { color: #999; }
+
+    /* Typora highlight */
+    mark { background: #FFF3A3; color: #333; padding: 1px 3px; border-radius: 2px; }
+
+    /* Post detail */
+    .post-back { margin-bottom: 16px; }
+    .post-back a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid #DDD; color: #BBB;
+      text-decoration: none; font-size: 16px;
+      transition: all .2s;
+    }
+    .post-back a:hover { border-color: #888; color: #555; }
+
+    article.post header .posttitle {
+      font-size: 26px; font-weight: 700; letter-spacing: -.03em;
+    }
+    article.post header .posttitle::after {
+      content: ""; display: block;
+      width: 50%; height: 2px;
+      margin: 32px auto 32px;
+      background: #D0D0D0;
+      border-radius: 1px;
+    }
+
+    article.post .e-content { font-size: 15px; line-height: 1.85; color: #333; }
+    article.post .e-content h2 { font-size: 18px; font-weight: 600; margin-top: 36px; }
+    article.post .e-content h3 { font-size: 15px; font-weight: 600; }
+
+    /* Post footer */
+    .post-footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #ECECEC; }
+    .post-footer .post-meta-bottom { font-size: 13px; color: #B0B0B0; letter-spacing: .02em; }
+    .post-footer .post-meta-bottom a { color: #B0B0B0; text-decoration: none; }
+    .post-footer .post-meta-bottom a:hover { color: #777; }
+    .post-tags-bottom { margin-top: 8px; font-size: 12px; color: #CCC; letter-spacing: .03em; }
+    .post-tags-bottom a { color: #CCC; text-decoration: none; margin-right: 8px; }
+    .post-tags-bottom a:hover { color: #999; }
+
+    /* Footer */
+    .footer { border-top: 1px solid #E8E8E8; padding: 24px 0; color: #B0B0B0; font-size: 12px; margin-top: 48px; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 2px; }
+    </style>
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Archives</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&text=[3DGS]Adam与损失函数"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&title=[3DGS]Adam与损失函数"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&is_video=false&description=[3DGS]Adam与损失函数"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=[3DGS]Adam与损失函数&body=Check out this article: https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&title=[3DGS]Adam与损失函数"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&title=[3DGS]Adam与损失函数"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&title=[3DGS]Adam与损失函数"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&title=[3DGS]Adam与损失函数"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&name=[3DGS]Adam与损失函数&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&t=[3DGS]Adam与损失函数"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">一、Adam 优化器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E4%BB%8E-SGD-%E5%88%B0-Adam-%E7%9A%84%E9%80%92%E8%BF%9B"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 从 SGD 到 Adam 的递进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Adam-%E5%AE%8C%E6%95%B4%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 Adam 完整算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E4%B8%89%E4%B8%AA%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 三个核心机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E6%89%8B%E5%86%99-Adam"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 手写 Adam</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-3DGS-%E4%B8%AD-Adam-%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 3DGS 中 Adam 的配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">1.6.</span> <span class="toc-text">二、损失函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-L1%EF%BC%88MAE%EF%BC%89%E2%80%94-%E7%BB%9D%E5%AF%B9%E5%80%BC"><span class="toc-number">1.6.1.</span> <span class="toc-text">2.1 L1（MAE）— 绝对值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-L2%EF%BC%88MSE%EF%BC%89%E2%80%94-%E5%B9%B3%E6%96%B9"><span class="toc-number">1.6.2.</span> <span class="toc-text">2.2 L2（MSE）— 平方</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-SSIM-%E2%80%94-%E7%BB%93%E6%9E%84%E7%9B%B8%E4%BC%BC%E5%BA%A6%EF%BC%88%E4%B8%89%E5%9B%A0%E5%AD%90%EF%BC%89"><span class="toc-number">1.6.3.</span> <span class="toc-text">2.3 SSIM — 结构相似度（三因子）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-3DGS-%E7%BB%84%E5%90%88%E6%8D%9F%E5%A4%B1"><span class="toc-number">1.6.4.</span> <span class="toc-text">2.4 3DGS 组合损失</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%85%B3%E9%94%AE%E5%85%AC%E5%BC%8F%E9%80%9F%E8%AE%B0"><span class="toc-number">1.7.</span> <span class="toc-text">三、关键公式速记</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <div class="post-back"><a href="/">&#8592;</a></div>
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        [3DGS]Adam与损失函数
+    </h1>
+
+
+
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1>一、Adam 优化器</h1>
+<h3 id="1-1-从-SGD-到-Adam-的递进">1.1 从 SGD 到 Adam 的递进</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SGD：    θ = θ - lr·g                     ← 裸梯度，震荡</span><br><span class="line">Momentum：v = β·v + lr·g, θ = θ - v       ← 加惯性</span><br><span class="line">Adam：   m = β₁·m + (1-β₁)·g              ← 动量（平滑方向）</span><br><span class="line">         v = β₂·v + (1-β₂)·g²             ← 梯度平方（自适应步长）</span><br><span class="line">         θ = θ - α·m̂/(√v̂ + ε)             ← 每参数独立调节</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-Adam-完整算法">1.2 Adam 完整算法</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">初始化：m₀=0, v₀=0, t=0, α=0.001, β₁=0.9, β₂=0.999, ε=1e-8</span><br><span class="line"></span><br><span class="line">每步：</span><br><span class="line">  g = ∇L(θ)                              —— 计算梯度</span><br><span class="line">  m = β₁·m + (1-β₁)·g                    —— 一阶矩（动量）</span><br><span class="line">  v = β₂·v + (1-β₂)·g²                   —— 二阶矩（梯度幅度估计）</span><br><span class="line">  m̂ = m / (1-β₁ᵗ),  v̂ = v / (1-β₂ᵗ)     —— 偏差修正</span><br><span class="line">  θ = θ - α·m̂/(√v̂ + ε)                   —— 更新</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-三个核心机制">1.3 三个核心机制</h3>
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>作用</th>
+<th>关键参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>动量 m</strong></td>
+<td>平滑梯度方向，消除震荡</td>
+<td>β₁=0.9，历史占90%</td>
+</tr>
+<tr>
+<td><strong>自适应 v</strong></td>
+<td>每参数独立调步长，陡坡小步平路大步</td>
+<td>β₂=0.999，有效lr=α/√v̂</td>
+</tr>
+<tr>
+<td><strong>偏差修正</strong></td>
+<td>修正初始 m=v=0 导致的早期低估</td>
+<td>t=1 时修正因子=1/(1-β₁)=10</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-4-手写-Adam">1.4 手写 Adam</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyAdam</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, lr=<span class="number">0.001</span>, beta1=<span class="number">0.9</span>, beta2=<span class="number">0.999</span>, eps=<span class="number">1e-8</span></span>):</span><br><span class="line">        <span class="variable language_">self</span>.lr = lr; <span class="variable language_">self</span>.beta1 = beta1; <span class="variable language_">self</span>.beta2 = beta2; <span class="variable language_">self</span>.eps = eps</span><br><span class="line">        <span class="variable language_">self</span>.m = <span class="number">0.0</span>; <span class="variable language_">self</span>.v = <span class="number">0.0</span>; <span class="variable language_">self</span>.t = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">step</span>(<span class="params">self, param, grad</span>):</span><br><span class="line">        <span class="variable language_">self</span>.t += <span class="number">1</span></span><br><span class="line">        <span class="variable language_">self</span>.m = <span class="variable language_">self</span>.beta1 * <span class="variable language_">self</span>.m + (<span class="number">1</span> - <span class="variable language_">self</span>.beta1) * grad</span><br><span class="line">        <span class="variable language_">self</span>.v = <span class="variable language_">self</span>.beta2 * <span class="variable language_">self</span>.v + (<span class="number">1</span> - <span class="variable language_">self</span>.beta2) * grad**<span class="number">2</span></span><br><span class="line">        m_hat = <span class="variable language_">self</span>.m / (<span class="number">1</span> - <span class="variable language_">self</span>.beta1 ** <span class="variable language_">self</span>.t)</span><br><span class="line">        v_hat = <span class="variable language_">self</span>.v / (<span class="number">1</span> - <span class="variable language_">self</span>.beta2 ** <span class="variable language_">self</span>.t)</span><br><span class="line">        <span class="keyword">return</span> param - <span class="variable language_">self</span>.lr * m_hat / (<span class="variable language_">self</span>.v_hat ** <span class="number">0.5</span> + <span class="variable language_">self</span>.eps)</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-3DGS-中-Adam-的配置">1.5 3DGS 中 Adam 的配置</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># train.py</span></span><br><span class="line">l = [</span><br><span class="line">    &#123;<span class="string">&#x27;params&#x27;</span>: [<span class="variable language_">self</span>._xyz],           <span class="string">&#x27;lr&#x27;</span>: <span class="number">0.00016</span>&#125;,   <span class="comment"># 位置 — 最小</span></span><br><span class="line">    &#123;<span class="string">&#x27;params&#x27;</span>: [<span class="variable language_">self</span>._opacity],       <span class="string">&#x27;lr&#x27;</span>: <span class="number">0.05</span>&#125;,      <span class="comment"># 不透明度 — 最大(300倍!)</span></span><br><span class="line">    &#123;<span class="string">&#x27;params&#x27;</span>: [<span class="variable language_">self</span>._scaling],       <span class="string">&#x27;lr&#x27;</span>: <span class="number">0.005</span>&#125;,     <span class="comment"># 缩放</span></span><br><span class="line">    &#123;<span class="string">&#x27;params&#x27;</span>: [<span class="variable language_">self</span>._rotation],      <span class="string">&#x27;lr&#x27;</span>: <span class="number">0.001</span>&#125;,     <span class="comment"># 旋转</span></span><br><span class="line">]</span><br><span class="line"><span class="variable language_">self</span>.optimizer = torch.optim.Adam(l, lr=<span class="number">0.0</span>, eps=<span class="number">1e-15</span>)</span><br></pre></td></tr></table></figure>
+<p><code>lr=0.0</code>：每组自己指定 lr，不需要默认。<code>eps=1e-15</code>：极小的值，不干扰梯度更新。</p>
+<p>三文件联动：</p>
+<ol>
+<li><code>gaussian_model.py</code> — 定义优化变量（<code>requires_grad_(True)</code>）</li>
+<li><code>train.py</code> — <code>loss.backward()</code> 算梯度，<code>optimizer.step()</code> Adam 更新</li>
+<li>CUDA 扩展 — 渲染梯度的实际计算</li>
+</ol>
+<hr>
+<h2 id="二、损失函数">二、损失函数</h2>
+<h3 id="2-1-L1（MAE）—-绝对值">2.1 L1（MAE）— 绝对值</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">L₁ = (1/N) Σ |yᵢ - ŷᵢ|</span><br><span class="line">梯度 = ±1/N（恒定，与误差大小无关）</span><br></pre></td></tr></table></figure>
+<p>特点：对大小误差一视同仁，不敏感异常值（如镜面反射）。</p>
+<h3 id="2-2-L2（MSE）—-平方">2.2 L2（MSE）— 平方</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">L₂ = (1/N) Σ (yᵢ - ŷᵢ)²</span><br><span class="line">梯度 = -2(yᵢ-ŷᵢ)/N（与误差成正比）</span><br></pre></td></tr></table></figure>
+<p>特点：对大误差惩罚极重（平方放大），对小误差几乎无视。一个异常像素就能绑架整个优化。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">误差</th>
+<th style="text-align:center">L1 贡献</th>
+<th style="text-align:center">L2 贡献</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0.5</td>
+<td style="text-align:center">0.5</td>
+<td style="text-align:center">0.25</td>
+</tr>
+<tr>
+<td style="text-align:center">0.1</td>
+<td style="text-align:center">0.1</td>
+<td style="text-align:center">0.01</td>
+</tr>
+<tr>
+<td style="text-align:center">0.02</td>
+<td style="text-align:center">0.02</td>
+<td style="text-align:center">0.0004</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-3-SSIM-—-结构相似度（三因子）">2.3 SSIM — 结构相似度（三因子）</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SSIM(x,y) = l(x,y) × c(x,y) × s(x,y)</span><br><span class="line">            亮度      对比度     结构</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>因子</th>
+<th>计算</th>
+<th>衡量什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>亮度 l</strong></td>
+<td><code>(2μₓμᵧ+C₁)/(μₓ²+μᵧ²+C₁)</code></td>
+<td>整体亮度是否一致</td>
+</tr>
+<tr>
+<td><strong>对比度 c</strong></td>
+<td><code>(2σₓσᵧ+C₂)/(σₓ²+σᵧ²+C₂)</code></td>
+<td>纹理强弱是否一致</td>
+</tr>
+<tr>
+<td><strong>结构 s</strong></td>
+<td><code>(σₓᵧ+C₃)/(σₓσᵧ+C₃)</code></td>
+<td>纹理模式是否一致</td>
+</tr>
+</tbody>
+</table>
+<p><strong>SSIM 的核心洞察</strong>：不看单个像素，看<strong>局部窗口（11×11）的统计量</strong>。</p>
+<p>例子——整体亮度偏移：</p>
+<ul>
+<li>真图：平均像素 0.5。渲染：平均像素 0.6（偏亮 0.1）</li>
+<li>L2：每个像素 0.1² = 0.01 → 大惩罚</li>
+<li>SSIM：<code>l ≈ (2×0.5×0.6)/(0.25+0.36) ≈ 0.98</code> → 几乎不惩罚</li>
+</ul>
+<p>因为人眼对整体亮度偏移不敏感，SSIM 也不敏感——这恰好是符合感知的评估方式。</p>
+<h3 id="2-4-3DGS-组合损失">2.4 3DGS 组合损失</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">L = 0.8 × L₁ + 0.2 × (1 - SSIM)</span><br><span class="line">     └──┬──┘    └──┬──┘</span><br><span class="line">   颜色主导    纹理/结构修正</span><br></pre></td></tr></table></figure>
+<ul>
+<li>只用 L1 → 模糊（颜色对但纹理没了）</li>
+<li>只用 SSIM → 结构对但可能偏色</li>
+<li>组合：颜色准 + 纹理清晰 + 边缘锐利</li>
+</ul>
+<hr>
+<h2 id="三、关键公式速记">三、关键公式速记</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Adam:    m=β₁m+(1-β₁)g, v=β₂v+(1-β₂)g², θ-=α·m̂/(√v̂+ε)</span><br><span class="line">L1:      梯度=±1（恒定）</span><br><span class="line">L2:      梯度∝误差（大误差大梯度）</span><br><span class="line">SSIM:    l×c×s（亮度×对比度×结构）</span><br><span class="line">组合损失: 0.8·L1 + 0.2·(1-SSIM)</span><br></pre></td></tr></table></figure>
+
+  </div>
+  <footer class="post-footer">
+    <div class="post-meta-bottom">
+      <span class="post-author">GodY-G</span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-06-25T12:20:21.000Z" class="dt-published" itemprop="datePublished">2026-06-25</time>
+        
+      
+    </div>
+
+
+    </div>
+    <div class="post-tags-bottom">
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/3DGS/" rel="tag">3DGS</a>
+    </div>
+
+
+    </div>
+  </footer>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+          <li><a href="/archives/">Archives</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">一、Adam 优化器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E4%BB%8E-SGD-%E5%88%B0-Adam-%E7%9A%84%E9%80%92%E8%BF%9B"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 从 SGD 到 Adam 的递进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Adam-%E5%AE%8C%E6%95%B4%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 Adam 完整算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E4%B8%89%E4%B8%AA%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 三个核心机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E6%89%8B%E5%86%99-Adam"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 手写 Adam</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-3DGS-%E4%B8%AD-Adam-%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 3DGS 中 Adam 的配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">1.6.</span> <span class="toc-text">二、损失函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-L1%EF%BC%88MAE%EF%BC%89%E2%80%94-%E7%BB%9D%E5%AF%B9%E5%80%BC"><span class="toc-number">1.6.1.</span> <span class="toc-text">2.1 L1（MAE）— 绝对值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-L2%EF%BC%88MSE%EF%BC%89%E2%80%94-%E5%B9%B3%E6%96%B9"><span class="toc-number">1.6.2.</span> <span class="toc-text">2.2 L2（MSE）— 平方</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-SSIM-%E2%80%94-%E7%BB%93%E6%9E%84%E7%9B%B8%E4%BC%BC%E5%BA%A6%EF%BC%88%E4%B8%89%E5%9B%A0%E5%AD%90%EF%BC%89"><span class="toc-number">1.6.3.</span> <span class="toc-text">2.3 SSIM — 结构相似度（三因子）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-3DGS-%E7%BB%84%E5%90%88%E6%8D%9F%E5%A4%B1"><span class="toc-number">1.6.4.</span> <span class="toc-text">2.4 3DGS 组合损失</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%85%B3%E9%94%AE%E5%85%AC%E5%BC%8F%E9%80%9F%E8%AE%B0"><span class="toc-number">1.7.</span> <span class="toc-text">三、关键公式速记</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&text=[3DGS]Adam与损失函数"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&title=[3DGS]Adam与损失函数"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&is_video=false&description=[3DGS]Adam与损失函数"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=[3DGS]Adam与损失函数&body=Check out this article: https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&title=[3DGS]Adam与损失函数"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&title=[3DGS]Adam与损失函数"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&title=[3DGS]Adam与损失函数"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&title=[3DGS]Adam与损失函数"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&name=[3DGS]Adam与损失函数&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gody-g.github.io/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/&t=[3DGS]Adam与损失函数"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2026
+    GodY-G
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Archives</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
