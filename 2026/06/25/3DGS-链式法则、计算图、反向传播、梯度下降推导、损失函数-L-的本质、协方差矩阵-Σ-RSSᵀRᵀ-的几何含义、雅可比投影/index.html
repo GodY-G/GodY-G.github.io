@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="链式法则与计算图 + 梯度下降完整推导 + 损失函数与协方差投影   一、链式法则 — 反向传播的数学基础 一元链式法则 复合函数求导 &#x3D; 外层导 × 内层导。 1y &#x3D; sin(x²) → 令 u&#x3D;x² → dy&#x2F;dx &#x3D; cos(u)·2x &#x3D; 2x·cos(x²) 多元链式法则 z&#x3D;f(x,y)，而 x&#x3D;g(t), y&#x3D;h(t) → t 通过两条路径影响 z，总影响相加： 1dz&#x2F;dt &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ&#x3D;RSSᵀRᵀ 的几何含义、雅可比投影">
+<meta property="og:url" content="https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/index.html">
+<meta property="og:site_name" content="GodY">
+<meta property="og:description" content="链式法则与计算图 + 梯度下降完整推导 + 损失函数与协方差投影   一、链式法则 — 反向传播的数学基础 一元链式法则 复合函数求导 &#x3D; 外层导 × 内层导。 1y &#x3D; sin(x²) → 令 u&#x3D;x² → dy&#x2F;dx &#x3D; cos(u)·2x &#x3D; 2x·cos(x²) 多元链式法则 z&#x3D;f(x,y)，而 x&#x3D;g(t), y&#x3D;h(t) → t 通过两条路径影响 z，总影响相加： 1dz&#x2F;dt &#x3D;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-25T08:50:56.000Z">
+<meta property="article:modified_time" content="2026-06-25T08:52:13.508Z">
+<meta property="article:author" content="GodY-G">
+<meta property="article:tag" content="3DGS">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/img/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/img/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <style>
+    /* === Premium Overrides === */
+    body { font-family: "Inter", -apple-system, "Microsoft YaHei", sans-serif; background: #FAFAFA; }
+    .content { padding-top: 0; }
+    #header { padding: 56px 0 32px; border: none; }
+    #title h1 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+    #nav a { font-size: 13px; color: #888; letter-spacing: .01em; padding: 0 10px; }
+    #nav a:hover { color: #1A1A1A; }
+    .home-arrow { font-size: 14px; margin-right: 6px; opacity: .25; font-weight: 400; }
+
+    /* Home post list */
+    #writing .h1 { font-size: 11px; font-weight: 600; color: #B0B0B0; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 28px; display: block; }
+    .post-item { margin-bottom: 28px; display: flex; align-items: baseline; gap: 16px; }
+    .post-item .meta { flex: 0 0 110px; text-align: right; font-size: 12px; color: #C0C0C0; letter-spacing: .02em; }
+    .post-item .article-title { font-size: 15px; font-weight: 500; line-height: 1.45; }
+    .post-item .article-title a { color: #2A2A2A; text-decoration: none; transition: opacity .2s; }
+    .post-item .article-title a:hover { opacity: .4; }
+    .post-item .article-category { font-size: 11px; color: #CCC; letter-spacing: .03em; margin-top: 3px; display: block; }
+    .post-item .article-category a { color: #CCC; text-decoration: none; }
+    .post-item .article-category a:hover { color: #888; }
+
+    /* Pagination */
+    .pagination { margin-top: 40px; padding-top: 16px; border-top: 1px solid #E8E8E8; font-size: 13px; }
+    .pagination a { color: #888; }
+
+    /* Search */
+    #header-search { text-align: right; margin-top: 4px; }
+    #header-search-input { border: none; border-bottom: 1px solid #D0D0D0; background: transparent; font-size: 12px; padding: 4px 0; width: 150px; outline: none; color: #555; font-family: inherit; }
+    #header-search-input:focus { border-bottom-color: #1A1A1A; }
+    @media (max-width: 600px) { #header-search { display: none; } }
+
+    /* Tags */
+    #tags-page {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .tag-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 18px;
+      border: 1px solid #E8E8E8; border-radius: 4px;
+      text-decoration: none; color: #444;
+      font-size: 13px; letter-spacing: .02em;
+      transition: all .2s; background: #FFF;
+    }
+    .tag-item:hover { border-color: #BBB; color: #1A1A1A; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+    .tag-name { font-weight: 500; }
+    .tag-count { color: #C0C0C0; font-size: 12px; font-weight: 400; }
+    .tag-item:hover .tag-count { color: #999; }
+
+    /* Typora highlight */
+    mark { background: #FFF3A3; color: #333; padding: 1px 3px; border-radius: 2px; }
+
+    /* Post detail */
+    .post-back { margin-bottom: 16px; }
+    .post-back a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid #DDD; color: #BBB;
+      text-decoration: none; font-size: 16px;
+      transition: all .2s;
+    }
+    .post-back a:hover { border-color: #888; color: #555; }
+
+    article.post header .posttitle {
+      font-size: 26px; font-weight: 700; letter-spacing: -.03em;
+    }
+    article.post header .posttitle::after {
+      content: ""; display: block;
+      width: 50%; height: 2px;
+      margin: 32px auto 32px;
+      background: #D0D0D0;
+      border-radius: 1px;
+    }
+
+    article.post .e-content { font-size: 15px; line-height: 1.85; color: #333; }
+    article.post .e-content h2 { font-size: 18px; font-weight: 600; margin-top: 36px; }
+    article.post .e-content h3 { font-size: 15px; font-weight: 600; }
+
+    /* Post footer */
+    .post-footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #ECECEC; }
+    .post-footer .post-meta-bottom { font-size: 13px; color: #B0B0B0; letter-spacing: .02em; }
+    .post-footer .post-meta-bottom a { color: #B0B0B0; text-decoration: none; }
+    .post-footer .post-meta-bottom a:hover { color: #777; }
+    .post-tags-bottom { margin-top: 8px; font-size: 12px; color: #CCC; letter-spacing: .03em; }
+    .post-tags-bottom a { color: #CCC; text-decoration: none; margin-right: 8px; }
+    .post-tags-bottom a:hover { color: #999; }
+
+    /* Footer */
+    .footer { border-top: 1px solid #E8E8E8; padding: 24px 0; color: #B0B0B0; font-size: 12px; margin-top: 48px; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 2px; }
+    </style>
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Archives</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2026/06/18/%E6%A0%A1%E5%9B%AD%E6%9D%82%E8%B0%88-%E8%8B%8F%E5%B7%9E%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%EF%BC%88%E6%B1%9F%E6%9E%AB%EF%BC%89%E5%AE%BF%E8%88%8D%E5%A4%9C%E6%99%9A%E8%AE%BE%E6%96%BD%E5%8D%87%E7%BA%A7/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&text=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&title=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&is_video=false&description=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影&body=Check out this article: https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&title=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&title=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&title=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&title=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&name=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&t=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99-%E2%80%94-%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">一、链式法则 — 反向传播的数学基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%85%83%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99"><span class="toc-number">1.1.</span> <span class="toc-text">一元链式法则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%85%83%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99"><span class="toc-number">1.2.</span> <span class="toc-text">多元链式法则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="toc-number">1.3.</span> <span class="toc-text">计算图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3DGS-%E7%9A%84%E6%A2%AF%E5%BA%A6%E6%B5%81"><span class="toc-number">1.4.</span> <span class="toc-text">3DGS 的梯度流</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E5%AE%8C%E6%95%B4%E6%8E%A8%E5%AF%BC"><span class="toc-number">2.</span> <span class="toc-text">二、梯度下降完整推导</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">核心公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B2%BF%E8%B4%9F%E6%A2%AF%E5%BA%A6%EF%BC%9F%E4%B8%80%E9%98%B6%E6%B3%B0%E5%8B%92%E5%B1%95%E5%BC%80%E7%9A%84%E6%95%B0%E5%AD%A6%E7%BB%93%E8%AE%BA"><span class="toc-number">2.2.</span> <span class="toc-text">为什么沿负梯度？一阶泰勒展开的数学结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-number">2.3.</span> <span class="toc-text">学习率的影响</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%85%E6%80%81%E6%9D%A1%E4%BB%B6-%E2%86%92-Adam-%E7%9A%84%E5%8A%A8%E6%9C%BA"><span class="toc-number">2.4.</span> <span class="toc-text">病态条件 → Adam 的动机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E2%80%94-%E6%A0%B8%E5%BF%83%E7%90%86%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">三、损失函数 L — 核心理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#L-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">L 是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-L-%E8%B6%8A%E5%B0%8F%E6%B8%B2%E6%9F%93%E8%B6%8A%E5%A5%BD%EF%BC%9F"><span class="toc-number">3.2.</span> <span class="toc-text">为什么 L 越小渲染越好？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#L-%E7%9A%84%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B%EF%BC%88%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%BA%94%E6%AD%A5%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">L 的计算过程（前向传播五步）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%8A%95%E5%BD%B1"><span class="toc-number">4.</span> <span class="toc-text">四、协方差矩阵与投影</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">Σ&#x3D;RSSᵀRᵀ 为什么是协方差矩阵？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89"><span class="toc-number">4.2.</span> <span class="toc-text">协方差矩阵的几何含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%95%E5%BD%B1%E9%9B%85%E5%8F%AF%E6%AF%94-J"><span class="toc-number">4.3.</span> <span class="toc-text">投影雅可比 J</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%85%B3%E9%94%AE%E5%85%AC%E5%BC%8F%E9%80%9F%E8%AE%B0"><span class="toc-number">5.</span> <span class="toc-text">五、关键公式速记</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <div class="post-back"><a href="/">&#8592;</a></div>
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        [3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影
+    </h1>
+
+
+
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <blockquote>
+<p>链式法则与计算图 + 梯度下降完整推导 + 损失函数与协方差投影</p>
+</blockquote>
+<hr>
+<h2 id="一、链式法则-—-反向传播的数学基础">一、链式法则 — 反向传播的数学基础</h2>
+<h3 id="一元链式法则">一元链式法则</h3>
+<p>复合函数求导 = 外层导 × 内层导。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y = sin(x²) → 令 u=x² → dy/dx = cos(u)·2x = 2x·cos(x²)</span><br></pre></td></tr></table></figure>
+<h3 id="多元链式法则">多元链式法则</h3>
+<p>z=f(x,y)，而 x=g(t), y=h(t) → t 通过两条路径影响 z，总影响相加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dz/dt = (∂z/∂x)·(dx/dt) + (∂z/∂y)·(dy/dt)</span><br></pre></td></tr></table></figure>
+<h3 id="计算图">计算图</h3>
+<p>把复杂公式拆成简单操作的有向图。节点=操作，边=数据流。</p>
+<p><strong>前向</strong>：输入→输出，算函数值。<br>
+<strong>反向</strong>：输出→输入，用链式法则逐节点传梯度。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">乘法节点 z=x×y：∂L/∂x=∂L/∂z·y，∂L/∂y=∂L/∂z·x</span><br><span class="line">加法节点 z=x+y：∂L/∂x=∂L/∂z·1，∂L/∂y=∂L/∂z·1</span><br><span class="line">分支节点：x被多处用 → 各入边梯度求和</span><br></pre></td></tr></table></figure>
+<h3 id="3DGS-的梯度流">3DGS 的梯度流</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">μ,q,s,α,sh → Σ=RSSᵀRᵀ → Σ&#x27;=JΣJᵀ → αᵢ(p)=σ·G(p) → C=ΣTαc → L</span><br><span class="line"></span><br><span class="line">∂L/∂μ = ∂L/∂C · ∂C/∂α · ∂α/∂Σ&#x27; · ∂Σ&#x27;/∂Σ · ∂Σ/∂μ</span><br><span class="line">        └────────链式法则沿计算图层层回传────────┘</span><br></pre></td></tr></table></figure>
+<p>PyTorch 中这一整条链条由 <code>loss.backward()</code> 自动完成。</p>
+<hr>
+<h2 id="二、梯度下降完整推导">二、梯度下降完整推导</h2>
+<h3 id="核心公式">核心公式</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">θ ← θ - α · ∇L(θ)</span><br></pre></td></tr></table></figure>
+<h3 id="为什么沿负梯度？一阶泰勒展开的数学结论">为什么沿负梯度？一阶泰勒展开的数学结论</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">L(θ+Δθ) ≈ L(θ) + ∇L(θ)ᵀ·Δθ</span><br><span class="line"></span><br><span class="line">要 L 变小 → 需 ∇Lᵀ·Δθ &lt; 0</span><br><span class="line">固定步长 |Δθ|=ε 下，内积最小的 Δθ = -ε·∇L/|∇L|</span><br><span class="line">→ 负梯度方向是局部下降最快的方向</span><br></pre></td></tr></table></figure>
+<h3 id="学习率的影响">学习率的影响</h3>
+<ul>
+<li>α 太大 → 震荡/发散</li>
+<li>α 太小 → 收敛极慢</li>
+<li>α 合适 → 稳定收敛</li>
+</ul>
+<h3 id="病态条件-→-Adam-的动机">病态条件 → Adam 的动机</h3>
+<p>不同参数方向的梯度量级可能差 100 倍（如 f=0.5(x²+100y²)中 ∂f/∂x=x 量级~1，∂f/∂y=100y 量级~100）。单一学习率无法兼顾 → Adam 自适应调整每个参数的有效学习率。</p>
+<hr>
+<h2 id="三、损失函数-L-—-核心理解">三、损失函数 L — 核心理解</h2>
+<h3 id="L-是什么？">L 是什么？</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">L = (1-λ)·L₁ + λ·(1-SSIM)   (λ=0.2)</span><br><span class="line"></span><br><span class="line">L₁：逐像素颜色差的平均值</span><br><span class="line">SSIM：结构相似度（亮度×对比度×结构）</span><br></pre></td></tr></table></figure>
+<p><strong>L 是百万维函数</strong>：输入是 N 个高斯的全部参数（μ,q,s,α,sh），输出是一个标量——渲染图和真实照片的差异。</p>
+<h3 id="为什么-L-越小渲染越好？">为什么 L 越小渲染越好？</h3>
+<p>L₁↓ = 颜色更准 | (1-SSIM)↓ = 结构更对 → 渲染图更接近真图。</p>
+<h3 id="L-的计算过程（前向传播五步）">L 的计算过程（前向传播五步）</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">① 参数 → Σ₃D：q→R, s→S, Σ=R·S·Sᵀ·Rᵀ</span><br><span class="line">② 3D→2D：μ→μ&#x27;(投影), Σ&#x27;=J·Σ·Jᵀ</span><br><span class="line">③ 像素α值：αᵢ(p)=σ·exp(-½(p-μ&#x27;)ᵀΣ&#x27;⁻¹(p-μ&#x27;))</span><br><span class="line">④ Alpha合成：C=Σᵢ Tᵢ·αᵢ·cᵢ(sh,视角)</span><br><span class="line">⑤ 损失计算：L=0.8·L₁+0.2·(1-SSIM)</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="四、协方差矩阵与投影">四、协方差矩阵与投影</h2>
+<h3 id="Σ-RSSᵀRᵀ-为什么是协方差矩阵？">Σ=RSSᵀRᵀ 为什么是协方差矩阵？</h3>
+<ul>
+<li>S² = diag(s₁²,s₂²,s₃²) 是<strong>正放的椭球</strong>（半轴长 s₁,s₂,s₃，主轴沿坐标轴）</li>
+<li>R 旋转该椭球 → 得到<strong>歪的椭球</strong></li>
+<li>数学：<code>Σ = R·S²·Rᵀ</code> = 先通过 Rᵀ 把向量转到主轴方向 → 在主轴方向拉伸 S² → 再用 R 转回来</li>
+<li>Σ 天然对称且正定 → 合法协方差矩阵</li>
+</ul>
+<h3 id="协方差矩阵的几何含义">协方差矩阵的几何含义</h3>
+<p>等密度面 <code>(x-μ)ᵀΣ⁻¹(x-μ)=1</code> 是椭球面。特征向量=椭球主轴方向，特征值=半轴长²。</p>
+<h3 id="投影雅可比-J">投影雅可比 J</h3>
+<p>透视投影的非线性 /Z → 3D高斯→2D不是高斯。3DGS 用 EWA 近似：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">J = [fx/Z,    0,   -fx·X/Z²]    ← ∂π/∂(X,Y,Z) 在 μ₃D 处取值</span><br><span class="line">    [  0,  fy/Z,   -fy·Y/Z²]</span><br><span class="line"></span><br><span class="line">Σ&#x27; = J·Σ·Jᵀ   ← 3D椭球→2D椭圆</span><br></pre></td></tr></table></figure>
+<p>一阶泰勒展开把透视投影在局部近似为线性变换 → 3D高斯保持高斯形状投影到2D。</p>
+<hr>
+<h2 id="五、关键公式速记">五、关键公式速记</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">链式法则：∂L/∂x = Σ 各路径 (∂L/∂out × ∂out/∂x)</span><br><span class="line">梯度下降：θ ← θ - α·∇L</span><br><span class="line">Adam：     m=β₁m+(1-β₁)g, v=β₂v+(1-β₂)g², θ-=α·m̂/(√v̂+ε)</span><br><span class="line">损失：     L=0.8·L₁+0.2·(1-SSIM)</span><br><span class="line">协方差：   Σ=R·S·Sᵀ·Rᵀ</span><br><span class="line">投影：     Σ&#x27;=J·Σ·Jᵀ</span><br></pre></td></tr></table></figure>
+
+  </div>
+  <footer class="post-footer">
+    <div class="post-meta-bottom">
+      <span class="post-author">GodY-G</span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-06-25T08:50:56.000Z" class="dt-published" itemprop="datePublished">2026-06-25</time>
+        
+      
+    </div>
+
+
+    </div>
+    <div class="post-tags-bottom">
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/3DGS/" rel="tag">3DGS</a>
+    </div>
+
+
+    </div>
+  </footer>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+          <li><a href="/archives/">Archives</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99-%E2%80%94-%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">一、链式法则 — 反向传播的数学基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%85%83%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99"><span class="toc-number">1.1.</span> <span class="toc-text">一元链式法则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%85%83%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99"><span class="toc-number">1.2.</span> <span class="toc-text">多元链式法则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="toc-number">1.3.</span> <span class="toc-text">计算图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3DGS-%E7%9A%84%E6%A2%AF%E5%BA%A6%E6%B5%81"><span class="toc-number">1.4.</span> <span class="toc-text">3DGS 的梯度流</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E5%AE%8C%E6%95%B4%E6%8E%A8%E5%AF%BC"><span class="toc-number">2.</span> <span class="toc-text">二、梯度下降完整推导</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">核心公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B2%BF%E8%B4%9F%E6%A2%AF%E5%BA%A6%EF%BC%9F%E4%B8%80%E9%98%B6%E6%B3%B0%E5%8B%92%E5%B1%95%E5%BC%80%E7%9A%84%E6%95%B0%E5%AD%A6%E7%BB%93%E8%AE%BA"><span class="toc-number">2.2.</span> <span class="toc-text">为什么沿负梯度？一阶泰勒展开的数学结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-number">2.3.</span> <span class="toc-text">学习率的影响</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%85%E6%80%81%E6%9D%A1%E4%BB%B6-%E2%86%92-Adam-%E7%9A%84%E5%8A%A8%E6%9C%BA"><span class="toc-number">2.4.</span> <span class="toc-text">病态条件 → Adam 的动机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E2%80%94-%E6%A0%B8%E5%BF%83%E7%90%86%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">三、损失函数 L — 核心理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#L-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">L 是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-L-%E8%B6%8A%E5%B0%8F%E6%B8%B2%E6%9F%93%E8%B6%8A%E5%A5%BD%EF%BC%9F"><span class="toc-number">3.2.</span> <span class="toc-text">为什么 L 越小渲染越好？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#L-%E7%9A%84%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B%EF%BC%88%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%BA%94%E6%AD%A5%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">L 的计算过程（前向传播五步）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%8A%95%E5%BD%B1"><span class="toc-number">4.</span> <span class="toc-text">四、协方差矩阵与投影</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">Σ&#x3D;RSSᵀRᵀ 为什么是协方差矩阵？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89"><span class="toc-number">4.2.</span> <span class="toc-text">协方差矩阵的几何含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%95%E5%BD%B1%E9%9B%85%E5%8F%AF%E6%AF%94-J"><span class="toc-number">4.3.</span> <span class="toc-text">投影雅可比 J</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%85%B3%E9%94%AE%E5%85%AC%E5%BC%8F%E9%80%9F%E8%AE%B0"><span class="toc-number">5.</span> <span class="toc-text">五、关键公式速记</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&text=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&title=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&is_video=false&description=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影&body=Check out this article: https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&title=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&title=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&title=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&title=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&name=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gody-g.github.io/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/&t=[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2026
+    GodY-G
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Archives</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
