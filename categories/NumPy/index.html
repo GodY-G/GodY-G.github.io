@@ -145,6 +145,22 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 2px; }
     </style>
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      mermaid.initialize({ startOnLoad: true, theme: 'default' });
+      // Re-render code blocks with class "mermaid"
+      document.querySelectorAll('pre code.language-mermaid').forEach(function(block){
+        var pre = block.parentElement;
+        var div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = block.textContent;
+        pre.parentElement.replaceChild(div, pre);
+      });
+      mermaid.run();
+    });
+    </script>
     <!-- persian styles -->
     
     <!-- rss -->
@@ -221,7 +237,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/">[Python, NumPy]广播、矩阵运算与线性代数</a>
+        <a class="" href="/2026/06/16/05_01_ndarray%E5%9F%BA%E7%A1%80/">[Python, NumPy]NumPy ndarray 基础</a>
     
 
 
@@ -245,7 +261,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/05_01_ndarray%E5%9F%BA%E7%A1%80/">[Python, NumPy]NumPy ndarray 基础</a>
+        <a class="" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/">[Python, NumPy]广播、矩阵运算与线性代数</a>
     
 
 

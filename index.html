@@ -145,6 +145,22 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 2px; }
     </style>
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      mermaid.initialize({ startOnLoad: true, theme: 'default' });
+      // Re-render code blocks with class "mermaid"
+      document.querySelectorAll('pre code.language-mermaid').forEach(function(block){
+        var pre = block.parentElement;
+        var div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = block.textContent;
+        pre.parentElement.replaceChild(div, pre);
+      });
+      mermaid.run();
+    });
+    </script>
     <!-- persian styles -->
     
     <!-- rss -->
@@ -384,7 +400,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/01_04_%E5%87%BD%E6%95%B0/">[Python]函数</a>
+        <a class="" href="/2026/06/16/01_03_%E6%8E%A7%E5%88%B6%E6%B5%81/">[Python]控制流</a>
     
 
 

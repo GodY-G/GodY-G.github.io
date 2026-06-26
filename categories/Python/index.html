@@ -145,6 +145,22 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 2px; }
     </style>
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      mermaid.initialize({ startOnLoad: true, theme: 'default' });
+      // Re-render code blocks with class "mermaid"
+      document.querySelectorAll('pre code.language-mermaid').forEach(function(block){
+        var pre = block.parentElement;
+        var div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = block.textContent;
+        pre.parentElement.replaceChild(div, pre);
+      });
+      mermaid.run();
+    });
+    </script>
     <!-- persian styles -->
     
     <!-- rss -->
@@ -269,7 +285,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/01_04_%E5%87%BD%E6%95%B0/">[Python]函数</a>
+        <a class="" href="/2026/06/16/01_03_%E6%8E%A7%E5%88%B6%E6%B5%81/">[Python]控制流</a>
     
 
 
@@ -317,30 +333,6 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/02_02_%E5%AD%97%E5%85%B8%E4%B8%8E%E9%9B%86%E5%90%88/">[Python]字典与集合</a>
-    
-
-
-</span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
         <a class="" href="/2026/06/16/02_03_%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E6%8E%A8%E5%AF%BC%E5%BC%8F/">[Python]迭代器、生成器与推导式</a>
     
 
@@ -365,7 +357,31 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/01_03_%E6%8E%A7%E5%88%B6%E6%B5%81/">[Python]控制流</a>
+        <a class="" href="/2026/06/16/02_02_%E5%AD%97%E5%85%B8%E4%B8%8E%E9%9B%86%E5%90%88/">[Python]字典与集合</a>
+    
+
+
+</span>
+      </li>
+    
+      
+      
+      
+      
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2026/06/16/04_01_%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/">[Python]异常处理与上下文管理器</a>
     
 
 
@@ -413,7 +429,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/04_01_%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/">[Python]异常处理与上下文管理器</a>
+        <a class="" href="/2026/06/16/01_04_%E5%87%BD%E6%95%B0/">[Python]函数</a>
     
 
 

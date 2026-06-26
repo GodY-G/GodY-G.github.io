@@ -147,6 +147,22 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 2px; }
     </style>
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      mermaid.initialize({ startOnLoad: true, theme: 'default' });
+      // Re-render code blocks with class "mermaid"
+      document.querySelectorAll('pre code.language-mermaid').forEach(function(block){
+        var pre = block.parentElement;
+        var div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = block.textContent;
+        pre.parentElement.replaceChild(div, pre);
+      });
+      mermaid.run();
+    });
+    </script>
     <!-- persian styles -->
     
     <!-- rss -->
