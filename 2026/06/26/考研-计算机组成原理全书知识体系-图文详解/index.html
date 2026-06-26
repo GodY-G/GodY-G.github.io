@@ -252,12 +252,78 @@
 <hr>
 <h2 id="总论：计算机系统的层次结构">总论：计算机系统的层次结构</h2>
 <p>教材第1章第3节（1.3 计算机系统层次结构）提出了计算机系统的<strong>多层次抽象结构</strong>，这是理解全书的主线。每一层都对上层隐藏实现细节，对上层的上层提供服务。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    subgraph L0[&quot;第0层：应用问题层&lt;br/&gt;第1章&quot;]</span><br><span class="line">        A0[&quot;算法 / 高级语言程序&lt;br/&gt;（C语言、Python等）&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph L1[&quot;第1层：软件层&lt;br/&gt;第1、7、8章&quot;]</span><br><span class="line">        A1[&quot;操作系统&lt;br/&gt;进程管理 | 虚拟内存 | 文件系统&lt;br/&gt;中断处理 | I/O软件&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph L2[&quot;第2层：指令系统 ISA ★软硬件分界线★&lt;br/&gt;第4章&quot;]</span><br><span class="line">        A2[&quot;MIPS / RISC-V 指令集&lt;br/&gt;指令格式 | 寻址方式&lt;br/&gt;寄存器定义 | 异常处理&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph L3[&quot;第3层：微架构层&lt;br/&gt;第5、6章&quot;]</span><br><span class="line">        A3[&quot;CPU 设计&lt;br/&gt;单周期 | 多周期 | 流水线&lt;br/&gt;硬布线控制器 | 微程序控制器&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph L4[&quot;第4层：运算与数字逻辑层&lt;br/&gt;第3章&quot;]</span><br><span class="line">        A4[&quot;ALU 设计&lt;br/&gt;加法器 | 乘除法器 | 浮点运算器&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph L5[&quot;第5层：存储层次层&lt;br/&gt;第7章&quot;]</span><br><span class="line">        A5[&quot;寄存器 → Cache → 主存 → 磁盘/SSD&lt;br/&gt;SRAM | DRAM | 虚拟存储器&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph L6[&quot;第6层：I/O与系统互连层&lt;br/&gt;第8章&quot;]</span><br><span class="line">        A6[&quot;总线 | I/O接口&lt;br/&gt;中断 | DMA&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph L7[&quot;第7层：并行处理层&lt;br/&gt;第9章&quot;]</span><br><span class="line">        A7[&quot;多处理器 | 多线程&lt;br/&gt;SIMD | GPU&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    L0 --&gt; L1 --&gt; L2</span><br><span class="line">    L2 --&gt; L3 --&gt; L4</span><br><span class="line">    L4 --&gt; L5</span><br><span class="line">    L2 --&gt; L6</span><br><span class="line">    L2 --&gt; L7</span><br><span class="line">    L5 --&gt; L6</span><br><span class="line"></span><br><span class="line">    style L2 fill:#F44336,color:#fff,stroke-width:4px</span><br><span class="line">    style A2 fill:#F44336,color:#fff</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph L0[&quot;第0层：应用问题层&lt;br/&gt;第1章&quot;]
+        A0[&quot;算法 / 高级语言程序&lt;br/&gt;（C语言、Python等）&quot;]
+    end
+
+    subgraph L1[&quot;第1层：软件层&lt;br/&gt;第1、7、8章&quot;]
+        A1[&quot;操作系统&lt;br/&gt;进程管理 | 虚拟内存 | 文件系统&lt;br/&gt;中断处理 | I/O软件&quot;]
+    end
+
+    subgraph L2[&quot;第2层：指令系统 ISA ★软硬件分界线★&lt;br/&gt;第4章&quot;]
+        A2[&quot;MIPS / RISC-V 指令集&lt;br/&gt;指令格式 | 寻址方式&lt;br/&gt;寄存器定义 | 异常处理&quot;]
+    end
+
+    subgraph L3[&quot;第3层：微架构层&lt;br/&gt;第5、6章&quot;]
+        A3[&quot;CPU 设计&lt;br/&gt;单周期 | 多周期 | 流水线&lt;br/&gt;硬布线控制器 | 微程序控制器&quot;]
+    end
+
+    subgraph L4[&quot;第4层：运算与数字逻辑层&lt;br/&gt;第3章&quot;]
+        A4[&quot;ALU 设计&lt;br/&gt;加法器 | 乘除法器 | 浮点运算器&quot;]
+    end
+
+    subgraph L5[&quot;第5层：存储层次层&lt;br/&gt;第7章&quot;]
+        A5[&quot;寄存器 → Cache → 主存 → 磁盘/SSD&lt;br/&gt;SRAM | DRAM | 虚拟存储器&quot;]
+    end
+
+    subgraph L6[&quot;第6层：I/O与系统互连层&lt;br/&gt;第8章&quot;]
+        A6[&quot;总线 | I/O接口&lt;br/&gt;中断 | DMA&quot;]
+    end
+
+    subgraph L7[&quot;第7层：并行处理层&lt;br/&gt;第9章&quot;]
+        A7[&quot;多处理器 | 多线程&lt;br/&gt;SIMD | GPU&quot;]
+    end
+
+    L0 --&gt; L1 --&gt; L2
+    L2 --&gt; L3 --&gt; L4
+    L4 --&gt; L5
+    L2 --&gt; L6
+    L2 --&gt; L7
+    L5 --&gt; L6
+
+    style L2 fill:#F44336,color:#fff,stroke-width:4px
+    style A2 fill:#F44336,color:#fff
+</div></td></tr></table></figure>
 <hr>
 <h2 id="第〇层基础：数据信息的机器级表示（第2章）">第〇层基础：数据信息的机器级表示（第2章）</h2>
 <h3 id="为什么要在最底层讲数据表示？">为什么要在最底层讲数据表示？</h3>
 <p>计算机只能识别0和1。所有上层的数据结构、算法、指令都必须<strong>最终编码为二进制</strong>才能在计算机中存储和处理。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mindmap</span><br><span class="line">  root((第2章&lt;br/&gt;数据表示))</span><br><span class="line">    数值数据</span><br><span class="line">      无符号整数</span><br><span class="line">      有符号整数</span><br><span class="line">        原码</span><br><span class="line">        补码</span><br><span class="line">        反码</span><br><span class="line">        移码</span><br><span class="line">    浮点数</span><br><span class="line">      IEEE 754 标准</span><br><span class="line">        单精度 float</span><br><span class="line">        双精度 double</span><br><span class="line">        规格化</span><br><span class="line">        非规格化</span><br><span class="line">        特殊值</span><br><span class="line">    非数值数据</span><br><span class="line">      ASCII 码</span><br><span class="line">      汉字编码</span><br><span class="line">      Unicode</span><br><span class="line">    存储方式</span><br><span class="line">      大端序</span><br><span class="line">      小端序</span><br><span class="line">      对齐</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><div class="mermaid">mindmap
+  root((第2章&lt;br/&gt;数据表示))
+    数值数据
+      无符号整数
+      有符号整数
+        原码
+        补码
+        反码
+        移码
+    浮点数
+      IEEE 754 标准
+        单精度 float
+        双精度 double
+        规格化
+        非规格化
+        特殊值
+    非数值数据
+      ASCII 码
+      汉字编码
+      Unicode
+    存储方式
+      大端序
+      小端序
+      对齐
+</div></td></tr></table></figure>
 <hr>
 <h3 id="2-1-原码、反码、补码、移码">2.1 原码、反码、补码、移码</h3>
 <h4 id="2-1-1-原码">2.1.1 原码</h4>
@@ -272,13 +338,28 @@
 <h4 id="2-1-2-补码-——-408-最高频考点">2.1.2 补码 —— 408 最高频考点</h4>
 <p><strong>教材 P29-32</strong>：补码是计算机中<strong>最常用的有符号整数编码方式</strong>。</p>
 <p><strong>模的定义</strong>：n位补码的模为 2ⁿ。补码的本质是把减法转化为加法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    subgraph 时钟例子[&quot;教材P30：时钟模12例子&quot;]</span><br><span class="line">        Direction[&quot;10点倒退到4点&quot;] --&gt; Method1[&quot;10 - 4 = 6&quot;]</span><br><span class="line">        Direction --&gt; Method2[&quot;10 + 8 = 6 (mod 12)&quot;]</span><br><span class="line">        Method2 --&gt; Conclusion[&quot;-4 ≡ +8 (mod 12)&lt;br/&gt;-4的补码=8&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph 计算机[&quot;计算机中用补码做减法&quot;]</span><br><span class="line">        Data[&quot;10 - 4&quot;] --&gt; Code[&quot;[10]补 + [-4]补&lt;br/&gt;= 1010 + 1100&lt;br/&gt;= 0110 = 6&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    时钟例子 --- 计算机</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    subgraph 时钟例子[&quot;教材P30：时钟模12例子&quot;]
+        Direction[&quot;10点倒退到4点&quot;] --&gt; Method1[&quot;10 - 4 = 6&quot;]
+        Direction --&gt; Method2[&quot;10 + 8 = 6 (mod 12)&quot;]
+        Method2 --&gt; Conclusion[&quot;-4 ≡ +8 (mod 12)&lt;br/&gt;-4的补码=8&quot;]
+    end
+
+    subgraph 计算机[&quot;计算机中用补码做减法&quot;]
+        Data[&quot;10 - 4&quot;] --&gt; Code[&quot;[10]补 + [-4]补&lt;br/&gt;= 1010 + 1100&lt;br/&gt;= 0110 = 6&quot;]
+    end
+
+    时钟例子 --- 计算机
+</div></td></tr></table></figure>
 <p><strong>补码的简便计算方法</strong>（教材P31）：</p>
 <blockquote>
 <p>正数的补码 = 原码（符号位0，数值不变）<br>
 负数的补码 = 原码的符号位不变，数值位<strong>取反加1</strong></p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;原码: 1 001 0100&lt;br/&gt;(-20)&quot;] --&gt; B[&quot;取反: 1 110 1011&quot;]</span><br><span class="line">    B --&gt; C[&quot;加1: 1 110 1100&lt;br/&gt;补码 = -20&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    A[&quot;原码: 1 001 0100&lt;br/&gt;(-20)&quot;] --&gt; B[&quot;取反: 1 110 1011&quot;]
+    B --&gt; C[&quot;加1: 1 110 1100&lt;br/&gt;补码 = -20&quot;]
+</div></td></tr></table></figure>
 <p><strong>补码的范围</strong>（n位）：</p>
 <ul>
 <li>最小值：<code>-2ⁿ⁻¹</code>（补码为 1000…0）</li>
@@ -305,7 +386,17 @@
 <li><strong>M</strong>（n位）：尾数，用<strong>原码小数</strong>表示</li>
 </ul>
 <h4 id="2-2-2-浮点数的分类（教材P38表2-4）">2.2.2 浮点数的分类（教材P38表2.4）</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    FP[&quot;IEEE 754 浮点数&quot;] --&gt; CheckE&#123;&quot;阶码E&quot;&#125;</span><br><span class="line">    CheckE -- &quot;E = 0&quot; --&gt; Subnormal[&quot;非规格化数&quot;]</span><br><span class="line">    CheckE -- &quot;0 &lt; E &lt; 全1&quot; --&gt; Normal[&quot;规格化数&lt;br/&gt;✅ 最常见&quot;]</span><br><span class="line">    CheckE -- &quot;E = 全1&quot; --&gt; CheckM&#123;&quot;尾数M&quot;&#125;</span><br><span class="line">    </span><br><span class="line">    Subnormal --&gt; SubV[&quot;数值 = (-1)ˢ × 0.M × 2^(1-bias)&lt;br/&gt;用于表示接近0的数&quot;]</span><br><span class="line">    Normal --&gt; NorV[&quot;数值 = (-1)ˢ × 1.M × 2^(E-bias)&lt;br/&gt;隐含前导1&quot;]</span><br><span class="line">    CheckM -- &quot;M = 0&quot; --&gt; Inf[&quot;±∞&quot;]</span><br><span class="line">    CheckM -- &quot;M ≠ 0&quot; --&gt; NaN[&quot;NaN (Not a Number)&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    FP[&quot;IEEE 754 浮点数&quot;] --&gt; CheckE&#123;&quot;阶码E&quot;&#125;
+    CheckE -- &quot;E = 0&quot; --&gt; Subnormal[&quot;非规格化数&quot;]
+    CheckE -- &quot;0 &lt; E &lt; 全1&quot; --&gt; Normal[&quot;规格化数&lt;br/&gt;✅ 最常见&quot;]
+    CheckE -- &quot;E = 全1&quot; --&gt; CheckM&#123;&quot;尾数M&quot;&#125;
+    
+    Subnormal --&gt; SubV[&quot;数值 = (-1)ˢ × 0.M × 2^(1-bias)&lt;br/&gt;用于表示接近0的数&quot;]
+    Normal --&gt; NorV[&quot;数值 = (-1)ˢ × 1.M × 2^(E-bias)&lt;br/&gt;隐含前导1&quot;]
+    CheckM -- &quot;M = 0&quot; --&gt; Inf[&quot;±∞&quot;]
+    CheckM -- &quot;M ≠ 0&quot; --&gt; NaN[&quot;NaN (Not a Number)&quot;]
+</div></td></tr></table></figure>
 <p><strong>规格化数的隐含前导1</strong>（教材P36）：</p>
 <blockquote>
 <p>规格化浮点数的尾数前隐含一个整数1，即实际尾数为 <code>1.M</code>。这个1在存储时被省略，节省了1位精度。</p>
@@ -321,13 +412,41 @@
 </ul>
 <h3 id="2-4-数据宽度与存储顺序">2.4 数据宽度与存储顺序</h3>
 <p><strong>教材 P44-47</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    subgraph Big[&quot;大端序（Big Endian）&quot;]</span><br><span class="line">        B[&quot;数据 0x12345678&lt;br/&gt;地址+0: 0x12&lt;br/&gt;地址+1: 0x34&lt;br/&gt;地址+2: 0x56&lt;br/&gt;地址+3: 0x78&lt;br/&gt;高字节在低地址&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph Little[&quot;小端序（Little Endian）&quot;]</span><br><span class="line">        L[&quot;数据 0x12345678&lt;br/&gt;地址+0: 0x78&lt;br/&gt;地址+1: 0x56&lt;br/&gt;地址+2: 0x34&lt;br/&gt;地址+3: 0x12&lt;br/&gt;低字节在低地址&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    Big --- Little</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    subgraph Big[&quot;大端序（Big Endian）&quot;]
+        B[&quot;数据 0x12345678&lt;br/&gt;地址+0: 0x12&lt;br/&gt;地址+1: 0x34&lt;br/&gt;地址+2: 0x56&lt;br/&gt;地址+3: 0x78&lt;br/&gt;高字节在低地址&quot;]
+    end
+
+    subgraph Little[&quot;小端序（Little Endian）&quot;]
+        L[&quot;数据 0x12345678&lt;br/&gt;地址+0: 0x78&lt;br/&gt;地址+1: 0x56&lt;br/&gt;地址+2: 0x34&lt;br/&gt;地址+3: 0x12&lt;br/&gt;低字节在低地址&quot;]
+    end
+
+    Big --- Little
+</div></td></tr></table></figure>
 <p><strong>408 考点</strong>：MIPS 默认大端序，x86 默认小端序。给出一段存储内容问实际数值。</p>
 <hr>
 <h2 id="第二层：运算方法与运算部件（第3章）">第二层：运算方法与运算部件（第3章）</h2>
 <h3 id="3-1-计算机如何做加法？">3.1 计算机如何做加法？</h3>
 <p>教材从一位全加器开始，逐步构建完整的 ALU。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    subgraph 全加器[&quot;一位全加器 FA&quot;]</span><br><span class="line">        FA_IN[&quot;输入: A, B, Cin&quot;] --&gt; FA_OUT[&quot;输出: S = A⊕B⊕Cin&lt;br/&gt;Cout = AB + (A⊕B)Cin&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph CRA[&quot;串行进位加法器 CRA&quot;]</span><br><span class="line">        CRA_STR[&quot;FA₀ → FA₁ → FA₂ → ... → FAₙ₋₁&lt;br/&gt;进位逐级传递&lt;br/&gt;延迟 = n × FA_delay&lt;br/&gt;✅ 简单 ❌ 慢&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph CLA[&quot;先行进位加法器 CLA&quot;]</span><br><span class="line">        CLA_MID[&quot;进位生成函数: Gi = Ai·Bi&lt;br/&gt;进位传递函数: Pi = Ai⊕Bi&lt;br/&gt;&lt;br/&gt;C₁ = G₀ + P₀C₀&lt;br/&gt;C₂ = G₁ + P₁G₀ + P₁P₀C₀&lt;br/&gt;C₃ = G₂ + P₂G₁ + P₂P₁G₀ + P₂P₁P₀C₀&lt;br/&gt;&lt;br/&gt;所有进位同时算出&lt;br/&gt;✅ 快 ❌ 电路复杂&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    全加器 --&gt; CRA</span><br><span class="line">    全加器 --&gt; CLA</span><br><span class="line"></span><br><span class="line">    style CRA fill:#FF9800,color:#fff</span><br><span class="line">    style CLA fill:#4CAF50,color:#fff</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph 全加器[&quot;一位全加器 FA&quot;]
+        FA_IN[&quot;输入: A, B, Cin&quot;] --&gt; FA_OUT[&quot;输出: S = A⊕B⊕Cin&lt;br/&gt;Cout = AB + (A⊕B)Cin&quot;]
+    end
+
+    subgraph CRA[&quot;串行进位加法器 CRA&quot;]
+        CRA_STR[&quot;FA₀ → FA₁ → FA₂ → ... → FAₙ₋₁&lt;br/&gt;进位逐级传递&lt;br/&gt;延迟 = n × FA_delay&lt;br/&gt;✅ 简单 ❌ 慢&quot;]
+    end
+
+    subgraph CLA[&quot;先行进位加法器 CLA&quot;]
+        CLA_MID[&quot;进位生成函数: Gi = Ai·Bi&lt;br/&gt;进位传递函数: Pi = Ai⊕Bi&lt;br/&gt;&lt;br/&gt;C₁ = G₀ + P₀C₀&lt;br/&gt;C₂ = G₁ + P₁G₀ + P₁P₀C₀&lt;br/&gt;C₃ = G₂ + P₂G₁ + P₂P₁G₀ + P₂P₁P₀C₀&lt;br/&gt;&lt;br/&gt;所有进位同时算出&lt;br/&gt;✅ 快 ❌ 电路复杂&quot;]
+    end
+
+    全加器 --&gt; CRA
+    全加器 --&gt; CLA
+
+    style CRA fill:#FF9800,color:#fff
+    style CLA fill:#4CAF50,color:#fff
+</div></td></tr></table></figure>
 <p><strong>教材P55-58</strong>：从全加器→CRA→CLA的完整推导过程。</p>
 <h3 id="3-2-标志位的产生（教材P58-59）">3.2 标志位的产生（教材P58-59）</h3>
 <p>带标志加法器是CPU状态寄存器的硬件基础：</p>
@@ -370,12 +489,22 @@
 <p><strong>溢出判断</strong>：两个正数相加得负数，或两个负数相加得正数 → OF=1</p>
 <h3 id="3-3-定点数乘法">3.3 定点数乘法</h3>
 <p><strong>教材P62-66</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    Mult[&quot;乘法算法&quot;] --&gt; Simple[&quot;原始乘法&lt;br/&gt;加法和右移迭代&quot;]</span><br><span class="line">    Simple --&gt; Booth[&quot;Booth算法&lt;br/&gt;补码乘法&lt;br/&gt;编码减少部分积&quot;]</span><br><span class="line">    Booth --&gt; Wallace[&quot;Wallace树&lt;br/&gt;并行加法&lt;br/&gt;O(logN)延迟&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    Mult[&quot;乘法算法&quot;] --&gt; Simple[&quot;原始乘法&lt;br/&gt;加法和右移迭代&quot;]
+    Simple --&gt; Booth[&quot;Booth算法&lt;br/&gt;补码乘法&lt;br/&gt;编码减少部分积&quot;]
+    Booth --&gt; Wallace[&quot;Wallace树&lt;br/&gt;并行加法&lt;br/&gt;O(logN)延迟&quot;]
+</div></td></tr></table></figure>
 <p><strong>原始乘法过程</strong>（教材P63 例3.14）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">    1011  (被乘数 X=11)</span><br><span class="line">  × 1101  (乘数   Y=13)</span><br><span class="line">  ────────</span><br><span class="line">    1011  (部分积1: X×Y₀)</span><br><span class="line">   0000   (部分积2: X×Y₁, 左移1位)</span><br><span class="line">  1011    (部分积3: X×Y₂, 左移2位)</span><br><span class="line"> 1011     (部分积4: X×Y₃, 左移3位)</span><br><span class="line"> ─────────</span><br><span class="line">10001111  (乘积 = 143)</span><br></pre></td></tr></table></figure>
 <h3 id="3-4-浮点数运算">3.4 浮点数运算</h3>
 <p><strong>教材P80-85</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;浮点加减法步骤&quot;] --&gt; B[&quot;① 对阶&lt;br/&gt;小阶向大阶对齐&quot;]</span><br><span class="line">    B --&gt; C[&quot;② 尾数运算&lt;br/&gt;加减&quot;]</span><br><span class="line">    C --&gt; D[&quot;③ 规格化&lt;br/&gt;左规/右规&quot;]</span><br><span class="line">    D --&gt; E[&quot;④ 舍入&lt;br/&gt;就近/朝∞/朝0&quot;]</span><br><span class="line">    E --&gt; F[&quot;⑤ 判断溢出&lt;br/&gt;阶码溢出则报错&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    A[&quot;浮点加减法步骤&quot;] --&gt; B[&quot;① 对阶&lt;br/&gt;小阶向大阶对齐&quot;]
+    B --&gt; C[&quot;② 尾数运算&lt;br/&gt;加减&quot;]
+    C --&gt; D[&quot;③ 规格化&lt;br/&gt;左规/右规&quot;]
+    D --&gt; E[&quot;④ 舍入&lt;br/&gt;就近/朝∞/朝0&quot;]
+    E --&gt; F[&quot;⑤ 判断溢出&lt;br/&gt;阶码溢出则报错&quot;]
+</div></td></tr></table></figure>
 <p><strong>教材P80 例3.27</strong>：浮点加法完整计算过程。</p>
 <p><strong>对阶原则</strong>（教材P80）：</p>
 <blockquote>
@@ -391,10 +520,39 @@
 <hr>
 <h2 id="第三层-★-指令系统-ISA（第4章）——-软硬件分界线">第三层 ★ 指令系统 ISA（第4章）—— 软硬件分界线</h2>
 <h3 id="ISA-的核心地位">ISA 的核心地位</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    subgraph 软件[&quot;软件&lt;br/&gt;编译器/汇编器/OS&quot;]</span><br><span class="line">        SW[&quot;看到 ISA&lt;br/&gt;按照 ISA 生成代码&quot;]</span><br><span class="line">    end</span><br><span class="line">    </span><br><span class="line">    subgraph 分界线[&quot;━━━ 软硬件分界线 ━━━&quot;]</span><br><span class="line">        ISA[&quot;指令系统 ISA&lt;br/&gt;指令格式 · 寻址方式 · 寄存器&lt;br/&gt;异常处理 · 中断机制&quot;]</span><br><span class="line">    end</span><br><span class="line">    </span><br><span class="line">    subgraph 硬件[&quot;硬件&lt;br/&gt;CPU设计者&quot;]</span><br><span class="line">        HW[&quot;实现 ISA&lt;br/&gt;第5章 CPU · 第6章 流水线&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    软件 --&gt; 分界线 --&gt; 硬件</span><br><span class="line">    </span><br><span class="line">    style 分界线 fill:#F44336,color:#fff,stroke-width:4px</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    subgraph 软件[&quot;软件&lt;br/&gt;编译器/汇编器/OS&quot;]
+        SW[&quot;看到 ISA&lt;br/&gt;按照 ISA 生成代码&quot;]
+    end
+    
+    subgraph 分界线[&quot;━━━ 软硬件分界线 ━━━&quot;]
+        ISA[&quot;指令系统 ISA&lt;br/&gt;指令格式 · 寻址方式 · 寄存器&lt;br/&gt;异常处理 · 中断机制&quot;]
+    end
+    
+    subgraph 硬件[&quot;硬件&lt;br/&gt;CPU设计者&quot;]
+        HW[&quot;实现 ISA&lt;br/&gt;第5章 CPU · 第6章 流水线&quot;]
+    end
+
+    软件 --&gt; 分界线 --&gt; 硬件
+    
+    style 分界线 fill:#F44336,color:#fff,stroke-width:4px
+</div></td></tr></table></figure>
 <h3 id="4-1-指令格式">4.1 指令格式</h3>
 <p><strong>教材P91-92</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mindmap</span><br><span class="line">  root((指令格式))</span><br><span class="line">    地址结构</span><br><span class="line">      三地址指令</span><br><span class="line">      二地址指令</span><br><span class="line">      一地址指令</span><br><span class="line">      零地址指令</span><br><span class="line">    指令长度</span><br><span class="line">      固定长度</span><br><span class="line">      变长</span><br><span class="line">    操作码</span><br><span class="line">      固定长度</span><br><span class="line">      变长（扩展操作码）</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><div class="mermaid">mindmap
+  root((指令格式))
+    地址结构
+      三地址指令
+      二地址指令
+      一地址指令
+      零地址指令
+    指令长度
+      固定长度
+      变长
+    操作码
+      固定长度
+      变长（扩展操作码）
+</div></td></tr></table></figure>
 <h3 id="4-2-寻址方式">4.2 寻址方式</h3>
 <p><strong>教材P94-95，表4.1</strong>：</p>
 <table>
@@ -454,7 +612,21 @@
 <h3 id="4-3-MIPS-指令系统详解">4.3 MIPS 指令系统详解</h3>
 <p><strong>教材P102-115</strong>——全书最重要的教学案例。</p>
 <h4 id="4-3-1-MIPS-指令格式（教材P103图4-5）">4.3.1 MIPS 指令格式（教材P103图4.5）</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    subgraph R[&quot;R型指令&lt;br/&gt;寄存器操作&quot;]</span><br><span class="line">        R_F[&quot;31    26 25   21 20   16 15   11 10    6 5     0&lt;br/&gt;┌──────┬──────┬──────┬──────┬──────┬──────┐&lt;br/&gt;│ OP  │  rs  │  rt  │  rd  │shamt │ func │&lt;br/&gt;└──────┴──────┴──────┴──────┴──────┴──────┘&lt;br/&gt;  6位    5位    5位    5位    5位    6位&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph I[&quot;I型指令&lt;br/&gt;立即数/访存/分支&quot;]</span><br><span class="line">        I_F[&quot;31    26 25   21 20   16 15                    0&lt;br/&gt;┌──────┬──────┬──────┬──────────────────────────┐&lt;br/&gt;│ OP  │  rs  │  rt  │        imm16              │&lt;br/&gt;└──────┴──────┴──────┴──────────────────────────┘&lt;br/&gt;  6位    5位    5位            16位&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph J[&quot;J型指令&lt;br/&gt;无条件跳转&quot;]</span><br><span class="line">        J_F[&quot;31    26 25                                   0&lt;br/&gt;┌──────┬──────────────────────────────────────────┐&lt;br/&gt;│ OP  │               target                     │&lt;br/&gt;└──────┴──────────────────────────────────────────┘&lt;br/&gt;  6位                    26位&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    R --- I --- J</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph R[&quot;R型指令&lt;br/&gt;寄存器操作&quot;]
+        R_F[&quot;31    26 25   21 20   16 15   11 10    6 5     0&lt;br/&gt;┌──────┬──────┬──────┬──────┬──────┬──────┐&lt;br/&gt;│ OP  │  rs  │  rt  │  rd  │shamt │ func │&lt;br/&gt;└──────┴──────┴──────┴──────┴──────┴──────┘&lt;br/&gt;  6位    5位    5位    5位    5位    6位&quot;]
+    end
+
+    subgraph I[&quot;I型指令&lt;br/&gt;立即数/访存/分支&quot;]
+        I_F[&quot;31    26 25   21 20   16 15                    0&lt;br/&gt;┌──────┬──────┬──────┬──────────────────────────┐&lt;br/&gt;│ OP  │  rs  │  rt  │        imm16              │&lt;br/&gt;└──────┴──────┴──────┴──────────────────────────┘&lt;br/&gt;  6位    5位    5位            16位&quot;]
+    end
+
+    subgraph J[&quot;J型指令&lt;br/&gt;无条件跳转&quot;]
+        J_F[&quot;31    26 25                                   0&lt;br/&gt;┌──────┬──────────────────────────────────────────┐&lt;br/&gt;│ OP  │               target                     │&lt;br/&gt;└──────┴──────────────────────────────────────────┘&lt;br/&gt;  6位                    26位&quot;]
+    end
+
+    R --- I --- J
+</div></td></tr></table></figure>
 <h4 id="4-3-2-MIPS-寄存器约定">4.3.2 MIPS 寄存器约定</h4>
 <p><strong>教材P103-104</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">编号   符号名       用途</span><br><span class="line">────────────────────────────</span><br><span class="line">$0     $zero      恒为0（硬件实现）</span><br><span class="line">$1     $at        汇编器保留</span><br><span class="line">$2-$3  $v0-$v1    函数返回值</span><br><span class="line">$4-$7  $a0-$a3    函数参数</span><br><span class="line">$8-$15 $t0-$t7    临时寄存器（调用者保存）</span><br><span class="line">$16-$23 $s0-$s7   保存寄存器（被调用者保存）</span><br><span class="line">$24-$25 $t8-$t9   临时寄存器</span><br><span class="line">$26-$27 $k0-$k1   操作系统保留</span><br><span class="line">$28    $gp        全局指针</span><br><span class="line">$29    $sp        栈指针</span><br><span class="line">$30    $fp/$s8    帧指针</span><br><span class="line">$31    $ra        返回地址</span><br><span class="line">PC               程序计数器（程序员不可见）</span><br></pre></td></tr></table></figure>
@@ -468,7 +640,21 @@
 <p><strong>函数调用</strong>（P109-114）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 函数调用步骤</span><br><span class="line">jal  Func    # $ra = PC+4, jump to Func</span><br><span class="line"></span><br><span class="line"># 被调用者标准开头</span><br><span class="line">Func: addi $sp, $sp, -12     # 分配栈空间</span><br><span class="line">      sw   $s0, 8($sp)       # 保存 $s0</span><br><span class="line">      sw   $s1, 4($sp)       # 保存 $s1</span><br><span class="line">      sw   $ra, 0($sp)       # 保存 $ra</span><br><span class="line">      </span><br><span class="line">      ... 函数体 ...</span><br><span class="line">      </span><br><span class="line">      lw   $s0, 8($sp)       # 恢复 $s0</span><br><span class="line">      lw   $s1, 4($sp)       # 恢复 $s1</span><br><span class="line">      lw   $ra, 0($sp)       # 恢复 $ra</span><br><span class="line">      addi $sp, $sp, 12      # 释放栈空间</span><br><span class="line">      jr   $ra                # 返回</span><br></pre></td></tr></table></figure>
 <h4 id="4-3-4-异常与中断（教材P101-102）">4.3.4 异常与中断（教材P101-102）</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    Event[&quot;异常/中断事件&quot;] --&gt; Type&#123;&quot;来源&quot;&#125;</span><br><span class="line">    Type -- &quot;内部&lt;br/&gt;执行指令时产生&quot; --&gt; Internal[&quot;异常 Exception&quot;]</span><br><span class="line">    Type -- &quot;外部&lt;br/&gt;与当前指令无关&quot; --&gt; External[&quot;中断 Interrupt&quot;]</span><br><span class="line">    </span><br><span class="line">    Internal --&gt; I1[&quot;非法操作码&quot;]</span><br><span class="line">    Internal --&gt; I2[&quot;溢出（Overflow）&quot;]</span><br><span class="line">    Internal --&gt; I3[&quot;除零&quot;]</span><br><span class="line">    Internal --&gt; I4[&quot;缺页（Page Fault）&quot;]</span><br><span class="line">    Internal --&gt; I5[&quot;越界访问&quot;]</span><br><span class="line">    </span><br><span class="line">    External --&gt; E1[&quot;I/O 设备请求&quot;]</span><br><span class="line">    External --&gt; E2[&quot;时钟中断&quot;]</span><br><span class="line">    External --&gt; E3[&quot;电源故障&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    Event[&quot;异常/中断事件&quot;] --&gt; Type&#123;&quot;来源&quot;&#125;
+    Type -- &quot;内部&lt;br/&gt;执行指令时产生&quot; --&gt; Internal[&quot;异常 Exception&quot;]
+    Type -- &quot;外部&lt;br/&gt;与当前指令无关&quot; --&gt; External[&quot;中断 Interrupt&quot;]
+    
+    Internal --&gt; I1[&quot;非法操作码&quot;]
+    Internal --&gt; I2[&quot;溢出（Overflow）&quot;]
+    Internal --&gt; I3[&quot;除零&quot;]
+    Internal --&gt; I4[&quot;缺页（Page Fault）&quot;]
+    Internal --&gt; I5[&quot;越界访问&quot;]
+    
+    External --&gt; E1[&quot;I/O 设备请求&quot;]
+    External --&gt; E2[&quot;时钟中断&quot;]
+    External --&gt; E3[&quot;电源故障&quot;]
+</div></td></tr></table></figure>
 <h3 id="4-4-RISC-V-简介（教材P115-125）">4.4 RISC-V 简介（教材P115-125）</h3>
 <p>教材第3版新增内容：</p>
 <table>
@@ -510,13 +696,46 @@
 <hr>
 <h2 id="第四层：中央处理器-CPU-设计（第5章）">第四层：中央处理器 CPU 设计（第5章）</h2>
 <h3 id="5-1-微架构与ISA的关系">5.1 微架构与ISA的关系</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    subgraph ISA_Layer[&quot;指令系统 ISA（接口）&quot;]</span><br><span class="line">        ISA_Content[&quot;ADD $1,$2,$3&lt;br/&gt;LW $1,0($2)&lt;br/&gt;BEQ $1,$2,label&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph µArch[&quot;微架构（实现）&quot;]</span><br><span class="line">        Single[&quot;单周期 CPU&lt;br/&gt;CPI=1, 时钟周期长&quot;]</span><br><span class="line">        Multi[&quot;多周期 CPU&lt;br/&gt;CPI&gt;1, 时钟周期短&quot;]</span><br><span class="line">        Pipe[&quot;流水线 CPU&lt;br/&gt;CPI≈1, 时钟周期短&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    ISA_Layer --&gt; Single</span><br><span class="line">    ISA_Layer --&gt; Multi</span><br><span class="line">    ISA_Layer --&gt; Pipe</span><br><span class="line"></span><br><span class="line">    style ISA_Layer fill:#F44336,color:#fff</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    subgraph ISA_Layer[&quot;指令系统 ISA（接口）&quot;]
+        ISA_Content[&quot;ADD $1,$2,$3&lt;br/&gt;LW $1,0($2)&lt;br/&gt;BEQ $1,$2,label&quot;]
+    end
+
+    subgraph µArch[&quot;微架构（实现）&quot;]
+        Single[&quot;单周期 CPU&lt;br/&gt;CPI=1, 时钟周期长&quot;]
+        Multi[&quot;多周期 CPU&lt;br/&gt;CPI&gt;1, 时钟周期短&quot;]
+        Pipe[&quot;流水线 CPU&lt;br/&gt;CPI≈1, 时钟周期短&quot;]
+    end
+
+    ISA_Layer --&gt; Single
+    ISA_Layer --&gt; Multi
+    ISA_Layer --&gt; Pipe
+
+    style ISA_Layer fill:#F44336,color:#fff
+</div></td></tr></table></figure>
 <h3 id="5-2-单周期-CPU-设计（教材P137-163）">5.2 单周期 CPU 设计（教材P137-163）</h3>
 <h4 id="5-2-1-11条目标指令（教材P139-表5-1）">5.2.1 11条目标指令（教材P139 表5.1）</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    subgraph Targets[&quot;教材选定的11条MIPS指令&quot;]</span><br><span class="line">        R[&quot;R型×5:&lt;br/&gt;add/sub/subu/slt/sltu&quot;]</span><br><span class="line">        I[&quot;I型算术×2:&lt;br/&gt;ori/addiu&quot;]</span><br><span class="line">        L[&quot;I型访存×2:&lt;br/&gt;lw/sw&quot;]</span><br><span class="line">        B[&quot;I型分支×1:&lt;br/&gt;beq&quot;]</span><br><span class="line">        J[&quot;J型×1:&lt;br/&gt;j&quot;]</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph Targets[&quot;教材选定的11条MIPS指令&quot;]
+        R[&quot;R型×5:&lt;br/&gt;add/sub/subu/slt/sltu&quot;]
+        I[&quot;I型算术×2:&lt;br/&gt;ori/addiu&quot;]
+        L[&quot;I型访存×2:&lt;br/&gt;lw/sw&quot;]
+        B[&quot;I型分支×1:&lt;br/&gt;beq&quot;]
+        J[&quot;J型×1:&lt;br/&gt;j&quot;]
+    end
+</div></td></tr></table></figure>
 <h4 id="5-2-2-逐步构建数据通路">5.2.2 逐步构建数据通路</h4>
 <p>教材P155-162 逐步从简单到复杂构建数据通路：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    Step1[&quot;图5.9：仅支持R型指令&lt;br/&gt;RegDst固定=1&lt;br/&gt;ALU操作&quot;] </span><br><span class="line">    Step2[&quot;图5.10：+I型算术指令&lt;br/&gt;增加 ALUSrc, ExtOp,&lt;br/&gt;RegDst变为MUX控制&quot;]</span><br><span class="line">    Step3[&quot;图5.11：+load/store指令&lt;br/&gt;增加 数据存储器DM&lt;br/&gt;增加 MemtoReg&quot;]</span><br><span class="line">    Step4[&quot;图5.12：+beq指令&lt;br/&gt;增加 Zero标志&lt;br/&gt;增加 Branch信号&quot;]</span><br><span class="line">    Step5[&quot;图5.14：+j指令&lt;br/&gt;增加 Jump信号&lt;br/&gt;新地址计算逻辑&quot;]</span><br><span class="line">    Step6[&quot;图5.16：完整单周期数据通路&lt;br/&gt;11条指令全部支持&quot;]</span><br><span class="line"></span><br><span class="line">    Step1 --&gt; Step2 --&gt; Step3 --&gt; Step4 --&gt; Step5 --&gt; Step6</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    Step1[&quot;图5.9：仅支持R型指令&lt;br/&gt;RegDst固定=1&lt;br/&gt;ALU操作&quot;] 
+    Step2[&quot;图5.10：+I型算术指令&lt;br/&gt;增加 ALUSrc, ExtOp,&lt;br/&gt;RegDst变为MUX控制&quot;]
+    Step3[&quot;图5.11：+load/store指令&lt;br/&gt;增加 数据存储器DM&lt;br/&gt;增加 MemtoReg&quot;]
+    Step4[&quot;图5.12：+beq指令&lt;br/&gt;增加 Zero标志&lt;br/&gt;增加 Branch信号&quot;]
+    Step5[&quot;图5.14：+j指令&lt;br/&gt;增加 Jump信号&lt;br/&gt;新地址计算逻辑&quot;]
+    Step6[&quot;图5.16：完整单周期数据通路&lt;br/&gt;11条指令全部支持&quot;]
+
+    Step1 --&gt; Step2 --&gt; Step3 --&gt; Step4 --&gt; Step5 --&gt; Step6
+</div></td></tr></table></figure>
 <h4 id="5-2-3-完整单周期CPU数据通路（教材P160-图5-16）">5.2.3 完整单周期CPU数据通路（教材P160 图5.16）</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">                   ┌──────────────────────────────────────────┐</span><br><span class="line">                   │          指令存储器 IM                    │</span><br><span class="line">                   │               ▲                          │</span><br><span class="line">                   │               │                          │</span><br><span class="line">PC ──→ 地址加法器 ──┤        指令[31:0]                       │</span><br><span class="line">  ↑         ▲      │                                          │</span><br><span class="line">  │         │      ├── OP(6位) → 控制器 ──→ 控制信号           │</span><br><span class="line">  │         │      ├── rs(5位) → 寄存器堆Ra                    │</span><br><span class="line">  │         │      ├── rt(5位) → 寄存器堆Rb                    │</span><br><span class="line">  │         │      ├── rd(5位) → RegDst MUX                   │</span><br><span class="line">  │         │      ├── imm16(16位) → 扩展器                    │</span><br><span class="line">  │         │      └── func(6位) → ALU控制                    │</span><br><span class="line">  │         │                                                 │</span><br><span class="line">  └── PC+4 ──┘                                                 │</span><br><span class="line">                                                                │</span><br><span class="line">           ┌──────────────────┐                                │</span><br><span class="line">           │   寄存器堆         │                                │</span><br><span class="line">           │   Rw Ra Rb       │                                │</span><br><span class="line">           │   busW busA busB │                                │</span><br><span class="line">           └────────┬─────────┘                                │</span><br><span class="line">                    │        │                                │</span><br><span class="line">               MUX(RegDst)   │                                │</span><br><span class="line">                    │        │                                │</span><br><span class="line">               MUX(ALUSrc)   │                                │</span><br><span class="line">                    │        │                                │</span><br><span class="line">               ┌────┴────────┴────┐                            │</span><br><span class="line">               │      ALU         │                            │</span><br><span class="line">               │     Result       │                            │</span><br><span class="line">               │     Zero         │                            │</span><br><span class="line">               └────────┬────────┘                            │</span><br><span class="line">                        │        │                            │</span><br><span class="line">                   MUX(MemtoReg) │                             │</span><br><span class="line">                        │        │                             │</span><br><span class="line">                     ┌──┴──┐     │                             │</span><br><span class="line">                     │ DM  │     │                             │</span><br><span class="line">                     └─────┘     │                             │</span><br><span class="line">                          │      │                             │</span><br><span class="line">                       ┌──┴──────┴─┐                           │</span><br><span class="line">                       │   busW    │                           │</span><br><span class="line">                       └───────────┘                           │</span><br><span class="line">                                                                │</span><br><span class="line">   控制信号: RegWr, RegDst, ALUSrc, ALUctr,                     │</span><br><span class="line">            MemWr, MemtoReg, ExtOp, Branch, Jump                │</span><br><span class="line">   ────────────────────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
 <h4 id="5-2-4-控制信号表（教材P161-162）">5.2.4 控制信号表（教材P161-162）</h4>
@@ -636,11 +855,42 @@
 </table>
 <h3 id="5-3-多周期-CPU-设计（教材P163-175）">5.3 多周期 CPU 设计（教材P163-175）</h3>
 <h4 id="5-3-1-设计思想">5.3.1 设计思想</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;单周期 CPU&lt;br/&gt;1条指令 = 1个周期&lt;br/&gt;CPI = 1&quot;] --&gt; B[&quot;时钟周期 = 最长指令&lt;br/&gt;（lw的5个阶段的总延迟）&quot;]</span><br><span class="line">    C[&quot;多周期 CPU&lt;br/&gt;1条指令 = 多个周期&lt;br/&gt;CPI &gt; 1&quot;] --&gt; D[&quot;时钟周期 = 最短阶段&lt;br/&gt;（一个ALU运算的延迟）&quot;]</span><br><span class="line">    </span><br><span class="line">    A --- Comp[&quot;对比&quot;]</span><br><span class="line">    C --- Comp</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    A[&quot;单周期 CPU&lt;br/&gt;1条指令 = 1个周期&lt;br/&gt;CPI = 1&quot;] --&gt; B[&quot;时钟周期 = 最长指令&lt;br/&gt;（lw的5个阶段的总延迟）&quot;]
+    C[&quot;多周期 CPU&lt;br/&gt;1条指令 = 多个周期&lt;br/&gt;CPI &gt; 1&quot;] --&gt; D[&quot;时钟周期 = 最短阶段&lt;br/&gt;（一个ALU运算的延迟）&quot;]
+    
+    A --- Comp[&quot;对比&quot;]
+    C --- Comp
+</div></td></tr></table></figure>
 <p><strong>教材P163 例5.1</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">单周期: CPI=1, 时钟周期 = T_long = 800ps</span><br><span class="line">多周期: CPI_avg = 4.04, 时钟周期 = T_short = 200ps</span><br><span class="line"></span><br><span class="line">单周期时间 = 1 × 800 = 800ps/指令</span><br><span class="line">多周期时间 = 4.04 × 200 = 808ps/指令</span><br><span class="line"></span><br><span class="line">实际多周期可能略慢，但更灵活！</span><br></pre></td></tr></table></figure>
 <h4 id="5-3-2-多周期的状态转换">5.3.2 多周期的状态转换</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    IF[&quot;0: IFetch&lt;br/&gt;取指&lt;br/&gt;IR←M[PC]&lt;br/&gt;PC←PC+4&quot;] --&gt; ID[&quot;1: RFetch/ID&lt;br/&gt;译码+读寄存器&lt;br/&gt;计算分支目标地址&quot;]</span><br><span class="line">    </span><br><span class="line">    ID --&gt; RExec[&quot;2: RExec&lt;br/&gt;R型运算&lt;br/&gt;ALU op&quot;]</span><br><span class="line">    RExec --&gt; RFinish[&quot;3: RFinish&lt;br/&gt;R型写回&lt;br/&gt;RegWr=1&quot;]</span><br><span class="line">    </span><br><span class="line">    ID --&gt; IExec[&quot;4: oriExec&lt;br/&gt;I型运算&quot;]</span><br><span class="line">    IExec --&gt; IFinish[&quot;5: oriFinish&lt;br/&gt;I型写回&quot;]</span><br><span class="line">    </span><br><span class="line">    ID --&gt; MemAdr[&quot;6: MemAdr&lt;br/&gt;地址计算&quot;]</span><br><span class="line">    MemAdr --&gt; MemFetch[&quot;7: MemFetch&lt;br/&gt;读内存 DM&quot;]</span><br><span class="line">    MemFetch --&gt; lwFinish[&quot;8: lwFinish&lt;br/&gt;写回寄存器&quot;]</span><br><span class="line">    MemAdr --&gt; swFinish[&quot;9: swFinish&lt;br/&gt;写内存 MemWr=1&quot;]</span><br><span class="line">    </span><br><span class="line">    ID --&gt; BrFinish[&quot;10: BrFinish&lt;br/&gt;分支完成&lt;br/&gt;PC←BranchTarget&quot;]</span><br><span class="line">    ID --&gt; jumpFinish[&quot;11: jumpFinish&lt;br/&gt;跳转完成&lt;br/&gt;PC←JumpTarget&quot;]</span><br><span class="line"></span><br><span class="line">    RFinish --&gt; IF</span><br><span class="line">    IFinish --&gt; IF</span><br><span class="line">    lwFinish --&gt; IF</span><br><span class="line">    swFinish --&gt; IF</span><br><span class="line">    BrFinish --&gt; IF</span><br><span class="line">    jumpFinish --&gt; IF</span><br><span class="line"></span><br><span class="line">    style IF fill:#4CAF50,color:#fff</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    IF[&quot;0: IFetch&lt;br/&gt;取指&lt;br/&gt;IR←M[PC]&lt;br/&gt;PC←PC+4&quot;] --&gt; ID[&quot;1: RFetch/ID&lt;br/&gt;译码+读寄存器&lt;br/&gt;计算分支目标地址&quot;]
+    
+    ID --&gt; RExec[&quot;2: RExec&lt;br/&gt;R型运算&lt;br/&gt;ALU op&quot;]
+    RExec --&gt; RFinish[&quot;3: RFinish&lt;br/&gt;R型写回&lt;br/&gt;RegWr=1&quot;]
+    
+    ID --&gt; IExec[&quot;4: oriExec&lt;br/&gt;I型运算&quot;]
+    IExec --&gt; IFinish[&quot;5: oriFinish&lt;br/&gt;I型写回&quot;]
+    
+    ID --&gt; MemAdr[&quot;6: MemAdr&lt;br/&gt;地址计算&quot;]
+    MemAdr --&gt; MemFetch[&quot;7: MemFetch&lt;br/&gt;读内存 DM&quot;]
+    MemFetch --&gt; lwFinish[&quot;8: lwFinish&lt;br/&gt;写回寄存器&quot;]
+    MemAdr --&gt; swFinish[&quot;9: swFinish&lt;br/&gt;写内存 MemWr=1&quot;]
+    
+    ID --&gt; BrFinish[&quot;10: BrFinish&lt;br/&gt;分支完成&lt;br/&gt;PC←BranchTarget&quot;]
+    ID --&gt; jumpFinish[&quot;11: jumpFinish&lt;br/&gt;跳转完成&lt;br/&gt;PC←JumpTarget&quot;]
+
+    RFinish --&gt; IF
+    IFinish --&gt; IF
+    lwFinish --&gt; IF
+    swFinish --&gt; IF
+    BrFinish --&gt; IF
+    jumpFinish --&gt; IF
+
+    style IF fill:#4CAF50,color:#fff
+</div></td></tr></table></figure>
 <p><strong>各指令的CPI</strong>（教材P171）：</p>
 <table>
 <thead>
@@ -684,7 +934,17 @@
 </tbody>
 </table>
 <h4 id="5-3-3-硬连线控制器设计（教材P171-173）">5.3.3 硬连线控制器设计（教材P171-173）</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    subgraph HW[&quot;图5.27 硬连线控制器结构&quot;]</span><br><span class="line">        Input[&quot;输入：&lt;br/&gt;指令操作码 OP&lt;br/&gt;当前状态 S₃S₂S₁S₀&quot;] --&gt; NextState[&quot;状态转换逻辑&lt;br/&gt;（组合逻辑+PLA）&quot;]</span><br><span class="line">        NextState --&gt; StateReg[&quot;状态寄存器&lt;br/&gt;（4位，存12个状态）&quot;]</span><br><span class="line">        StateReg --&gt; OutputLogic[&quot;输出逻辑&lt;br/&gt;（组合逻辑）&quot;]</span><br><span class="line">        OutputLogic --&gt; CtrlSig[&quot;控制信号&lt;br/&gt;PCWr, RegWr, MemWr, ...&quot;]</span><br><span class="line">        StateReg --&gt; NextState</span><br><span class="line">    end</span><br><span class="line">    </span><br><span class="line">    style HW fill:#FF9800,color:#fff</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph HW[&quot;图5.27 硬连线控制器结构&quot;]
+        Input[&quot;输入：&lt;br/&gt;指令操作码 OP&lt;br/&gt;当前状态 S₃S₂S₁S₀&quot;] --&gt; NextState[&quot;状态转换逻辑&lt;br/&gt;（组合逻辑+PLA）&quot;]
+        NextState --&gt; StateReg[&quot;状态寄存器&lt;br/&gt;（4位，存12个状态）&quot;]
+        StateReg --&gt; OutputLogic[&quot;输出逻辑&lt;br/&gt;（组合逻辑）&quot;]
+        OutputLogic --&gt; CtrlSig[&quot;控制信号&lt;br/&gt;PCWr, RegWr, MemWr, ...&quot;]
+        StateReg --&gt; NextState
+    end
+    
+    style HW fill:#FF9800,color:#fff
+</div></td></tr></table></figure>
 <p><strong>教材P172-173 表5.7 状态转换表</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">当前状态 | 指令OP | 下一状态</span><br><span class="line">─────────┼────────┼─────────</span><br><span class="line">0(IFetch)| 任意   | 1(ID)</span><br><span class="line">1(ID)    | R型    | 2(RExec)</span><br><span class="line">1(ID)    | ori    | 4(oriExec)</span><br><span class="line">1(ID)    | lw     | 6(MemAdr)</span><br><span class="line">1(ID)    | sw     | 6(MemAdr)</span><br><span class="line">1(ID)    | beq    | 10(BrFinish)</span><br><span class="line">1(ID)    | j      | 11(jumpFinish)</span><br><span class="line">2(RExec) | R型    | 3(RFinish)</span><br><span class="line">3(RFinish)| R型   | 0(IFetch)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p><strong>硬布线的特点</strong>（教材P172）：</p>
@@ -695,7 +955,21 @@
 <li>❌ <strong>修改困难</strong>：需要修改电路/重做芯片</li>
 </ul>
 <h4 id="5-3-4-微程序控制器设计（教材P173-175）">5.3.4 微程序控制器设计（教材P173-175）</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    subgraph µP[&quot;图5.29 微程序控制器结构&quot;]</span><br><span class="line">        Clock[&quot;时钟&quot;] --&gt; µPC[&quot;微程序计数器 (µPC)&quot;]</span><br><span class="line">        µPC --&gt; CS[&quot;控制存储器 ROM&lt;br/&gt;存放微程序&lt;br/&gt;（固件 firmware）&quot;]</span><br><span class="line">        CS --&gt; µIR[&quot;微指令寄存器 µIR&quot;]</span><br><span class="line">        µIR --&gt; CW[&quot;控制字 CW&lt;br/&gt;= 所有控制信号&quot;]</span><br><span class="line">        µIR --&gt; Seq[&quot;顺序逻辑&lt;br/&gt;（下一条微指令地址）&quot;]</span><br><span class="line">        IR[&quot;指令寄存器 IR&lt;br/&gt;(操作码)&quot;] --&gt; Start[&quot;起始地址生成&quot;]</span><br><span class="line">        Start --&gt; µPC</span><br><span class="line">        Seq --&gt; µPC</span><br><span class="line">        Flags[&quot;标志位&lt;br/&gt;Zero等&quot;] --&gt; Seq</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    style µP fill:#2196F3,color:#fff</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph µP[&quot;图5.29 微程序控制器结构&quot;]
+        Clock[&quot;时钟&quot;] --&gt; µPC[&quot;微程序计数器 (µPC)&quot;]
+        µPC --&gt; CS[&quot;控制存储器 ROM&lt;br/&gt;存放微程序&lt;br/&gt;（固件 firmware）&quot;]
+        CS --&gt; µIR[&quot;微指令寄存器 µIR&quot;]
+        µIR --&gt; CW[&quot;控制字 CW&lt;br/&gt;= 所有控制信号&quot;]
+        µIR --&gt; Seq[&quot;顺序逻辑&lt;br/&gt;（下一条微指令地址）&quot;]
+        IR[&quot;指令寄存器 IR&lt;br/&gt;(操作码)&quot;] --&gt; Start[&quot;起始地址生成&quot;]
+        Start --&gt; µPC
+        Seq --&gt; µPC
+        Flags[&quot;标志位&lt;br/&gt;Zero等&quot;] --&gt; Seq
+    end
+
+    style µP fill:#2196F3,color:#fff
+</div></td></tr></table></figure>
 <p><strong>教材P174-175</strong>：</p>
 <blockquote>
 <p>微程序控制器的思想是：将每条指令的执行过程用一个<strong>微程序</strong>表示，每个微程序由若干<strong>微指令</strong>组成，每条微指令对应一个时钟周期的控制信号取值。</p>
@@ -746,11 +1020,41 @@
 <hr>
 <h2 id="第五层：指令流水线（第6章）">第五层：指令流水线（第6章）</h2>
 <h3 id="6-1-流水线基本概念">6.1 流水线基本概念</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    subgraph 非流水线[&quot;教材图6.1 非流水线&quot;]</span><br><span class="line">        T1[&quot;指令1: |──IF──|──ID──|──EX──|──MEM──|──WB──|&quot;]</span><br><span class="line">        T2[&quot;指令2:                                        |──IF──|──ID──|──EX──|──MEM──|──WB──|&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph 流水线[&quot;流水线执行&quot;]</span><br><span class="line">        P1[&quot;周期: │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │&quot;]</span><br><span class="line">        P2[&quot;指令1: | IF | ID | EX | MEM| WB |&quot;]</span><br><span class="line">        P3[&quot;指令2:      | IF | ID | EX | MEM| WB |&quot;]</span><br><span class="line">        P4[&quot;指令3:           | IF | ID | EX | MEM| WB |&quot;]</span><br><span class="line">        P5[&quot;指令4:                | IF | ID | EX | MEM| WB |&quot;]</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    subgraph 非流水线[&quot;教材图6.1 非流水线&quot;]
+        T1[&quot;指令1: |──IF──|──ID──|──EX──|──MEM──|──WB──|&quot;]
+        T2[&quot;指令2:                                        |──IF──|──ID──|──EX──|──MEM──|──WB──|&quot;]
+    end
+
+    subgraph 流水线[&quot;流水线执行&quot;]
+        P1[&quot;周期: │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │&quot;]
+        P2[&quot;指令1: | IF | ID | EX | MEM| WB |&quot;]
+        P3[&quot;指令2:      | IF | ID | EX | MEM| WB |&quot;]
+        P4[&quot;指令3:           | IF | ID | EX | MEM| WB |&quot;]
+        P5[&quot;指令4:                | IF | ID | EX | MEM| WB |&quot;]
+    end
+</div></td></tr></table></figure>
 <p><strong>加速比分析</strong>（教材P183）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">流水线级数 = M = 5</span><br><span class="line">指令总数 = N</span><br><span class="line"></span><br><span class="line">流水线时间 = (M + N - 1) × T</span><br><span class="line">非流水线时间 = N × M × T（假设每级耗时相等）</span><br><span class="line"></span><br><span class="line">加速比 = N×M×T / ((M+N-1)×T) ≈ M（当N很大时）</span><br><span class="line"></span><br><span class="line">例：N=1000, M=5, 加速比 = 5000/1004 ≈ 4.98</span><br></pre></td></tr></table></figure>
 <h3 id="6-2-5级流水线数据通路">6.2 5级流水线数据通路</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    subgraph 流水线寄存器[&quot;流水线寄存器&quot;]</span><br><span class="line">        R1[&quot;IF/ID&quot;]</span><br><span class="line">        R2[&quot;ID/Ex&quot;]</span><br><span class="line">        R3[&quot;Ex/Mem&quot;]</span><br><span class="line">        R4[&quot;Mem/Wr&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph 功能段[&quot;5个功能段&quot;]</span><br><span class="line">        A[&quot;① IF&lt;br/&gt;取指&lt;br/&gt;PC←PC+4&quot;] </span><br><span class="line">        B[&quot;② ID&lt;br/&gt;译码&lt;br/&gt;读寄存器&quot;]</span><br><span class="line">        C[&quot;③ Ex&lt;br/&gt;ALU运算&lt;br/&gt;地址计算&quot;]</span><br><span class="line">        D[&quot;④ Mem&lt;br/&gt;访存&quot;]</span><br><span class="line">        E[&quot;⑤ Wr&lt;br/&gt;写回寄存器&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    A --&gt; R1 --&gt; B --&gt; R2 --&gt; C --&gt; R3 --&gt; D --&gt; R4 --&gt; E</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    subgraph 流水线寄存器[&quot;流水线寄存器&quot;]
+        R1[&quot;IF/ID&quot;]
+        R2[&quot;ID/Ex&quot;]
+        R3[&quot;Ex/Mem&quot;]
+        R4[&quot;Mem/Wr&quot;]
+    end
+
+    subgraph 功能段[&quot;5个功能段&quot;]
+        A[&quot;① IF&lt;br/&gt;取指&lt;br/&gt;PC←PC+4&quot;] 
+        B[&quot;② ID&lt;br/&gt;译码&lt;br/&gt;读寄存器&quot;]
+        C[&quot;③ Ex&lt;br/&gt;ALU运算&lt;br/&gt;地址计算&quot;]
+        D[&quot;④ Mem&lt;br/&gt;访存&quot;]
+        E[&quot;⑤ Wr&lt;br/&gt;写回寄存器&quot;]
+    end
+
+    A --&gt; R1 --&gt; B --&gt; R2 --&gt; C --&gt; R3 --&gt; D --&gt; R4 --&gt; E
+</div></td></tr></table></figure>
 <p><strong>教材P186-191 详细描述了每个流水段的控制信号</strong>：</p>
 <table>
 <thead>
@@ -779,19 +1083,64 @@
 </tbody>
 </table>
 <h3 id="6-3-流水线冒险">6.3 流水线冒险</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    Hazards[&quot;流水线冒险&quot;] --&gt; SH[&quot;结构冒险&lt;br/&gt;Structural Hazard&quot;]</span><br><span class="line">    Hazards --&gt; DH[&quot;数据冒险&lt;br/&gt;Data Hazard&quot;]</span><br><span class="line">    Hazards --&gt; CH[&quot;控制冒险&lt;br/&gt;Control Hazard&quot;]</span><br><span class="line">    </span><br><span class="line">    SH --&gt; SH_S[&quot;同一硬件资源&lt;br/&gt;被多指令竞争&quot;]</span><br><span class="line">    SH --&gt; SH_F[&quot;解决：&lt;br/&gt;IM和DM分离&lt;br/&gt;指令Cache和数据Cache分离&quot;]</span><br><span class="line">    </span><br><span class="line">    DH --&gt; DH_S[&quot;后一条指令用到&lt;br/&gt;前一条指令的结果&quot;]</span><br><span class="line">    DH --&gt; DH_F[&quot;解决：&lt;br/&gt;① 转发 Forwarding ✅&lt;br/&gt;② 插入气泡 Stall&lt;br/&gt;③ 插入NOP&quot;]</span><br><span class="line">    </span><br><span class="line">    CH --&gt; CH_S[&quot;分支指令导致&lt;br/&gt;流水线断流&quot;]</span><br><span class="line">    CH --&gt; CH_F[&quot;解决：&lt;br/&gt;① 分支预测&lt;br/&gt;② 延迟槽&quot;]</span><br><span class="line">    </span><br><span class="line">    style SH fill:#FF9800,color:#fff</span><br><span class="line">    style DH fill:#F44336,color:#fff</span><br><span class="line">    style CH fill:#9C27B0,color:#fff</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    Hazards[&quot;流水线冒险&quot;] --&gt; SH[&quot;结构冒险&lt;br/&gt;Structural Hazard&quot;]
+    Hazards --&gt; DH[&quot;数据冒险&lt;br/&gt;Data Hazard&quot;]
+    Hazards --&gt; CH[&quot;控制冒险&lt;br/&gt;Control Hazard&quot;]
+    
+    SH --&gt; SH_S[&quot;同一硬件资源&lt;br/&gt;被多指令竞争&quot;]
+    SH --&gt; SH_F[&quot;解决：&lt;br/&gt;IM和DM分离&lt;br/&gt;指令Cache和数据Cache分离&quot;]
+    
+    DH --&gt; DH_S[&quot;后一条指令用到&lt;br/&gt;前一条指令的结果&quot;]
+    DH --&gt; DH_F[&quot;解决：&lt;br/&gt;① 转发 Forwarding ✅&lt;br/&gt;② 插入气泡 Stall&lt;br/&gt;③ 插入NOP&quot;]
+    
+    CH --&gt; CH_S[&quot;分支指令导致&lt;br/&gt;流水线断流&quot;]
+    CH --&gt; CH_F[&quot;解决：&lt;br/&gt;① 分支预测&lt;br/&gt;② 延迟槽&quot;]
+    
+    style SH fill:#FF9800,color:#fff
+    style DH fill:#F44336,color:#fff
+    style CH fill:#9C27B0,color:#fff
+</div></td></tr></table></figure>
 <h4 id="数据冒险（RAW）详细分析">数据冒险（RAW）详细分析</h4>
 <p><strong>教材P193 图6.11</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">add  $1, $2, $3   # 1: 写入 $1</span><br><span class="line">sub  $4, $1, $5   # 2: 读取 $1 ⚠️ 依赖</span><br><span class="line">or   $6, $1, $7   # 3: 读取 $1 ⚠️ 依赖</span><br><span class="line">xor  $8, $1, $9   # 4: 读取 $1 ⚠️ 依赖</span><br></pre></td></tr></table></figure>
 <p><strong>解决方案对比</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    subgraph 转发[&quot;转发 Forwarding ✅&quot;]</span><br><span class="line">        F1[&quot;add在Ex级就计算出$1的值&quot;]</span><br><span class="line">        F2[&quot;直接从Ex/Mem寄存器&lt;br/&gt;转发到sub的ALU输入&quot;]</span><br><span class="line">        F3[&quot;无需等待add写回寄存器&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph 气泡[&quot;插入气泡 Stall&quot;]</span><br><span class="line">        S1[&quot;检测到数据依赖&quot;]</span><br><span class="line">        S2[&quot;插入空操作（气泡）&quot;]</span><br><span class="line">        S3[&quot;等待前一条指令写回&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    转发 --- 气泡</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    subgraph 转发[&quot;转发 Forwarding ✅&quot;]
+        F1[&quot;add在Ex级就计算出$1的值&quot;]
+        F2[&quot;直接从Ex/Mem寄存器&lt;br/&gt;转发到sub的ALU输入&quot;]
+        F3[&quot;无需等待add写回寄存器&quot;]
+    end
+
+    subgraph 气泡[&quot;插入气泡 Stall&quot;]
+        S1[&quot;检测到数据依赖&quot;]
+        S2[&quot;插入空操作（气泡）&quot;]
+        S3[&quot;等待前一条指令写回&quot;]
+    end
+
+    转发 --- 气泡
+</div></td></tr></table></figure>
 <p><strong>load-use冒险</strong>（教材P194-195）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lw   $1, 0($2)     # 1: 从内存加载 $1（第4级Mem结束才有值）</span><br><span class="line">add  $3, $1, $4    # 2: 立即使用 $1 ⚠️ 转发也救不了！</span><br></pre></td></tr></table></figure>
 <p><strong>转发无法解决load-use冒险</strong>，因为lw的结果直到Mem段结束才可用，而add在Ex段就需要 → 必须插入1个气泡。</p>
 <hr>
 <h2 id="第六层：存储层次结构（第7章）">第六层：存储层次结构（第7章）</h2>
 <h3 id="7-1-存储层次全景">7.1 存储层次全景</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    subgraph 层次[&quot;存储层次结构&quot;]</span><br><span class="line">        L1[&quot;CPU寄存器&lt;br/&gt;≈1KB, 0.3ns&lt;br/&gt;由寄存器堆实现&quot;]</span><br><span class="line">        L2[&quot;Cache (SRAM)&lt;br/&gt;32KB~几MB, 1ns&lt;br/&gt;由SRAM实现&quot;]</span><br><span class="line">        L3[&quot;主存 (DRAM)&lt;br/&gt;几GB, 50ns&lt;br/&gt;由DRAM实现&quot;]</span><br><span class="line">        L4[&quot;磁盘/SSD&lt;br/&gt;几百GB~几TB, 10ms&lt;br/&gt;由磁/Flash实现&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    L1 --&gt; L2 --&gt; L3 --&gt; L4</span><br><span class="line"></span><br><span class="line">    style L1 fill:#4CAF50,color:#fff</span><br><span class="line">    style L2 fill:#2196F3,color:#fff</span><br><span class="line">    style L3 fill:#FF9800,color:#fff</span><br><span class="line">    style L4 fill:#9E9E9E,color:#fff</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph 层次[&quot;存储层次结构&quot;]
+        L1[&quot;CPU寄存器&lt;br/&gt;≈1KB, 0.3ns&lt;br/&gt;由寄存器堆实现&quot;]
+        L2[&quot;Cache (SRAM)&lt;br/&gt;32KB~几MB, 1ns&lt;br/&gt;由SRAM实现&quot;]
+        L3[&quot;主存 (DRAM)&lt;br/&gt;几GB, 50ns&lt;br/&gt;由DRAM实现&quot;]
+        L4[&quot;磁盘/SSD&lt;br/&gt;几百GB~几TB, 10ms&lt;br/&gt;由磁/Flash实现&quot;]
+    end
+
+    L1 --&gt; L2 --&gt; L3 --&gt; L4
+
+    style L1 fill:#4CAF50,color:#fff
+    style L2 fill:#2196F3,color:#fff
+    style L3 fill:#FF9800,color:#fff
+    style L4 fill:#9E9E9E,color:#fff
+</div></td></tr></table></figure>
 <p><strong>教材P208 图7.3</strong>：</p>
 <blockquote>
 <p>“程序访问的局部性原理是存储层次能有效工作的理论基础”</p>
@@ -803,7 +1152,20 @@
 <h3 id="7-2-Cache-详细分析">7.2 Cache 详细分析</h3>
 <h4 id="7-2-1-三种映射方式">7.2.1 三种映射方式</h4>
 <p><strong>教材P237-244，408最高频考点之一</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    Maps[&quot;Cache 映射方式&quot;] --&gt; Direct[&quot;直接映射&quot;]</span><br><span class="line">    Maps --&gt; Full[&quot;全相联映射&quot;]</span><br><span class="line">    Maps --&gt; Set[&quot;组相联映射&quot;]</span><br><span class="line"></span><br><span class="line">    Direct --&gt; D1[&quot;主存块→固定的Cache行&lt;br/&gt;地址: Tag | Index | Offset&quot;]</span><br><span class="line">    Direct --&gt; D2[&quot;优点: 简单、查找快&lt;br/&gt;缺点: 冲突率高&quot;]</span><br><span class="line"></span><br><span class="line">    Full --&gt; F1[&quot;主存块→任意Cache行&lt;br/&gt;地址: Tag | Offset&quot;]</span><br><span class="line">    Full --&gt; F2[&quot;优点: 灵活、冲突率低&lt;br/&gt;缺点: 需要全比较器、成本高&quot;]</span><br><span class="line"></span><br><span class="line">    Set --&gt; S1[&quot;主存块→固定组内的任意行&lt;br/&gt;地址: Tag | Index | Offset&quot;]</span><br><span class="line">    Set --&gt; S2[&quot;优点: 折中方案&lt;br/&gt;N路组相联是最常用方式&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    Maps[&quot;Cache 映射方式&quot;] --&gt; Direct[&quot;直接映射&quot;]
+    Maps --&gt; Full[&quot;全相联映射&quot;]
+    Maps --&gt; Set[&quot;组相联映射&quot;]
+
+    Direct --&gt; D1[&quot;主存块→固定的Cache行&lt;br/&gt;地址: Tag | Index | Offset&quot;]
+    Direct --&gt; D2[&quot;优点: 简单、查找快&lt;br/&gt;缺点: 冲突率高&quot;]
+
+    Full --&gt; F1[&quot;主存块→任意Cache行&lt;br/&gt;地址: Tag | Offset&quot;]
+    Full --&gt; F2[&quot;优点: 灵活、冲突率低&lt;br/&gt;缺点: 需要全比较器、成本高&quot;]
+
+    Set --&gt; S1[&quot;主存块→固定组内的任意行&lt;br/&gt;地址: Tag | Index | Offset&quot;]
+    Set --&gt; S2[&quot;优点: 折中方案&lt;br/&gt;N路组相联是最常用方式&quot;]
+</div></td></tr></table></figure>
 <h4 id="直接映射地址结构">直接映射地址结构</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">主存地址（m位）：</span><br><span class="line">┌───────────┬───────────┬───────────┐</span><br><span class="line">│   Tag     │   Index   │   Offset  │</span><br><span class="line">│  (m-r-b)  │   (r位)   │   (b位)   │</span><br><span class="line">└───────────┴───────────┴───────────┘</span><br><span class="line"></span><br><span class="line">Cache行数 = 2ʳ</span><br><span class="line">块大小   = 2ᵇ 字节</span><br></pre></td></tr></table></figure>
 <p><strong>例题</strong>（教材P238）：</p>
@@ -812,10 +1174,27 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">┌───────────┬───────────┬───────────┐</span><br><span class="line">│   Tag     │   Index   │   Offset  │</span><br><span class="line">│  (m-r-b)  │   (r位)   │   (b位)   │</span><br><span class="line">└───────────┴───────────┴───────────┘</span><br><span class="line"></span><br><span class="line">每组N行, 组数 = Cache行数 / N</span><br><span class="line">组号位数 = log₂(组数)</span><br></pre></td></tr></table></figure>
 <h4 id="7-2-2-Cache写策略">7.2.2 Cache写策略</h4>
 <p><strong>教材P247</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    写命中[&quot;写命中（Write Hit）&quot;] --&gt; WT[&quot;写直达 Write-Through&lt;br/&gt;同时写Cache和主存&lt;br/&gt;✅ 一致性易维护&lt;br/&gt;❌ 访问主存慢&quot;]</span><br><span class="line">    写命中 --&gt; WB[&quot;写回 Write-Back&lt;br/&gt;只写Cache（标记脏位）&lt;br/&gt;❌ 一致性需关注&lt;br/&gt;✅ 减少访存次数&quot;]</span><br><span class="line"></span><br><span class="line">    写不命中[&quot;写不命中（Write Miss）&quot;] --&gt; WA[&quot;写分配 Write-Allocate&lt;br/&gt;先加载到Cache再写&lt;br/&gt;常与写回配合&quot;]</span><br><span class="line">    写不命中 --&gt; WNA[&quot;写不分配 Write-NoAllocate&lt;br/&gt;直接写主存&lt;br/&gt;常与写直达配合&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    写命中[&quot;写命中（Write Hit）&quot;] --&gt; WT[&quot;写直达 Write-Through&lt;br/&gt;同时写Cache和主存&lt;br/&gt;✅ 一致性易维护&lt;br/&gt;❌ 访问主存慢&quot;]
+    写命中 --&gt; WB[&quot;写回 Write-Back&lt;br/&gt;只写Cache（标记脏位）&lt;br/&gt;❌ 一致性需关注&lt;br/&gt;✅ 减少访存次数&quot;]
+
+    写不命中[&quot;写不命中（Write Miss）&quot;] --&gt; WA[&quot;写分配 Write-Allocate&lt;br/&gt;先加载到Cache再写&lt;br/&gt;常与写回配合&quot;]
+    写不命中 --&gt; WNA[&quot;写不分配 Write-NoAllocate&lt;br/&gt;直接写主存&lt;br/&gt;常与写直达配合&quot;]
+</div></td></tr></table></figure>
 <h3 id="7-3-虚拟存储器">7.3 虚拟存储器</h3>
 <h4 id="7-3-1-地址转换">7.3.1 地址转换</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    CPU[&quot;CPU发出虚拟地址&quot;] --&gt; TLB&#123;&quot;TLB中查找&lt;br/&gt;(快表)&quot;&#125;</span><br><span class="line">    TLB -- &quot;命中&quot; --&gt; PA1[&quot;直接得到物理地址&lt;br/&gt;→ 访问Cache/主存&quot;]</span><br><span class="line">    TLB -- &quot;不命中&quot; --&gt; PageTable&#123;&quot;查页表&lt;br/&gt;（慢表，在主存中）&quot;&#125;</span><br><span class="line">    PageTable -- &quot;页命中&quot; --&gt; UpdateTLB[&quot;更新TLB&lt;br/&gt;得到物理地址&quot;]</span><br><span class="line">    PageTable -- &quot;页不命中&quot; --&gt; PageFault[&quot;缺页异常&lt;br/&gt;从磁盘加载页面到主存&lt;br/&gt;更新页表&quot;]</span><br><span class="line">    PageFault --&gt; PageTable</span><br><span class="line"></span><br><span class="line">    style TLB fill:#FF9800,color:#fff</span><br><span class="line">    style PageTable fill:#2196F3,color:#fff</span><br><span class="line">    style PageFault fill:#F44336,color:#fff</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    CPU[&quot;CPU发出虚拟地址&quot;] --&gt; TLB&#123;&quot;TLB中查找&lt;br/&gt;(快表)&quot;&#125;
+    TLB -- &quot;命中&quot; --&gt; PA1[&quot;直接得到物理地址&lt;br/&gt;→ 访问Cache/主存&quot;]
+    TLB -- &quot;不命中&quot; --&gt; PageTable&#123;&quot;查页表&lt;br/&gt;（慢表，在主存中）&quot;&#125;
+    PageTable -- &quot;页命中&quot; --&gt; UpdateTLB[&quot;更新TLB&lt;br/&gt;得到物理地址&quot;]
+    PageTable -- &quot;页不命中&quot; --&gt; PageFault[&quot;缺页异常&lt;br/&gt;从磁盘加载页面到主存&lt;br/&gt;更新页表&quot;]
+    PageFault --&gt; PageTable
+
+    style TLB fill:#FF9800,color:#fff
+    style PageTable fill:#2196F3,color:#fff
+    style PageFault fill:#F44336,color:#fff
+</div></td></tr></table></figure>
 <h4 id="7-3-2-页式虚拟存储器的地址结构">7.3.2 页式虚拟存储器的地址结构</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">虚拟地址：</span><br><span class="line">┌──────────────┬──────────────┐</span><br><span class="line">│  虚拟页号 VPN │  页内偏移    │</span><br><span class="line">│              │    Offset    │</span><br><span class="line">└──────────────┴──────────────┘</span><br><span class="line"></span><br><span class="line">页大小 = 2^(页内偏移位数) 字节</span><br><span class="line">页表项数 = 2^(VPN位数)</span><br></pre></td></tr></table></figure>
 <p><strong>教材P253-255 多级页表</strong>：</p>
@@ -823,24 +1202,138 @@
 <hr>
 <h2 id="第七层：I-O与系统互连（第8章）">第七层：I/O与系统互连（第8章）</h2>
 <h3 id="8-1-三种I-O方式对比">8.1 三种I/O方式对比</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    subgraph 程序查询[&quot;教材P288 程序直接控制&quot;]</span><br><span class="line">        Q1[&quot;CPU反复查询设备状态&quot;]</span><br><span class="line">        Q2[&quot;✅ 实现简单&lt;br/&gt;❌ CPU利用率极低&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph 中断[&quot;教材P291 中断控制&quot;]</span><br><span class="line">        I1[&quot;设备就绪后主动通知CPU&quot;]</span><br><span class="line">        I2[&quot;✅ CPU利用率高&lt;br/&gt;✅ 适合中速设备&lt;br/&gt;❌ 每次中断有开销&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph DMA[&quot;教材P301 直接存储器访问&quot;]</span><br><span class="line">        D1[&quot;DMA控制器直接控制数据传输&quot;]</span><br><span class="line">        D2[&quot;✅ 高速传输&lt;br/&gt;✅ CPU几乎不参与&lt;br/&gt;✅ 适合块设备&quot;]</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph 程序查询[&quot;教材P288 程序直接控制&quot;]
+        Q1[&quot;CPU反复查询设备状态&quot;]
+        Q2[&quot;✅ 实现简单&lt;br/&gt;❌ CPU利用率极低&quot;]
+    end
+
+    subgraph 中断[&quot;教材P291 中断控制&quot;]
+        I1[&quot;设备就绪后主动通知CPU&quot;]
+        I2[&quot;✅ CPU利用率高&lt;br/&gt;✅ 适合中速设备&lt;br/&gt;❌ 每次中断有开销&quot;]
+    end
+
+    subgraph DMA[&quot;教材P301 直接存储器访问&quot;]
+        D1[&quot;DMA控制器直接控制数据传输&quot;]
+        D2[&quot;✅ 高速传输&lt;br/&gt;✅ CPU几乎不参与&lt;br/&gt;✅ 适合块设备&quot;]
+    end
+</div></td></tr></table></figure>
 <h3 id="8-2-中断处理流程（教材P293-图8-15）">8.2 中断处理流程（教材P293 图8.15）</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    A[&quot;当前指令执行完&quot;] --&gt; B&#123;&quot;有中断请求？&quot;&#125;</span><br><span class="line">    B -- &quot;否&quot; --&gt; C[&quot;继续执行下一条指令&quot;]</span><br><span class="line">    B -- &quot;是&quot; --&gt; D[&quot;关中断&lt;br/&gt;保存PC和PSW到栈&quot;]</span><br><span class="line">    D --&gt; E[&quot;识别中断源&quot;]</span><br><span class="line">    E --&gt; F[&quot;转中断服务程序&quot;]</span><br><span class="line">    F --&gt; G[&quot;保存现场&lt;br/&gt;（通用寄存器）&quot;]</span><br><span class="line">    G --&gt; H[&quot;中断服务处理&quot;]</span><br><span class="line">    H --&gt; I[&quot;恢复现场&quot;]</span><br><span class="line">    I --&gt; J[&quot;开中断&quot;]</span><br><span class="line">    J --&gt; K[&quot;从中断返回 IRET&quot;]</span><br><span class="line">    K --&gt; A</span><br><span class="line"></span><br><span class="line">    style B fill:#FF9800,color:#fff</span><br><span class="line">    style H fill:#F44336,color:#fff</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    A[&quot;当前指令执行完&quot;] --&gt; B&#123;&quot;有中断请求？&quot;&#125;
+    B -- &quot;否&quot; --&gt; C[&quot;继续执行下一条指令&quot;]
+    B -- &quot;是&quot; --&gt; D[&quot;关中断&lt;br/&gt;保存PC和PSW到栈&quot;]
+    D --&gt; E[&quot;识别中断源&quot;]
+    E --&gt; F[&quot;转中断服务程序&quot;]
+    F --&gt; G[&quot;保存现场&lt;br/&gt;（通用寄存器）&quot;]
+    G --&gt; H[&quot;中断服务处理&quot;]
+    H --&gt; I[&quot;恢复现场&quot;]
+    I --&gt; J[&quot;开中断&quot;]
+    J --&gt; K[&quot;从中断返回 IRET&quot;]
+    K --&gt; A
+
+    style B fill:#FF9800,color:#fff
+    style H fill:#F44336,color:#fff
+</div></td></tr></table></figure>
 <h3 id="8-3-DMA传送过程">8.3 DMA传送过程</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    Prep[&quot;CPU初始化DMA控制器&lt;br/&gt;① 设置数据传送方向&lt;br/&gt;② 设置内存起始地址&lt;br/&gt;③ 设置传送字节数&lt;br/&gt;④ 设置I/O设备地址&quot;] </span><br><span class="line">    Start[&quot;CPU发出DMA启动命令&quot;]</span><br><span class="line">    Transfer[&quot;DMA控制器自动控制&lt;br/&gt;数据在外设和内存间传输&lt;br/&gt;每传完一个字节/字&lt;br/&gt;内存地址+1, 计数器-1&quot;]</span><br><span class="line">    Check&#123;&quot;传送计数器=0?&quot;&#125;</span><br><span class="line">    Interrupt[&quot;DMA控制器向CPU发中断&lt;br/&gt;通知传输结束&quot;]</span><br><span class="line">    </span><br><span class="line">    Prep --&gt; Start --&gt; Transfer --&gt; Check</span><br><span class="line">    Check -- &quot;否&quot; --&gt; Transfer</span><br><span class="line">    Check -- &quot;是&quot; --&gt; Interrupt</span><br><span class="line"></span><br><span class="line">    style Prep fill:#2196F3,color:#fff</span><br><span class="line">    style Transfer fill:#4CAF50,color:#fff</span><br><span class="line">    style Interrupt fill:#FF9800,color:#fff</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    Prep[&quot;CPU初始化DMA控制器&lt;br/&gt;① 设置数据传送方向&lt;br/&gt;② 设置内存起始地址&lt;br/&gt;③ 设置传送字节数&lt;br/&gt;④ 设置I/O设备地址&quot;] 
+    Start[&quot;CPU发出DMA启动命令&quot;]
+    Transfer[&quot;DMA控制器自动控制&lt;br/&gt;数据在外设和内存间传输&lt;br/&gt;每传完一个字节/字&lt;br/&gt;内存地址+1, 计数器-1&quot;]
+    Check&#123;&quot;传送计数器=0?&quot;&#125;
+    Interrupt[&quot;DMA控制器向CPU发中断&lt;br/&gt;通知传输结束&quot;]
+    
+    Prep --&gt; Start --&gt; Transfer --&gt; Check
+    Check -- &quot;否&quot; --&gt; Transfer
+    Check -- &quot;是&quot; --&gt; Interrupt
+
+    style Prep fill:#2196F3,color:#fff
+    style Transfer fill:#4CAF50,color:#fff
+    style Interrupt fill:#FF9800,color:#fff
+</div></td></tr></table></figure>
 <hr>
 <h2 id="第八层：并行处理系统（第9章）">第八层：并行处理系统（第9章）</h2>
 <h3 id="9-1-Flynn分类法">9.1 Flynn分类法</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    Flynn[&quot;Flynn分类法&quot;] --&gt; SISD[&quot;SISD&lt;br/&gt;单指令流单数据流&lt;br/&gt;单处理器&quot;]</span><br><span class="line">    Flynn --&gt; SIMD[&quot;SIMD&lt;br/&gt;单指令流多数据流&lt;br/&gt;向量机 | GPU&quot;]</span><br><span class="line">    Flynn --&gt; MISD[&quot;MISD&lt;br/&gt;多指令流单数据流&lt;br/&gt;容错系统（少见）&quot;]</span><br><span class="line">    Flynn --&gt; MIMD[&quot;MIMD&lt;br/&gt;多指令流多数据流&lt;br/&gt;多核CPU | 多处理器&quot;]</span><br><span class="line">    </span><br><span class="line">    MIMD --&gt; UMA[&quot;UMA&lt;br/&gt;统一内存访问&lt;br/&gt;SMP对称多处理&quot;]</span><br><span class="line">    MIMD --&gt; NUMA[&quot;NUMA&lt;br/&gt;非统一内存访问&lt;br/&gt;CC-NUMA&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    Flynn[&quot;Flynn分类法&quot;] --&gt; SISD[&quot;SISD&lt;br/&gt;单指令流单数据流&lt;br/&gt;单处理器&quot;]
+    Flynn --&gt; SIMD[&quot;SIMD&lt;br/&gt;单指令流多数据流&lt;br/&gt;向量机 | GPU&quot;]
+    Flynn --&gt; MISD[&quot;MISD&lt;br/&gt;多指令流单数据流&lt;br/&gt;容错系统（少见）&quot;]
+    Flynn --&gt; MIMD[&quot;MIMD&lt;br/&gt;多指令流多数据流&lt;br/&gt;多核CPU | 多处理器&quot;]
+    
+    MIMD --&gt; UMA[&quot;UMA&lt;br/&gt;统一内存访问&lt;br/&gt;SMP对称多处理&quot;]
+    MIMD --&gt; NUMA[&quot;NUMA&lt;br/&gt;非统一内存访问&lt;br/&gt;CC-NUMA&quot;]
+</div></td></tr></table></figure>
 <h3 id="9-2-Cache一致性">9.2 Cache一致性</h3>
 <p><strong>教材P323-325</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    Coherence[&quot;Cache一致性问题&quot;] --&gt; Snooping[&quot;监听协议&lt;br/&gt;每个Cache监听总线上的写操作&lt;br/&gt;适用于UMA/总线结构&quot;]</span><br><span class="line">    Coherence --&gt; Directory[&quot;目录协议&lt;br/&gt;用目录记录每个数据块的状态&lt;br/&gt;适用于大规模系统&quot;]</span><br><span class="line">    </span><br><span class="line">    Snooping --&gt; MSI[&quot;MSI协议&lt;br/&gt;Modified/Shared/Invalid&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    Coherence[&quot;Cache一致性问题&quot;] --&gt; Snooping[&quot;监听协议&lt;br/&gt;每个Cache监听总线上的写操作&lt;br/&gt;适用于UMA/总线结构&quot;]
+    Coherence --&gt; Directory[&quot;目录协议&lt;br/&gt;用目录记录每个数据块的状态&lt;br/&gt;适用于大规模系统&quot;]
+    
+    Snooping --&gt; MSI[&quot;MSI协议&lt;br/&gt;Modified/Shared/Invalid&quot;]
+</div></td></tr></table></figure>
 <h3 id="9-3-并行编程模型与原子操作">9.3 并行编程模型与原子操作</h3>
 <p><strong>教材P340-345</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    subgraph 共享存储[&quot;共享存储模型&lt;br/&gt;Pthreads/OpenMP&quot;]</span><br><span class="line">        S1[&quot;所有线程共享同一地址空间&quot;]</span><br><span class="line">        S2[&quot;通过锁（Lock）实现同步&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph 消息传递[&quot;消息传递模型&lt;br/&gt;MPI&quot;]</span><br><span class="line">        M1[&quot;各处理器有私有存储&quot;]</span><br><span class="line">        M2[&quot;通过send/receive通信&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph 原子操作[&quot;RISC-V原子操作&quot;]</span><br><span class="line">        A1[&quot;amoswap: 原子交换&quot;]</span><br><span class="line">        A2[&quot;lr.w/sc.w: 加载保留/条件存储&lt;br/&gt;实现自旋锁&quot;]</span><br><span class="line">        A3[&quot;memory fence: 内存屏障&lt;br/&gt;保证访存顺序&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    共享存储 --- 原子操作 --- 消息传递</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    subgraph 共享存储[&quot;共享存储模型&lt;br/&gt;Pthreads/OpenMP&quot;]
+        S1[&quot;所有线程共享同一地址空间&quot;]
+        S2[&quot;通过锁（Lock）实现同步&quot;]
+    end
+
+    subgraph 消息传递[&quot;消息传递模型&lt;br/&gt;MPI&quot;]
+        M1[&quot;各处理器有私有存储&quot;]
+        M2[&quot;通过send/receive通信&quot;]
+    end
+
+    subgraph 原子操作[&quot;RISC-V原子操作&quot;]
+        A1[&quot;amoswap: 原子交换&quot;]
+        A2[&quot;lr.w/sc.w: 加载保留/条件存储&lt;br/&gt;实现自旋锁&quot;]
+        A3[&quot;memory fence: 内存屏障&lt;br/&gt;保证访存顺序&quot;]
+    end
+
+    共享存储 --- 原子操作 --- 消息传递
+</div></td></tr></table></figure>
 <hr>
 <h2 id="全书核心概念-三纵三横-全景图">全书核心概念&quot;三纵三横&quot;全景图</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">mindmap</span><br><span class="line">  root((计算机组成原理&lt;br/&gt;三纵三横))</span><br><span class="line">    三纵_知识主线</span><br><span class="line">      数据通路</span><br><span class="line">        第3章_运算器_ALU_加法器</span><br><span class="line">        第5章_CPU数据通路_单周期_多周期</span><br><span class="line">        第6章_流水线数据通路</span><br><span class="line">      控制</span><br><span class="line">        第4章_ISA_指令格式_寻址方式</span><br><span class="line">        第5章_控制器_硬布线_微程序</span><br><span class="line">        第6章_流水线控制信号</span><br><span class="line">      存储与I/O</span><br><span class="line">        第7章_Cache_虚拟内存_页表</span><br><span class="line">        第8章_总线_中断_DMA</span><br><span class="line">        第9章_Cache一致性</span><br><span class="line">    三横_抽象层次</span><br><span class="line">      ISA层次</span><br><span class="line">        第4章_指令系统</span><br><span class="line">        程序员看到的计算机</span><br><span class="line">        软硬件分界线</span><br><span class="line">      微架构层次</span><br><span class="line">        第5章_CPU实现</span><br><span class="line">        第6章_流水线</span><br><span class="line">        硬件设计者关心的</span><br><span class="line">      物理层次</span><br><span class="line">        第2章_数据表示</span><br><span class="line">        第3章_运算电路</span><br><span class="line">        0和1的物理实现</span><br><span class="line">    跨层串联概念</span><br><span class="line">      异常_中断</span><br><span class="line">        第4章定义类型</span><br><span class="line">        第5章CPU实现</span><br><span class="line">        第8章I/O应用</span><br><span class="line">      地址转换</span><br><span class="line">        第7章虚拟地址→物理地址</span><br><span class="line">        TLB_Cache_页表</span><br><span class="line">      局部性原理</span><br><span class="line">        第1章首次提出</span><br><span class="line">        第7章Cache和虚拟内存</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><div class="mermaid">mindmap
+  root((计算机组成原理&lt;br/&gt;三纵三横))
+    三纵_知识主线
+      数据通路
+        第3章_运算器_ALU_加法器
+        第5章_CPU数据通路_单周期_多周期
+        第6章_流水线数据通路
+      控制
+        第4章_ISA_指令格式_寻址方式
+        第5章_控制器_硬布线_微程序
+        第6章_流水线控制信号
+      存储与I/O
+        第7章_Cache_虚拟内存_页表
+        第8章_总线_中断_DMA
+        第9章_Cache一致性
+    三横_抽象层次
+      ISA层次
+        第4章_指令系统
+        程序员看到的计算机
+        软硬件分界线
+      微架构层次
+        第5章_CPU实现
+        第6章_流水线
+        硬件设计者关心的
+      物理层次
+        第2章_数据表示
+        第3章_运算电路
+        0和1的物理实现
+    跨层串联概念
+      异常_中断
+        第4章定义类型
+        第5章CPU实现
+        第8章I/O应用
+      地址转换
+        第7章虚拟地址→物理地址
+        TLB_Cache_页表
+      局部性原理
+        第1章首次提出
+        第7章Cache和虚拟内存
+</div></td></tr></table></figure>
 <hr>
 <h2 id="附录：教材各章节与408考试对照">附录：教材各章节与408考试对照</h2>
 <table>
