@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="计算机组成原理的层级结构 从应用到底层晶体管的完整层次梳理清楚。  📊 全貌总览：7 层抽象层级 12345678910111213141516171819202122232425262728293031323334353637383940414243flowchart TD    subgraph L0[&quot;第0层：应用&#x2F;算法层&quot;]        A[&quot;你写的C代码">
+    <meta name="description" content="计算机组成原理的层级结构 从应用到底层晶体管的完整层次梳理清楚。  📊 全貌总览：7 层抽象层级 flowchart TD     subgraph L0[&quot;第0层：应用&#x2F;算法层&quot;]         A[&quot;你写的C代码（排序算法、操作系统等）&quot;]     end      subgraph L1[&quot;第1层：高级语言 &#x2F; 操作系统&quot;]         B[&quot;编译器翻译成汇编&#x2F;机器指令&quot;]">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[考研]计算机组成原理的层级结构">
 <meta property="og:url" content="https://gody-g.github.io/2026/06/26/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E7%9A%84%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="GodY">
-<meta property="og:description" content="计算机组成原理的层级结构 从应用到底层晶体管的完整层次梳理清楚。  📊 全貌总览：7 层抽象层级 12345678910111213141516171819202122232425262728293031323334353637383940414243flowchart TD    subgraph L0[&quot;第0层：应用&#x2F;算法层&quot;]        A[&quot;你写的C代码">
+<meta property="og:description" content="计算机组成原理的层级结构 从应用到底层晶体管的完整层次梳理清楚。  📊 全貌总览：7 层抽象层级 flowchart TD     subgraph L0[&quot;第0层：应用&#x2F;算法层&quot;]         A[&quot;你写的C代码（排序算法、操作系统等）&quot;]     end      subgraph L1[&quot;第1层：高级语言 &#x2F; 操作系统&quot;]         B[&quot;编译器翻译成汇编&#x2F;机器指令&quot;]">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-25T18:30:49.000Z">
 <meta property="article:modified_time" content="2026-06-25T18:32:06.197Z">
@@ -242,11 +242,75 @@
 <p>从<strong>应用到底层晶体管</strong>的完整层次梳理清楚。</p>
 <hr>
 <h3 id="📊-全貌总览：7-层抽象层级">📊 全貌总览：7 层抽象层级</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    subgraph L0[&quot;第0层：应用/算法层&quot;]</span><br><span class="line">        A[&quot;你写的C代码&lt;br/&gt;（排序算法、操作系统等）&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph L1[&quot;第1层：高级语言 / 操作系统&quot;]</span><br><span class="line">        B[&quot;编译器翻译成&lt;br/&gt;汇编/机器指令&quot;]</span><br><span class="line">        B2[&quot;操作系统提供&lt;br/&gt;系统调用接口&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph L2[&quot;第2层：指令系统（ISA）&quot;]</span><br><span class="line">        C[&quot;指令集体系结构&lt;br/&gt;ADD, LW, SW, BEQ…&lt;br/&gt;—— 软硬件分界线&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph L3[&quot;第3层：微架构&quot;]</span><br><span class="line">        D1[&quot;流水线设计&lt;br/&gt;（IF/ID/EX/MEM/WB）&quot;]</span><br><span class="line">        D2[&quot;控制器&lt;br/&gt;（硬连线/微程序）&quot;]</span><br><span class="line">        D3[&quot;数据通路&lt;br/&gt;（ALU/寄存器堆/总线）&quot;]</span><br><span class="line">        D4[&quot;超标量/乱序执行&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph L4[&quot;第4层：数字逻辑电路&quot;]</span><br><span class="line">        E1[&quot;组合逻辑&lt;br/&gt;（加法器/译码器/多路选择器）&quot;]</span><br><span class="line">        E2[&quot;时序逻辑&lt;br/&gt;（寄存器/计数器/状态机）&quot;]</span><br><span class="line">        E3[&quot;时钟同步&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph L5[&quot;第5层：晶体管/门电路&quot;]</span><br><span class="line">        F[&quot;CMOS 与非门、或非门&lt;br/&gt;触发器、锁存器&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph L6[&quot;第6层：物理层&quot;]</span><br><span class="line">        G[&quot;硅半导体物理&lt;br/&gt;芯片制造工艺&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    A --&gt; B --&gt; C</span><br><span class="line">    C --&gt; D1 &amp; D2 &amp; D3 &amp; D4</span><br><span class="line">    D1 &amp; D2 &amp; D3 &amp; D4 --&gt; E1 &amp; E2 &amp; E3</span><br><span class="line">    E1 &amp; E2 &amp; E3 --&gt; F</span><br><span class="line">    F --&gt; G</span><br><span class="line"></span><br><span class="line">    style C fill:#F44336,color:#fff,stroke-width:3px</span><br><span class="line">    style L2 fill:#F44336,color:#fff</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">flowchart TD
+    subgraph L0["第0层：应用/算法层"]
+        A["你写的C代码<br/>（排序算法、操作系统等）"]
+    end
+
+    subgraph L1["第1层：高级语言 / 操作系统"]
+        B["编译器翻译成<br/>汇编/机器指令"]
+        B2["操作系统提供<br/>系统调用接口"]
+    end
+
+    subgraph L2["第2层：指令系统（ISA）"]
+        C["指令集体系结构<br/>ADD, LW, SW, BEQ…<br/>—— 软硬件分界线"]
+    end
+
+    subgraph L3["第3层：微架构"]
+        D1["流水线设计<br/>（IF/ID/EX/MEM/WB）"]
+        D2["控制器<br/>（硬连线/微程序）"]
+        D3["数据通路<br/>（ALU/寄存器堆/总线）"]
+        D4["超标量/乱序执行"]
+    end
+
+    subgraph L4["第4层：数字逻辑电路"]
+        E1["组合逻辑<br/>（加法器/译码器/多路选择器）"]
+        E2["时序逻辑<br/>（寄存器/计数器/状态机）"]
+        E3["时钟同步"]
+    end
+
+    subgraph L5["第5层：晶体管/门电路"]
+        F["CMOS 与非门、或非门<br/>触发器、锁存器"]
+    end
+
+    subgraph L6["第6层：物理层"]
+        G["硅半导体物理<br/>芯片制造工艺"]
+    end
+
+    A --> B --> C
+    C --> D1 & D2 & D3 & D4
+    D1 & D2 & D3 & D4 --> E1 & E2 & E3
+    E1 & E2 & E3 --> F
+    F --> G
+
+    style C fill:#F44336,color:#fff,stroke-width:3px
+    style L2 fill:#F44336,color:#fff</pre>
 <hr>
 <h3 id="核心分界线：软硬件分界-ISA">核心分界线：软硬件分界 = ISA</h3>
 <p>这是<strong>计组中最重要的一条线</strong>，没有之一。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    subgraph Software[&quot;软件范畴（程序员可见）&quot;]</span><br><span class="line">        SW1[&quot;应用软件&quot;]</span><br><span class="line">        SW2[&quot;操作系统&quot;]</span><br><span class="line">        SW3[&quot;编译器&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph ISA_Layer[&quot;软硬件分界线 === ISA&quot;]</span><br><span class="line">        ISA_Content[&quot;指令格式 / 寻址方式 / 寄存器&lt;br/&gt;异常处理 / 中断机制&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph Hardware[&quot;硬件范畴（对程序员透明）&quot;]</span><br><span class="line">        HW1[&quot;流水线&quot;]</span><br><span class="line">        HW2[&quot;Cache 具体实现&quot;]</span><br><span class="line">        HW3[&quot;超标量/乱序&quot;]</span><br><span class="line">        HW4[&quot;乘除法器实现&quot;]</span><br><span class="line">        HW5[&quot;总线协议&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    Software --&gt; ISA_Layer</span><br><span class="line">    ISA_Layer --&gt; Hardware</span><br><span class="line"></span><br><span class="line">    style ISA_Layer fill:#F44336,color:#fff,stroke-width:3px</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">flowchart LR
+    subgraph Software["软件范畴（程序员可见）"]
+        SW1["应用软件"]
+        SW2["操作系统"]
+        SW3["编译器"]
+    end
+
+    subgraph ISA_Layer["软硬件分界线 === ISA"]
+        ISA_Content["指令格式 / 寻址方式 / 寄存器<br/>异常处理 / 中断机制"]
+    end
+
+    subgraph Hardware["硬件范畴（对程序员透明）"]
+        HW1["流水线"]
+        HW2["Cache 具体实现"]
+        HW3["超标量/乱序"]
+        HW4["乘除法器实现"]
+        HW5["总线协议"]
+    end
+
+    Software --> ISA_Layer
+    ISA_Layer --> Hardware
+
+    style ISA_Layer fill:#F44336,color:#fff,stroke-width:3px</pre>
 <table>
 <thead>
 <tr>
@@ -342,7 +406,29 @@
 </tbody>
 </table>
 <p><strong>三层 CPU 设计的对比</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    subgraph Single[&quot;单周期&quot;]</span><br><span class="line">        S0[&quot;取指&quot;] --&gt; S1[&quot;执行&quot;]</span><br><span class="line">        S1 --&gt; S2[&quot;写回&quot;]</span><br><span class="line">        S2 --&gt; S0</span><br><span class="line">        S_note[&quot;CPI = 1&lt;br/&gt;但时钟周期长&lt;br/&gt;= 最慢指令的耗时&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph Multi[&quot;多周期&quot;]</span><br><span class="line">        M0[&quot;取指&quot;] --&gt; M1[&quot;译码&quot;]</span><br><span class="line">        M1 --&gt; M2[&quot;执行&quot;]</span><br><span class="line">        M2 --&gt; M3[&quot;访存&quot;]</span><br><span class="line">        M3 --&gt; M4[&quot;写回&quot;]</span><br><span class="line">        M4 --&gt; M0</span><br><span class="line">        M_note[&quot;CPI = 3~5&lt;br/&gt;时钟周期短&lt;br/&gt;不同指令不同周期数&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph Pipeline[&quot;流水线&quot;]</span><br><span class="line">        P0[&quot;取指&quot;] --&gt; P1[&quot;译码&quot;] --&gt; P2[&quot;执行&quot;] --&gt; P3[&quot;访存&quot;] --&gt; P4[&quot;写回&quot;]</span><br><span class="line">        P_note[&quot;CPI ≈ 1（理想）&lt;br/&gt;吞吐率高&lt;br/&gt;但有冒险问题&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    Single -.- Multi -.- Pipeline</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">flowchart LR
+    subgraph Single["单周期"]
+        S0["取指"] --> S1["执行"]
+        S1 --> S2["写回"]
+        S2 --> S0
+        S_note["CPI = 1<br/>但时钟周期长<br/>= 最慢指令的耗时"]
+    end
+
+    subgraph Multi["多周期"]
+        M0["取指"] --> M1["译码"]
+        M1 --> M2["执行"]
+        M2 --> M3["访存"]
+        M3 --> M4["写回"]
+        M4 --> M0
+        M_note["CPI = 3~5<br/>时钟周期短<br/>不同指令不同周期数"]
+    end
+
+    subgraph Pipeline["流水线"]
+        P0["取指"] --> P1["译码"] --> P2["执行"] --> P3["访存"] --> P4["写回"]
+        P_note["CPI ≈ 1（理想）<br/>吞吐率高<br/>但有冒险问题"]
+    end
+
+    Single -.- Multi -.- Pipeline</pre>
 <hr>
 <h4 id="第4层：数字逻辑电路">第4层：数字逻辑电路</h4>
 <p><strong>408 核心考点</strong>：</p>
@@ -380,7 +466,43 @@
 <hr>
 <h3 id="各层之间的’翻译’过程">各层之间的’翻译’过程</h3>
 <p>一个 <code>a = b + c</code> 到了计算机里是怎么变成物理信号的？</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    subgraph Step1[&quot;① C 代码层&quot;]</span><br><span class="line">        T1[&quot;a = b + c;&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph Step2[&quot;② 编译 — ISA 层&quot;]</span><br><span class="line">        T2[&quot;ADD R1, R2, R3&lt;br/&gt;（R1 = R2 + R3）&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph Step3[&quot;③ 数据通路 — 微架构层&quot;]</span><br><span class="line">        T3_a[&quot;控制信号：&lt;br/&gt;RegWrite=1, ALUSrc=0,&lt;br/&gt;ALUSignal=ADD&quot;]</span><br><span class="line">        T3_b[&quot;数据流：&lt;br/&gt;Reg[242] → ALU_A&lt;br/&gt;Reg[243] → ALU_B&lt;br/&gt;Reg[241] ← ALU_Out&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph Step4[&quot;④ 逻辑门层&quot;]</span><br><span class="line">        T4_a[&quot;加法器进位传递&quot;]</span><br><span class="line">        T4_b[&quot;MUX 选择信号&quot;]</span><br><span class="line">        T4_c[&quot;寄存器读/写使能&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph Step5[&quot;⑤ 晶体管 → 物理&quot;]</span><br><span class="line">        T5[&quot;MOS 管导通/截止&lt;br/&gt;电流充放电 → 保存结果&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    T1 --&gt; Step2</span><br><span class="line">    Step2 --&gt; Step3</span><br><span class="line">    Step3 --&gt; Step4</span><br><span class="line">    Step4 --&gt; Step5</span><br><span class="line"></span><br><span class="line">    style T1 fill:#4CAF50,color:#fff</span><br><span class="line">    style T2 fill:#F44336,color:#fff</span><br><span class="line">    style T3_a fill:#2196F3,color:#fff</span><br><span class="line">    style T3_b fill:#2196F3,color:#fff</span><br><span class="line">    style T4_a fill:#FF9800,color:#fff</span><br><span class="line">    style T4_b fill:#FF9800,color:#fff</span><br><span class="line">    style T4_c fill:#FF9800,color:#fff</span><br><span class="line">    style T5 fill:#9E9E9E,color:#fff</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">flowchart TD
+    subgraph Step1["① C 代码层"]
+        T1["a = b + c;"]
+    end
+
+    subgraph Step2["② 编译 — ISA 层"]
+        T2["ADD R1, R2, R3<br/>（R1 = R2 + R3）"]
+    end
+
+    subgraph Step3["③ 数据通路 — 微架构层"]
+        T3_a["控制信号：<br/>RegWrite=1, ALUSrc=0,<br/>ALUSignal=ADD"]
+        T3_b["数据流：<br/>Reg[242] → ALU_A<br/>Reg[243] → ALU_B<br/>Reg[241] ← ALU_Out"]
+    end
+
+    subgraph Step4["④ 逻辑门层"]
+        T4_a["加法器进位传递"]
+        T4_b["MUX 选择信号"]
+        T4_c["寄存器读/写使能"]
+    end
+
+    subgraph Step5["⑤ 晶体管 → 物理"]
+        T5["MOS 管导通/截止<br/>电流充放电 → 保存结果"]
+    end
+
+    T1 --> Step2
+    Step2 --> Step3
+    Step3 --> Step4
+    Step4 --> Step5
+
+    style T1 fill:#4CAF50,color:#fff
+    style T2 fill:#F44336,color:#fff
+    style T3_a fill:#2196F3,color:#fff
+    style T3_b fill:#2196F3,color:#fff
+    style T4_a fill:#FF9800,color:#fff
+    style T4_b fill:#FF9800,color:#fff
+    style T4_c fill:#FF9800,color:#fff
+    style T5 fill:#9E9E9E,color:#fff</pre>
 <hr>
 <h3 id="层与层的实际对应关系（408-高频题）">层与层的实际对应关系（408 高频题）</h3>
 <h4 id="CPU-设计的三步演进">CPU 设计的三步演进</h4>
@@ -459,7 +581,35 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">题：给出 MIPS 指令 ADD R1, R2, R3</span><br><span class="line">    (1) 写出指令格式 → 第2层（ISA）</span><br><span class="line">    (2) 画出数据通路中该指令的路径 → 第3层（微架构）</span><br><span class="line">    (3) 分析关键路径延时 → 第4层（数字逻辑）</span><br><span class="line">    (4) 若采用流水线，可能有什么冒险 → 第3层（微架构）</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="各层之间的关系总结">各层之间的关系总结</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">mindmap</span><br><span class="line">  root((计算机组成&lt;br/&gt;层级结构))</span><br><span class="line">    应用软件</span><br><span class="line">      算法设计</span><br><span class="line">      高级语言编程</span><br><span class="line">    操作系统</span><br><span class="line">      进程/线程</span><br><span class="line">      虚拟内存</span><br><span class="line">      文件系统</span><br><span class="line">    ISA_指令系统</span><br><span class="line">      指令格式</span><br><span class="line">      寻址方式</span><br><span class="line">      寄存器定义</span><br><span class="line">      异常中断</span><br><span class="line">      软硬件分界线</span><br><span class="line">    微架构</span><br><span class="line">      数据通路</span><br><span class="line">      控制器</span><br><span class="line">      流水线</span><br><span class="line">      冒险与转发</span><br><span class="line">      超标量</span><br><span class="line">    数字逻辑</span><br><span class="line">      组合逻辑</span><br><span class="line">      时序逻辑</span><br><span class="line">      时钟同步</span><br><span class="line">    晶体管物理</span><br><span class="line">      CMOS</span><br><span class="line">      门电路</span><br><span class="line">      半导体制造</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">mindmap
+  root((计算机组成<br/>层级结构))
+    应用软件
+      算法设计
+      高级语言编程
+    操作系统
+      进程/线程
+      虚拟内存
+      文件系统
+    ISA_指令系统
+      指令格式
+      寻址方式
+      寄存器定义
+      异常中断
+      软硬件分界线
+    微架构
+      数据通路
+      控制器
+      流水线
+      冒险与转发
+      超标量
+    数字逻辑
+      组合逻辑
+      时序逻辑
+      时钟同步
+    晶体管物理
+      CMOS
+      门电路
+      半导体制造</pre>
 <h3 id="记忆口诀">记忆口诀</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">七层结构一条线，ISA 是分界线</span><br><span class="line">往上软件往下硬，各管各的别越界</span><br><span class="line"></span><br><span class="line">编译把代码变指令，微架构把指令变信号</span><br><span class="line">数字电路把信号变电平，晶体管把电平变电流</span><br><span class="line"></span><br><span class="line">软硬件分界最核心，408 最爱考区分</span><br><span class="line">透明与否记清楚，过关斩将拿高分</span><br></pre></td></tr></table></figure>
 <p>这个层级框架是理解整个计组的&quot;思维导图&quot;。每学一个具体知识点，先问自己：<strong>这属于哪一层？这一层和相邻层怎么连接？</strong> 学到最后你就会发现所有知识点都是串起来的。</p>
