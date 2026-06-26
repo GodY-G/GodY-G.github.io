@@ -100,6 +100,10 @@
     .tag-count { color: #C0C0C0; font-size: 12px; font-weight: 400; }
     .tag-item:hover .tag-count { color: #999; }
 
+    /* Mermaid fallback */
+    .mermaid { background: #FAFAFA; border: 1px solid #EEE; border-radius: 4px; padding: 20px; overflow-x: auto; min-height: 40px; }
+    .mermaid svg { max-width: 100%; }
+
     /* Typora highlight */
     mark { background: #FFF3A3; color: #333; padding: 1px 3px; border-radius: 2px; }
 
@@ -145,9 +149,22 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 2px; }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
-    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    document.addEventListener('DOMContentLoaded', function() {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+      script.onerror = function() {
+        // fallback CDN
+        var s2 = document.createElement('script');
+        s2.src = 'https://unpkg.com/mermaid@10/dist/mermaid.min.js';
+        s2.onload = function() { mermaid.initialize({ startOnLoad: true, theme: 'default' }); };
+        document.head.appendChild(s2);
+      };
+      script.onload = function() {
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+      };
+      document.head.appendChild(script);
+    });
     </script>
     <!-- persian styles -->
     
@@ -225,7 +242,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/">[Python, NumPy]广播、矩阵运算与线性代数</a>
+        <a class="" href="/2026/06/16/05_01_ndarray%E5%9F%BA%E7%A1%80/">[Python, NumPy]NumPy ndarray 基础</a>
     
 
 
@@ -249,7 +266,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/05_01_ndarray%E5%9F%BA%E7%A1%80/">[Python, NumPy]NumPy ndarray 基础</a>
+        <a class="" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/">[Python, NumPy]广播、矩阵运算与线性代数</a>
     
 
 
