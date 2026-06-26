@@ -153,14 +153,16 @@
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function(){
-      mermaid.initialize({ startOnLoad: true, theme: 'default' });
-      // Re-render code blocks with class "mermaid"
-      document.querySelectorAll('pre code.language-mermaid').forEach(function(block){
-        var pre = block.parentElement;
-        var div = document.createElement('div');
-        div.className = 'mermaid';
-        div.textContent = block.textContent;
-        pre.parentElement.replaceChild(div, pre);
+      mermaid.initialize({ startOnLoad: false, theme: 'default' });
+      document.querySelectorAll('pre code').forEach(function(code){
+        var text = code.textContent.trim();
+        if (/^(graph |flowchart|sequenceDiagram|classDiagram|stateDiagram|erDiagram|gantt|pie|mindmap|timeline|gitgraph)/.test(text)) {
+          var pre = code.parentElement;
+          var div = document.createElement('div');
+          div.className = 'mermaid';
+          div.textContent = text;
+          pre.parentElement.replaceChild(div, pre);
+        }
       });
       mermaid.run();
     });
@@ -200,7 +202,7 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="上一篇" href="/2026/06/16/06_02_%E8%87%AA%E5%8A%A8%E6%B1%82%E5%AF%BC%E4%B8%8E%E4%BC%98%E5%8C%96/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="上一篇" href="/2026/06/16/02_03_%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E6%8E%A8%E5%AF%BC%E5%BC%8F/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" aria-label="下一篇" href="/2026/06/16/08_01_os_sys_pathlib/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>

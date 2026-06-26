@@ -149,14 +149,16 @@
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function(){
-      mermaid.initialize({ startOnLoad: true, theme: 'default' });
-      // Re-render code blocks with class "mermaid"
-      document.querySelectorAll('pre code.language-mermaid').forEach(function(block){
-        var pre = block.parentElement;
-        var div = document.createElement('div');
-        div.className = 'mermaid';
-        div.textContent = block.textContent;
-        pre.parentElement.replaceChild(div, pre);
+      mermaid.initialize({ startOnLoad: false, theme: 'default' });
+      document.querySelectorAll('pre code').forEach(function(code){
+        var text = code.textContent.trim();
+        if (/^(graph |flowchart|sequenceDiagram|classDiagram|stateDiagram|erDiagram|gantt|pie|mindmap|timeline|gitgraph)/.test(text)) {
+          var pre = code.parentElement;
+          var div = document.createElement('div');
+          div.className = 'mermaid';
+          div.textContent = text;
+          pre.parentElement.replaceChild(div, pre);
+        }
       });
       mermaid.run();
     });
@@ -223,30 +225,6 @@
       
       
         <li class="post-year"><h2>2026</h2></li>
-      
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/01_01_%E5%8F%98%E9%87%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">[Python]变量与数据类型</a>
-    
-
-
-</span>
-      </li>
-    
-      
-      
-      
       
       <li class="post-item">
         
@@ -333,7 +311,31 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/02_03_%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E6%8E%A8%E5%AF%BC%E5%BC%8F/">[Python]迭代器、生成器与推导式</a>
+        <a class="" href="/2026/06/16/01_01_%E5%8F%98%E9%87%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">[Python]变量与数据类型</a>
+    
+
+
+</span>
+      </li>
+    
+      
+      
+      
+      
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2026/06/16/01_04_%E5%87%BD%E6%95%B0/">[Python]函数</a>
     
 
 
@@ -381,7 +383,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/04_01_%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/">[Python]异常处理与上下文管理器</a>
+        <a class="" href="/2026/06/16/03_01_%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/">[Python]类与对象</a>
     
 
 
@@ -429,7 +431,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/03_01_%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/">[Python]类与对象</a>
+        <a class="" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/">[Python, NumPy]广播、矩阵运算与线性代数</a>
     
 
 
@@ -453,7 +455,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/">[Python, NumPy]广播、矩阵运算与线性代数</a>
+        <a class="" href="/2026/06/16/04_01_%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/">[Python]异常处理与上下文管理器</a>
     
 
 
