@@ -14,7 +14,7 @@
 <meta property="og:description" content="一、Adam 优化器 1.1 从 SGD 到 Adam 的递进 12345SGD：    θ &#x3D; θ - lr·g                     ← 裸梯度，震荡Momentum：v &#x3D; β·v + lr·g, θ &#x3D; θ - v       ← 加惯性Adam：   m &#x3D; β₁·m + (1-β₁)·g              ← 动量（平滑方向）         v &#x3D; β₂·v">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-25T12:20:21.000Z">
-<meta property="article:modified_time" content="2026-06-25T12:21:32.923Z">
+<meta property="article:modified_time" content="2026-06-27T09:23:02.591Z">
 <meta property="article:author" content="GodY-G">
 <meta property="article:tag" content="3DGS">
 <meta name="twitter:card" content="summary">
@@ -102,6 +102,9 @@
     .tag-name { font-weight: 500; }
     .tag-count { color: #C0C0C0; font-size: 12px; font-weight: 400; }
     .tag-item:hover .tag-count { color: #999; }
+    .tags-link { margin-top: 32px; font-size: 13px; }
+    .tags-link a { color: #BBB; text-decoration: none; transition: color .2s; }
+    .tags-link a:hover { color: #666; }
 
     /* Mermaid fallback */
     .mermaid { background: #FAFAFA; border: 1px solid #EEE; border-radius: 4px; padding: 20px; overflow-x: auto; min-height: 40px; }
@@ -190,7 +193,7 @@
         <!--
        --><li><a href="/">Home</a></li><!--
      --><!--
-       --><li><a href="/tags/">Tags</a></li><!--
+       --><li><a href="/categories/">Categories</a></li><!--
      --><!--
        --><li><a href="/archives/">Archives</a></li><!--
      --><!--
@@ -401,6 +404,11 @@
     </div>
     <div class="post-tags-bottom">
       
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/">计算机图形学</a>
+    </div>
+
 
       
     <div class="article-tag">
@@ -424,7 +432,7 @@
         
           <li><a href="/">Home</a></li>
         
-          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/categories/">Categories</a></li>
         
           <li><a href="/archives/">Archives</a></li>
         
@@ -488,7 +496,7 @@
         <!--
        --><li><a href="/">Home</a></li><!--
      --><!--
-       --><li><a href="/tags/">Tags</a></li><!--
+       --><li><a href="/categories/">Categories</a></li><!--
      --><!--
        --><li><a href="/archives/">Archives</a></li><!--
      --><!--

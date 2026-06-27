@@ -14,9 +14,10 @@
 <meta property="og:description" content="控制流 1. if-elif-else 123456789101112131415161718192021score &#x3D; 85if score &gt;&#x3D; 90:    grade &#x3D; &quot;A&quot;elif score &gt;&#x3D; 80:    grade &#x3D; &quot;B&quot;elif score &gt;&#x3D; 70:    grade &#x3D; &quot;C&quot;elif">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-16T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-16T07:59:27.534Z">
+<meta property="article:modified_time" content="2026-06-27T09:22:52.619Z">
 <meta property="article:author" content="GodY-G">
 <meta property="article:tag" content="Python">
+<meta property="article:tag" content="基础">
 <meta name="twitter:card" content="summary">
     
     
@@ -102,6 +103,9 @@
     .tag-name { font-weight: 500; }
     .tag-count { color: #C0C0C0; font-size: 12px; font-weight: 400; }
     .tag-item:hover .tag-count { color: #999; }
+    .tags-link { margin-top: 32px; font-size: 13px; }
+    .tags-link a { color: #BBB; text-decoration: none; transition: color .2s; }
+    .tags-link a:hover { color: #666; }
 
     /* Mermaid fallback */
     .mermaid { background: #FAFAFA; border: 1px solid #EEE; border-radius: 4px; padding: 20px; overflow-x: auto; min-height: 40px; }
@@ -190,7 +194,7 @@
         <!--
        --><li><a href="/">Home</a></li><!--
      --><!--
-       --><li><a href="/tags/">Tags</a></li><!--
+       --><li><a href="/categories/">Categories</a></li><!--
      --><!--
        --><li><a href="/archives/">Archives</a></li><!--
      --><!--
@@ -206,10 +210,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="上一篇" href="/2026/06/16/02_02_%E5%AD%97%E5%85%B8%E4%B8%8E%E9%9B%86%E5%90%88/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="上一篇" href="/2026/06/16/03_01_%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="下一篇" href="/2026/06/16/06_01_%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="下一篇" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -299,14 +303,14 @@
       
     <div class="article-category">
         <i class="fa-solid fa-archive"></i>
-        <a class="category-link" href="/categories/Python/">Python</a>
+        <a class="category-link" href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%B7%A5%E5%85%B7/">编程与工具</a>
     </div>
 
 
       
     <div class="article-tag">
         <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/Python/" rel="tag">Python</a>
+        <a class="p-category" href="/tags/Python/" rel="tag">Python</a>, <a class="p-category" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a>
     </div>
 
 
@@ -325,7 +329,7 @@
         
           <li><a href="/">Home</a></li>
         
-          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/categories/">Categories</a></li>
         
           <li><a href="/archives/">Archives</a></li>
         
@@ -389,7 +393,7 @@
         <!--
        --><li><a href="/">Home</a></li><!--
      --><!--
-       --><li><a href="/tags/">Tags</a></li><!--
+       --><li><a href="/categories/">Categories</a></li><!--
      --><!--
        --><li><a href="/archives/">Archives</a></li><!--
      --><!--

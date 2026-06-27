@@ -14,7 +14,7 @@
 <meta property="og:description" content="PyTorch 张量基础 PyTorch 是深度学习框架，核心是 Tensor（张量）——类似 NumPy 的 ndarray，但支持 GPU 加速和自动求导。 1. 创建张量 12345678910111213141516171819202122232425import torchimport numpy as np# 从列表a &#x3D; torch.tensor([1, 2, 3, 4])b &#x3D; t">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-16T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-16T07:59:27.542Z">
+<meta property="article:modified_time" content="2026-06-27T09:22:52.622Z">
 <meta property="article:author" content="GodY-G">
 <meta property="article:tag" content="PyTorch">
 <meta property="article:tag" content="Python">
@@ -103,6 +103,9 @@
     .tag-name { font-weight: 500; }
     .tag-count { color: #C0C0C0; font-size: 12px; font-weight: 400; }
     .tag-item:hover .tag-count { color: #999; }
+    .tags-link { margin-top: 32px; font-size: 13px; }
+    .tags-link a { color: #BBB; text-decoration: none; transition: color .2s; }
+    .tags-link a:hover { color: #666; }
 
     /* Mermaid fallback */
     .mermaid { background: #FAFAFA; border: 1px solid #EEE; border-radius: 4px; padding: 20px; overflow-x: auto; min-height: 40px; }
@@ -191,7 +194,7 @@
         <!--
        --><li><a href="/">Home</a></li><!--
      --><!--
-       --><li><a href="/tags/">Tags</a></li><!--
+       --><li><a href="/categories/">Categories</a></li><!--
      --><!--
        --><li><a href="/archives/">Archives</a></li><!--
      --><!--
@@ -207,10 +210,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="上一篇" href="/2026/06/16/01_03_%E6%8E%A7%E5%88%B6%E6%B5%81/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="上一篇" href="/2026/06/16/05_01_ndarray%E5%9F%BA%E7%A1%80/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="下一篇" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="下一篇" href="/2026/06/16/07_02_OpenGL%E4%B8%8E%E4%B8%89%E7%BB%B4%E5%8F%AF%E8%A7%86%E5%8C%96/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -297,7 +300,7 @@
       
     <div class="article-category">
         <i class="fa-solid fa-archive"></i>
-        <a class="category-link" href="/categories/PyTorch/">PyTorch</a>
+        <a class="category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
     </div>
 
 
@@ -323,7 +326,7 @@
         
           <li><a href="/">Home</a></li>
         
-          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/categories/">Categories</a></li>
         
           <li><a href="/archives/">Archives</a></li>
         
@@ -387,7 +390,7 @@
         <!--
        --><li><a href="/">Home</a></li><!--
      --><!--
-       --><li><a href="/tags/">Tags</a></li><!--
+       --><li><a href="/categories/">Categories</a></li><!--
      --><!--
        --><li><a href="/archives/">Archives</a></li><!--
      --><!--
