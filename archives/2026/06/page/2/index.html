@@ -103,7 +103,28 @@
     .tags-link a { color: #BBB; text-decoration: none; transition: color .2s; }
     .tags-link a:hover { color: #666; }
 
-    /* Mermaid fallback */
+    /* === Dashboard === */
+    .dashboard { margin-top: 8px; }
+    .dash-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 40px; }
+    .stat-card { background: #FFF; border: 1px solid #ECECEC; border-radius: 6px; padding: 18px 20px; text-align: center; }
+    .stat-num { display: block; font-size: 28px; font-weight: 700; color: #1A1A1A; letter-spacing: -.02em; }
+    .stat-label { display: block; font-size: 11px; color: #B0B0B0; letter-spacing: .06em; margin-top: 4px; text-transform: uppercase; }
+    .dash-section { margin-bottom: 36px; }
+    .dash-h3 { font-size: 11px; font-weight: 600; color: #C0C0C0; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
+    .dash-posts { display: flex; flex-direction: column; }
+    .dash-post { display: flex; gap: 14px; padding: 8px 0; text-decoration: none; border-bottom: 1px solid #F5F5F5; transition: opacity .2s; }
+    .dash-post:hover { opacity: .45; }
+    .dash-post-date { flex: 0 0 60px; font-size: 12px; color: #C0C0C0; letter-spacing: .02em; padding-top: 1px; }
+    .dash-post-title { flex: 1; font-size: 14px; color: #2A2A2A; font-weight: 500; }
+    .dash-topics { display: flex; flex-wrap: wrap; gap: 8px; }
+    .dash-topic { display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px; background: #FFF; border: 1px solid #ECECEC; border-radius: 4px; text-decoration: none; font-size: 13px; color: #555; transition: all .2s; }
+    .dash-topic:hover { border-color: #BBB; color: #1A1A1A; }
+    .dash-topic-count { color: #CCC; font-size: 12px; }
+    .dash-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .dash-tag { display: inline-block; padding: 4px 10px; font-size: 12px; color: #AAA; text-decoration: none; border-radius: 3px; transition: color .2s; }
+    .dash-tag:hover { color: #555; }
+
+    /* === Mermaid fallback === */
     .mermaid { background: #FAFAFA; border: 1px solid #EEE; border-radius: 4px; padding: 20px; overflow-x: auto; min-height: 40px; }
     .mermaid svg { max-width: 100%; }
 
@@ -247,79 +268,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/02_03_%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E6%8E%A8%E5%AF%BC%E5%BC%8F/">[Python]迭代器、生成器与推导式</a>
-    
-
-
-</span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/02_02_%E5%AD%97%E5%85%B8%E4%B8%8E%E9%9B%86%E5%90%88/">[Python]字典与集合</a>
-    
-
-
-</span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/02_01_%E5%88%97%E8%A1%A8%E4%B8%8E%E5%85%83%E7%BB%84/">[Python]列表与元组</a>
-    
-
-
-</span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/03_01_%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/">[Python]类与对象</a>
+        <a class="" href="/2026/06/16/01_03_%E6%8E%A7%E5%88%B6%E6%B5%81/">[Python]控制流</a>
     
 
 
@@ -415,6 +364,102 @@
 
         <span>
     
+        <a class="" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/">[Python, NumPy]广播、矩阵运算与线性代数</a>
+    
+
+
+</span>
+      </li>
+    
+      
+      
+      
+      
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2026/06/16/01_02_%E8%BF%90%E7%AE%97%E7%AC%A6/">[Python]运算符</a>
+    
+
+
+</span>
+      </li>
+    
+      
+      
+      
+      
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2026/06/16/02_03_%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E6%8E%A8%E5%AF%BC%E5%BC%8F/">[Python]迭代器、生成器与推导式</a>
+    
+
+
+</span>
+      </li>
+    
+      
+      
+      
+      
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2026/06/16/03_01_%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/">[Python]类与对象</a>
+    
+
+
+</span>
+      </li>
+    
+      
+      
+      
+      
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
+        
+      
+    </div>
+
+
+        <span>
+    
         <a class="" href="/2026/06/16/06_02_%E8%87%AA%E5%8A%A8%E6%B1%82%E5%AF%BC%E4%B8%8E%E4%BC%98%E5%8C%96/">[Python, PyTorch]自动求导与优化器</a>
     
 
@@ -439,31 +484,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/06_03_%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">[Python, PyTorch]PyTorch 神经网络</a>
-    
-
-
-</span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/">[Python, NumPy]广播、矩阵运算与线性代数</a>
+        <a class="" href="/2026/06/16/07_01_Matplotlib%E7%BB%98%E5%9B%BE/">[Python, 可视化] Matplotlib 绘图</a>
     
 
 

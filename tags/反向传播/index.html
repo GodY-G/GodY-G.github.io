@@ -103,7 +103,28 @@
     .tags-link a { color: #BBB; text-decoration: none; transition: color .2s; }
     .tags-link a:hover { color: #666; }
 
-    /* Mermaid fallback */
+    /* === Dashboard === */
+    .dashboard { margin-top: 8px; }
+    .dash-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 40px; }
+    .stat-card { background: #FFF; border: 1px solid #ECECEC; border-radius: 6px; padding: 18px 20px; text-align: center; }
+    .stat-num { display: block; font-size: 28px; font-weight: 700; color: #1A1A1A; letter-spacing: -.02em; }
+    .stat-label { display: block; font-size: 11px; color: #B0B0B0; letter-spacing: .06em; margin-top: 4px; text-transform: uppercase; }
+    .dash-section { margin-bottom: 36px; }
+    .dash-h3 { font-size: 11px; font-weight: 600; color: #C0C0C0; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
+    .dash-posts { display: flex; flex-direction: column; }
+    .dash-post { display: flex; gap: 14px; padding: 8px 0; text-decoration: none; border-bottom: 1px solid #F5F5F5; transition: opacity .2s; }
+    .dash-post:hover { opacity: .45; }
+    .dash-post-date { flex: 0 0 60px; font-size: 12px; color: #C0C0C0; letter-spacing: .02em; padding-top: 1px; }
+    .dash-post-title { flex: 1; font-size: 14px; color: #2A2A2A; font-weight: 500; }
+    .dash-topics { display: flex; flex-wrap: wrap; gap: 8px; }
+    .dash-topic { display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px; background: #FFF; border: 1px solid #ECECEC; border-radius: 4px; text-decoration: none; font-size: 13px; color: #555; transition: all .2s; }
+    .dash-topic:hover { border-color: #BBB; color: #1A1A1A; }
+    .dash-topic-count { color: #CCC; font-size: 12px; }
+    .dash-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .dash-tag { display: inline-block; padding: 4px 10px; font-size: 12px; color: #AAA; text-decoration: none; border-radius: 3px; transition: color .2s; }
+    .dash-tag:hover { color: #555; }
+
+    /* === Mermaid fallback === */
     .mermaid { background: #FAFAFA; border: 1px solid #EEE; border-radius: 4px; padding: 20px; overflow-x: auto; min-height: 40px; }
     .mermaid svg { max-width: 100%; }
 

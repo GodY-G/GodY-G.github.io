@@ -103,7 +103,28 @@
     .tags-link a { color: #BBB; text-decoration: none; transition: color .2s; }
     .tags-link a:hover { color: #666; }
 
-    /* Mermaid fallback */
+    /* === Dashboard === */
+    .dashboard { margin-top: 8px; }
+    .dash-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 40px; }
+    .stat-card { background: #FFF; border: 1px solid #ECECEC; border-radius: 6px; padding: 18px 20px; text-align: center; }
+    .stat-num { display: block; font-size: 28px; font-weight: 700; color: #1A1A1A; letter-spacing: -.02em; }
+    .stat-label { display: block; font-size: 11px; color: #B0B0B0; letter-spacing: .06em; margin-top: 4px; text-transform: uppercase; }
+    .dash-section { margin-bottom: 36px; }
+    .dash-h3 { font-size: 11px; font-weight: 600; color: #C0C0C0; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
+    .dash-posts { display: flex; flex-direction: column; }
+    .dash-post { display: flex; gap: 14px; padding: 8px 0; text-decoration: none; border-bottom: 1px solid #F5F5F5; transition: opacity .2s; }
+    .dash-post:hover { opacity: .45; }
+    .dash-post-date { flex: 0 0 60px; font-size: 12px; color: #C0C0C0; letter-spacing: .02em; padding-top: 1px; }
+    .dash-post-title { flex: 1; font-size: 14px; color: #2A2A2A; font-weight: 500; }
+    .dash-topics { display: flex; flex-wrap: wrap; gap: 8px; }
+    .dash-topic { display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px; background: #FFF; border: 1px solid #ECECEC; border-radius: 4px; text-decoration: none; font-size: 13px; color: #555; transition: all .2s; }
+    .dash-topic:hover { border-color: #BBB; color: #1A1A1A; }
+    .dash-topic-count { color: #CCC; font-size: 12px; }
+    .dash-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .dash-tag { display: inline-block; padding: 4px 10px; font-size: 12px; color: #AAA; text-decoration: none; border-radius: 3px; transition: color .2s; }
+    .dash-tag:hover { color: #555; }
+
+    /* === Mermaid fallback === */
     .mermaid { background: #FAFAFA; border: 1px solid #EEE; border-radius: 4px; padding: 20px; overflow-x: auto; min-height: 40px; }
     .mermaid svg { max-width: 100%; }
 
@@ -222,240 +243,136 @@
 </header>
 
         
-        <section id="about" class="p-note">
-  
-    <p>GodY的个人博客</p>
+        <div class="dashboard">
+  <div class="dash-stats">
+    <div class="stat-card">
+      <span class="stat-num">29</span>
+      <span class="stat-label">Posts</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Topics</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num">19</span>
+      <span class="stat-label">Tags</span>
+    </div>
+  </div>
 
-  
-</section>
-
-<section id="writing">
-  <span class="h1">POST</span>
-  <ul class="post-list">
-    
-    
+  <div class="dash-section">
+    <h3 class="dash-h3">Recent</h3>
+    <div class="dash-posts">
       
-    
-    
-      <li class="post-item">
-        
-    <div class="meta">
+        <a class="dash-post" href="/2026/06/26/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E7%9A%84%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84/">
+          <span class="dash-post-date">6月 26</span>
+          <span class="dash-post-title">[考研]计算机组成原理的层级结构</span>
+        </a>
       
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
+        <a class="dash-post" href="/2026/06/26/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E5%9B%BE%E6%96%87%E8%AF%A6%E8%A7%A3/">
+          <span class="dash-post-date">6月 26</span>
+          <span class="dash-post-title">[考研]计算机组成原理全书知识体系_图文详解</span>
+        </a>
+      
+        <a class="dash-post" href="/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/">
+          <span class="dash-post-date">6月 25</span>
+          <span class="dash-post-title">[3DGS]Adam与损失函数</span>
+        </a>
+      
+        <a class="dash-post" href="/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/">
+          <span class="dash-post-date">6月 25</span>
+          <span class="dash-post-title">[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影</span>
+        </a>
+      
+        <a class="dash-post" href="/2026/06/18/%E6%A0%A1%E5%9B%AD%E6%9D%82%E8%B0%88-%E8%8B%8F%E5%B7%9E%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%EF%BC%88%E6%B1%9F%E6%9E%AB%EF%BC%89%E5%AE%BF%E8%88%8D%E5%A4%9C%E6%99%9A%E8%AE%BE%E6%96%BD%E5%8D%87%E7%BA%A7/">
+          <span class="dash-post-date">6月 18</span>
+          <span class="dash-post-title">[校园杂谈] 苏州科技大学（江枫）宿舍夜晚设施升级</span>
+        </a>
+      
+        <a class="dash-post" href="/2026/06/18/%E6%85%A2%E6%BC%AB%E8%81%8A-%E5%86%8D%E8%A7%81%E2%80%94%E2%80%94%E8%8B%8F%E7%A7%91%E5%A4%A7%EF%BC%8C%E4%BD%A0%E5%A5%BD%E2%80%94%E2%80%94/">
+          <span class="dash-post-date">6月 18</span>
+          <span class="dash-post-title">[慢漫聊]再见——苏科大，你好——...</span>
+        </a>
       
     </div>
+  </div>
 
-
-        <span>
-    
-        <a class="" href="/2026/06/16/02_03_%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E6%8E%A8%E5%AF%BC%E5%BC%8F/">[Python]迭代器、生成器与推导式</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
+  <div class="dash-section">
+    <h3 class="dash-h3">Topics</h3>
+    <div class="dash-topics">
       
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
+        <a class="dash-topic" href="/categories/%E6%9D%82%E8%B0%88/">
+          杂谈
+          <span class="dash-topic-count">4</span>
+        </a>
       
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/02_02_%E5%AD%97%E5%85%B8%E4%B8%8E%E9%9B%86%E5%90%88/">[Python]字典与集合</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
+        <a class="dash-topic" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+          深度学习
+          <span class="dash-topic-count">5</span>
+        </a>
       
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
+        <a class="dash-topic" href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%B7%A5%E5%85%B7/">
+          编程与工具
+          <span class="dash-topic-count">11</span>
+        </a>
+      
+        <a class="dash-topic" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/">
+          计算机图形学
+          <span class="dash-topic-count">7</span>
+        </a>
+      
+        <a class="dash-topic" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+          计算机基础
+          <span class="dash-topic-count">2</span>
+        </a>
       
     </div>
+  </div>
 
-
-        <span>
-    
-        <a class="" href="/2026/06/16/02_01_%E5%88%97%E8%A1%A8%E4%B8%8E%E5%85%83%E7%BB%84/">[Python]列表与元组</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
+  <div class="dash-section">
+    <h3 class="dash-h3">Tags</h3>
+    <div class="dash-tags">
       
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
+        <a class="dash-tag" href="/tags/3DGS/">3DGS</a>
       
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/03_01_%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/">[Python]类与对象</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
+        <a class="dash-tag" href="/tags/Adam/">Adam</a>
       
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
+        <a class="dash-tag" href="/tags/Architecture/">Architecture</a>
       
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/04_01_%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/">[Python]异常处理与上下文管理器</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
+        <a class="dash-tag" href="/tags/Matplotlib/">Matplotlib</a>
       
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
+        <a class="dash-tag" href="/tags/NumPy/">NumPy</a>
+      
+        <a class="dash-tag" href="/tags/OpenGL/">OpenGL</a>
+      
+        <a class="dash-tag" href="/tags/PyTorch/">PyTorch</a>
+      
+        <a class="dash-tag" href="/tags/Python/">Python</a>
+      
+        <a class="dash-tag" href="/tags/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/">反向传播</a>
+      
+        <a class="dash-tag" href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">可视化</a>
+      
+        <a class="dash-tag" href="/tags/%E5%9F%BA%E7%A1%80/">基础</a>
+      
+        <a class="dash-tag" href="/tags/%E6%85%A2%E6%BC%AB%E8%81%8A/">慢漫聊</a>
+      
+        <a class="dash-tag" href="/tags/%E6%9C%AC%E5%8D%9A%E5%AE%A2/">本博客</a>
+      
+        <a class="dash-tag" href="/tags/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
+      
+        <a class="dash-tag" href="/tags/%E6%A0%A1%E5%9B%AD%E6%9D%82%E8%B0%88/">校园杂谈</a>
+      
+        <a class="dash-tag" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">神经网络</a>
+      
+        <a class="dash-tag" href="/tags/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/">科学计算</a>
+      
+        <a class="dash-tag" href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/">线性代数</a>
+      
+        <a class="dash-tag" href="/tags/%E8%BF%9B%E9%98%B6/">进阶</a>
       
     </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/05_01_ndarray%E5%9F%BA%E7%A1%80/">[Python, NumPy]NumPy ndarray 基础</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/06_01_%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/">[Python, PyTorch]PyTorch 张量基础</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/06_02_%E8%87%AA%E5%8A%A8%E6%B1%82%E5%AF%BC%E4%B8%8E%E4%BC%98%E5%8C%96/">[Python, PyTorch]自动求导与优化器</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/06_03_%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">[Python, PyTorch]PyTorch 神经网络</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2026-06-16T04:00:00.000Z" class="dt-published" itemprop="datePublished">2026-06-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/">[Python, NumPy]广播、矩阵运算与线性代数</a>
-    
-
-
-</span>
-      </li>
-    
-  </ul>
-  
-    
-    <div class="pagination">
-        
-            <a href="/"><i class="fa-solid fa-angle-left"></i></a>
-        
-        <span class="page-number">第 2 页，共 3 页</span>
-        
-            <a href="/page/3/"><i class="fa-solid fa-angle-right"></i>
-            </a>
-        
-    </div>
-
-
-  
-</section>
-
-
+  </div>
+</div>
 
         
         <footer id="footer">
