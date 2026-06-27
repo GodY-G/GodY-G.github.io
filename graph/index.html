@@ -232,11 +232,19 @@
 .graph-legend { position: absolute; top: 12px; left: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
 .graph-legend span { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #8B949E; }
 .graph-legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+.graph-reset {
+  position: absolute; bottom: 16px; left: 16px;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  color: #8B949E; padding: 6px 14px; border-radius: 6px; cursor: pointer;
+  font-size: 12px; transition: all .2s;
+}
+.graph-reset:hover { background: rgba(255,255,255,.12); color: #F0F6FC; }
 @media (max-width: 600px) { #graph-container { height: 50vh; } }
 </style>
 
 <div id="graph-container">
   <div class="graph-legend" id="legend"></div>
+  <button class="graph-reset" id="reset-btn">Fit View</button>
 </div>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -311,6 +319,22 @@ fetch('/graph.json')
       link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
           .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
       node.attr('transform', d => 'translate(' + d.x + ',' + d.y + ')');
+    });
+
+    // Fit view button
+    var pad = 60;
+    document.getElementById('reset-btn').addEventListener('click', function() {
+      var xExt = d3.extent(data.nodes, d => d.x);
+      var yExt = d3.extent(data.nodes, d => d.y);
+      var dx = xExt[1] - xExt[0] || 100;
+      var dy = yExt[1] - yExt[0] || 100;
+      var scale = Math.min(w / (dx + pad*2), h / (dy + pad*2), 4);
+      var tx = w/2 - (xExt[0] + xExt[1])/2 * scale;
+      var ty = h/2 - (yExt[0] + yExt[1])/2 * scale;
+      svg.transition().duration(600).call(
+        zoom.transform,
+        d3.zoomIdentity.translate(tx, ty).scale(scale)
+      );
     });
   });
 </script>
