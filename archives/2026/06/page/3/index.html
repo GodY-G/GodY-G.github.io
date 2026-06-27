@@ -103,29 +103,56 @@
     .tags-link a { color: #BBB; text-decoration: none; transition: color .2s; }
     .tags-link a:hover { color: #666; }
 
-    /* === Dashboard === */
-    .dashboard { margin-top: 8px; }
-    .dash-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 40px; }
-    .stat-card { background: #FFF; border: 1px solid #ECECEC; border-radius: 6px; padding: 18px 20px; text-align: center; }
-    .stat-num { display: block; font-size: 28px; font-weight: 700; color: #1A1A1A; letter-spacing: -.02em; }
-    .stat-label { display: block; font-size: 11px; color: #B0B0B0; letter-spacing: .06em; margin-top: 4px; text-transform: uppercase; }
-    .dash-section { margin-bottom: 36px; }
-    .dash-h3 { font-size: 11px; font-weight: 600; color: #C0C0C0; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
-    .dash-posts { display: flex; flex-direction: column; }
-    .dash-post { display: flex; gap: 14px; padding: 8px 0; text-decoration: none; border-bottom: 1px solid #F5F5F5; transition: opacity .2s; }
-    .dash-post:hover { opacity: .45; }
-    .dash-post-date { flex: 0 0 60px; font-size: 12px; color: #C0C0C0; letter-spacing: .02em; padding-top: 1px; }
-    .dash-post-title { flex: 1; font-size: 14px; color: #2A2A2A; font-weight: 500; }
-    .dash-topics { display: flex; flex-wrap: wrap; gap: 8px; }
-    .dash-topic { display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px; background: #FFF; border: 1px solid #ECECEC; border-radius: 4px; text-decoration: none; font-size: 13px; color: #555; transition: all .2s; }
-    .dash-topic:hover { border-color: #BBB; color: #1A1A1A; }
-    .dash-topic-count { color: #CCC; font-size: 12px; }
-    .dash-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .dash-tag { display: inline-block; padding: 4px 10px; font-size: 12px; color: #AAA; text-decoration: none; border-radius: 3px; transition: color .2s; }
-    .dash-tag:hover { color: #555; }
-    .dash-gh { display: block; border: 1px solid #ECECEC; border-radius: 6px; overflow: hidden; transition: border-color .2s; }
-    .dash-gh:hover { border-color: #BBB; }
-    .dash-gh-img { width: 100%; display: block; }
+    /* === Bento Grid === */
+    .bento {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .bento-card {
+      background: #FFF; border: 1px solid #EEE; border-radius: 12px;
+      padding: 20px; transition: transform .35s cubic-bezier(.25,.8,.25,1.2), box-shadow .35s ease, border-color .35s ease;
+      animation: bentoIn .6s ease both;
+    }
+    .bento-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.06); border-color: #DDD; }
+    .bento-card:nth-child(1) { animation-delay: 0s; }
+    .bento-card:nth-child(2) { animation-delay: .08s; }
+    .bento-card:nth-child(3) { animation-delay: .16s; }
+    .bento-card:nth-child(4) { animation-delay: .24s; }
+    @keyframes bentoIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Stats - full width row */
+    .bento-stats { grid-column: 1 / -1; display: flex; gap: 32px; justify-content: center; padding: 24px 20px; }
+    .bento-stat { text-align: center; }
+    .bento-num { display: block; font-size: 36px; font-weight: 700; color: #1A1A1A; letter-spacing: -.03em; transition: transform .3s; }
+    .bento-card:hover .bento-num { transform: scale(1.05); }
+    .bento-label { display: block; font-size: 11px; color: #C0C0C0; letter-spacing: .06em; margin-top: 2px; text-transform: uppercase; }
+
+    /* GitHub - full width */
+    .bento-gh { grid-column: 1 / -1; padding: 0; overflow: hidden; border-radius: 12px; }
+    .bento-gh-img { width: 100%; display: block; }
+
+    /* Recent & Categories - side by side */
+    .bento-recent, .bento-cats { min-height: 200px; }
+    .bento-h3 { font-size: 11px; font-weight: 600; color: #C0C0C0; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 14px 0; }
+    .bento-list { display: flex; flex-direction: column; }
+    .bento-row { display: flex; gap: 12px; padding: 8px 0; text-decoration: none; border-bottom: 1px solid #F8F8F8; transition: all .25s; }
+    .bento-row:last-child { border-bottom: none; }
+    .bento-row:hover { padding-left: 6px; background: linear-gradient(to right, transparent, #FAFAFA); }
+    .bento-row:hover .bento-title { color: #1A1A1A; }
+    .bento-date { flex: 0 0 50px; font-size: 12px; color: #D0D0D0; letter-spacing: .02em; padding-top: 1px; }
+    .bento-title { flex: 1; font-size: 13px; color: #555; font-weight: 500; transition: color .25s; }
+
+    /* Category pills */
+    .bento-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .bento-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: #FAFAFA; border: 1px solid #EEE; border-radius: 20px; text-decoration: none; font-size: 12px; color: #555; transition: all .25s; }
+    .bento-pill:hover { border-color: #CCC; background: #FFF; color: #1A1A1A; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+    .bento-pill small { font-size: 10px; color: #CCC; }
+    .bento-pill-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    @media (max-width: 600px) { .bento { grid-template-columns: 1fr; }
+      .bento-stats { gap: 16px; } .bento-num { font-size: 26px; } }
 
     /* === Mermaid fallback === */
     .mermaid { background: #FAFAFA; border: 1px solid #EEE; border-radius: 4px; padding: 20px; overflow-x: auto; min-height: 40px; }
@@ -271,7 +298,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/07_02_OpenGL%E4%B8%8E%E4%B8%89%E7%BB%B4%E5%8F%AF%E8%A7%86%E5%8C%96/">[Python, 可视化]OpenGL 基础与 3D 可视化</a>
+        <a class="" href="/2026/06/16/08_01_os_sys_pathlib/">[Python]os、sys、pathlib — 系统操作</a>
     
 
 
@@ -295,7 +322,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/08_01_os_sys_pathlib/">[Python]os、sys、pathlib — 系统操作</a>
+        <a class="" href="/2026/06/16/06_02_%E8%87%AA%E5%8A%A8%E6%B1%82%E5%AF%BC%E4%B8%8E%E4%BC%98%E5%8C%96/">[Python, PyTorch]自动求导与优化器</a>
     
 
 
@@ -343,7 +370,7 @@
 
         <span>
     
-        <a class="" href="/2026/06/16/07_01_Matplotlib%E7%BB%98%E5%9B%BE/">[Python, 可视化] Matplotlib 绘图</a>
+        <a class="" href="/2026/06/16/07_02_OpenGL%E4%B8%8E%E4%B8%89%E7%BB%B4%E5%8F%AF%E8%A7%86%E5%8C%96/">[Python, 可视化]OpenGL 基础与 3D 可视化</a>
     
 
 
