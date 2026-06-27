@@ -118,7 +118,7 @@
       padding: 20px; transition: transform .35s cubic-bezier(.25,.8,.25,1.2), box-shadow .35s ease, border-color .35s ease;
       animation: bentoIn .6s ease both;
     }
-    .bento-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.06); border-color: #DDD; }
+    .bento-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.05); }
     .bento-card:nth-child(1) { animation-delay: 0s; }
     .bento-card:nth-child(2) { animation-delay: .08s; }
     .bento-card:nth-child(3) { animation-delay: .16s; }
@@ -142,15 +142,14 @@
     .bento-list { display: flex; flex-direction: column; }
     .bento-row { display: flex; gap: 12px; padding: 8px 0; text-decoration: none; border-bottom: 1px solid #F8F8F8; transition: all .25s; }
     .bento-row:last-child { border-bottom: none; }
-    .bento-row:hover { padding-left: 6px; background: linear-gradient(to right, transparent, #FAFAFA); }
-    .bento-row:hover .bento-title { color: #1A1A1A; }
+    .bento-row:hover { padding-left: 6px; }
     .bento-date { flex: 0 0 50px; font-size: 12px; color: #D0D0D0; letter-spacing: .02em; padding-top: 1px; }
     .bento-title { flex: 1; font-size: 13px; color: #555; font-weight: 500; transition: color .25s; }
 
     /* Category pills */
     .bento-pills { display: flex; flex-wrap: wrap; gap: 8px; }
     .bento-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: #FAFAFA; border: 1px solid #EEE; border-radius: 20px; text-decoration: none; font-size: 12px; color: #555; transition: all .25s; }
-    .bento-pill:hover { border-color: #CCC; background: #FFF; color: #1A1A1A; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+    .bento-pill:hover { border-color: #BBB; background: #FFF; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,.04); }
     .bento-pill small { font-size: 10px; color: #CCC; }
     .bento-pill-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
