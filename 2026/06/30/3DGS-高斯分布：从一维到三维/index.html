@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="日期：2026-06-26 内容：概率基础 + 一维高斯 + 三维高斯几何理解   一、概率基础速览 1.1 PDF vs CDF  PDF（概率密度函数）：描述随机变量在某值附近的&quot;可能性密度&quot;。不是概率本身，曲线下总面积 &#x3D; 1 CDF（累积分布函数）：x 处 CDF 值 &#x3D; PDF 从 -∞ 到 x 的积分，单调递增 0→1     分布 PDF 特征 3DGS 关联">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[3DGS]高斯分布：从一维到三维">
+<meta property="og:url" content="https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/index.html">
+<meta property="og:site_name" content="GodY">
+<meta property="og:description" content="日期：2026-06-26 内容：概率基础 + 一维高斯 + 三维高斯几何理解   一、概率基础速览 1.1 PDF vs CDF  PDF（概率密度函数）：描述随机变量在某值附近的&quot;可能性密度&quot;。不是概率本身，曲线下总面积 &#x3D; 1 CDF（累积分布函数）：x 处 CDF 值 &#x3D; PDF 从 -∞ 到 x 的积分，单调递增 0→1     分布 PDF 特征 3DGS 关联">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-30T12:19:20.000Z">
+<meta property="article:modified_time" content="2026-06-30T12:20:07.916Z">
+<meta property="article:author" content="GodY-G">
+<meta property="article:tag" content="3DGS">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/img/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/img/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>[3DGS]高斯分布：从一维到三维</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <style>
+    /* === Premium Overrides === */
+    body { font-family: "Inter", -apple-system, "Microsoft YaHei", sans-serif; background: #FAFAFA; }
+    .content { padding-top: 0; }
+    #header { padding: 56px 0 32px; border: none; }
+    #title h1 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+    #nav a { font-size: 13px; color: #888; letter-spacing: .01em; padding: 0 10px; }
+    #nav a:hover { color: #1A1A1A; }
+    .home-arrow { font-size: 14px; margin-right: 6px; opacity: .25; font-weight: 400; }
+
+    /* Home post list */
+    #writing .h1 { font-size: 11px; font-weight: 600; color: #B0B0B0; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 28px; display: block; }
+    .post-item { margin-bottom: 28px; display: flex; align-items: baseline; gap: 16px; }
+    .post-item .meta { flex: 0 0 110px; text-align: right; font-size: 12px; color: #C0C0C0; letter-spacing: .02em; }
+    .post-item .article-title { font-size: 15px; font-weight: 500; line-height: 1.45; }
+    .post-item .article-title a { color: #2A2A2A; text-decoration: none; transition: opacity .2s; }
+    .post-item .article-title a:hover { opacity: .4; }
+    .post-item .article-category { font-size: 11px; color: #CCC; letter-spacing: .03em; margin-top: 3px; display: block; }
+    .post-item .article-category a { color: #CCC; text-decoration: none; }
+    .post-item .article-category a:hover { color: #888; }
+
+    /* Pagination */
+    .pagination { margin-top: 40px; padding-top: 16px; border-top: 1px solid #E8E8E8; font-size: 13px; }
+    .pagination a { color: #888; }
+
+    /* Search */
+    #header-search { text-align: right; margin-top: 4px; }
+    #header-search-input { border: none; border-bottom: 1px solid #D0D0D0; background: transparent; font-size: 12px; padding: 4px 0; width: 150px; outline: none; color: #555; font-family: inherit; }
+    #header-search-input:focus { border-bottom-color: #1A1A1A; }
+    @media (max-width: 600px) { #header-search { display: none; } }
+
+    /* Tags */
+    #tags-page {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .tag-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 18px;
+      border: 1px solid #E8E8E8; border-radius: 4px;
+      text-decoration: none; color: #444;
+      font-size: 13px; letter-spacing: .02em;
+      transition: all .2s; background: #FFF;
+    }
+    .tag-item:hover { border-color: #BBB; color: #1A1A1A; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+    .tag-name { font-weight: 500; }
+    .tag-count { color: #C0C0C0; font-size: 12px; font-weight: 400; }
+    .tag-item:hover .tag-count { color: #999; }
+    .tags-link { margin-top: 32px; font-size: 13px; }
+    .tags-link a { color: #BBB; text-decoration: none; transition: color .2s; }
+    .tags-link a:hover { color: #666; }
+
+    /* === Bento Grid === */
+    .bento {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .bento-card {
+      background: #FFF; border: 1px solid #EEE; border-radius: 12px;
+      padding: 20px; transition: transform .35s cubic-bezier(.25,.8,.25,1.2), box-shadow .35s ease, border-color .35s ease;
+      animation: bentoIn .6s ease both;
+    }
+    .bento-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.05); }
+    .bento-card:nth-child(1) { animation-delay: 0s; }
+    .bento-card:nth-child(2) { animation-delay: .08s; }
+    .bento-card:nth-child(3) { animation-delay: .16s; }
+    .bento-card:nth-child(4) { animation-delay: .24s; }
+    @keyframes bentoIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Stats - full width row */
+    .bento-stats { grid-column: 1 / -1; display: flex; gap: 32px; justify-content: center; padding: 24px 20px; }
+    .bento-stat { text-align: center; }
+    .bento-num { display: block; font-size: 36px; font-weight: 700; color: #1A1A1A; letter-spacing: -.03em; transition: transform .3s; }
+    .bento-card:hover .bento-num { transform: scale(1.05); }
+    .bento-label { display: block; font-size: 11px; color: #C0C0C0; letter-spacing: .06em; margin-top: 2px; text-transform: uppercase; }
+
+    /* GitHub - full width */
+    .bento-gh { grid-column: 1 / -1; padding: 0; overflow: hidden; border-radius: 12px; }
+    .bento-gh-img { width: 100%; display: block; }
+
+    /* Recent & Categories - side by side */
+    .bento-recent, .bento-cats { min-height: 200px; }
+    .bento-h3 { font-size: 11px; font-weight: 600; color: #C0C0C0; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 14px 0; }
+    .bento-list { display: flex; flex-direction: column; }
+    .bento-row { display: flex; gap: 12px; padding: 8px 0; text-decoration: none; border-bottom: 1px solid #F8F8F8; transition: all .25s; }
+    .bento-row:last-child { border-bottom: none; }
+    .bento-row:hover { padding-left: 6px; }
+    .bento-date { flex: 0 0 50px; font-size: 12px; color: #D0D0D0; letter-spacing: .02em; padding-top: 1px; }
+    .bento-title { flex: 1; font-size: 13px; color: #555; font-weight: 500; transition: color .25s; }
+
+    /* Category pills */
+    .bento-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .bento-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: #FAFAFA; border: 1px solid #EEE; border-radius: 20px; text-decoration: none; font-size: 12px; color: #555; transition: all .25s; }
+    .bento-pill:hover { border-color: #BBB; background: #FFF; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+    .bento-pill small { font-size: 10px; color: #CCC; }
+    .bento-pill-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    @media (max-width: 600px) { .bento { grid-template-columns: 1fr; }
+      .bento-stats { gap: 16px; } .bento-num { font-size: 26px; } }
+
+    /* === Mermaid fallback === */
+    .mermaid { background: #FAFAFA; border: 1px solid #EEE; border-radius: 4px; padding: 20px; overflow-x: auto; min-height: 40px; }
+    .mermaid svg { max-width: 100%; }
+
+    /* Typora highlight */
+    mark { background: #FFF3A3; color: #333; padding: 1px 3px; border-radius: 2px; }
+
+    /* Post detail */
+    .post-back { margin-bottom: 16px; }
+    .post-back a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid #DDD; color: #BBB;
+      text-decoration: none; font-size: 16px;
+      transition: all .2s;
+    }
+    .post-back a:hover { border-color: #888; color: #555; }
+
+    article.post header .posttitle {
+      font-size: 26px; font-weight: 700; letter-spacing: -.03em;
+    }
+    article.post header .posttitle::after {
+      content: ""; display: block;
+      width: 50%; height: 2px;
+      margin: 32px auto 32px;
+      background: #D0D0D0;
+      border-radius: 1px;
+    }
+
+    article.post .e-content { font-size: 15px; line-height: 1.85; color: #333; }
+    article.post .e-content h2 { font-size: 18px; font-weight: 600; margin-top: 36px; }
+    article.post .e-content h3 { font-size: 15px; font-weight: 600; }
+
+    /* Post footer */
+    .post-footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #ECECEC; }
+    .post-footer .post-meta-bottom { font-size: 13px; color: #B0B0B0; letter-spacing: .02em; }
+    .post-footer .post-meta-bottom a { color: #B0B0B0; text-decoration: none; }
+    .post-footer .post-meta-bottom a:hover { color: #777; }
+    .post-tags-bottom { margin-top: 8px; font-size: 12px; color: #CCC; letter-spacing: .03em; }
+    .post-tags-bottom a { color: #CCC; text-decoration: none; margin-right: 8px; }
+    .post-tags-bottom a:hover { color: #999; }
+
+    /* Footer */
+    .footer { border-top: 1px solid #E8E8E8; padding: 24px 0; color: #B0B0B0; font-size: 12px; margin-top: 48px; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 2px; }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+      script.onerror = function() {
+        // fallback CDN
+        var s2 = document.createElement('script');
+        s2.src = 'https://unpkg.com/mermaid@10/dist/mermaid.min.js';
+        s2.onload = function() { mermaid.initialize({ startOnLoad: true, theme: 'default' }); };
+        document.head.appendChild(s2);
+      };
+      script.onload = function() {
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+      };
+      document.head.appendChild(script);
+    });
+    </script>
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Categories</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Archives</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/graph/">Graph</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2026/06/26/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E7%9A%84%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&text=[3DGS]高斯分布：从一维到三维"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&title=[3DGS]高斯分布：从一维到三维"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&is_video=false&description=[3DGS]高斯分布：从一维到三维"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=[3DGS]高斯分布：从一维到三维&body=Check out this article: https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&title=[3DGS]高斯分布：从一维到三维"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&title=[3DGS]高斯分布：从一维到三维"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&title=[3DGS]高斯分布：从一维到三维"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&title=[3DGS]高斯分布：从一维到三维"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&name=[3DGS]高斯分布：从一维到三维&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&t=[3DGS]高斯分布：从一维到三维"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80%E9%80%9F%E8%A7%88"><span class="toc-number">1.</span> <span class="toc-text">一、概率基础速览</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-PDF-vs-CDF"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 PDF vs CDF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E6%9C%9F%E6%9C%9B%E4%B8%8E%E6%96%B9%E5%B7%AE%E7%9A%84%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 期望与方差的几何意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E4%B8%BA%E4%BB%80%E4%B9%88-3DGS-%E7%94%A8%E9%AB%98%E6%96%AF"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 为什么 3DGS 用高斯</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%80%E7%BB%B4%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%88demo-02%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">二、一维高斯分布（demo_02）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%95%B0%E5%AD%A6%E5%BD%A2%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 数学形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%85%AC%E5%BC%8F%E6%8B%86%E8%A7%A3%EF%BC%88%E4%B8%8D%E7%94%A8%E6%A6%82%E7%8E%87%E8%AE%BA%E7%90%86%E8%A7%A3%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 公式拆解（不用概率论理解）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#B-%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9A%E4%BA%A7%E7%94%9F%E9%92%9F%E5%BD%A2"><span class="toc-number">2.2.1.</span> <span class="toc-text">B 的作用：产生钟形</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#A-%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9A%E5%BD%92%E4%B8%80%E5%8C%96"><span class="toc-number">2.2.2.</span> <span class="toc-text">A 的作用：归一化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%CE%BC-%E5%92%8C-%CF%83-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 μ 和 σ 的几何含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-68-95-99-7-%E8%A7%84%E5%88%99"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 68-95-99.7 规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E9%AB%98%E6%96%AF%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%AF%E5%BE%AE%E6%80%A7"><span class="toc-number">2.5.</span> <span class="toc-text">2.5 高斯函数的可微性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%89%E7%BB%B4%E9%AB%98%E6%96%AF%EF%BC%883DGS-%E7%9A%84%E6%A0%B8%E5%BF%83%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">三、三维高斯（3DGS 的核心）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%AE%83%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 它长什么样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%9B%9B%E4%B8%AA%E5%8F%82%E6%95%B0%E6%8E%A7%E5%88%B6%E4%B8%80%E4%B8%AA%E9%AB%98%E6%96%AF"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 四个参数控制一个高斯</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%CE%A3-%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 Σ 协方差矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E4%BB%8E-3D-%E5%88%B0-2D%EF%BC%9A%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 从 3D 到 2D：渲染流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC-1-%E6%AD%A5%EF%BC%9A%E6%8A%95%E5%BD%B1%EF%BC%883D-%E6%A4%AD%E7%90%83-%E2%86%92-2D-%E6%A4%AD%E5%9C%86%EF%BC%89"><span class="toc-number">3.4.1.</span> <span class="toc-text">第 1 步：投影（3D 椭球 → 2D 椭圆）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC-2-%E6%AD%A5%EF%BC%9A%E5%85%89%E6%A0%85%E5%8C%96%EF%BC%882D-%E6%A4%AD%E5%9C%86-%E2%86%92-%E5%83%8F%E7%B4%A0%E8%B4%A1%E7%8C%AE%EF%BC%89"><span class="toc-number">3.4.2.</span> <span class="toc-text">第 2 步：光栅化（2D 椭圆 → 像素贡献）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E9%AB%98%E6%96%AF%E5%87%BD%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 高斯函数值计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E6%9C%80%E7%BB%88%E5%83%8F%E7%B4%A0%E9%A2%9C%E8%89%B2%EF%BC%88%CE%B1-blending%EF%BC%89"><span class="toc-number">3.6.</span> <span class="toc-text">3.6 最终像素颜色（α-blending）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-3%CF%83-%E8%A3%81%E5%89%AA%E2%80%94%E2%80%94%E6%80%A7%E8%83%BD%E5%85%B3%E9%94%AE"><span class="toc-number">3.7.</span> <span class="toc-text">3.7 3σ 裁剪——性能关键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E6%A6%82%E8%A7%88"><span class="toc-number">3.8.</span> <span class="toc-text">3.8 训练过程概览</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%BF%90%E8%A1%8C-Demo-%E9%AA%8C%E8%AF%81"><span class="toc-number">4.</span> <span class="toc-text">四、运行 Demo 验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%A0%B8%E5%BF%83%E7%BB%93%E8%AE%BA"><span class="toc-number">5.</span> <span class="toc-text">五、核心结论</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <div class="post-back"><a href="/">&#8592;</a></div>
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        [3DGS]高斯分布：从一维到三维
+    </h1>
+
+
+
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <blockquote>
+<p>日期：2026-06-26<br>
+内容：概率基础 + 一维高斯 + 三维高斯几何理解</p>
+</blockquote>
+<hr>
+<h2 id="一、概率基础速览">一、概率基础速览</h2>
+<h3 id="1-1-PDF-vs-CDF">1.1 PDF vs CDF</h3>
+<ul>
+<li><strong>PDF（概率密度函数）</strong>：描述随机变量在某值附近的&quot;可能性密度&quot;。不是概率本身，曲线下总面积 = 1</li>
+<li><strong>CDF（累积分布函数）</strong>：x 处 CDF 值 = PDF 从 -∞ 到 x 的积分，单调递增 0→1</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>分布</th>
+<th>PDF 特征</th>
+<th>3DGS 关联</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>正态</strong> N(0,1)</td>
+<td>钟形，中心对称</td>
+<td><strong>核心：3DGS 的高斯基元就是 3D 高斯</strong></td>
+</tr>
+<tr>
+<td>均匀 U(-2,2)</td>
+<td>常数（区间内）</td>
+<td>从不使用——高斯比均匀更&quot;平滑可微&quot;</td>
+</tr>
+<tr>
+<td>指数 Exp(1)</td>
+<td>单调递减</td>
+<td>不透明度衰减的参考模型</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-2-期望与方差的几何意义">1.2 期望与方差的几何意义</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">期望 μ = 分布的&quot;重心&quot;（中心位置）→ 改变 μ → PDF 整体平移，形状不变</span><br><span class="line">方差 σ² = 分布的&quot;宽度&quot;（分散程度）→ 改变 σ → PDF 变窄/变宽，中心不变</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-为什么-3DGS-用高斯">1.3 为什么 3DGS 用高斯</h3>
+<ol>
+<li><strong>可微性</strong>：高斯函数处处可微 → 能做梯度下降</li>
+<li><strong>紧凑支撑</strong>：99.7% 的质量在 μ±3σ 内 → 便于裁剪（核心性能优化）</li>
+<li><strong>闭式积分</strong>：高斯在任意区间上的积分有解析式</li>
+<li><strong>仿射变换保持高斯性</strong>：高斯的线性变换仍是高斯</li>
+</ol>
+<hr>
+<h2 id="二、一维高斯分布（demo-02）">二、一维高斯分布（demo_02）</h2>
+<h3 id="2-1-数学形式">2.1 数学形式</h3>
+<p>$$\displaystyle p(x) = \frac{1}{\sigma\sqrt{2\pi}} \exp\left(-\frac{(x-\mu)<sup>2}{2\sigma</sup>2}\right)$$</p>
+<h3 id="2-2-公式拆解（不用概率论理解）">2.2 公式拆解（不用概率论理解）</h3>
+<p>把公式拆成两块看：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">p(x) =    A     ×        B</span><br><span class="line"></span><br><span class="line">    A = 1/(σ√2π)         B = exp(-(x-μ)²/(2σ²))</span><br><span class="line">    归一化因子             核心钟形</span><br><span class="line">    (调节高度，              (产生形状，</span><br><span class="line">    保证总面积=1)            对称于 μ)</span><br></pre></td></tr></table></figure>
+<h4 id="B-的作用：产生钟形">B 的作用：产生钟形</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = μ      → exp(0) = 1.000  ← 最高点</span><br><span class="line">x = μ±σ   → exp(-0.5) ≈ 0.607  ← 约 60%</span><br><span class="line">x = μ±2σ  → exp(-2) ≈ 0.135  ← 约 14%</span><br><span class="line">x = μ±3σ  → exp(-4.5) ≈ 0.011 ← 约 1%（几乎看不到）</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>(x-μ)²</code> 保证了<strong>左右对称</strong></li>
+<li><code>÷σ²</code> 保证了 σ 越大衰减越慢（曲线越宽）</li>
+</ul>
+<h4 id="A-的作用：归一化">A 的作用：归一化</h4>
+<p>σ 越大 → 曲线越宽 → 如果高度不变，总面积会膨胀 → A 自动压低高度，总面积始终 = 1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">σ=0.5：A ≈ 0.8  → 高而窄</span><br><span class="line">σ=1.0：A ≈ 0.4  → 中等</span><br><span class="line">σ=2.0：A ≈ 0.2  → 矮而宽</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-μ-和-σ-的几何含义">2.3 μ 和 σ 的几何含义</h3>
+<p><strong>μ（均值）= 钟形曲线的中心位置</strong></p>
+<ul>
+<li>改 μ = 把整条曲线<strong>水平平移</strong>，形状完全不变</li>
+</ul>
+<p><strong>σ（标准差）= 钟形曲线的胖瘦</strong></p>
+<ul>
+<li>σ 小（如 0.5）→ 瘦高（数据集中）</li>
+<li>σ 大（如 2.0）→ 矮胖（数据分散）</li>
+</ul>
+<h3 id="2-4-68-95-99-7-规则">2.4 68-95-99.7 规则</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">μ-3σ   μ-2σ   μ-σ    μ    μ+σ   μ+2σ   μ+3σ</span><br><span class="line">  ├──────┼──────┼──────┼──────┼──────┼──────┤</span><br><span class="line">  │←────────── 99.7% ───────────→│</span><br><span class="line">  │    │←───── 95.5% ─────→│    │</span><br><span class="line">  │    │    │←─ 68.3% ─→│    │    │</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>区间</th>
+<th style="text-align:center">概率</th>
+<th>3DGS 中的意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>μ ± 1σ</td>
+<td style="text-align:center">68.3%</td>
+<td>高斯基元的&quot;核心区&quot;</td>
+</tr>
+<tr>
+<td>μ ± 2σ</td>
+<td style="text-align:center">95.5%</td>
+<td>绝大部分贡献</td>
+</tr>
+<tr>
+<td>μ ± 3σ</td>
+<td style="text-align:center">99.7%</td>
+<td><strong>裁剪阈值</strong>——超出 3σ 忽略不计</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-5-高斯函数的可微性">2.5 高斯函数的可微性</h3>
+<p><strong>对 μ 的梯度</strong>：<br>
+$$\displaystyle \frac{\partial p}{\partial \mu} = p(x) \cdot \frac{x-\mu}{\sigma^2}$$</p>
+<ul>
+<li>x &gt; μ 时：梯度为正（增大 μ 靠近 x → 概率增大）</li>
+<li>x &lt; μ 时：梯度为负</li>
+<li>x = μ 时：梯度为 0</li>
+</ul>
+<p><strong>对 σ 的梯度</strong>：<br>
+$$\displaystyle \frac{\partial p}{\partial \sigma} = p(x) \cdot \left(\frac{(x-\mu)<sup>2}{\sigma</sup>3} - \frac{1}{\sigma}\right)$$</p>
+<ul>
+<li>|x-μ| = σ 处：梯度 = 0（拐点）</li>
+<li>|x-μ| &lt; σ 时：缩小 σ 让分布更高</li>
+<li>|x-μ| &gt; σ 时：增大 σ 让分布更宽</li>
+</ul>
+<p><strong>3DGS 对应</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>一维高斯</th>
+<th>3DGS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>μ</td>
+<td>位置 <code>xyz</code>（3D 坐标）— 可学习</td>
+</tr>
+<tr>
+<td>σ</td>
+<td>协方差矩阵 Σ 的对角缩放分量 <code>scale</code> — 可学习</td>
+</tr>
+<tr>
+<td>∂p/∂μ</td>
+<td>位置梯度 <code>dL_dmeans</code></td>
+</tr>
+<tr>
+<td>∂p/∂σ</td>
+<td>缩放梯度 <code>dL_dscales</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="三、三维高斯（3DGS-的核心）">三、三维高斯（3DGS 的核心）</h2>
+<h3 id="3-1-它长什么样">3.1 它长什么样</h3>
+<p>每个高斯基元不是点，而是一个<strong>三维空间中的椭球体</strong>，中心最亮，边缘渐隐：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">外侧：几乎透明</span><br><span class="line">  ╭─────────╮</span><br><span class="line"> ╱  中间：半透明 ╲</span><br><span class="line">│   ╭─────╮   │</span><br><span class="line">│  ╱ 最亮  ╲  │     ← 中心 μ（3D 坐标）</span><br><span class="line">│ │   ●    │ │</span><br><span class="line">│  ╲       ╱  │</span><br><span class="line">│   ╰─────╯   │</span><br><span class="line"> ╲           ╱</span><br><span class="line">  ╰─────────╯</span><br></pre></td></tr></table></figure>
+<p>不像&quot;球&quot;——更像一个可以<strong>拉伸、旋转、压扁</strong>的鸡蛋。</p>
+<h3 id="3-2-四个参数控制一个高斯">3.2 四个参数控制一个高斯</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">符号</th>
+<th>几何含义</th>
+<th>类比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>位置</strong></td>
+<td style="text-align:center">μ (xyz)</td>
+<td>椭球体中心在 3D 空间中的坐标</td>
+<td>物体的位置</td>
+</tr>
+<tr>
+<td><strong>协方差</strong></td>
+<td style="text-align:center">Σ (3×3矩阵)</td>
+<td>椭球体的<strong>形状、大小、朝向</strong></td>
+<td>物体的形状</td>
+</tr>
+<tr>
+<td><strong>不透明度</strong></td>
+<td style="text-align:center">α</td>
+<td>中心处&quot;浓度&quot;，1=全不透明，0=全透明</td>
+<td>物体的浓淡</td>
+</tr>
+<tr>
+<td><strong>颜色</strong></td>
+<td style="text-align:center">SH 系数</td>
+<td>从不同角度看呈现的颜色</td>
+<td>物体的外观色</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-3-Σ-协方差矩阵">3.3 Σ 协方差矩阵</h3>
+<p>Σ 是一个 3×3 矩阵，只需理解成三个维度：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">三个 scale（X/Y/Z 拉伸）+ 一个旋转 → 就是 Σ</span><br></pre></td></tr></table></figure>
+<p>直观理解：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Σ = 单位矩阵       Σ = X方向拉长        Σ = 拉长+旋转45°</span><br><span class="line">     ╭─╮              ╭───╮                 ╱╲</span><br><span class="line">    ╱   ╲            ╱     ╲               ╱  ╲</span><br><span class="line">   │  ●  │          │   ●   │            ╱  ● ╲</span><br><span class="line">    ╲   ╱            ╲     ╱            ╱     ╲</span><br><span class="line">     ╰─╯              ╰───╯            ╱       ╲</span><br><span class="line">   （正球体）        （水平拉伸）        （斜向拉伸）</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-从-3D-到-2D：渲染流程">3.4 从 3D 到 2D：渲染流程</h3>
+<h4 id="第-1-步：投影（3D-椭球-→-2D-椭圆）">第 1 步：投影（3D 椭球 → 2D 椭圆）</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  3D 空间                        2D 屏幕</span><br><span class="line">  </span><br><span class="line">  ╱╲                            </span><br><span class="line"> ╱  ╲                           ╭──╮</span><br><span class="line">╱  ● ╲          ──→            ╱    ╲</span><br><span class="line">╲     ╱        相机投影        │  ●  │    ← 变成 2D 椭圆</span><br><span class="line"> ╲   ╱                          ╲    ╱</span><br><span class="line">  ╰─╯                            ╰──╯</span><br></pre></td></tr></table></figure>
+<p>3D 椭球经过相机投影变换 → 2D 椭圆。离相机越近 → 椭圆越大。</p>
+<h4 id="第-2-步：光栅化（2D-椭圆-→-像素贡献）">第 2 步：光栅化（2D 椭圆 → 像素贡献）</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">屏幕像素网格</span><br><span class="line">┌──┬──┬──┬──┬──┐</span><br><span class="line">│  │  │  │  │  │</span><br><span class="line">├──┼──┼──┼──┼──┤</span><br><span class="line">│  │ ╭│──│╮ │  │   ← 2D 椭圆覆盖的区域</span><br><span class="line">├──┼─│●─│─┼──┤      每个被覆盖的像素：贡献值 = α × 高斯函数值</span><br><span class="line">│  │ ╰│──│╯ │  │</span><br><span class="line">├──┼──┼──┼──┼──┤</span><br><span class="line">│  │  │  │  │  │</span><br><span class="line">└──┴──┴──┴──┴──┘</span><br></pre></td></tr></table></figure>
+<h3 id="3-5-高斯函数值计算">3.5 高斯函数值计算</h3>
+<p>对空间中任意一点 X，这个高斯在 X 处的&quot;浓度&quot;：</p>
+<p>$$\displaystyle G(X) = \exp\left(-\frac{1}{2}(X-\mu)^T \Sigma^{-1} (X-\mu)\right)$$</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(X-μ)ᵀ Σ⁻¹ (X-μ) = 计算&quot;X 离中心有多远&quot;（考虑椭球形状）</span><br><span class="line"></span><br><span class="line">等于 0  ：X 在中心 → G(X) = 1.000</span><br><span class="line">等于 1  ：离中心约 1σ → G(X) ≈ 0.607</span><br><span class="line">等于 9  ：离中心约 3σ → G(X) ≈ 0.011 → 几乎看不到 → 裁剪掉</span><br></pre></td></tr></table></figure>
+<h3 id="3-6-最终像素颜色（α-blending）">3.6 最终像素颜色（α-blending）</h3>
+<p>多个高斯重叠时，从近到远混合叠加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">像素颜色 = 高斯1颜色×α₁×T₁ + 高斯2颜色×α₂×T₂ + 高斯3颜色×α₃×T₃ + ...</span><br><span class="line"></span><br><span class="line">其中 T_i = (1-α₁)(1-α₂)...(1-α_&#123;i-1&#125;)  ← 被前面高斯遮挡后剩余的光</span><br></pre></td></tr></table></figure>
+<h3 id="3-7-3σ-裁剪——性能关键">3.7 3σ 裁剪——性能关键</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">到中心距离</th>
+<th style="text-align:center">G(X) 值</th>
+<th>3DGS 处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0σ</td>
+<td style="text-align:center">1.000</td>
+<td>中心，最亮</td>
+</tr>
+<tr>
+<td style="text-align:center">1σ</td>
+<td style="text-align:center">0.607</td>
+<td>约 60%</td>
+</tr>
+<tr>
+<td style="text-align:center">2σ</td>
+<td style="text-align:center">0.135</td>
+<td>约 14%</td>
+</tr>
+<tr>
+<td style="text-align:center">3σ</td>
+<td style="text-align:center">0.011</td>
+<td>约 1%，<strong>临界点</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;3σ</td>
+<td style="text-align:center">&lt;0.01</td>
+<td><strong>直接跳过不计算</strong></td>
+</tr>
+</tbody>
+</table>
+<p>CUDA 代码中，每个高斯只渲染离它中心 3σ 范围内的像素。这是 3DGS 能<strong>实时渲染</strong>的核心优化。</p>
+<h3 id="3-8-训练过程概览">3.8 训练过程概览</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">初始：几千个随机分布的小高斯</span><br><span class="line"></span><br><span class="line">每次迭代：</span><br><span class="line">  1. 用当前高斯渲染一张图</span><br><span class="line">  2. 与真实照片对比，计算损失 L = (1-λ)L1 + λ·D-SSIM (λ=0.2)</span><br><span class="line">  3. 反向传播梯度 → 更新每个高斯的 μ, Σ, α, SH</span><br><span class="line">  4. 每 100 步检查：</span><br><span class="line">     - 高斯太少？→ split（分裂）或 clone（复制）</span><br><span class="line">     - 高斯太多/太透明？→ prune（剔除）</span><br><span class="line"></span><br><span class="line">最终：几百万个高斯精确拼出整个 3D 场景</span><br></pre></td></tr></table></figure>
+<p>梯度更新时，各参数的变化方向：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">位置 μ：偏了 → 移向正确位置</span><br><span class="line">形状 Σ：太大（模糊）→ 缩小；太小（漏细节）→ 放大</span><br><span class="line">透明度 α：太透明 → 加深；太浓 → 降透明度</span><br><span class="line">颜色 SH：颜色偏差 → 调整颜色</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="四、运行-Demo-验证">四、运行 Demo 验证</h2>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">conda activate <span class="number">3</span>dgs<span class="literal">-study</span></span><br><span class="line"><span class="built_in">cd</span> E:\Code\GitHub\gaussian<span class="literal">-splash</span>\<span class="number">01</span>_foundation_phase\demo\<span class="number">5</span><span class="literal">-6week_</span>概率统计与高斯分布</span><br><span class="line"></span><br><span class="line"><span class="comment"># Demo 01: PDF/CDF、期望方差</span></span><br><span class="line">python demo_01_概率基础.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># Demo 02: 高斯参数、68-95-99.7、梯度</span></span><br><span class="line">python demo_02_一维高斯分布.py</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="五、核心结论">五、核心结论</h2>
+<ol>
+<li><strong>一维高斯 = 钟形曲线</strong>：μ 定位置，σ 定宽窄</li>
+<li><strong>3DGS 的高斯 = 空间中的模糊椭球体</strong>：μ 定位置，Σ 定形状/方向/大小</li>
+<li><strong>3σ 规则是关键优化</strong>：超过 3σ 不计算，才能实时渲染</li>
+<li><strong>高斯处处可微</strong>：这使梯度下降能直接优化所有参数</li>
+<li><strong>α-blending 混合</strong>：从近到远叠加所有高斯，算出最终像素颜色</li>
+</ol>
+
+  </div>
+  <footer class="post-footer">
+    <div class="post-meta-bottom">
+      <span class="post-author">GodY-G</span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-06-30T12:19:20.000Z" class="dt-published" itemprop="datePublished">2026-06-30</time>
+        
+      
+    </div>
+
+
+    </div>
+    <div class="post-tags-bottom">
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/">计算机图形学</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/3DGS/" rel="tag">3DGS</a>
+    </div>
+
+
+    </div>
+  </footer>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/categories/">Categories</a></li>
+        
+          <li><a href="/archives/">Archives</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/graph/">Graph</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80%E9%80%9F%E8%A7%88"><span class="toc-number">1.</span> <span class="toc-text">一、概率基础速览</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-PDF-vs-CDF"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 PDF vs CDF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E6%9C%9F%E6%9C%9B%E4%B8%8E%E6%96%B9%E5%B7%AE%E7%9A%84%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 期望与方差的几何意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E4%B8%BA%E4%BB%80%E4%B9%88-3DGS-%E7%94%A8%E9%AB%98%E6%96%AF"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 为什么 3DGS 用高斯</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%80%E7%BB%B4%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%88demo-02%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">二、一维高斯分布（demo_02）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%95%B0%E5%AD%A6%E5%BD%A2%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 数学形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%85%AC%E5%BC%8F%E6%8B%86%E8%A7%A3%EF%BC%88%E4%B8%8D%E7%94%A8%E6%A6%82%E7%8E%87%E8%AE%BA%E7%90%86%E8%A7%A3%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 公式拆解（不用概率论理解）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#B-%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9A%E4%BA%A7%E7%94%9F%E9%92%9F%E5%BD%A2"><span class="toc-number">2.2.1.</span> <span class="toc-text">B 的作用：产生钟形</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#A-%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9A%E5%BD%92%E4%B8%80%E5%8C%96"><span class="toc-number">2.2.2.</span> <span class="toc-text">A 的作用：归一化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%CE%BC-%E5%92%8C-%CF%83-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 μ 和 σ 的几何含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-68-95-99-7-%E8%A7%84%E5%88%99"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 68-95-99.7 规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E9%AB%98%E6%96%AF%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%AF%E5%BE%AE%E6%80%A7"><span class="toc-number">2.5.</span> <span class="toc-text">2.5 高斯函数的可微性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%89%E7%BB%B4%E9%AB%98%E6%96%AF%EF%BC%883DGS-%E7%9A%84%E6%A0%B8%E5%BF%83%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">三、三维高斯（3DGS 的核心）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%AE%83%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 它长什么样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%9B%9B%E4%B8%AA%E5%8F%82%E6%95%B0%E6%8E%A7%E5%88%B6%E4%B8%80%E4%B8%AA%E9%AB%98%E6%96%AF"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 四个参数控制一个高斯</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%CE%A3-%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 Σ 协方差矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E4%BB%8E-3D-%E5%88%B0-2D%EF%BC%9A%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 从 3D 到 2D：渲染流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC-1-%E6%AD%A5%EF%BC%9A%E6%8A%95%E5%BD%B1%EF%BC%883D-%E6%A4%AD%E7%90%83-%E2%86%92-2D-%E6%A4%AD%E5%9C%86%EF%BC%89"><span class="toc-number">3.4.1.</span> <span class="toc-text">第 1 步：投影（3D 椭球 → 2D 椭圆）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC-2-%E6%AD%A5%EF%BC%9A%E5%85%89%E6%A0%85%E5%8C%96%EF%BC%882D-%E6%A4%AD%E5%9C%86-%E2%86%92-%E5%83%8F%E7%B4%A0%E8%B4%A1%E7%8C%AE%EF%BC%89"><span class="toc-number">3.4.2.</span> <span class="toc-text">第 2 步：光栅化（2D 椭圆 → 像素贡献）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E9%AB%98%E6%96%AF%E5%87%BD%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 高斯函数值计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E6%9C%80%E7%BB%88%E5%83%8F%E7%B4%A0%E9%A2%9C%E8%89%B2%EF%BC%88%CE%B1-blending%EF%BC%89"><span class="toc-number">3.6.</span> <span class="toc-text">3.6 最终像素颜色（α-blending）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-3%CF%83-%E8%A3%81%E5%89%AA%E2%80%94%E2%80%94%E6%80%A7%E8%83%BD%E5%85%B3%E9%94%AE"><span class="toc-number">3.7.</span> <span class="toc-text">3.7 3σ 裁剪——性能关键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E6%A6%82%E8%A7%88"><span class="toc-number">3.8.</span> <span class="toc-text">3.8 训练过程概览</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%BF%90%E8%A1%8C-Demo-%E9%AA%8C%E8%AF%81"><span class="toc-number">4.</span> <span class="toc-text">四、运行 Demo 验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%A0%B8%E5%BF%83%E7%BB%93%E8%AE%BA"><span class="toc-number">5.</span> <span class="toc-text">五、核心结论</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&text=[3DGS]高斯分布：从一维到三维"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&title=[3DGS]高斯分布：从一维到三维"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&is_video=false&description=[3DGS]高斯分布：从一维到三维"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=[3DGS]高斯分布：从一维到三维&body=Check out this article: https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&title=[3DGS]高斯分布：从一维到三维"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&title=[3DGS]高斯分布：从一维到三维"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&title=[3DGS]高斯分布：从一维到三维"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&title=[3DGS]高斯分布：从一维到三维"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&name=[3DGS]高斯分布：从一维到三维&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gody-g.github.io/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/&t=[3DGS]高斯分布：从一维到三维"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2026
+    GodY-G
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Categories</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Archives</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/graph/">Graph</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
