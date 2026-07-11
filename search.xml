@@ -77,59 +77,25 @@ age = 20status = &quot;成年&quot; if age &gt;= 18 else &quot;未成年&quot;pr
       </tags>
   </entry>
   <entry>
-    <title>[Python]列表与元组</title>
-    <url>/2026/06/16/02_01_%E5%88%97%E8%A1%A8%E4%B8%8E%E5%85%83%E7%BB%84/</url>
-    <content><![CDATA[列表与元组
-列表 (list)
-列表是可变、有序的序列，是 Python 最常用的容器。
-创建
-a = [1, 2, 3, 4, 5]b = list(&quot;abc&quot;)           # [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]c = [0] * 5               # [0, 0, 0, 0, 0]d = list(range(10))       # [0, 1, 2, ..., 9]e = [i**2 for i in range(5)]  # [0, 1, 4, 9, 16]f = [[] for _ in range(3)]    # [[], [], []]（正确创建二维列表）# f = [[]] * 3               # 错误！三个引用指向同一个空列表
-索引与切片
-lst = [10, 20, 30, 40, 50]# 索引print(lst[0])    # 10（第一个）print(lst[-1])   # 50（最后一个）print(lst[-2])   # 40（倒数第二）# 切片：lst[start:stop:step]print(lst[1:4])      # [20, 30, 40]（索引 1~3）print(lst[:3])       # [10, 20, 30]（前三个）print(lst[2:])       # [30, 40, 50]（从索引 2 开始）print(lst[::2])      # [10, 30, 50]（每隔一个）print(lst[::-1])     # [50, 40, 30, 20, 10]（反转）print(lst[:-3:-1])   # [50, 40]（从末尾往前，步长-1）# 切片赋值lst[1:3] = [200, 300]   # [10, 200, 300, 40, 50]lst[::2] = [0, 0, 0]    # [0, 200, 0, 40, 0]
-增删改查
-lst = [1, 2, 3]# 增加lst.append(4)              # [1, 2, 3, 4]lst.extend([5, 6])         # [1, 2, 3, 4, 5, 6]lst.insert(2, 99)          # [1, 2, 99, 3, 4, 5, 6]（在索引 2 处插入）# 删除lst.remove(99)             # [1, 2, 3, 4, 5, 6]（按值删除，只删第一个）popped = lst.pop()         # 弹出并返回最后一个（6）popped = lst.pop(1)        # 弹出索引 1 的元素（2）del lst[0]                 # 删除索引 0del lst[1:3]               # 删除切片范围lst.clear()                # 清空# 查找lst = [10, 20, 30, 20, 40]print(lst.index(20))       # 1（第一个 20 的索引）print(lst.index(20, 2))    # 3（从索引 2 开始找 20）print(lst.count(20))       # 2（出现次数）
-排序
-nums = [3, 1, 4, 1, 5, 9]# 原地排序（改变原列表）nums.sort()                     # [1, 1, 3, 4, 5, 9]nums.sort(reverse=True)         # [9, 5, 4, 3, 1, 1]# 自定义排序 keywords = [&quot;apple&quot;, &quot;banana&quot;, &quot;kiwi&quot;, &quot;grape&quot;]words.sort(key=len)             # [&#x27;kiwi&#x27;, &#x27;apple&#x27;, &#x27;grape&#x27;, &#x27;banana&#x27;]words.sort(key=lambda w: w[-1]) # 按最后一个字母排序# 返回新列表（不改变原列表）sorted_nums = sorted(nums)sorted_nums = sorted(nums, reverse=True)
-元组 (tuple)
-元组是不可变序列，创建后不能增删改元素。
-t1 = (1, 2, 3)t2 = 4, 5, 6          # 括号可省略t3 = (42, )           # 单元素元组的逗号不能省！t4 = ()               # 空元组t5 = tuple([1, 2, 3]) # 从列表转换# 访问同列表print(t1[0], t1[1:3])  # 1 (2, 3)# 不可变意味着这些操作报错# t1[0] = 10         # TypeError# t1.append(4)        # AttributeError# 解包a, b, c = (10, 20, 30)x, *rest = (1, 2, 3, 4, 5)  # x=1, rest=[2,3,4,5]# 为什么要用元组# 1. 作为字典的 key（不可变）cache = &#123;(&quot;user&quot;, 123): &quot;data&quot;&#125;# 2. 函数返回多值def get_coord():    return 100, 200   # 实际返回元组# 3. 不可变 = 更安全
-列表 vs 元组
-
-
-
-特性
-list
-tuple
-
-
-
-
-可变性
-可变
-不可变
-
-
-速度
-慢
-快
-
-
-内存
-大
-小（约 1/2）
-
-
-作为 dict key
-不能
-能
-
-
-使用场景
-动态数据
-固定数据、坐标、配置
-
-
-
+    <title>[Python]控制流</title>
+    <url>/2026/06/16/01_03_%E6%8E%A7%E5%88%B6%E6%B5%81/</url>
+    <content><![CDATA[控制流
+1. if-elif-else
+score = 85if score &gt;= 90:    grade = &quot;A&quot;elif score &gt;= 80:    grade = &quot;B&quot;elif score &gt;= 70:    grade = &quot;C&quot;elif score &gt;= 60:    grade = &quot;D&quot;else:    grade = &quot;F&quot;print(f&quot;成绩：&#123;grade&#125;&quot;)  # B# 单行 if（条件表达式）age = 20status = &quot;成年&quot; if age &gt;= 18 else &quot;未成年&quot;# pass 占位符if condition_not_implemented_yet:    pass  # 什么都不做，先占位
+2. for 循环
+Python 的 for 本质上是&quot;迭代器循环&quot;，不是 C 那样的计数循环。
+# 遍历列表fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]for f in fruits:    print(f)# 遍历字典d = &#123;&quot;a&quot;: 1, &quot;b&quot;: 2, &quot;c&quot;: 3&#125;for key in d:    print(key, d[key])for key, value in d.items():   # 推荐写法    print(f&quot;&#123;key&#125; → &#123;value&#125;&quot;)for value in d.values():    print(value)# 同时获取索引和值：enumeratenames = [&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;]for i, name in enumerate(names):    print(f&quot;&#123;i&#125;: &#123;name&#125;&quot;)        # 0: Alice 1: Bob 2: Charliefor i, name in enumerate(names, start=1):    print(f&quot;&#123;i&#125;: &#123;name&#125;&quot;)        # 1: Alice 2: Bob 3: Charlie# 同时遍历多个序列：zipa = [1, 2, 3]b = [&quot;x&quot;, &quot;y&quot;, &quot;z&quot;]for num, char in zip(a, b):    print(num, char)              # 1 x / 2 y / 3 z# 不等长用 zip_longestfrom itertools import zip_longestfor x, y in zip_longest([1,2,3,4], &quot;ab&quot;, fillvalue=None):    print(x, y)                   # 1 a / 2 b / 3 None / 4 None# range 生成整数序列for i in range(5):         # 0, 1, 2, 3, 4（不包含终点）    print(i)for i in range(2, 6):      # 2, 3, 4, 5    print(i)for i in range(0, 10, 2):  # 0, 2, 4, 6, 8（步长为 2）    print(i)for i in range(10, 0, -1): # 10, 9, ..., 1（反向）    print(i)# 反向遍历for name in reversed(names):    print(name)
+3. while 循环
+count = 0while count &lt; 5:    print(count)    count += 1# 无限循环 + 条件退出import randomwhile True:    num = random.randint(1, 100)    print(num)    if num &gt; 90:        print(&quot;命中了！&quot;)        break
+4. break / continue / else
+# break：立即退出循环for i in range(10):    if i == 5:        break          # 遇到 5 就停    print(i)           # 0 1 2 3 4# continue：跳过本次迭代for i in range(10):    if i % 2 == 0:        continue       # 跳过偶数    print(i)           # 1 3 5 7 9# for-else / while-else：循环&quot;正常结束&quot;时执行# （没有被 break 中断才算正常结束）for i in range(5):    if i == 10:        break          # 永远不会触发else:    print(&quot;循环正常结束&quot;)  # 这个会执行# 经典用法：查找元素def find_index(lst, target):    for i, val in enumerate(lst):        if val == target:            print(f&quot;找到了，索引 &#123;i&#125;&quot;)            break    else:        print(&quot;没找到&quot;)find_index([1, 2, 3, 4], 3)   # 找到了，索引 2find_index([1, 2, 3, 4], 9)   # 没找到
+5. 嵌套循环
+# 九九乘法表for i in range(1, 10):    for j in range(1, i + 1):        print(f&quot;&#123;j&#125;×&#123;i&#125;=&#123;i*j:2d&#125;&quot;, end=&quot;  &quot;)    print()# 跳出多层循环：用 return 或 flagdef search_matrix(matrix, target):    for i, row in enumerate(matrix):        for j, val in enumerate(row):            if val == target:                return i, j     # 直接 return 跳出所有循环    return None
+6. 列表推导式（Pythonic 循环）
+循环最常见的目的是生成新列表，用推导式更简洁：
+# 传统 for 循环squares = []for i in range(10):    squares.append(i**2)# 列表推导式：一行搞定squares = [i**2 for i in range(10)]# 带条件过滤evens = [x for x in range(20) if x % 2 == 0]# 带 if-else（三元表达式）labels = [&quot;偶数&quot; if x % 2 == 0 else &quot;奇数&quot; for x in range(5)]# [&#x27;偶数&#x27;, &#x27;奇数&#x27;, &#x27;偶数&#x27;, &#x27;奇数&#x27;, &#x27;偶数&#x27;]# 嵌套循环pairs = [(x, y) for x in range(3) for y in range(3)]# [(0,0),(0,1),(0,2),(1,0),(1,1),(1,2),(2,0),(2,1),(2,2)]# 字典推导式square_dict = &#123;x: x**2 for x in range(5)&#125;# &#123;0: 0, 1: 1, 2: 4, 3: 9, 4: 16&#125;# 集合推导式unique_lengths = &#123;len(word) for word in [&quot;hi&quot;, &quot;hello&quot;, &quot;hey&quot;, &quot;world&quot;]&#125;# &#123;2, 3, 5&#125;
+7. match-case（Python 3.10+ 的结构化模式匹配）
+def handle_command(cmd):    match cmd.split():        case [&quot;quit&quot;]:            return &quot;退出程序&quot;        case [&quot;hello&quot;, name]:            return f&quot;你好 &#123;name&#125;！&quot;        case [&quot;add&quot;, x, y]:            return int(x) + int(y)        case [&quot;sum&quot;, *numbers]:            return sum(int(n) for n in numbers)        case _:            return &quot;未知命令&quot;print(handle_command(&quot;hello GodY&quot;))    # 你好 GodY！print(handle_command(&quot;add 3 7&quot;))       # 10print(handle_command(&quot;sum 1 2 3 4&quot;))   # 10# 匹配数据结构def analyze_point(p):    match p:        case (0, 0):            return &quot;原点&quot;        case (0, y):            return f&quot;Y 轴上，y=&#123;y&#125;&quot;        case (x, 0):            return f&quot;X 轴上，x=&#123;x&#125;&quot;        case (x, y) if x == y:            return &quot;在 y=x 上&quot;        case (x, y):            return f&quot;坐标 (&#123;x&#125;, &#123;y&#125;)&quot;
 ]]></content>
       <categories>
         <category>编程与工具</category>
@@ -140,31 +106,29 @@ tuple
       </tags>
   </entry>
   <entry>
-    <title>[Python]字典与集合</title>
-    <url>/2026/06/16/02_02_%E5%AD%97%E5%85%B8%E4%B8%8E%E9%9B%86%E5%90%88/</url>
-    <content><![CDATA[字典与集合
-字典 (dict)
-字典是键值对的集合，key 必须是不可变类型，3.7+ 保证插入顺序。
-创建
-d1 = &#123;&quot;name&quot;: &quot;GodY&quot;, &quot;age&quot;: 22&#125;d2 = dict(name=&quot;GodY&quot;, age=22)d3 = dict([(&quot;name&quot;, &quot;GodY&quot;), (&quot;age&quot;, 22)])d4 = &#123;x: x**2 for x in range(5)&#125;  # &#123;0:0, 1:1, 2:4, 3:9, 4:16&#125;d5 = dict.fromkeys([&quot;a&quot;, &quot;b&quot;, &quot;c&quot;], 0)  # &#123;&#x27;a&#x27;:0, &#x27;b&#x27;:0, &#x27;c&#x27;:0&#125;
-基本操作
-d = &#123;&quot;name&quot;: &quot;GodY&quot;, &quot;age&quot;: 22&#125;# 访问print(d[&quot;name&quot;])         # GodY（key 不存在会报错）print(d.get(&quot;phone&quot;))    # None（key 不存在返回 None）print(d.get(&quot;phone&quot;, &quot;无&quot;))  # 无（指定默认值）# 增/改d[&quot;city&quot;] = &quot;苏州&quot;       # 新增d[&quot;age&quot;] = 23            # 修改# 删除del d[&quot;age&quot;]             # 删除 keypopped = d.pop(&quot;name&quot;)   # 弹出并返回值item = d.popitem()       # 弹出最后一个键值对（3.7+）d.clear()                # 清空# 合并（3.9+）a = &#123;&quot;x&quot;: 1, &quot;y&quot;: 2&#125;b = &#123;&quot;y&quot;: 3, &quot;z&quot;: 4&#125;merged = a | b           # &#123;&#x27;x&#x27;:1, &#x27;y&#x27;:3, &#x27;z&#x27;:4&#125;（后者覆盖前者）a |= b                   # a 原地更新为 &#123;&#x27;x&#x27;:1, &#x27;y&#x27;:3, &#x27;z&#x27;:4&#125;# 3.8 及以前merged = &#123;**a, **b&#125;
-遍历
-d = &#123;&quot;a&quot;: 1, &quot;b&quot;: 2, &quot;c&quot;: 3&#125;# 遍历 keyfor k in d:    print(k)for k in d.keys():    print(k)# 遍历 valuefor v in d.values():    print(v)# 遍历 key-valuefor k, v in d.items():    print(f&quot;&#123;k&#125; → &#123;v&#125;&quot;)
-常用模式
-# 计数器from collections import Countertext = &quot;hello world&quot;counts = Counter(text)print(counts)  # Counter(&#123;&#x27;l&#x27;: 3, &#x27;o&#x27;: 2, ...&#125;)print(counts.most_common(2))  # [(&#x27;l&#x27;, 3), (&#x27;o&#x27;, 2)]# 默认值字典from collections import defaultdictdd = defaultdict(list)dd[&quot;a&quot;].append(1)  # 即使 &quot;a&quot; 不存在也不会报错print(dd)          # &#123;&#x27;a&#x27;: [1]&#125;# 有序字典（3.7+ 普通 dict 也有序了，但 OrderedDict 还有额外功能）from collections import OrderedDictod = OrderedDict()od[&quot;first&quot;] = 1od[&quot;second&quot;] = 2od.move_to_end(&quot;first&quot;)  # 把 &quot;first&quot; 移到最后
-集合 (set)
-集合是无序、不重复元素的集合，基于哈希表实现。
-创建
-s1 = &#123;1, 2, 3, 4, 5&#125;s2 = set([1, 2, 2, 3, 3, 3])  # &#123;1, 2, 3&#125;（自动去重）s3 = set()                      # 空集合（&#123;&#125; 是空字典！）s4 = &#123;x for x in range(10) if x % 2 == 0&#125;  # &#123;0, 2, 4, 6, 8&#125;
-集合运算
-a = &#123;1, 2, 3, 4&#125;b = &#123;3, 4, 5, 6&#125;# 基本运算print(a | b)    # 并集 &#123;1, 2, 3, 4, 5, 6&#125;print(a &amp; b)    # 交集 &#123;3, 4&#125;print(a - b)    # 差集 &#123;1, 2&#125;（a 有 b 没有）print(a ^ b)    # 对称差 &#123;1, 2, 5, 6&#125;（不同时属于两个集合的）# 就地修改a |= b   # a = a | ba &amp;= b   # a = a &amp; ba -= b   # a = a - b# 关系判断print(&#123;1, 2&#125; &lt;= &#123;1, 2, 3&#125;)  # True（子集）print(&#123;1, 2, 3&#125; &gt;= &#123;1, 2&#125;)  # True（超集）print(&#123;1, 2&#125;.isdisjoint(&#123;3, 4&#125;))  # True（不相交）
-增删查
-s = &#123;1, 2, 3&#125;s.add(4)          # &#123;1, 2, 3, 4&#125;s.add(2)          # 没变化（已存在）s.remove(3)       # &#123;1, 2, 4&#125;（元素不存在会报错）s.discard(10)     # 不报错（不存在就什么都不做）popped = s.pop()  # 随机弹出一个s.clear()         # 清空
-实际用途
-# 去重unique = list(set([1, 2, 2, 3, 3, 3]))# 成员检查（O(1)，比列表的 O(n) 快）valid_ids = &#123;1, 5, 10, 20&#125;if user_id in valid_ids:    grant_access()# 找共同元素friends_a = &#123;&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;&#125;friends_b = &#123;&quot;Bob&quot;, &quot;David&quot;, &quot;Eve&quot;&#125;mutual = friends_a &amp; friends_b  # &#123;&quot;Bob&quot;&#125;
-frozenset（不可变集合）
-fs = frozenset([1, 2, 3])# fs.add(4)        # AttributeError# fs.remove(1)     # AttributeError# 可以作为字典 keygraph = &#123;frozenset([&quot;A&quot;, &quot;B&quot;]): 10&#125;  # 边的权重
+    <title>[Python]函数</title>
+    <url>/2026/06/16/01_04_%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[函数
+1. 函数定义与调用
+def greet(name):    &quot;&quot;&quot;向指定的人打招呼。（这是文档字符串 docstring）&quot;&quot;&quot;    return f&quot;你好，&#123;name&#125;！&quot;print(greet(&quot;GodY&quot;))  # 你好，GodY！print(greet.__doc__)  # 向指定的人打招呼。（文档字符串 docstring）
+2. 参数类型
+# 位置参数def add(a, b):    return a + b# 默认参数（默认值必须是不可变对象！）def power(x, n=2):    return x ** nprint(power(3))       # 9（n 用默认值 2）print(power(3, 3))    # 27# 默认参数的陷阱：可变默认值def bad_append(item, lst=[]):    # 不要这样做！    lst.append(item)    return lstprint(bad_append(1))  # [1]print(bad_append(2))  # [1, 2]  ← 同一个 list 对象被复用！def good_append(item, lst=None):  # 正确做法    if lst is None:        lst = []    lst.append(item)    return lst# 关键字参数def describe_person(name, age, city=&quot;苏州&quot;):    print(f&quot;&#123;name&#125;，&#123;age&#125;岁，来自&#123;city&#125;&quot;)describe_person(age=22, name=&quot;GodY&quot;)  # 关键字参数可以任意顺序describe_person(&quot;GodY&quot;, age=22)       # 混用也可以# 强制关键字参数（* 之后的参数必须用关键字传递）def register(name, *, email, phone):    print(f&quot;&#123;name&#125;: &#123;email&#125; / &#123;phone&#125;&quot;)# register(&quot;GodY&quot;, &quot;a@b.com&quot;, &quot;123&quot;)  # 报错！register(&quot;GodY&quot;, email=&quot;a@b.com&quot;, phone=&quot;123&quot;)  # 正确
+3. 可变参数 *args 和 **kwargs
+# *args：接收任意数量的位置参数，打包成元组def my_sum(*args):    print(f&quot;收到 &#123;len(args)&#125; 个参数: &#123;args&#125;&quot;)    return sum(args)print(my_sum(1, 2, 3))       # 收到 3 个参数: (1, 2, 3) → 6print(my_sum(10, 20, 30, 40))  # 收到 4 个参数 → 100# **kwargs：接收任意数量的关键字参数，打包成字典def print_info(**kwargs):    for key, value in kwargs.items():        print(f&quot;  &#123;key&#125;: &#123;value&#125;&quot;)print_info(name=&quot;GodY&quot;, age=22, city=&quot;苏州&quot;)# 解包传给函数nums = [1, 2, 3, 4]print(my_sum(*nums))  # 把列表打散传进去 → 10config = &#123;&quot;name&quot;: &quot;GodY&quot;, &quot;age&quot;: 22&#125;print_info(**config)  # 把字典打散传进去
+4. 返回值
+# 单返回值def square(x):    return x ** 2# 多返回值（实际返回元组）def min_max(lst):    return min(lst), max(lst)a, b = min_max([3, 1, 4, 1, 5])print(a, b)  # 1 5# 无 return → 返回 Nonedef print_hello():    print(&quot;hello&quot;)result = print_hello()  # result 是 None# 提前返回def safe_divide(a, b):    if b == 0:        return float(&#x27;inf&#x27;) if a &gt; 0 else float(&#x27;-inf&#x27;)    return a / b
+5. Lambda 匿名函数
+# 定义：lambda 参数: 表达式（自动返回表达式的值）square = lambda x: x ** 2print(square(5))  # 25# 常用于 sort 的 key 参数students = [(&quot;Bob&quot;, 85), (&quot;Alice&quot;, 92), (&quot;Charlie&quot;, 78)]students.sort(key=lambda s: s[1], reverse=True)print(students)  # [(&#x27;Alice&#x27;, 92), (&#x27;Bob&#x27;, 85), (&#x27;Charlie&#x27;, 78)]# 常用于 map/filternums = [1, 2, 3, 4, 5]doubled = list(map(lambda x: x * 2, nums))  # [2,4,6,8,10]evens = list(filter(lambda x: x % 2 == 0, nums))  # [2,4]# 但大多数情况用推导式更清晰doubled = [x * 2 for x in nums]evens = [x for x in nums if x % 2 == 0]
+6. 作用域 LEGB 规则
+查找变量时按顺序查找：Local → Enclosing → Global → Builtin
+x = &quot;global&quot;        # Globaldef outer():    x = &quot;enclosing&quot; # Enclosing    def inner():        x = &quot;local&quot; # Local        print(x)    # local    inner()    print(x)        # enclosingouter()print(x)            # global# global 声明（函数内修改全局变量）count = 0def increment():    global count    count += 1# nonlocal 声明（内层函数修改外层变量）def make_counter():    count = 0    def increment():        nonlocal count        count += 1        return count    return incrementcounter = make_counter()print(counter())  # 1print(counter())  # 2print(counter())  # 3
+7. 装饰器
+装饰器本质上是一个接受函数、返回新函数的&quot;函数包装器&quot;。
+import timeimport functools# 基础装饰器def timer(func):    @functools.wraps(func)  # 保留原函数的元信息    def wrapper(*args, **kwargs):        start = time.perf_counter()        result = func(*args, **kwargs)        elapsed = time.perf_counter() - start        print(f&quot;&#123;func.__name__&#125; 耗时 &#123;elapsed:.4f&#125;s&quot;)        return result    return wrapper@timerdef slow_function():    time.sleep(0.1)    return &quot;done&quot;slow_function()  # slow_function 耗时 0.1001s# 带参数的装饰器（再加一层包装）def repeat(n=2):    def decorator(func):        @functools.wraps(func)        def wrapper(*args, **kwargs):            for _ in range(n):                result = func(*args, **kwargs)            return result        return wrapper    return decorator@repeat(n=3)def say_hello():    print(&quot;Hello!&quot;)say_hello()  # 打印 3 次 Hello!# 实用装饰器：缓存def memoize(func):    cache = &#123;&#125;    @functools.wraps(func)    def wrapper(*args):        if args not in cache:            cache[args] = func(*args)        return cache[args]    return wrapper@memoizedef fibonacci(n):    if n &lt; 2:        return n    return fibonacci(n - 1) + fibonacci(n - 2)print(fibonacci(100))  # 瞬间算出，无缓存的话会跑很久
+8. 闭包
+def make_multiplier(factor):    def multiply(x):        return x * factor    # factor 被&quot;捕获&quot;了    return multiplydouble = make_multiplier(2)triple = make_multiplier(3)print(double(5))  # 10print(triple(5))  # 15
+9. 生成器函数
+# yield 代替 return → 变成生成器def countdown(n):    while n &gt; 0:        yield n        n -= 1for num in countdown(5):    print(num)  # 5 4 3 2 1# 无限生成器def infinite_counter():    i = 0    while True:        yield i        i += 1gen = infinite_counter()print(next(gen))  # 0print(next(gen))  # 1print(next(gen))  # 2# yield from：委托给子生成器def chain(*iterables):    for it in iterables:        yield from it   # 等价于 for x in it: yield xprint(list(chain([1, 2], [3, 4], [5, 6])))  # [1,2,3,4,5,6]
 ]]></content>
       <categories>
         <category>编程与工具</category>
@@ -266,25 +230,59 @@ or
       </tags>
   </entry>
   <entry>
-    <title>[Python]控制流</title>
-    <url>/2026/06/16/01_03_%E6%8E%A7%E5%88%B6%E6%B5%81/</url>
-    <content><![CDATA[控制流
-1. if-elif-else
-score = 85if score &gt;= 90:    grade = &quot;A&quot;elif score &gt;= 80:    grade = &quot;B&quot;elif score &gt;= 70:    grade = &quot;C&quot;elif score &gt;= 60:    grade = &quot;D&quot;else:    grade = &quot;F&quot;print(f&quot;成绩：&#123;grade&#125;&quot;)  # B# 单行 if（条件表达式）age = 20status = &quot;成年&quot; if age &gt;= 18 else &quot;未成年&quot;# pass 占位符if condition_not_implemented_yet:    pass  # 什么都不做，先占位
-2. for 循环
-Python 的 for 本质上是&quot;迭代器循环&quot;，不是 C 那样的计数循环。
-# 遍历列表fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]for f in fruits:    print(f)# 遍历字典d = &#123;&quot;a&quot;: 1, &quot;b&quot;: 2, &quot;c&quot;: 3&#125;for key in d:    print(key, d[key])for key, value in d.items():   # 推荐写法    print(f&quot;&#123;key&#125; → &#123;value&#125;&quot;)for value in d.values():    print(value)# 同时获取索引和值：enumeratenames = [&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;]for i, name in enumerate(names):    print(f&quot;&#123;i&#125;: &#123;name&#125;&quot;)        # 0: Alice 1: Bob 2: Charliefor i, name in enumerate(names, start=1):    print(f&quot;&#123;i&#125;: &#123;name&#125;&quot;)        # 1: Alice 2: Bob 3: Charlie# 同时遍历多个序列：zipa = [1, 2, 3]b = [&quot;x&quot;, &quot;y&quot;, &quot;z&quot;]for num, char in zip(a, b):    print(num, char)              # 1 x / 2 y / 3 z# 不等长用 zip_longestfrom itertools import zip_longestfor x, y in zip_longest([1,2,3,4], &quot;ab&quot;, fillvalue=None):    print(x, y)                   # 1 a / 2 b / 3 None / 4 None# range 生成整数序列for i in range(5):         # 0, 1, 2, 3, 4（不包含终点）    print(i)for i in range(2, 6):      # 2, 3, 4, 5    print(i)for i in range(0, 10, 2):  # 0, 2, 4, 6, 8（步长为 2）    print(i)for i in range(10, 0, -1): # 10, 9, ..., 1（反向）    print(i)# 反向遍历for name in reversed(names):    print(name)
-3. while 循环
-count = 0while count &lt; 5:    print(count)    count += 1# 无限循环 + 条件退出import randomwhile True:    num = random.randint(1, 100)    print(num)    if num &gt; 90:        print(&quot;命中了！&quot;)        break
-4. break / continue / else
-# break：立即退出循环for i in range(10):    if i == 5:        break          # 遇到 5 就停    print(i)           # 0 1 2 3 4# continue：跳过本次迭代for i in range(10):    if i % 2 == 0:        continue       # 跳过偶数    print(i)           # 1 3 5 7 9# for-else / while-else：循环&quot;正常结束&quot;时执行# （没有被 break 中断才算正常结束）for i in range(5):    if i == 10:        break          # 永远不会触发else:    print(&quot;循环正常结束&quot;)  # 这个会执行# 经典用法：查找元素def find_index(lst, target):    for i, val in enumerate(lst):        if val == target:            print(f&quot;找到了，索引 &#123;i&#125;&quot;)            break    else:        print(&quot;没找到&quot;)find_index([1, 2, 3, 4], 3)   # 找到了，索引 2find_index([1, 2, 3, 4], 9)   # 没找到
-5. 嵌套循环
-# 九九乘法表for i in range(1, 10):    for j in range(1, i + 1):        print(f&quot;&#123;j&#125;×&#123;i&#125;=&#123;i*j:2d&#125;&quot;, end=&quot;  &quot;)    print()# 跳出多层循环：用 return 或 flagdef search_matrix(matrix, target):    for i, row in enumerate(matrix):        for j, val in enumerate(row):            if val == target:                return i, j     # 直接 return 跳出所有循环    return None
-6. 列表推导式（Pythonic 循环）
-循环最常见的目的是生成新列表，用推导式更简洁：
-# 传统 for 循环squares = []for i in range(10):    squares.append(i**2)# 列表推导式：一行搞定squares = [i**2 for i in range(10)]# 带条件过滤evens = [x for x in range(20) if x % 2 == 0]# 带 if-else（三元表达式）labels = [&quot;偶数&quot; if x % 2 == 0 else &quot;奇数&quot; for x in range(5)]# [&#x27;偶数&#x27;, &#x27;奇数&#x27;, &#x27;偶数&#x27;, &#x27;奇数&#x27;, &#x27;偶数&#x27;]# 嵌套循环pairs = [(x, y) for x in range(3) for y in range(3)]# [(0,0),(0,1),(0,2),(1,0),(1,1),(1,2),(2,0),(2,1),(2,2)]# 字典推导式square_dict = &#123;x: x**2 for x in range(5)&#125;# &#123;0: 0, 1: 1, 2: 4, 3: 9, 4: 16&#125;# 集合推导式unique_lengths = &#123;len(word) for word in [&quot;hi&quot;, &quot;hello&quot;, &quot;hey&quot;, &quot;world&quot;]&#125;# &#123;2, 3, 5&#125;
-7. match-case（Python 3.10+ 的结构化模式匹配）
-def handle_command(cmd):    match cmd.split():        case [&quot;quit&quot;]:            return &quot;退出程序&quot;        case [&quot;hello&quot;, name]:            return f&quot;你好 &#123;name&#125;！&quot;        case [&quot;add&quot;, x, y]:            return int(x) + int(y)        case [&quot;sum&quot;, *numbers]:            return sum(int(n) for n in numbers)        case _:            return &quot;未知命令&quot;print(handle_command(&quot;hello GodY&quot;))    # 你好 GodY！print(handle_command(&quot;add 3 7&quot;))       # 10print(handle_command(&quot;sum 1 2 3 4&quot;))   # 10# 匹配数据结构def analyze_point(p):    match p:        case (0, 0):            return &quot;原点&quot;        case (0, y):            return f&quot;Y 轴上，y=&#123;y&#125;&quot;        case (x, 0):            return f&quot;X 轴上，x=&#123;x&#125;&quot;        case (x, y) if x == y:            return &quot;在 y=x 上&quot;        case (x, y):            return f&quot;坐标 (&#123;x&#125;, &#123;y&#125;)&quot;
+    <title>[Python]列表与元组</title>
+    <url>/2026/06/16/02_01_%E5%88%97%E8%A1%A8%E4%B8%8E%E5%85%83%E7%BB%84/</url>
+    <content><![CDATA[列表与元组
+列表 (list)
+列表是可变、有序的序列，是 Python 最常用的容器。
+创建
+a = [1, 2, 3, 4, 5]b = list(&quot;abc&quot;)           # [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]c = [0] * 5               # [0, 0, 0, 0, 0]d = list(range(10))       # [0, 1, 2, ..., 9]e = [i**2 for i in range(5)]  # [0, 1, 4, 9, 16]f = [[] for _ in range(3)]    # [[], [], []]（正确创建二维列表）# f = [[]] * 3               # 错误！三个引用指向同一个空列表
+索引与切片
+lst = [10, 20, 30, 40, 50]# 索引print(lst[0])    # 10（第一个）print(lst[-1])   # 50（最后一个）print(lst[-2])   # 40（倒数第二）# 切片：lst[start:stop:step]print(lst[1:4])      # [20, 30, 40]（索引 1~3）print(lst[:3])       # [10, 20, 30]（前三个）print(lst[2:])       # [30, 40, 50]（从索引 2 开始）print(lst[::2])      # [10, 30, 50]（每隔一个）print(lst[::-1])     # [50, 40, 30, 20, 10]（反转）print(lst[:-3:-1])   # [50, 40]（从末尾往前，步长-1）# 切片赋值lst[1:3] = [200, 300]   # [10, 200, 300, 40, 50]lst[::2] = [0, 0, 0]    # [0, 200, 0, 40, 0]
+增删改查
+lst = [1, 2, 3]# 增加lst.append(4)              # [1, 2, 3, 4]lst.extend([5, 6])         # [1, 2, 3, 4, 5, 6]lst.insert(2, 99)          # [1, 2, 99, 3, 4, 5, 6]（在索引 2 处插入）# 删除lst.remove(99)             # [1, 2, 3, 4, 5, 6]（按值删除，只删第一个）popped = lst.pop()         # 弹出并返回最后一个（6）popped = lst.pop(1)        # 弹出索引 1 的元素（2）del lst[0]                 # 删除索引 0del lst[1:3]               # 删除切片范围lst.clear()                # 清空# 查找lst = [10, 20, 30, 20, 40]print(lst.index(20))       # 1（第一个 20 的索引）print(lst.index(20, 2))    # 3（从索引 2 开始找 20）print(lst.count(20))       # 2（出现次数）
+排序
+nums = [3, 1, 4, 1, 5, 9]# 原地排序（改变原列表）nums.sort()                     # [1, 1, 3, 4, 5, 9]nums.sort(reverse=True)         # [9, 5, 4, 3, 1, 1]# 自定义排序 keywords = [&quot;apple&quot;, &quot;banana&quot;, &quot;kiwi&quot;, &quot;grape&quot;]words.sort(key=len)             # [&#x27;kiwi&#x27;, &#x27;apple&#x27;, &#x27;grape&#x27;, &#x27;banana&#x27;]words.sort(key=lambda w: w[-1]) # 按最后一个字母排序# 返回新列表（不改变原列表）sorted_nums = sorted(nums)sorted_nums = sorted(nums, reverse=True)
+元组 (tuple)
+元组是不可变序列，创建后不能增删改元素。
+t1 = (1, 2, 3)t2 = 4, 5, 6          # 括号可省略t3 = (42, )           # 单元素元组的逗号不能省！t4 = ()               # 空元组t5 = tuple([1, 2, 3]) # 从列表转换# 访问同列表print(t1[0], t1[1:3])  # 1 (2, 3)# 不可变意味着这些操作报错# t1[0] = 10         # TypeError# t1.append(4)        # AttributeError# 解包a, b, c = (10, 20, 30)x, *rest = (1, 2, 3, 4, 5)  # x=1, rest=[2,3,4,5]# 为什么要用元组# 1. 作为字典的 key（不可变）cache = &#123;(&quot;user&quot;, 123): &quot;data&quot;&#125;# 2. 函数返回多值def get_coord():    return 100, 200   # 实际返回元组# 3. 不可变 = 更安全
+列表 vs 元组
+
+
+
+特性
+list
+tuple
+
+
+
+
+可变性
+可变
+不可变
+
+
+速度
+慢
+快
+
+
+内存
+大
+小（约 1/2）
+
+
+作为 dict key
+不能
+能
+
+
+使用场景
+动态数据
+固定数据、坐标、配置
+
+
+
 ]]></content>
       <categories>
         <category>编程与工具</category>
@@ -316,6 +314,61 @@ from itertools import *# 无限迭代器# count(10, 2)         # 10,12,14,16,...
       </tags>
   </entry>
   <entry>
+    <title>[Python]字典与集合</title>
+    <url>/2026/06/16/02_02_%E5%AD%97%E5%85%B8%E4%B8%8E%E9%9B%86%E5%90%88/</url>
+    <content><![CDATA[字典与集合
+字典 (dict)
+字典是键值对的集合，key 必须是不可变类型，3.7+ 保证插入顺序。
+创建
+d1 = &#123;&quot;name&quot;: &quot;GodY&quot;, &quot;age&quot;: 22&#125;d2 = dict(name=&quot;GodY&quot;, age=22)d3 = dict([(&quot;name&quot;, &quot;GodY&quot;), (&quot;age&quot;, 22)])d4 = &#123;x: x**2 for x in range(5)&#125;  # &#123;0:0, 1:1, 2:4, 3:9, 4:16&#125;d5 = dict.fromkeys([&quot;a&quot;, &quot;b&quot;, &quot;c&quot;], 0)  # &#123;&#x27;a&#x27;:0, &#x27;b&#x27;:0, &#x27;c&#x27;:0&#125;
+基本操作
+d = &#123;&quot;name&quot;: &quot;GodY&quot;, &quot;age&quot;: 22&#125;# 访问print(d[&quot;name&quot;])         # GodY（key 不存在会报错）print(d.get(&quot;phone&quot;))    # None（key 不存在返回 None）print(d.get(&quot;phone&quot;, &quot;无&quot;))  # 无（指定默认值）# 增/改d[&quot;city&quot;] = &quot;苏州&quot;       # 新增d[&quot;age&quot;] = 23            # 修改# 删除del d[&quot;age&quot;]             # 删除 keypopped = d.pop(&quot;name&quot;)   # 弹出并返回值item = d.popitem()       # 弹出最后一个键值对（3.7+）d.clear()                # 清空# 合并（3.9+）a = &#123;&quot;x&quot;: 1, &quot;y&quot;: 2&#125;b = &#123;&quot;y&quot;: 3, &quot;z&quot;: 4&#125;merged = a | b           # &#123;&#x27;x&#x27;:1, &#x27;y&#x27;:3, &#x27;z&#x27;:4&#125;（后者覆盖前者）a |= b                   # a 原地更新为 &#123;&#x27;x&#x27;:1, &#x27;y&#x27;:3, &#x27;z&#x27;:4&#125;# 3.8 及以前merged = &#123;**a, **b&#125;
+遍历
+d = &#123;&quot;a&quot;: 1, &quot;b&quot;: 2, &quot;c&quot;: 3&#125;# 遍历 keyfor k in d:    print(k)for k in d.keys():    print(k)# 遍历 valuefor v in d.values():    print(v)# 遍历 key-valuefor k, v in d.items():    print(f&quot;&#123;k&#125; → &#123;v&#125;&quot;)
+常用模式
+# 计数器from collections import Countertext = &quot;hello world&quot;counts = Counter(text)print(counts)  # Counter(&#123;&#x27;l&#x27;: 3, &#x27;o&#x27;: 2, ...&#125;)print(counts.most_common(2))  # [(&#x27;l&#x27;, 3), (&#x27;o&#x27;, 2)]# 默认值字典from collections import defaultdictdd = defaultdict(list)dd[&quot;a&quot;].append(1)  # 即使 &quot;a&quot; 不存在也不会报错print(dd)          # &#123;&#x27;a&#x27;: [1]&#125;# 有序字典（3.7+ 普通 dict 也有序了，但 OrderedDict 还有额外功能）from collections import OrderedDictod = OrderedDict()od[&quot;first&quot;] = 1od[&quot;second&quot;] = 2od.move_to_end(&quot;first&quot;)  # 把 &quot;first&quot; 移到最后
+集合 (set)
+集合是无序、不重复元素的集合，基于哈希表实现。
+创建
+s1 = &#123;1, 2, 3, 4, 5&#125;s2 = set([1, 2, 2, 3, 3, 3])  # &#123;1, 2, 3&#125;（自动去重）s3 = set()                      # 空集合（&#123;&#125; 是空字典！）s4 = &#123;x for x in range(10) if x % 2 == 0&#125;  # &#123;0, 2, 4, 6, 8&#125;
+集合运算
+a = &#123;1, 2, 3, 4&#125;b = &#123;3, 4, 5, 6&#125;# 基本运算print(a | b)    # 并集 &#123;1, 2, 3, 4, 5, 6&#125;print(a &amp; b)    # 交集 &#123;3, 4&#125;print(a - b)    # 差集 &#123;1, 2&#125;（a 有 b 没有）print(a ^ b)    # 对称差 &#123;1, 2, 5, 6&#125;（不同时属于两个集合的）# 就地修改a |= b   # a = a | ba &amp;= b   # a = a &amp; ba -= b   # a = a - b# 关系判断print(&#123;1, 2&#125; &lt;= &#123;1, 2, 3&#125;)  # True（子集）print(&#123;1, 2, 3&#125; &gt;= &#123;1, 2&#125;)  # True（超集）print(&#123;1, 2&#125;.isdisjoint(&#123;3, 4&#125;))  # True（不相交）
+增删查
+s = &#123;1, 2, 3&#125;s.add(4)          # &#123;1, 2, 3, 4&#125;s.add(2)          # 没变化（已存在）s.remove(3)       # &#123;1, 2, 4&#125;（元素不存在会报错）s.discard(10)     # 不报错（不存在就什么都不做）popped = s.pop()  # 随机弹出一个s.clear()         # 清空
+实际用途
+# 去重unique = list(set([1, 2, 2, 3, 3, 3]))# 成员检查（O(1)，比列表的 O(n) 快）valid_ids = &#123;1, 5, 10, 20&#125;if user_id in valid_ids:    grant_access()# 找共同元素friends_a = &#123;&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;&#125;friends_b = &#123;&quot;Bob&quot;, &quot;David&quot;, &quot;Eve&quot;&#125;mutual = friends_a &amp; friends_b  # &#123;&quot;Bob&quot;&#125;
+frozenset（不可变集合）
+fs = frozenset([1, 2, 3])# fs.add(4)        # AttributeError# fs.remove(1)     # AttributeError# 可以作为字典 keygraph = &#123;frozenset([&quot;A&quot;, &quot;B&quot;]): 10&#125;  # 边的权重
+]]></content>
+      <categories>
+        <category>编程与工具</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Python]异常处理与上下文管理器</title>
+    <url>/2026/06/16/04_01_%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[异常处理与上下文管理器
+1. try-except-else-finally
+# 基本结构try:    result = 10 / 0except ZeroDivisionError as e:    print(f&quot;除零错误：&#123;e&#125;&quot;)except (TypeError, ValueError) as e:    print(f&quot;类型或值错误：&#123;e&#125;&quot;)except Exception as e:    print(f&quot;其他异常：&#123;e&#125;&quot;)else:    print(f&quot;成功！结果是 &#123;result&#125;&quot;)  # 没异常才执行finally:    print(&quot;无论如何都执行的清理代码&quot;)      # 一定执行# 常见异常层级# BaseException#   ├── KeyboardInterrupt#   ├── SystemExit#   └── Exception#       ├── TypeError#       ├── ValueError#       ├── ZeroDivisionError#       ├── FileNotFoundError#       ├── KeyError#       ├── IndexError#       └── RuntimeError
+2. 自定义异常
+class InvalidValueError(Exception):    def __init__(self, value, message=&quot;值非法&quot;):        self.value = value        self.message = f&quot;&#123;message&#125;：&#123;value&#125;&quot;        super().__init__(self.message)def sqrt_positive(x):    if x &lt; 0:        raise InvalidValueError(x, &quot;负数不能开平方&quot;)    return x ** 0.5try:    sqrt_positive(-5)except InvalidValueError as e:    print(e)  # 值非法：-5
+3. 上下文管理器 (with 语句)
+# 文件操作（最常见）with open(&#x27;test.txt&#x27;, &#x27;w&#x27;) as f:    f.write(&#x27;hello&#x27;)# 离开 with 块自动关闭文件，即使发生异常# 多资源管理with open(&#x27;a.txt&#x27;) as f1, open(&#x27;b.txt&#x27;) as f2:    data1 = f1.read()    data2 = f2.read()# 自定义上下文管理器（类方式）class Timer:    &quot;&quot;&quot;测量代码段执行时间&quot;&quot;&quot;    import time    def __enter__(self):        self.start = self.time.perf_counter()        return self    def __exit__(self, exc_type, exc_val, exc_tb):        self.elapsed = self.time.perf_counter() - self.start        print(f&quot;执行了 &#123;self.elapsed:.4f&#125;s&quot;)        return False  # False = 不吞掉异常with Timer():    sum(range(10000000))  # 执行了 0.1234s# 自定义上下文管理器（函数方式，推荐）from contextlib import contextmanager@contextmanagerdef temporary_change(obj, attr, temp_value):    &quot;&quot;&quot;临时修改属性，退出时恢复&quot;&quot;&quot;    original = getattr(obj, attr)    setattr(obj, attr, temp_value)    try:        yield    finally:        setattr(obj, attr, original)class Config:    debug = Falseconfig = Config()with temporary_change(config, &#x27;debug&#x27;, True):    print(config.debug)  # Trueprint(config.debug)      # False（已恢复）
+4. 常用 contextlib 工具
+from contextlib import suppress, redirect_stdout, nullcontextimport io# suppress：优雅地忽略某些异常with suppress(FileNotFoundError):    os.remove(&#x27;not_exist.txt&#x27;)  # 不存在也不报错# redirect_stdout：捕获 print 输出buffer = io.StringIO()with redirect_stdout(buffer):    print(&quot;这行被捕获了&quot;)    print(&quot;这行也是&quot;)output = buffer.getvalue()  # &quot;这行被捕获了\n这行也是\n&quot;# nullcontext：条件上下文def maybe_open(filename, write_mode=False):    if filename:        return open(filename, &#x27;w&#x27; if write_mode else &#x27;r&#x27;)    return nullcontext()  # 什么都不做的上下文
+]]></content>
+      <categories>
+        <category>编程与工具</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[Python]类与对象</title>
     <url>/2026/06/16/03_01_%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/</url>
     <content><![CDATA[类与对象
@@ -340,56 +393,29 @@ from dataclasses import dataclass, field@dataclassclass Person:    name: str    
       </tags>
   </entry>
   <entry>
-    <title>[Python]异常处理与上下文管理器</title>
-    <url>/2026/06/16/04_01_%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[异常处理与上下文管理器
-1. try-except-else-finally
-# 基本结构try:    result = 10 / 0except ZeroDivisionError as e:    print(f&quot;除零错误：&#123;e&#125;&quot;)except (TypeError, ValueError) as e:    print(f&quot;类型或值错误：&#123;e&#125;&quot;)except Exception as e:    print(f&quot;其他异常：&#123;e&#125;&quot;)else:    print(f&quot;成功！结果是 &#123;result&#125;&quot;)  # 没异常才执行finally:    print(&quot;无论如何都执行的清理代码&quot;)      # 一定执行# 常见异常层级# BaseException#   ├── KeyboardInterrupt#   ├── SystemExit#   └── Exception#       ├── TypeError#       ├── ValueError#       ├── ZeroDivisionError#       ├── FileNotFoundError#       ├── KeyError#       ├── IndexError#       └── RuntimeError
-2. 自定义异常
-class InvalidValueError(Exception):    def __init__(self, value, message=&quot;值非法&quot;):        self.value = value        self.message = f&quot;&#123;message&#125;：&#123;value&#125;&quot;        super().__init__(self.message)def sqrt_positive(x):    if x &lt; 0:        raise InvalidValueError(x, &quot;负数不能开平方&quot;)    return x ** 0.5try:    sqrt_positive(-5)except InvalidValueError as e:    print(e)  # 值非法：-5
-3. 上下文管理器 (with 语句)
-# 文件操作（最常见）with open(&#x27;test.txt&#x27;, &#x27;w&#x27;) as f:    f.write(&#x27;hello&#x27;)# 离开 with 块自动关闭文件，即使发生异常# 多资源管理with open(&#x27;a.txt&#x27;) as f1, open(&#x27;b.txt&#x27;) as f2:    data1 = f1.read()    data2 = f2.read()# 自定义上下文管理器（类方式）class Timer:    &quot;&quot;&quot;测量代码段执行时间&quot;&quot;&quot;    import time    def __enter__(self):        self.start = self.time.perf_counter()        return self    def __exit__(self, exc_type, exc_val, exc_tb):        self.elapsed = self.time.perf_counter() - self.start        print(f&quot;执行了 &#123;self.elapsed:.4f&#125;s&quot;)        return False  # False = 不吞掉异常with Timer():    sum(range(10000000))  # 执行了 0.1234s# 自定义上下文管理器（函数方式，推荐）from contextlib import contextmanager@contextmanagerdef temporary_change(obj, attr, temp_value):    &quot;&quot;&quot;临时修改属性，退出时恢复&quot;&quot;&quot;    original = getattr(obj, attr)    setattr(obj, attr, temp_value)    try:        yield    finally:        setattr(obj, attr, original)class Config:    debug = Falseconfig = Config()with temporary_change(config, &#x27;debug&#x27;, True):    print(config.debug)  # Trueprint(config.debug)      # False（已恢复）
-4. 常用 contextlib 工具
-from contextlib import suppress, redirect_stdout, nullcontextimport io# suppress：优雅地忽略某些异常with suppress(FileNotFoundError):    os.remove(&#x27;not_exist.txt&#x27;)  # 不存在也不报错# redirect_stdout：捕获 print 输出buffer = io.StringIO()with redirect_stdout(buffer):    print(&quot;这行被捕获了&quot;)    print(&quot;这行也是&quot;)output = buffer.getvalue()  # &quot;这行被捕获了\n这行也是\n&quot;# nullcontext：条件上下文def maybe_open(filename, write_mode=False):    if filename:        return open(filename, &#x27;w&#x27; if write_mode else &#x27;r&#x27;)    return nullcontext()  # 什么都不做的上下文
+    <title>[Python, PyTorch]PyTorch 张量基础</title>
+    <url>/2026/06/16/06_01_%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[PyTorch 张量基础
+PyTorch 是深度学习框架，核心是 Tensor（张量）——类似 NumPy 的 ndarray，但支持 GPU 加速和自动求导。
+1. 创建张量
+import torchimport numpy as np# 从列表a = torch.tensor([1, 2, 3, 4])b = torch.tensor([[1, 2], [3, 4]])# 类似 NumPy 的 APIzeros = torch.zeros(3, 4)ones = torch.ones(2, 3)eye = torch.eye(4)rand = torch.rand(3, 4)         # [0, 1) 均匀分布randn = torch.randn(3, 4)       # N(0, 1) 正态分布arange = torch.arange(0, 10, 2) # [0, 2, 4, 6, 8]linspace = torch.linspace(0, 1, 5)  # [0, 0.25, 0.5, 0.75, 1]# 从 NumPy 转换（共享内存！）np_arr = np.array([1, 2, 3])tensor = torch.from_numpy(np_arr)     # 共享内存tensor2 = torch.tensor(np_arr)        # 复制数据tensor[0] = 99print(np_arr)  # [99 2 3]（共享内存，一起变了！）# 张量转 NumPynp_back = tensor.numpy()
+2. 张量属性与设备
+a = torch.randn(2, 3)print(a.shape)      # torch.Size([2, 3])print(a.dtype)      # torch.float32print(a.device)     # cpu# GPU 相关if torch.cuda.is_available():    a_gpu = a.to(&#x27;cuda&#x27;)           # 移到 GPU    a_gpu = a.cuda()               # 同上    a_cpu = a_gpu.to(&#x27;cpu&#x27;)        # 移回 CPU    a_cpu = a_gpu.cpu()            # 同上    print(f&quot;GPU: &#123;torch.cuda.get_device_name(0)&#125;&quot;)    print(f&quot;显存: &#123;torch.cuda.get_device_properties(0).total_mem/1e9:.1f&#125;GB&quot;)# dtype 转换a_float = a.float()     # float32a_double = a.double()   # float64a_int = a.int()         # int32a_long = a.long()       # int64# 创建时指定a = torch.tensor([1, 2, 3], dtype=torch.float32, device=&#x27;cuda&#x27;)b = torch.ones(3, 4, dtype=torch.float16)  # 半精度，省显存
+3. 索引、切片、变形
+a = torch.arange(12).reshape(3, 4)# 基本操作（和 NumPy 几乎一样）print(a[0, 0])           # 0print(a[:, 1])           # [1, 5, 9]（第二列）print(a[1:, 2:])         # [[6, 7], [10, 11]]# reshape / viewb = a.reshape(4, 3)      # 4×3b = a.view(4, 3)         # 同上（共享内存，更快）b = a.reshape(-1, 6)     # 2×6# squeeze / unsqueezex = torch.randn(3, 1, 4)y = x.squeeze(1)         # shape (3, 4)，去掉维度1z = x.squeeze()          # shape (3, 4)，去掉所有大小为1的维度x = y.unsqueeze(0)       # shape (1, 3, 4)，增加维度x = y.unsqueeze(-1)      # shape (3, 4, 1)，在最后增加# 拼接a = torch.randn(2, 3)b = torch.randn(1, 3)c = torch.cat([a, b], dim=0)    # 沿 dim=0 拼接 → (3, 3)c = torch.stack([a, a], dim=0)  # 堆叠（增加新维度）→ (2, 2, 3)# 转置a = torch.randn(3, 4)print(a.T.shape)          # (4, 3)print(a.transpose(0, 1).shape)  # (4, 3)# permute（多维度置换）x = torch.randn(2, 3, 4)print(x.permute(2, 0, 1).shape)  # (4, 2, 3)
+4. 运算（和 NumPy 几乎一致）
+a = torch.tensor([1, 2, 3, 4], dtype=torch.float32)b = torch.tensor([5, 6, 7, 8], dtype=torch.float32)# 逐元素运算print(a + b)       # [6, 8, 10, 12]print(a * b)       # [5, 12, 21, 32]（逐元素乘！）print(a ** 2)      # [1, 4, 9, 16]print(torch.sqrt(a))print(torch.exp(a))print(torch.log(a))print(torch.clamp(a, min=2, max=3))  # [2, 2, 3, 3]# 矩阵乘A = torch.randn(3, 4)B = torch.randn(4, 5)C = A @ B           # (3, 5)C = torch.matmul(A, B)C = torch.mm(A, B)  # 仅二维# 点积u = torch.tensor([1., 2., 3.])v = torch.tensor([4., 5., 6.])dot = torch.dot(u, v)  # 32# 聚合print(a.sum())print(a.mean())print(a.max())print(a.argmax())# 按轴聚合x = torch.randn(3, 4)print(x.sum(dim=0))      # 每列求和 → shape (4,)print(x.sum(dim=1))      # 每行求和 → shape (3,)print(x.sum(dim=1, keepdim=True))  # shape (3, 1)，保持维度# 就地操作（_ 后缀）a.add_(1)         # a += 1a.mul_(2)         # a *= 2# 就地操作不创建新张量，用于节省内存，但会破坏计算图
+5. 广播（和 NumPy 规则完全一致）
+a = torch.ones(3, 1, 4)b = torch.ones(2, 4)result = a + b    # shape (3, 2, 4)# 实用的广播技巧data = torch.randn(100, 10)mean = data.mean(dim=0, keepdim=True)  # (1, 10)centered = data - mean                 # 每列中心化# 这个广播在 3DGS 中经常用到！N = 1000          # 高斯数量positions = torch.randn(N, 3)          # (N, 3)viewpoint = torch.tensor([1.0, 0.0, 0.0])  # (3,)directions = positions - viewpoint     # 广播！(N, 3) - (3,) → (N, 3)
+6. inplace 与梯度陷阱
+x = torch.randn(3, requires_grad=True)# ❌ 错误：inplace 操作会破坏计算图# x.add_(1)        # 报错！有梯度需求的张量不能 inplace# ✅ 正确x = x + 1          # 创建新张量y = x.clone()      # 显式克隆z = x.detach()     # 脱离计算图
 ]]></content>
       <categories>
-        <category>编程与工具</category>
+        <category>深度学习</category>
       </categories>
       <tags>
         <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[Python]函数</title>
-    <url>/2026/06/16/01_04_%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[函数
-1. 函数定义与调用
-def greet(name):    &quot;&quot;&quot;向指定的人打招呼。（这是文档字符串 docstring）&quot;&quot;&quot;    return f&quot;你好，&#123;name&#125;！&quot;print(greet(&quot;GodY&quot;))  # 你好，GodY！print(greet.__doc__)  # 向指定的人打招呼。（文档字符串 docstring）
-2. 参数类型
-# 位置参数def add(a, b):    return a + b# 默认参数（默认值必须是不可变对象！）def power(x, n=2):    return x ** nprint(power(3))       # 9（n 用默认值 2）print(power(3, 3))    # 27# 默认参数的陷阱：可变默认值def bad_append(item, lst=[]):    # 不要这样做！    lst.append(item)    return lstprint(bad_append(1))  # [1]print(bad_append(2))  # [1, 2]  ← 同一个 list 对象被复用！def good_append(item, lst=None):  # 正确做法    if lst is None:        lst = []    lst.append(item)    return lst# 关键字参数def describe_person(name, age, city=&quot;苏州&quot;):    print(f&quot;&#123;name&#125;，&#123;age&#125;岁，来自&#123;city&#125;&quot;)describe_person(age=22, name=&quot;GodY&quot;)  # 关键字参数可以任意顺序describe_person(&quot;GodY&quot;, age=22)       # 混用也可以# 强制关键字参数（* 之后的参数必须用关键字传递）def register(name, *, email, phone):    print(f&quot;&#123;name&#125;: &#123;email&#125; / &#123;phone&#125;&quot;)# register(&quot;GodY&quot;, &quot;a@b.com&quot;, &quot;123&quot;)  # 报错！register(&quot;GodY&quot;, email=&quot;a@b.com&quot;, phone=&quot;123&quot;)  # 正确
-3. 可变参数 *args 和 **kwargs
-# *args：接收任意数量的位置参数，打包成元组def my_sum(*args):    print(f&quot;收到 &#123;len(args)&#125; 个参数: &#123;args&#125;&quot;)    return sum(args)print(my_sum(1, 2, 3))       # 收到 3 个参数: (1, 2, 3) → 6print(my_sum(10, 20, 30, 40))  # 收到 4 个参数 → 100# **kwargs：接收任意数量的关键字参数，打包成字典def print_info(**kwargs):    for key, value in kwargs.items():        print(f&quot;  &#123;key&#125;: &#123;value&#125;&quot;)print_info(name=&quot;GodY&quot;, age=22, city=&quot;苏州&quot;)# 解包传给函数nums = [1, 2, 3, 4]print(my_sum(*nums))  # 把列表打散传进去 → 10config = &#123;&quot;name&quot;: &quot;GodY&quot;, &quot;age&quot;: 22&#125;print_info(**config)  # 把字典打散传进去
-4. 返回值
-# 单返回值def square(x):    return x ** 2# 多返回值（实际返回元组）def min_max(lst):    return min(lst), max(lst)a, b = min_max([3, 1, 4, 1, 5])print(a, b)  # 1 5# 无 return → 返回 Nonedef print_hello():    print(&quot;hello&quot;)result = print_hello()  # result 是 None# 提前返回def safe_divide(a, b):    if b == 0:        return float(&#x27;inf&#x27;) if a &gt; 0 else float(&#x27;-inf&#x27;)    return a / b
-5. Lambda 匿名函数
-# 定义：lambda 参数: 表达式（自动返回表达式的值）square = lambda x: x ** 2print(square(5))  # 25# 常用于 sort 的 key 参数students = [(&quot;Bob&quot;, 85), (&quot;Alice&quot;, 92), (&quot;Charlie&quot;, 78)]students.sort(key=lambda s: s[1], reverse=True)print(students)  # [(&#x27;Alice&#x27;, 92), (&#x27;Bob&#x27;, 85), (&#x27;Charlie&#x27;, 78)]# 常用于 map/filternums = [1, 2, 3, 4, 5]doubled = list(map(lambda x: x * 2, nums))  # [2,4,6,8,10]evens = list(filter(lambda x: x % 2 == 0, nums))  # [2,4]# 但大多数情况用推导式更清晰doubled = [x * 2 for x in nums]evens = [x for x in nums if x % 2 == 0]
-6. 作用域 LEGB 规则
-查找变量时按顺序查找：Local → Enclosing → Global → Builtin
-x = &quot;global&quot;        # Globaldef outer():    x = &quot;enclosing&quot; # Enclosing    def inner():        x = &quot;local&quot; # Local        print(x)    # local    inner()    print(x)        # enclosingouter()print(x)            # global# global 声明（函数内修改全局变量）count = 0def increment():    global count    count += 1# nonlocal 声明（内层函数修改外层变量）def make_counter():    count = 0    def increment():        nonlocal count        count += 1        return count    return incrementcounter = make_counter()print(counter())  # 1print(counter())  # 2print(counter())  # 3
-7. 装饰器
-装饰器本质上是一个接受函数、返回新函数的&quot;函数包装器&quot;。
-import timeimport functools# 基础装饰器def timer(func):    @functools.wraps(func)  # 保留原函数的元信息    def wrapper(*args, **kwargs):        start = time.perf_counter()        result = func(*args, **kwargs)        elapsed = time.perf_counter() - start        print(f&quot;&#123;func.__name__&#125; 耗时 &#123;elapsed:.4f&#125;s&quot;)        return result    return wrapper@timerdef slow_function():    time.sleep(0.1)    return &quot;done&quot;slow_function()  # slow_function 耗时 0.1001s# 带参数的装饰器（再加一层包装）def repeat(n=2):    def decorator(func):        @functools.wraps(func)        def wrapper(*args, **kwargs):            for _ in range(n):                result = func(*args, **kwargs)            return result        return wrapper    return decorator@repeat(n=3)def say_hello():    print(&quot;Hello!&quot;)say_hello()  # 打印 3 次 Hello!# 实用装饰器：缓存def memoize(func):    cache = &#123;&#125;    @functools.wraps(func)    def wrapper(*args):        if args not in cache:            cache[args] = func(*args)        return cache[args]    return wrapper@memoizedef fibonacci(n):    if n &lt; 2:        return n    return fibonacci(n - 1) + fibonacci(n - 2)print(fibonacci(100))  # 瞬间算出，无缓存的话会跑很久
-8. 闭包
-def make_multiplier(factor):    def multiply(x):        return x * factor    # factor 被&quot;捕获&quot;了    return multiplydouble = make_multiplier(2)triple = make_multiplier(3)print(double(5))  # 10print(triple(5))  # 15
-9. 生成器函数
-# yield 代替 return → 变成生成器def countdown(n):    while n &gt; 0:        yield n        n -= 1for num in countdown(5):    print(num)  # 5 4 3 2 1# 无限生成器def infinite_counter():    i = 0    while True:        yield i        i += 1gen = infinite_counter()print(next(gen))  # 0print(next(gen))  # 1print(next(gen))  # 2# yield from：委托给子生成器def chain(*iterables):    for it in iterables:        yield from it   # 等价于 for x in it: yield xprint(list(chain([1, 2], [3, 4], [5, 6])))  # [1,2,3,4,5,6]
-]]></content>
-      <categories>
-        <category>编程与工具</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>基础</tag>
+        <tag>PyTorch</tag>
       </tags>
   </entry>
   <entry>
@@ -422,55 +448,22 @@ a = np.array([1, 2, 3, 4])b = np.array([5, 6, 7, 8])# 算术运算（逐元素�
       </tags>
   </entry>
   <entry>
-    <title>[Python, NumPy]广播、矩阵运算与线性代数</title>
-    <url>/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/</url>
-    <content><![CDATA[广播、矩阵运算与线性代数
-1. 广播 (Broadcasting)
-广播是 NumPy 的核心机制：不同形状的数组在某些条件下可以自动&quot;对齐&quot;运算。
-广播规则
-从最后一维向前比较，满足以下条件之一即可广播：
-
-维度相等
-其中一个维度为 1
-其中一个维度不存在
-
-import numpy as np# 标量广播（最简单）a = np.array([1, 2, 3, 4])print(a + 10)             # [11 12 13 14]# 一维 vs 二维a = np.array([[1, 2, 3],              [4, 5, 6]])          # shape (2, 3)b = np.array([10, 20, 30])         # shape (3,)print(a + b)# [[11 22 33]#  [14 25 36]]# b 自动&quot;扩展&quot;成 (2, 3)# 列向量广播c = np.array([[100], [200]])       # shape (2, 1)print(a + c)# [[101 102 103]#  [204 205 206]]# 三维广播a = np.ones((3, 1, 4))       # (3, 1, 4)b = np.ones((2, 4))          # (2, 4) → 自动变成 (1, 2, 4) → (3, 2, 4)result = a + b               # shape (3, 2, 4)# 常见技巧data = np.random.randn(100, 10)mean = data.mean(axis=0)              # shape (10,)centered = data - mean                # 每列减去均值# keepdims 保持维度（让广播更容易）mean_kept = data.mean(axis=0, keepdims=True)  # shape (1, 10)centered = data - mean_kept                   # shape (100, 10)
-2. 矩阵乘法
-# ⚠️  最容易踩的坑：* 是逐元素乘，不是矩阵乘！A = np.array([[1, 2],              [3, 4]])       # 2×2B = np.array([[5, 6],              [7, 8]])       # 2×2# ✅ 矩阵乘法（三种写法）C1 = A @ BC2 = np.dot(A, B)C3 = np.matmul(A, B)# [[19 22]#  [43 50]]# ❌ 这是逐元素乘，不是矩阵乘！wrong = A * B   # [[5 12] [21 32]]# 向量点积（内积）u = np.array([1, 2, 3])v = np.array([4, 5, 6])dot = np.dot(u, v)      # 32 = 1×4+2×5+3×6dot = u @ v             # 同上dot = np.inner(u, v)    # 同上# 向量外积outer = np.outer(u, v)# [[ 4  5  6]#  [ 8 10 12]#  [12 15 18]]# 批量矩阵乘batch = np.random.randn(10, 3, 4)   # 10 个 3×4 矩阵vec = np.random.randn(10, 4, 5)     # 10 个 4×5 矩阵result = batch @ vec                 # shape (10, 3, 5)
-3. 线性代数 (np.linalg)
-A = np.array([[1, 2],              [3, 4]])# 逆矩阵A_inv = np.linalg.inv(A)print(A @ A_inv)  # ≈ [[1. 0.] [0. 1.]]# 行列式print(np.linalg.det(A))  # -2.0# 特征值与特征向量（一般矩阵用 eig）eigvals, eigvecs = np.linalg.eig(np.array([[2, 1], [1, 2]]))print(eigvals)           # [3. 1.]# 特征值分解（对称矩阵用 eigh，更快更准）S = np.array([[3, 2],              [2, 3]])     # 对称矩阵eigvals, eigvecs = np.linalg.eigh(S)# 验证：S = QΛQᵀQ = eigvecsΛ = np.diag(eigvals)reconstructed = Q @ Λ @ Q.Tprint(np.allclose(S, reconstructed))  # True# SVD 分解（3DGS 中 Σ 分解的关键！）U, s, Vt = np.linalg.svd(A)Σ = np.diag(s)print(U @ Σ @ Vt)  # ≈ A# 解线性方程组 Ax = bA = np.array([[3, 1], [1, 2]])b = np.array([9, 8])x = np.linalg.solve(A, b)  # x = [2, 3]# 范数x = np.array([3, 4])print(np.linalg.norm(x))      # 5.0（L2 范数，默认）print(np.linalg.norm(x, 1))   # 7.0（L1 范数）print(np.linalg.norm(A, &#x27;fro&#x27;))  # Frobenius 范数
-4. 聚合操作
-a = np.array([[1, 2, 3],              [4, 5, 6]])# 全局print(a.sum())     # 21print(a.mean())    # 3.5print(a.std())     # 1.7078print(a.min())     # 1print(a.max())     # 6print(a.argmax())  # 5（最大值索引，按展平后的）# 按轴（axis=0 沿行方向 = 每列；axis=1 沿列方向 = 每行）print(a.sum(axis=0))   # [5 7 9]（每列求和）print(a.sum(axis=1))   # [6 15]（每行求和）print(a.mean(axis=0))  # [2.5 3.5 4.5]print(a.argmax(axis=1))  # [2 2]（每行最大值的列索引）# 累积操作print(a.cumsum())      # [1 3 6 10 15 21]（累积和）print(a.cumprod())     # [1 2 6 24 120 720]
-5. 排序与查找
-a = np.array([3, 1, 4, 1, 5, 9, 2, 6])# 排序print(np.sort(a))              # [1 1 2 3 4 5 6 9]print(a.argsort())             # [1 3 6 0 2 4 7 5]（排序后的索引）print(np.partition(a, 3))      # 最小的 3 个在左边（不保证顺序）# 唯一值values, counts = np.unique(a, return_counts=True)print(values)  # [1 2 3 4 5 6 9]print(counts)  # [2 1 1 1 1 1 1]# 搜索print(np.where(a &gt; 4))         # (array([4, 5, 7]),)print(a[np.where(a &gt; 4)])      # [5 9 6]
-6. 协方差矩阵（3DGS 核心概念）
-# 协方差矩阵data = np.random.randn(1000, 3)  # 1000 个三维点cov = np.cov(data.T)             # 3×3 协方差矩阵# 手动计算验证centered = data - data.mean(axis=0)cov_manual = centered.T @ centered / (len(data) - 1)print(np.allclose(cov, cov_manual))  # True# 协方差矩阵的性质# 1. 对称：Σ = Σᵀ# 2. 半正定：所有特征值 ≥ 0# 3. 等密度面是椭球：特征向量方向 = 椭球轴，特征值大小 = 半轴长平方eigvals = np.linalg.eigvalsh(cov)print(f&quot;特征值（应该都 &gt; 0）：&#123;eigvals&#125;&quot;)print(f&quot;最大/最小特征值比（条件数）：&#123;eigvals.max()/eigvals.min():.2f&#125;&quot;)
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>NumPy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[Python, PyTorch]PyTorch 张量基础</title>
-    <url>/2026/06/16/06_01_%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[PyTorch 张量基础
-PyTorch 是深度学习框架，核心是 Tensor（张量）——类似 NumPy 的 ndarray，但支持 GPU 加速和自动求导。
-1. 创建张量
-import torchimport numpy as np# 从列表a = torch.tensor([1, 2, 3, 4])b = torch.tensor([[1, 2], [3, 4]])# 类似 NumPy 的 APIzeros = torch.zeros(3, 4)ones = torch.ones(2, 3)eye = torch.eye(4)rand = torch.rand(3, 4)         # [0, 1) 均匀分布randn = torch.randn(3, 4)       # N(0, 1) 正态分布arange = torch.arange(0, 10, 2) # [0, 2, 4, 6, 8]linspace = torch.linspace(0, 1, 5)  # [0, 0.25, 0.5, 0.75, 1]# 从 NumPy 转换（共享内存！）np_arr = np.array([1, 2, 3])tensor = torch.from_numpy(np_arr)     # 共享内存tensor2 = torch.tensor(np_arr)        # 复制数据tensor[0] = 99print(np_arr)  # [99 2 3]（共享内存，一起变了！）# 张量转 NumPynp_back = tensor.numpy()
-2. 张量属性与设备
-a = torch.randn(2, 3)print(a.shape)      # torch.Size([2, 3])print(a.dtype)      # torch.float32print(a.device)     # cpu# GPU 相关if torch.cuda.is_available():    a_gpu = a.to(&#x27;cuda&#x27;)           # 移到 GPU    a_gpu = a.cuda()               # 同上    a_cpu = a_gpu.to(&#x27;cpu&#x27;)        # 移回 CPU    a_cpu = a_gpu.cpu()            # 同上    print(f&quot;GPU: &#123;torch.cuda.get_device_name(0)&#125;&quot;)    print(f&quot;显存: &#123;torch.cuda.get_device_properties(0).total_mem/1e9:.1f&#125;GB&quot;)# dtype 转换a_float = a.float()     # float32a_double = a.double()   # float64a_int = a.int()         # int32a_long = a.long()       # int64# 创建时指定a = torch.tensor([1, 2, 3], dtype=torch.float32, device=&#x27;cuda&#x27;)b = torch.ones(3, 4, dtype=torch.float16)  # 半精度，省显存
-3. 索引、切片、变形
-a = torch.arange(12).reshape(3, 4)# 基本操作（和 NumPy 几乎一样）print(a[0, 0])           # 0print(a[:, 1])           # [1, 5, 9]（第二列）print(a[1:, 2:])         # [[6, 7], [10, 11]]# reshape / viewb = a.reshape(4, 3)      # 4×3b = a.view(4, 3)         # 同上（共享内存，更快）b = a.reshape(-1, 6)     # 2×6# squeeze / unsqueezex = torch.randn(3, 1, 4)y = x.squeeze(1)         # shape (3, 4)，去掉维度1z = x.squeeze()          # shape (3, 4)，去掉所有大小为1的维度x = y.unsqueeze(0)       # shape (1, 3, 4)，增加维度x = y.unsqueeze(-1)      # shape (3, 4, 1)，在最后增加# 拼接a = torch.randn(2, 3)b = torch.randn(1, 3)c = torch.cat([a, b], dim=0)    # 沿 dim=0 拼接 → (3, 3)c = torch.stack([a, a], dim=0)  # 堆叠（增加新维度）→ (2, 2, 3)# 转置a = torch.randn(3, 4)print(a.T.shape)          # (4, 3)print(a.transpose(0, 1).shape)  # (4, 3)# permute（多维度置换）x = torch.randn(2, 3, 4)print(x.permute(2, 0, 1).shape)  # (4, 2, 3)
-4. 运算（和 NumPy 几乎一致）
-a = torch.tensor([1, 2, 3, 4], dtype=torch.float32)b = torch.tensor([5, 6, 7, 8], dtype=torch.float32)# 逐元素运算print(a + b)       # [6, 8, 10, 12]print(a * b)       # [5, 12, 21, 32]（逐元素乘！）print(a ** 2)      # [1, 4, 9, 16]print(torch.sqrt(a))print(torch.exp(a))print(torch.log(a))print(torch.clamp(a, min=2, max=3))  # [2, 2, 3, 3]# 矩阵乘A = torch.randn(3, 4)B = torch.randn(4, 5)C = A @ B           # (3, 5)C = torch.matmul(A, B)C = torch.mm(A, B)  # 仅二维# 点积u = torch.tensor([1., 2., 3.])v = torch.tensor([4., 5., 6.])dot = torch.dot(u, v)  # 32# 聚合print(a.sum())print(a.mean())print(a.max())print(a.argmax())# 按轴聚合x = torch.randn(3, 4)print(x.sum(dim=0))      # 每列求和 → shape (4,)print(x.sum(dim=1))      # 每行求和 → shape (3,)print(x.sum(dim=1, keepdim=True))  # shape (3, 1)，保持维度# 就地操作（_ 后缀）a.add_(1)         # a += 1a.mul_(2)         # a *= 2# 就地操作不创建新张量，用于节省内存，但会破坏计算图
-5. 广播（和 NumPy 规则完全一致）
-a = torch.ones(3, 1, 4)b = torch.ones(2, 4)result = a + b    # shape (3, 2, 4)# 实用的广播技巧data = torch.randn(100, 10)mean = data.mean(dim=0, keepdim=True)  # (1, 10)centered = data - mean                 # 每列中心化# 这个广播在 3DGS 中经常用到！N = 1000          # 高斯数量positions = torch.randn(N, 3)          # (N, 3)viewpoint = torch.tensor([1.0, 0.0, 0.0])  # (3,)directions = positions - viewpoint     # 广播！(N, 3) - (3,) → (N, 3)
-6. inplace 与梯度陷阱
-x = torch.randn(3, requires_grad=True)# ❌ 错误：inplace 操作会破坏计算图# x.add_(1)        # 报错！有梯度需求的张量不能 inplace# ✅ 正确x = x + 1          # 创建新张量y = x.clone()      # 显式克隆z = x.detach()     # 脱离计算图
+    <title>[Python, PyTorch]自动求导与优化器</title>
+    <url>/2026/06/16/06_02_%E8%87%AA%E5%8A%A8%E6%B1%82%E5%AF%BC%E4%B8%8E%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[自动求导与优化器
+自动求导（autograd）是 PyTorch 的核心——它自动计算梯度，让你不需要手推反向传播。
+1. 计算图基础
+import torch# 创建需要梯度的张量x = torch.tensor([2.0, 3.0], requires_grad=True)print(x.grad)  # None（还没计算）# 前向传播y = x ** 2 + 3 * x + 1   # y = [11, 19]z = y.sum()               # z = 30# 反向传播z.backward()              # 计算 ∂z/∂xprint(x.grad)             # [7., 9.]# 验证：∂(x²+3x+1)/∂x = 2x+3# x=2 → 7, x=3 → 9 ✅# 计算图的生命周期：每次 backward() 后中间节点的梯度被释放# 保留非叶节点梯度x = torch.tensor(2.0, requires_grad=True)y = x ** 2y.retain_grad()    # 保留中间节点梯度z = y + 1z.backward()print(y.grad)      # 1.0（∂z/∂y）print(x.grad)      # 4.0（∂z/∂x = ∂z/∂y × ∂y/∂x = 1 × 2x）# 多次 backward 需要 retain_graph=Truez.backward(retain_graph=True)
+2. 梯度清零
+# 训练循环中的标准模式x = torch.tensor([1.0], requires_grad=True)optimizer = torch.optim.SGD([x], lr=0.1)for step in range(10):    optimizer.zero_grad()    # 第一步：清零梯度（否则会累加！）    y = x ** 2               # 第二步：前向传播    y.backward()             # 第三步：反向传播    optimizer.step()         # 第四步：更新参数# 如果不 zero_grad()，梯度会累加x = torch.tensor([1.0], requires_grad=True)for _ in range(3):    y = x ** 2    y.backward()    print(f&quot;grad: &#123;x.grad&#125;&quot;)  # [2.], [4.], [6.] ← 累加了！
+3. detach() 和 no_grad()
+x = torch.tensor(2.0, requires_grad=True)y = x ** 2# detach()：斩断计算图（3DGS 中常用于冻结部分参数）y_detached = y.detach()  # 和 y 值一样，但没有梯度print(y_detached.requires_grad)  # False# with torch.no_grad()：临时关闭梯度追踪（推理时用）with torch.no_grad():    z = x * 3    print(z.requires_grad)  # False# torch.no_grad() 在 3DGS 渲染中的典型用法@torch.no_grad()def render_gaussians(means, covs, colors, camera):    &quot;&quot;&quot;前向渲染不需梯度&quot;&quot;&quot;    ...
+4. 自定义 autograd Function
+# 3DGS 中需要自定义前向和反向传播class MyReLU(torch.autograd.Function):    @staticmethod    def forward(ctx, input):        ctx.save_for_backward(input)   # 保存反向传播需要的数据        return input.clamp(min=0)    @staticmethod    def backward(ctx, grad_output):        input, = ctx.saved_tensors     # 取出保存的数据        grad_input = grad_output.clone()        grad_input[input &lt; 0] = 0      # ReLU 导数        return grad_inputx = torch.randn(5, requires_grad=True)y = MyReLU.apply(x)y.sum().backward()
+5. 优化器详解
+import torch.optim as optimimport torch.nn as nnmodel = nn.Linear(10, 1)# SGDoptimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9, weight_decay=1e-4)# Adam（3DGS 最常用）optimizer = optim.Adam(model.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-8)# 不同参数不同学习率（3DGS 中的关键技巧！）param_groups = [    &#123;&#x27;params&#x27;: model.means, &#x27;lr&#x27;: 1.6e-4&#125;,      # 位置    &#123;&#x27;params&#x27;: model.scales, &#x27;lr&#x27;: 5e-3&#125;,        # 缩放    &#123;&#x27;params&#x27;: model.quats, &#x27;lr&#x27;: 1e-3&#125;,         # 四元数    &#123;&#x27;params&#x27;: model.opacities, &#x27;lr&#x27;: 5e-2&#125;,     # 不透明度    &#123;&#x27;params&#x27;: model.colors, &#x27;lr&#x27;: 2.5e-3&#125;,      # 颜色]optimizer = optim.Adam(param_groups, lr=0.001)# 学习率调度scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.999)scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=1000)# Adam 算法手动实现（帮助理解）def adam_update(param, grad, m, v, t, lr=0.001, beta1=0.9, beta2=0.999, eps=1e-8):    m = beta1 * m + (1 - beta1) * grad           # 一阶动量    v = beta2 * v + (1 - beta2) * grad ** 2      # 二阶动量    m_hat = m / (1 - beta1 ** t)                  # 偏差修正    v_hat = v / (1 - beta2 ** t)    param = param - lr * m_hat / (torch.sqrt(v_hat) + eps)    return param, m, v
+6. 完整的训练循环
+import torchimport torch.nn as nnimport torch.optim as optim# 1. 准备数据X = torch.randn(1000, 10)y = 3 * X[:, 0] + 2 * X[:, 1] - X[:, 2] + 0.1 * torch.randn(1000)y = y.unsqueeze(1)# 2. 定义模型model = nn.Sequential(    nn.Linear(10, 64),    nn.ReLU(),    nn.Linear(64, 32),    nn.ReLU(),    nn.Linear(32, 1))# 3. 损失函数和优化器criterion = nn.MSELoss()optimizer = optim.Adam(model.parameters(), lr=0.001)# 4. 训练循环（四步法）num_epochs = 100for epoch in range(num_epochs):    # Step 1: 清零梯度    optimizer.zero_grad()    # Step 2: 前向传播    y_pred = model(X)    loss = criterion(y_pred, y)    # Step 3: 反向传播    loss.backward()    # Step 4: 更新参数    optimizer.step()    if epoch % 20 == 0:        print(f&quot;Epoch &#123;epoch&#125;: loss = &#123;loss.item():.4f&#125;&quot;)# 5. 推理model.eval()with torch.no_grad():    test_pred = model(X[:5])
 ]]></content>
       <categories>
         <category>深度学习</category>
@@ -508,29 +501,59 @@ device = torch.device(&#x27;cuda&#x27; if torch.cuda.is_available() else &#x27;c
       </tags>
   </entry>
   <entry>
-    <title>[Python, PyTorch]自动求导与优化器</title>
-    <url>/2026/06/16/06_02_%E8%87%AA%E5%8A%A8%E6%B1%82%E5%AF%BC%E4%B8%8E%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[自动求导与优化器
-自动求导（autograd）是 PyTorch 的核心——它自动计算梯度，让你不需要手推反向传播。
-1. 计算图基础
-import torch# 创建需要梯度的张量x = torch.tensor([2.0, 3.0], requires_grad=True)print(x.grad)  # None（还没计算）# 前向传播y = x ** 2 + 3 * x + 1   # y = [11, 19]z = y.sum()               # z = 30# 反向传播z.backward()              # 计算 ∂z/∂xprint(x.grad)             # [7., 9.]# 验证：∂(x²+3x+1)/∂x = 2x+3# x=2 → 7, x=3 → 9 ✅# 计算图的生命周期：每次 backward() 后中间节点的梯度被释放# 保留非叶节点梯度x = torch.tensor(2.0, requires_grad=True)y = x ** 2y.retain_grad()    # 保留中间节点梯度z = y + 1z.backward()print(y.grad)      # 1.0（∂z/∂y）print(x.grad)      # 4.0（∂z/∂x = ∂z/∂y × ∂y/∂x = 1 × 2x）# 多次 backward 需要 retain_graph=Truez.backward(retain_graph=True)
-2. 梯度清零
-# 训练循环中的标准模式x = torch.tensor([1.0], requires_grad=True)optimizer = torch.optim.SGD([x], lr=0.1)for step in range(10):    optimizer.zero_grad()    # 第一步：清零梯度（否则会累加！）    y = x ** 2               # 第二步：前向传播    y.backward()             # 第三步：反向传播    optimizer.step()         # 第四步：更新参数# 如果不 zero_grad()，梯度会累加x = torch.tensor([1.0], requires_grad=True)for _ in range(3):    y = x ** 2    y.backward()    print(f&quot;grad: &#123;x.grad&#125;&quot;)  # [2.], [4.], [6.] ← 累加了！
-3. detach() 和 no_grad()
-x = torch.tensor(2.0, requires_grad=True)y = x ** 2# detach()：斩断计算图（3DGS 中常用于冻结部分参数）y_detached = y.detach()  # 和 y 值一样，但没有梯度print(y_detached.requires_grad)  # False# with torch.no_grad()：临时关闭梯度追踪（推理时用）with torch.no_grad():    z = x * 3    print(z.requires_grad)  # False# torch.no_grad() 在 3DGS 渲染中的典型用法@torch.no_grad()def render_gaussians(means, covs, colors, camera):    &quot;&quot;&quot;前向渲染不需梯度&quot;&quot;&quot;    ...
-4. 自定义 autograd Function
-# 3DGS 中需要自定义前向和反向传播class MyReLU(torch.autograd.Function):    @staticmethod    def forward(ctx, input):        ctx.save_for_backward(input)   # 保存反向传播需要的数据        return input.clamp(min=0)    @staticmethod    def backward(ctx, grad_output):        input, = ctx.saved_tensors     # 取出保存的数据        grad_input = grad_output.clone()        grad_input[input &lt; 0] = 0      # ReLU 导数        return grad_inputx = torch.randn(5, requires_grad=True)y = MyReLU.apply(x)y.sum().backward()
-5. 优化器详解
-import torch.optim as optimimport torch.nn as nnmodel = nn.Linear(10, 1)# SGDoptimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9, weight_decay=1e-4)# Adam（3DGS 最常用）optimizer = optim.Adam(model.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-8)# 不同参数不同学习率（3DGS 中的关键技巧！）param_groups = [    &#123;&#x27;params&#x27;: model.means, &#x27;lr&#x27;: 1.6e-4&#125;,      # 位置    &#123;&#x27;params&#x27;: model.scales, &#x27;lr&#x27;: 5e-3&#125;,        # 缩放    &#123;&#x27;params&#x27;: model.quats, &#x27;lr&#x27;: 1e-3&#125;,         # 四元数    &#123;&#x27;params&#x27;: model.opacities, &#x27;lr&#x27;: 5e-2&#125;,     # 不透明度    &#123;&#x27;params&#x27;: model.colors, &#x27;lr&#x27;: 2.5e-3&#125;,      # 颜色]optimizer = optim.Adam(param_groups, lr=0.001)# 学习率调度scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.999)scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=1000)# Adam 算法手动实现（帮助理解）def adam_update(param, grad, m, v, t, lr=0.001, beta1=0.9, beta2=0.999, eps=1e-8):    m = beta1 * m + (1 - beta1) * grad           # 一阶动量    v = beta2 * v + (1 - beta2) * grad ** 2      # 二阶动量    m_hat = m / (1 - beta1 ** t)                  # 偏差修正    v_hat = v / (1 - beta2 ** t)    param = param - lr * m_hat / (torch.sqrt(v_hat) + eps)    return param, m, v
-6. 完整的训练循环
-import torchimport torch.nn as nnimport torch.optim as optim# 1. 准备数据X = torch.randn(1000, 10)y = 3 * X[:, 0] + 2 * X[:, 1] - X[:, 2] + 0.1 * torch.randn(1000)y = y.unsqueeze(1)# 2. 定义模型model = nn.Sequential(    nn.Linear(10, 64),    nn.ReLU(),    nn.Linear(64, 32),    nn.ReLU(),    nn.Linear(32, 1))# 3. 损失函数和优化器criterion = nn.MSELoss()optimizer = optim.Adam(model.parameters(), lr=0.001)# 4. 训练循环（四步法）num_epochs = 100for epoch in range(num_epochs):    # Step 1: 清零梯度    optimizer.zero_grad()    # Step 2: 前向传播    y_pred = model(X)    loss = criterion(y_pred, y)    # Step 3: 反向传播    loss.backward()    # Step 4: 更新参数    optimizer.step()    if epoch % 20 == 0:        print(f&quot;Epoch &#123;epoch&#125;: loss = &#123;loss.item():.4f&#125;&quot;)# 5. 推理model.eval()with torch.no_grad():    test_pred = model(X[:5])
+    <title>[Python, NumPy]广播、矩阵运算与线性代数</title>
+    <url>/2026/06/16/05_02_%E5%B9%BF%E6%92%AD%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/</url>
+    <content><![CDATA[广播、矩阵运算与线性代数
+1. 广播 (Broadcasting)
+广播是 NumPy 的核心机制：不同形状的数组在某些条件下可以自动&quot;对齐&quot;运算。
+广播规则
+从最后一维向前比较，满足以下条件之一即可广播：
+
+维度相等
+其中一个维度为 1
+其中一个维度不存在
+
+import numpy as np# 标量广播（最简单）a = np.array([1, 2, 3, 4])print(a + 10)             # [11 12 13 14]# 一维 vs 二维a = np.array([[1, 2, 3],              [4, 5, 6]])          # shape (2, 3)b = np.array([10, 20, 30])         # shape (3,)print(a + b)# [[11 22 33]#  [14 25 36]]# b 自动&quot;扩展&quot;成 (2, 3)# 列向量广播c = np.array([[100], [200]])       # shape (2, 1)print(a + c)# [[101 102 103]#  [204 205 206]]# 三维广播a = np.ones((3, 1, 4))       # (3, 1, 4)b = np.ones((2, 4))          # (2, 4) → 自动变成 (1, 2, 4) → (3, 2, 4)result = a + b               # shape (3, 2, 4)# 常见技巧data = np.random.randn(100, 10)mean = data.mean(axis=0)              # shape (10,)centered = data - mean                # 每列减去均值# keepdims 保持维度（让广播更容易）mean_kept = data.mean(axis=0, keepdims=True)  # shape (1, 10)centered = data - mean_kept                   # shape (100, 10)
+2. 矩阵乘法
+# ⚠️  最容易踩的坑：* 是逐元素乘，不是矩阵乘！A = np.array([[1, 2],              [3, 4]])       # 2×2B = np.array([[5, 6],              [7, 8]])       # 2×2# ✅ 矩阵乘法（三种写法）C1 = A @ BC2 = np.dot(A, B)C3 = np.matmul(A, B)# [[19 22]#  [43 50]]# ❌ 这是逐元素乘，不是矩阵乘！wrong = A * B   # [[5 12] [21 32]]# 向量点积（内积）u = np.array([1, 2, 3])v = np.array([4, 5, 6])dot = np.dot(u, v)      # 32 = 1×4+2×5+3×6dot = u @ v             # 同上dot = np.inner(u, v)    # 同上# 向量外积outer = np.outer(u, v)# [[ 4  5  6]#  [ 8 10 12]#  [12 15 18]]# 批量矩阵乘batch = np.random.randn(10, 3, 4)   # 10 个 3×4 矩阵vec = np.random.randn(10, 4, 5)     # 10 个 4×5 矩阵result = batch @ vec                 # shape (10, 3, 5)
+3. 线性代数 (np.linalg)
+A = np.array([[1, 2],              [3, 4]])# 逆矩阵A_inv = np.linalg.inv(A)print(A @ A_inv)  # ≈ [[1. 0.] [0. 1.]]# 行列式print(np.linalg.det(A))  # -2.0# 特征值与特征向量（一般矩阵用 eig）eigvals, eigvecs = np.linalg.eig(np.array([[2, 1], [1, 2]]))print(eigvals)           # [3. 1.]# 特征值分解（对称矩阵用 eigh，更快更准）S = np.array([[3, 2],              [2, 3]])     # 对称矩阵eigvals, eigvecs = np.linalg.eigh(S)# 验证：S = QΛQᵀQ = eigvecsΛ = np.diag(eigvals)reconstructed = Q @ Λ @ Q.Tprint(np.allclose(S, reconstructed))  # True# SVD 分解（3DGS 中 Σ 分解的关键！）U, s, Vt = np.linalg.svd(A)Σ = np.diag(s)print(U @ Σ @ Vt)  # ≈ A# 解线性方程组 Ax = bA = np.array([[3, 1], [1, 2]])b = np.array([9, 8])x = np.linalg.solve(A, b)  # x = [2, 3]# 范数x = np.array([3, 4])print(np.linalg.norm(x))      # 5.0（L2 范数，默认）print(np.linalg.norm(x, 1))   # 7.0（L1 范数）print(np.linalg.norm(A, &#x27;fro&#x27;))  # Frobenius 范数
+4. 聚合操作
+a = np.array([[1, 2, 3],              [4, 5, 6]])# 全局print(a.sum())     # 21print(a.mean())    # 3.5print(a.std())     # 1.7078print(a.min())     # 1print(a.max())     # 6print(a.argmax())  # 5（最大值索引，按展平后的）# 按轴（axis=0 沿行方向 = 每列；axis=1 沿列方向 = 每行）print(a.sum(axis=0))   # [5 7 9]（每列求和）print(a.sum(axis=1))   # [6 15]（每行求和）print(a.mean(axis=0))  # [2.5 3.5 4.5]print(a.argmax(axis=1))  # [2 2]（每行最大值的列索引）# 累积操作print(a.cumsum())      # [1 3 6 10 15 21]（累积和）print(a.cumprod())     # [1 2 6 24 120 720]
+5. 排序与查找
+a = np.array([3, 1, 4, 1, 5, 9, 2, 6])# 排序print(np.sort(a))              # [1 1 2 3 4 5 6 9]print(a.argsort())             # [1 3 6 0 2 4 7 5]（排序后的索引）print(np.partition(a, 3))      # 最小的 3 个在左边（不保证顺序）# 唯一值values, counts = np.unique(a, return_counts=True)print(values)  # [1 2 3 4 5 6 9]print(counts)  # [2 1 1 1 1 1 1]# 搜索print(np.where(a &gt; 4))         # (array([4, 5, 7]),)print(a[np.where(a &gt; 4)])      # [5 9 6]
+6. 协方差矩阵（3DGS 核心概念）
+# 协方差矩阵data = np.random.randn(1000, 3)  # 1000 个三维点cov = np.cov(data.T)             # 3×3 协方差矩阵# 手动计算验证centered = data - data.mean(axis=0)cov_manual = centered.T @ centered / (len(data) - 1)print(np.allclose(cov, cov_manual))  # True# 协方差矩阵的性质# 1. 对称：Σ = Σᵀ# 2. 半正定：所有特征值 ≥ 0# 3. 等密度面是椭球：特征向量方向 = 椭球轴，特征值大小 = 半轴长平方eigvals = np.linalg.eigvalsh(cov)print(f&quot;特征值（应该都 &gt; 0）：&#123;eigvals&#125;&quot;)print(f&quot;最大/最小特征值比（条件数）：&#123;eigvals.max()/eigvals.min():.2f&#125;&quot;)
 ]]></content>
       <categories>
         <category>深度学习</category>
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>PyTorch</tag>
+        <tag>NumPy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Python, 可视化]OpenGL 基础与 3D 可视化</title>
+    <url>/2026/06/16/07_02_OpenGL%E4%B8%8E%E4%B8%89%E7%BB%B4%E5%8F%AF%E8%A7%86%E5%8C%96/</url>
+    <content><![CDATA[OpenGL 基础与 3D 可视化
+1. PyOpenGL 基础
+pip install PyOpenGL PyOpenGL_accelerate glfw
+import glfwfrom OpenGL.GL import *from OpenGL.GLU import *import numpy as np# 创建窗口if not glfw.init():    raise RuntimeError(&quot;无法初始化 GLFW&quot;)window = glfw.create_window(800, 600, &quot;3DGS Viewer&quot;, None, None)glfw.make_context_current(window)# 渲染循环while not glfw.window_should_close(window):    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)    # 设置投影矩阵    glMatrixMode(GL_PROJECTION)    glLoadIdentity()    gluPerspective(45, 800/600, 0.1, 100.0)    # 设置模型视图矩阵    glMatrixMode(GL_MODELVIEW)    glLoadIdentity()    gluLookAt(0, 0, 5,   # 相机位置              0, 0, 0,   # 看向哪里              0, 1, 0)   # 上方向    # 绘制一个三角形    glBegin(GL_TRIANGLES)    glColor3f(1, 0, 0); glVertex3f(-1, -1, 0)    glColor3f(0, 1, 0); glVertex3f( 1, -1, 0)    glColor3f(0, 0, 1); glVertex3f( 0,  1, 0)    glEnd()    glfw.swap_buffers(window)    glfw.poll_events()glfw.terminate()
+2. 管线四阶段（与 3DGS 对比）
+阶段         OpenGL                    3DGS─────────────────────────────────────────────────模型变换    model = translate*rotate    3D 高斯 → 世界坐标视图变换    view = lookAt              世界 → 相机坐标投影变换    projection = perspective   透视投影（雅可比近似）视口变换    viewport = glViewport      tile-based 光栅化
+import numpy as npdef look_at(eye, center, up):    &quot;&quot;&quot;手动实现 lookAt 矩阵（3DGS 中相机到世界的变换）&quot;&quot;&quot;    f = center - eye; f = f / np.linalg.norm(f)    s = np.cross(f, up); s = s / np.linalg.norm(s)    u = np.cross(s, f)    R = np.eye(4); R[:3,:3] = np.stack([s, u, -f])    T = np.eye(4); T[:3, 3] = -eye    return R @ Tdef perspective(fovy, aspect, near, far):    &quot;&quot;&quot;手动实现透视投影矩阵&quot;&quot;&quot;    f = 1.0 / np.tan(fovy / 2)    P = np.zeros((4, 4))    P[0,0] = f / aspect    P[1,1] = f    P[2,2] = (far + near) / (near - far)    P[2,3] = (2 * far * near) / (near - far)    P[3,2] = -1    return Peye = np.array([0.0, 0.0, 5.0])center = np.array([0.0, 0.0, 0.0])up = np.array([0.0, 1.0, 0.0])V = look_at(eye, center, up)     # 视图矩阵P = perspective(np.radians(45), 800/600, 0.1, 100.0)  # 投影矩阵MVP = P @ V                       # 完整的 MVP 矩阵# 变换一个点point_world = np.array([1.0, 0.0, 0.0, 1.0])  # 齐次坐标point_clip = MVP @ point_worldpoint_ndc = point_clip[:3] / point_clip[3]  # 透视除法
+3. 3DGS 高斯的简化可视化（用 matplotlib）
+import matplotlib.pyplot as pltfrom mpl_toolkits.mplot3d import Axes3Ddef plot_3d_gaussian_simple(ax, mean, scale, quat, color=&#x27;red&#x27;, alpha=0.3):    &quot;&quot;&quot;绘制简化的 3D 高斯椭球&quot;&quot;&quot;    # 从四元数和缩放构建协方差矩阵    # Σ = R * S * S^T * R^T    from scipy.spatial.transform import Rotation    R = Rotation.from_quat(quat).as_matrix()    S = np.diag(scale)    cov = R @ S @ S.T @ R.T    # 用特征分解画椭球    eigenvalues, eigenvectors = np.linalg.eigh(cov)    u = np.linspace(0, 2 * np.pi, 30)    v = np.linspace(0, np.pi, 30)    radii = np.sqrt(eigenvalues)    x = radii[0] * np.outer(np.cos(u), np.sin(v))    y = radii[1] * np.outer(np.sin(u), np.sin(v))    z = radii[2] * np.outer(np.ones_like(u), np.cos(v))    for i in range(len(u)):        for j in range(len(v)):            pts = np.array([x[i,j], y[i,j], z[i,j]])            pts = eigenvectors @ pts + mean            x[i,j], y[i,j], z[i,j] = pts    ax.plot_surface(x, y, z, color=color, alpha=alpha)    ax.scatter(*mean, color=color, s=50)# 示例fig = plt.figure(figsize=(8, 6))ax = fig.add_subplot(111, projection=&#x27;3d&#x27;)mean = [0, 0, 0]scale = [1.0, 0.5, 0.3]quat = [0, 0, 0, 1]  # 无旋转plot_3d_gaussian_simple(ax, mean, scale, quat, color=&#x27;red&#x27;)ax.set_xlabel(&#x27;X&#x27;); ax.set_ylabel(&#x27;Y&#x27;); ax.set_zlabel(&#x27;Z&#x27;)plt.show()
+4. 常用图形学变换速查
+from scipy.spatial.transform import Rotation as R# 旋转矩阵r = R.from_euler(&#x27;xyz&#x27;, [30, 45, 0], degrees=True)rot_matrix = r.as_matrix()     # 3×3 旋转矩阵quat = r.as_quat()             # 四元数 [x, y, z, w]# 四元数 → 旋转矩阵（手工实现，3DGS 用）def quat_to_rotmat(quat):    r, x, y, z = quat[3], quat[0], quat[1], quat[2]  # w,x,y,z    return np.array([        [1-2*(y*y+z*z), 2*(x*y-r*z), 2*(x*z+r*y)],        [2*(x*y+r*z), 1-2*(x*x+z*z), 2*(y*z-r*x)],        [2*(x*z-r*y), 2*(y*z+r*x), 1-2*(x*x+y*y)]    ])# 构建 3DGS 中的 Σ = RSSᵀRᵀdef build_covariance(scale, quat):    &quot;&quot;&quot;3DGS 协方差矩阵构建（核心公式）&quot;&quot;&quot;    R_mat = quat_to_rotmat(quat)    S = np.diag(scale)    M = R_mat @ S              # RS    return M @ M.T             # RSSᵀRᵀ
+]]></content>
+      <categories>
+        <category>计算机图形学</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>OpenGL</tag>
       </tags>
   </entry>
   <entry>
@@ -558,26 +581,177 @@ from mpl_toolkits.mplot3d import Axes3Dfrom matplotlib.patches import Ellipseimp
       </tags>
   </entry>
   <entry>
-    <title>[Python, 可视化]OpenGL 基础与 3D 可视化</title>
-    <url>/2026/06/16/07_02_OpenGL%E4%B8%8E%E4%B8%89%E7%BB%B4%E5%8F%AF%E8%A7%86%E5%8C%96/</url>
-    <content><![CDATA[OpenGL 基础与 3D 可视化
-1. PyOpenGL 基础
-pip install PyOpenGL PyOpenGL_accelerate glfw
-import glfwfrom OpenGL.GL import *from OpenGL.GLU import *import numpy as np# 创建窗口if not glfw.init():    raise RuntimeError(&quot;无法初始化 GLFW&quot;)window = glfw.create_window(800, 600, &quot;3DGS Viewer&quot;, None, None)glfw.make_context_current(window)# 渲染循环while not glfw.window_should_close(window):    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)    # 设置投影矩阵    glMatrixMode(GL_PROJECTION)    glLoadIdentity()    gluPerspective(45, 800/600, 0.1, 100.0)    # 设置模型视图矩阵    glMatrixMode(GL_MODELVIEW)    glLoadIdentity()    gluLookAt(0, 0, 5,   # 相机位置              0, 0, 0,   # 看向哪里              0, 1, 0)   # 上方向    # 绘制一个三角形    glBegin(GL_TRIANGLES)    glColor3f(1, 0, 0); glVertex3f(-1, -1, 0)    glColor3f(0, 1, 0); glVertex3f( 1, -1, 0)    glColor3f(0, 0, 1); glVertex3f( 0,  1, 0)    glEnd()    glfw.swap_buffers(window)    glfw.poll_events()glfw.terminate()
-2. 管线四阶段（与 3DGS 对比）
-阶段         OpenGL                    3DGS─────────────────────────────────────────────────模型变换    model = translate*rotate    3D 高斯 → 世界坐标视图变换    view = lookAt              世界 → 相机坐标投影变换    projection = perspective   透视投影（雅可比近似）视口变换    viewport = glViewport      tile-based 光栅化
-import numpy as npdef look_at(eye, center, up):    &quot;&quot;&quot;手动实现 lookAt 矩阵（3DGS 中相机到世界的变换）&quot;&quot;&quot;    f = center - eye; f = f / np.linalg.norm(f)    s = np.cross(f, up); s = s / np.linalg.norm(s)    u = np.cross(s, f)    R = np.eye(4); R[:3,:3] = np.stack([s, u, -f])    T = np.eye(4); T[:3, 3] = -eye    return R @ Tdef perspective(fovy, aspect, near, far):    &quot;&quot;&quot;手动实现透视投影矩阵&quot;&quot;&quot;    f = 1.0 / np.tan(fovy / 2)    P = np.zeros((4, 4))    P[0,0] = f / aspect    P[1,1] = f    P[2,2] = (far + near) / (near - far)    P[2,3] = (2 * far * near) / (near - far)    P[3,2] = -1    return Peye = np.array([0.0, 0.0, 5.0])center = np.array([0.0, 0.0, 0.0])up = np.array([0.0, 1.0, 0.0])V = look_at(eye, center, up)     # 视图矩阵P = perspective(np.radians(45), 800/600, 0.1, 100.0)  # 投影矩阵MVP = P @ V                       # 完整的 MVP 矩阵# 变换一个点point_world = np.array([1.0, 0.0, 0.0, 1.0])  # 齐次坐标point_clip = MVP @ point_worldpoint_ndc = point_clip[:3] / point_clip[3]  # 透视除法
-3. 3DGS 高斯的简化可视化（用 matplotlib）
-import matplotlib.pyplot as pltfrom mpl_toolkits.mplot3d import Axes3Ddef plot_3d_gaussian_simple(ax, mean, scale, quat, color=&#x27;red&#x27;, alpha=0.3):    &quot;&quot;&quot;绘制简化的 3D 高斯椭球&quot;&quot;&quot;    # 从四元数和缩放构建协方差矩阵    # Σ = R * S * S^T * R^T    from scipy.spatial.transform import Rotation    R = Rotation.from_quat(quat).as_matrix()    S = np.diag(scale)    cov = R @ S @ S.T @ R.T    # 用特征分解画椭球    eigenvalues, eigenvectors = np.linalg.eigh(cov)    u = np.linspace(0, 2 * np.pi, 30)    v = np.linspace(0, np.pi, 30)    radii = np.sqrt(eigenvalues)    x = radii[0] * np.outer(np.cos(u), np.sin(v))    y = radii[1] * np.outer(np.sin(u), np.sin(v))    z = radii[2] * np.outer(np.ones_like(u), np.cos(v))    for i in range(len(u)):        for j in range(len(v)):            pts = np.array([x[i,j], y[i,j], z[i,j]])            pts = eigenvectors @ pts + mean            x[i,j], y[i,j], z[i,j] = pts    ax.plot_surface(x, y, z, color=color, alpha=alpha)    ax.scatter(*mean, color=color, s=50)# 示例fig = plt.figure(figsize=(8, 6))ax = fig.add_subplot(111, projection=&#x27;3d&#x27;)mean = [0, 0, 0]scale = [1.0, 0.5, 0.3]quat = [0, 0, 0, 1]  # 无旋转plot_3d_gaussian_simple(ax, mean, scale, quat, color=&#x27;red&#x27;)ax.set_xlabel(&#x27;X&#x27;); ax.set_ylabel(&#x27;Y&#x27;); ax.set_zlabel(&#x27;Z&#x27;)plt.show()
-4. 常用图形学变换速查
-from scipy.spatial.transform import Rotation as R# 旋转矩阵r = R.from_euler(&#x27;xyz&#x27;, [30, 45, 0], degrees=True)rot_matrix = r.as_matrix()     # 3×3 旋转矩阵quat = r.as_quat()             # 四元数 [x, y, z, w]# 四元数 → 旋转矩阵（手工实现，3DGS 用）def quat_to_rotmat(quat):    r, x, y, z = quat[3], quat[0], quat[1], quat[2]  # w,x,y,z    return np.array([        [1-2*(y*y+z*z), 2*(x*y-r*z), 2*(x*z+r*y)],        [2*(x*y+r*z), 1-2*(x*x+z*z), 2*(y*z-r*x)],        [2*(x*z-r*y), 2*(y*z+r*x), 1-2*(x*x+y*y)]    ])# 构建 3DGS 中的 Σ = RSSᵀRᵀdef build_covariance(scale, quat):    &quot;&quot;&quot;3DGS 协方差矩阵构建（核心公式）&quot;&quot;&quot;    R_mat = quat_to_rotmat(quat)    S = np.diag(scale)    M = R_mat @ S              # RS    return M @ M.T             # RSSᵀRᵀ
+    <title>[Python]os、sys、pathlib — 系统操作</title>
+    <url>/2026/06/16/08_01_os_sys_pathlib/</url>
+    <content><![CDATA[os、sys、pathlib — 系统操作
+os 模块
+import os# 路径操作path = os.path.join(&#x27;folder&#x27;, &#x27;subfolder&#x27;, &#x27;file.txt&#x27;)  # 跨平台路径拼接print(os.path.dirname(path))   # folder\subfolder（目录）print(os.path.basename(path))  # file.txt（文件名）print(os.path.splitext(path))  # (&#x27;folder/subfolder/file&#x27;, &#x27;.txt&#x27;)（扩展名分离）print(os.path.exists(path))    # 路径是否存在print(os.path.isfile(path))    # 是否为文件print(os.path.isdir(path))     # 是否为目录print(os.path.getsize(path))   # 文件大小（字节）# 目录操作os.makedirs(&#x27;deep/nested/folder&#x27;, exist_ok=True)  # 递归创建目录os.mkdir(&#x27;new_folder&#x27;)          # 创建单个目录（父目录必须存在）files = os.listdir(&#x27;.&#x27;)         # 列出目录内容for f in files:    print(f)# 遍历目录树for root, dirs, files in os.walk(&#x27;.&#x27;):    for file in files:        if file.endswith(&#x27;.py&#x27;):            print(os.path.join(root, file))# 环境变量home = os.environ.get(&#x27;HOME&#x27;)path_var = os.environ.get(&#x27;PATH&#x27;)# 执行系统命令# os.system(&#x27;dir&#x27;)               # 简单执行（不推荐）result = os.popen(&#x27;git --version&#x27;).read()  # 捕获输出# 文件操作os.rename(&#x27;old.txt&#x27;, &#x27;new.txt&#x27;)  # 重命名os.remove(&#x27;temp.txt&#x27;)            # 删除文件os.rmdir(&#x27;empty_folder&#x27;)         # 删除空目录
+pathlib（3.4+，推荐替代 os.path）
+from pathlib import Path# 路径创建p = Path(&#x27;data/images/photo.jpg&#x27;)data_dir = Path(&#x27;data&#x27;) / &#x27;processed&#x27;  # / 运算符拼接路径# 路径信息print(p.name)        # photo.jpgprint(p.stem)        # photo（不含扩展名）print(p.suffix)      # .jpgprint(p.parent)      # data/imagesprint(p.parts)       # (&#x27;data&#x27;, &#x27;images&#x27;, &#x27;photo.jpg&#x27;)print(p.exists())    # 是否存在print(p.is_file())   # 是否文件# 目录遍历data = Path(&#x27;my_big_project&#x27;)for py_file in data.rglob(&#x27;*.py&#x27;):    print(py_file)   # 递归查找所有 .py 文件# 读写文件content = Path(&#x27;file.txt&#x27;).read_text(encoding=&#x27;utf-8&#x27;)Path(&#x27;output.txt&#x27;).write_text(&#x27;Hello&#x27;, encoding=&#x27;utf-8&#x27;)data = Path(&#x27;data.bin&#x27;).read_bytes()# 创建目录Path(&#x27;deep/nested/folder&#x27;).mkdir(parents=True, exist_ok=True)# 路径解析abs_path = Path(&#x27;.&#x27;).resolve()  # 绝对路径rel_path = Path(&#x27;/a/b/c&#x27;).relative_to(&#x27;/a&#x27;)  # b/c
+sys 模块
+import sys# 命令行参数print(sys.argv)        # [&#x27;script.py&#x27;, &#x27;arg1&#x27;, &#x27;arg2&#x27;]if len(sys.argv) &gt; 1:    print(f&quot;参数: &#123;sys.argv[1]&#125;&quot;)# Python 搜索路径sys.path.append(&#x27;/custom/path&#x27;)  # 添加模块搜索路径# 退出程序# sys.exit(0)          # 正常退出# sys.exit(1)          # 异常退出# 标准输入/输出/错误sys.stdout.write(&quot;标准输出\n&quot;)sys.stderr.write(&quot;错误输出\n&quot;)# user_input = sys.stdin.readline().strip()# 平台信息print(sys.platform)    # win32 / linux / darwinprint(sys.version)     # Python 版本print(sys.maxsize)     # 最大整数print(sys.getrecursionlimit())  # 递归深度限制# 模块信息print(sys.modules.keys())  # 已加载的所有模块
+subprocess — 推荐替代 os.system
+import subprocess# 运行命令并捕获输出result = subprocess.run(    [&#x27;python&#x27;, &#x27;--version&#x27;],    capture_output=True,    text=True)print(result.stdout)     # Python 3.x.xprint(result.returncode) # 0（成功）# 管道连接proc1 = subprocess.Popen([&#x27;echo&#x27;, &#x27;hello&#x27;], stdout=subprocess.PIPE)proc2 = subprocess.Popen([&#x27;wc&#x27;, &#x27;-c&#x27;], stdin=proc1.stdout,                         stdout=subprocess.PIPE, text=True)output = proc2.communicate()[0]
+]]></content>
+      <categories>
+        <category>编程与工具</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>标准库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Python]json、datetime、正则表达式</title>
+    <url>/2026/06/16/08_02_json_datetime_re/</url>
+    <content><![CDATA[json、datetime、正则表达式
+json 模块
+import json# Python → JSON（序列化）data = &#123;    &quot;name&quot;: &quot;GodY&quot;,    &quot;age&quot;: 22,    &quot;skills&quot;: [&quot;Python&quot;, &quot;3DGS&quot;],    &quot;active&quot;: True,    &quot;score&quot;: None&#125;json_str = json.dumps(data, indent=2, ensure_ascii=False)print(json_str)# &#123;#   &quot;name&quot;: &quot;GodY&quot;,#   &quot;age&quot;: 22,#   ...# &#125;# 写入文件with open(&#x27;data.json&#x27;, &#x27;w&#x27;, encoding=&#x27;utf-8&#x27;) as f:    json.dump(data, f, indent=2, ensure_ascii=False)# JSON → Python（反序列化）with open(&#x27;data.json&#x27;, &#x27;r&#x27;, encoding=&#x27;utf-8&#x27;) as f:    loaded = json.load(f)loaded2 = json.loads(&#x27;&#123;&quot;key&quot;: &quot;value&quot;&#125;&#x27;)# 自定义序列化from datetime import datetimedef default_serializer(obj):    if isinstance(obj, datetime):        return obj.isoformat()    raise TypeError(f&quot;无法序列化 &#123;type(obj)&#125;&quot;)json.dumps(&#123;&quot;time&quot;: datetime.now()&#125;, default=default_serializer)
+datetime 模块
+from datetime import datetime, date, timedeltaimport time# 当前时间now = datetime.now()today = date.today()print(now)          # 2026-06-03 15:30:00.123456print(today)        # 2026-06-03# 创建时间d = datetime(2026, 6, 3, 14, 0, 0)d = datetime.strptime(&quot;2026-06-03&quot;, &quot;%Y-%m-%d&quot;)# 格式化输出print(now.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;))  # 2026-06-03 15:30:00print(now.strftime(&quot;%Y年%m月%d日&quot;))         # 2026年06月03日# 时间差运算tomorrow = now + timedelta(days=1)yesterday = now - timedelta(days=1)one_hour_later = now + timedelta(hours=1)delta = tomorrow - nowprint(delta.days)        # 1print(delta.total_seconds())  # 86400.0# 时间戳ts = time.time()                  # 当前时间戳（秒）dt = datetime.fromtimestamp(ts)   # 时间戳 → datetimets = now.timestamp()              # datetime → 时间戳# UTC 和本地时间from datetime import timezoneutc_now = datetime.now(timezone.utc)
+re 正则表达式
+import retext = &quot;我的邮箱是 godY@example.com，电话是 189-6235-1682&quot;# 搜索（返回第一个匹配）match = re.search(r&#x27;\d&#123;3&#125;-\d&#123;4&#125;-\d&#123;4&#125;&#x27;, text)if match:    print(match.group())  # 189-6235-1682# 查找所有匹配emails = re.findall(r&#x27;[\w.]+@[\w.]+&#x27;, text)print(emails)  # [&#x27;godY@example.com&#x27;]# 替换masked = re.sub(r&#x27;\d&#123;3&#125;-\d&#123;4&#125;-\d&#123;4&#125;&#x27;, &#x27;***-****-****&#x27;, text)# 分组pattern = r&#x27;(\d&#123;3&#125;)-(\d&#123;4&#125;)-(\d&#123;4&#125;)&#x27;match = re.search(pattern, text)if match:    print(match.group(0))  # 189-6235-1682（完整匹配）    print(match.group(1))  # 189    print(match.group(2))  # 6235    print(match.group(3))  # 1682# 命名分组pattern = r&#x27;(?P&lt;area&gt;\d&#123;3&#125;)-(?P&lt;mid&gt;\d&#123;4&#125;)-(?P&lt;last&gt;\d&#123;4&#125;)&#x27;match = re.search(pattern, text)print(match.group(&#x27;area&#x27;))  # 189# 常用正则符号速查# \d   数字          \D    非数字# \w   字母数字下划线  \W    非字母数字# \s   空白符        \S    非空白# .    任意字符（除换行）# *    0次或多次      +    1次或多次# ?    0次或1次       &#123;n&#125;  恰好n次# &#123;n,m&#125; n到m次# ^    行开始         $    行结束# [abc] 字符集        [^abc] 排除字符集# (abc) 捕获组       (?:abc) 非捕获组# 编译正则（重复使用更快）email_pattern = re.compile(r&#x27;[\w.]+@[\w.]+&#x27;)for text in texts:    matches = email_pattern.findall(text)# 分割字符串parts = re.split(r&#x27;[;,\s]+&#x27;, &#x27;a,b;c d  e&#x27;)print(parts)  # [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;, &#x27;e&#x27;]
+]]></content>
+      <categories>
+        <category>编程与工具</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>标准库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[3DGS]Adam与损失函数</title>
+    <url>/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[一、Adam 优化器
+1.1 从 SGD 到 Adam 的递进
+SGD：    θ = θ - lr·g                     ← 裸梯度，震荡Momentum：v = β·v + lr·g, θ = θ - v       ← 加惯性Adam：   m = β₁·m + (1-β₁)·g              ← 动量（平滑方向）         v = β₂·v + (1-β₂)·g²             ← 梯度平方（自适应步长）         θ = θ - α·m̂/(√v̂ + ε)             ← 每参数独立调节
+1.2 Adam 完整算法
+初始化：m₀=0, v₀=0, t=0, α=0.001, β₁=0.9, β₂=0.999, ε=1e-8每步：  g = ∇L(θ)                              —— 计算梯度  m = β₁·m + (1-β₁)·g                    —— 一阶矩（动量）  v = β₂·v + (1-β₂)·g²                   —— 二阶矩（梯度幅度估计）  m̂ = m / (1-β₁ᵗ),  v̂ = v / (1-β₂ᵗ)     —— 偏差修正  θ = θ - α·m̂/(√v̂ + ε)                   —— 更新
+1.3 三个核心机制
+
+
+
+机制
+作用
+关键参数
+
+
+
+
+动量 m
+平滑梯度方向，消除震荡
+β₁=0.9，历史占90%
+
+
+自适应 v
+每参数独立调步长，陡坡小步平路大步
+β₂=0.999，有效lr=α/√v̂
+
+
+偏差修正
+修正初始 m=v=0 导致的早期低估
+t=1 时修正因子=1/(1-β₁)=10
+
+
+
+1.4 手写 Adam
+class MyAdam:    def __init__(self, lr=0.001, beta1=0.9, beta2=0.999, eps=1e-8):        self.lr = lr; self.beta1 = beta1; self.beta2 = beta2; self.eps = eps        self.m = 0.0; self.v = 0.0; self.t = 0    def step(self, param, grad):        self.t += 1        self.m = self.beta1 * self.m + (1 - self.beta1) * grad        self.v = self.beta2 * self.v + (1 - self.beta2) * grad**2        m_hat = self.m / (1 - self.beta1 ** self.t)        v_hat = self.v / (1 - self.beta2 ** self.t)        return param - self.lr * m_hat / (self.v_hat ** 0.5 + self.eps)
+1.5 3DGS 中 Adam 的配置
+# train.pyl = [    &#123;&#x27;params&#x27;: [self._xyz],           &#x27;lr&#x27;: 0.00016&#125;,   # 位置 — 最小    &#123;&#x27;params&#x27;: [self._opacity],       &#x27;lr&#x27;: 0.05&#125;,      # 不透明度 — 最大(300倍!)    &#123;&#x27;params&#x27;: [self._scaling],       &#x27;lr&#x27;: 0.005&#125;,     # 缩放    &#123;&#x27;params&#x27;: [self._rotation],      &#x27;lr&#x27;: 0.001&#125;,     # 旋转]self.optimizer = torch.optim.Adam(l, lr=0.0, eps=1e-15)
+lr=0.0：每组自己指定 lr，不需要默认。eps=1e-15：极小的值，不干扰梯度更新。
+三文件联动：
+
+gaussian_model.py — 定义优化变量（requires_grad_(True)）
+train.py — loss.backward() 算梯度，optimizer.step() Adam 更新
+CUDA 扩展 — 渲染梯度的实际计算
+
+
+二、损失函数
+2.1 L1（MAE）— 绝对值
+L₁ = (1/N) Σ |yᵢ - ŷᵢ|梯度 = ±1/N（恒定，与误差大小无关）
+特点：对大小误差一视同仁，不敏感异常值（如镜面反射）。
+2.2 L2（MSE）— 平方
+L₂ = (1/N) Σ (yᵢ - ŷᵢ)²梯度 = -2(yᵢ-ŷᵢ)/N（与误差成正比）
+特点：对大误差惩罚极重（平方放大），对小误差几乎无视。一个异常像素就能绑架整个优化。
+
+
+
+误差
+L1 贡献
+L2 贡献
+
+
+
+
+0.5
+0.5
+0.25
+
+
+0.1
+0.1
+0.01
+
+
+0.02
+0.02
+0.0004
+
+
+
+2.3 SSIM — 结构相似度（三因子）
+SSIM(x,y) = l(x,y) × c(x,y) × s(x,y)            亮度      对比度     结构
+
+
+
+因子
+计算
+衡量什么
+
+
+
+
+亮度 l
+(2μₓμᵧ+C₁)/(μₓ²+μᵧ²+C₁)
+整体亮度是否一致
+
+
+对比度 c
+(2σₓσᵧ+C₂)/(σₓ²+σᵧ²+C₂)
+纹理强弱是否一致
+
+
+结构 s
+(σₓᵧ+C₃)/(σₓσᵧ+C₃)
+纹理模式是否一致
+
+
+
+SSIM 的核心洞察：不看单个像素，看局部窗口（11×11）的统计量。
+例子——整体亮度偏移：
+
+真图：平均像素 0.5。渲染：平均像素 0.6（偏亮 0.1）
+L2：每个像素 0.1² = 0.01 → 大惩罚
+SSIM：l ≈ (2×0.5×0.6)/(0.25+0.36) ≈ 0.98 → 几乎不惩罚
+
+因为人眼对整体亮度偏移不敏感，SSIM 也不敏感——这恰好是符合感知的评估方式。
+2.4 3DGS 组合损失
+L = 0.8 × L₁ + 0.2 × (1 - SSIM)     └──┬──┘    └──┬──┘   颜色主导    纹理/结构修正
+
+只用 L1 → 模糊（颜色对但纹理没了）
+只用 SSIM → 结构对但可能偏色
+组合：颜色准 + 纹理清晰 + 边缘锐利
+
+
+三、关键公式速记
+Adam:    m=β₁m+(1-β₁)g, v=β₂v+(1-β₂)g², θ-=α·m̂/(√v̂+ε)L1:      梯度=±1（恒定）L2:      梯度∝误差（大误差大梯度）SSIM:    l×c×s（亮度×对比度×结构）组合损失: 0.8·L1 + 0.2·(1-SSIM)
 ]]></content>
       <categories>
         <category>计算机图形学</category>
       </categories>
       <tags>
-        <tag>Python</tag>
-        <tag>OpenGL</tag>
+        <tag>3DGS</tag>
       </tags>
   </entry>
   <entry>
@@ -1674,22 +1848,184 @@ import numpy as np# 矩阵创建A = np.array([[1,2],[3,4]])     # 2×2I = np.eye
       </tags>
   </entry>
   <entry>
-    <title>[Python]json、datetime、正则表达式</title>
-    <url>/2026/06/16/08_02_json_datetime_re/</url>
-    <content><![CDATA[json、datetime、正则表达式
-json 模块
-import json# Python → JSON（序列化）data = &#123;    &quot;name&quot;: &quot;GodY&quot;,    &quot;age&quot;: 22,    &quot;skills&quot;: [&quot;Python&quot;, &quot;3DGS&quot;],    &quot;active&quot;: True,    &quot;score&quot;: None&#125;json_str = json.dumps(data, indent=2, ensure_ascii=False)print(json_str)# &#123;#   &quot;name&quot;: &quot;GodY&quot;,#   &quot;age&quot;: 22,#   ...# &#125;# 写入文件with open(&#x27;data.json&#x27;, &#x27;w&#x27;, encoding=&#x27;utf-8&#x27;) as f:    json.dump(data, f, indent=2, ensure_ascii=False)# JSON → Python（反序列化）with open(&#x27;data.json&#x27;, &#x27;r&#x27;, encoding=&#x27;utf-8&#x27;) as f:    loaded = json.load(f)loaded2 = json.loads(&#x27;&#123;&quot;key&quot;: &quot;value&quot;&#125;&#x27;)# 自定义序列化from datetime import datetimedef default_serializer(obj):    if isinstance(obj, datetime):        return obj.isoformat()    raise TypeError(f&quot;无法序列化 &#123;type(obj)&#125;&quot;)json.dumps(&#123;&quot;time&quot;: datetime.now()&#125;, default=default_serializer)
-datetime 模块
-from datetime import datetime, date, timedeltaimport time# 当前时间now = datetime.now()today = date.today()print(now)          # 2026-06-03 15:30:00.123456print(today)        # 2026-06-03# 创建时间d = datetime(2026, 6, 3, 14, 0, 0)d = datetime.strptime(&quot;2026-06-03&quot;, &quot;%Y-%m-%d&quot;)# 格式化输出print(now.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;))  # 2026-06-03 15:30:00print(now.strftime(&quot;%Y年%m月%d日&quot;))         # 2026年06月03日# 时间差运算tomorrow = now + timedelta(days=1)yesterday = now - timedelta(days=1)one_hour_later = now + timedelta(hours=1)delta = tomorrow - nowprint(delta.days)        # 1print(delta.total_seconds())  # 86400.0# 时间戳ts = time.time()                  # 当前时间戳（秒）dt = datetime.fromtimestamp(ts)   # 时间戳 → datetimets = now.timestamp()              # datetime → 时间戳# UTC 和本地时间from datetime import timezoneutc_now = datetime.now(timezone.utc)
-re 正则表达式
-import retext = &quot;我的邮箱是 godY@example.com，电话是 189-6235-1682&quot;# 搜索（返回第一个匹配）match = re.search(r&#x27;\d&#123;3&#125;-\d&#123;4&#125;-\d&#123;4&#125;&#x27;, text)if match:    print(match.group())  # 189-6235-1682# 查找所有匹配emails = re.findall(r&#x27;[\w.]+@[\w.]+&#x27;, text)print(emails)  # [&#x27;godY@example.com&#x27;]# 替换masked = re.sub(r&#x27;\d&#123;3&#125;-\d&#123;4&#125;-\d&#123;4&#125;&#x27;, &#x27;***-****-****&#x27;, text)# 分组pattern = r&#x27;(\d&#123;3&#125;)-(\d&#123;4&#125;)-(\d&#123;4&#125;)&#x27;match = re.search(pattern, text)if match:    print(match.group(0))  # 189-6235-1682（完整匹配）    print(match.group(1))  # 189    print(match.group(2))  # 6235    print(match.group(3))  # 1682# 命名分组pattern = r&#x27;(?P&lt;area&gt;\d&#123;3&#125;)-(?P&lt;mid&gt;\d&#123;4&#125;)-(?P&lt;last&gt;\d&#123;4&#125;)&#x27;match = re.search(pattern, text)print(match.group(&#x27;area&#x27;))  # 189# 常用正则符号速查# \d   数字          \D    非数字# \w   字母数字下划线  \W    非字母数字# \s   空白符        \S    非空白# .    任意字符（除换行）# *    0次或多次      +    1次或多次# ?    0次或1次       &#123;n&#125;  恰好n次# &#123;n,m&#125; n到m次# ^    行开始         $    行结束# [abc] 字符集        [^abc] 排除字符集# (abc) 捕获组       (?:abc) 非捕获组# 编译正则（重复使用更快）email_pattern = re.compile(r&#x27;[\w.]+@[\w.]+&#x27;)for text in texts:    matches = email_pattern.findall(text)# 分割字符串parts = re.split(r&#x27;[;,\s]+&#x27;, &#x27;a,b;c d  e&#x27;)print(parts)  # [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;, &#x27;e&#x27;]
+    <title>[3DGS]3DGS_数学基础_向量&amp;矩阵</title>
+    <url>/2026/06/03/3DGS-%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E5%90%91%E9%87%8F-%E7%9F%A9%E9%98%B5/</url>
+    <content><![CDATA[向量——点积与叉积
+1 先理清：什么是向量？
+你已经会在 Python 中写 np.array([x, y, z])。但这只是向量的数据表示。向量本身到底是什么？
+向量的两种视角：
+
+
+
+视角
+理解
+例子
+
+
+
+
+几何
+空间中一个有方向、有长度的箭头
+从原点指向点 (2, 3, 5)
+
+
+代数
+一组有序数 (x, y, z)
+np.array([2, 3, 5])
+
+
+
+在 3DGS 中，每个高斯基元的位置 μ 就是一个 3D 向量：
+mu = np.array([1.5, 0.3, 4.2])   # 椭球中心在空间中的位置
+
+2 向量的长度（模）
+v = np.array([3, 4])norm = np.linalg.norm(v)    # = 5.0
+公式就是勾股定理：|v| = √(3² + 4²) = √(9+16) = 5
+单位向量：长度为 1 的向量，只保留方向信息：
+v = np.array([3, 4])v_hat = v / np.linalg.norm(v)# v_hat = [0.6, 0.8]# 验证：0.6² + 0.8² = 0.36 + 0.64 = 1.0 ✓
+为什么需要单位向量？ 当你想&quot;往某个方向走&quot;，你需要一个纯方向（长度 1），然后乘以步长。3DGS 中视线方向就是单位向量——只关心往哪看，不关心看多远。
+
+3 点积 —— 两个向量的&quot;对齐程度&quot;
+两个定义（数学上等价）
+代数定义：a·b = a₁b₁ + a₂b₂ + a₃b₃      ← 代码里实际算的几何定义：a·b = |a|·|b|·cos(θ)         ← 用来理解的
+等价性证明（这是理解点积的关键）
+已知：|a|, |b|, 夹角 θ
+用余弦定理：
+|c|² = |a|² + |b|² - 2|a||b|·cos(θ)     ← c = a - b
+用代数定义展开 |c|²：
+|c|² = (a-b)·(a-b)        ← 代数的点积     = a·a - a·b - b·a + b·b     = |a|² - 2(a·b) + |b|²
+对比两个表达式：
+|a|² + |b|² - 2|a||b|cos(θ)  =  |a|² - 2(a·b) + |b|²                        -2|a||b|cos(θ)  =  -2(a·b)                           |a||b|cos(θ)  =  a·b   ✓
+这个证明告诉你：点积的两种定义不是巧合，是余弦定理的必然推论。
+点积告诉你什么？
+a = np.array([3, 0])       # 指向正右方b1 = np.array([2, 1])      # 右上，夹角小b2 = np.array([0, 2])      # 正上，垂直b3 = np.array([-2, 1])     # 左上，夹角大print(np.dot(a, b1))   # 6    → 正数 = 锐角（&lt; 90°）print(np.dot(a, b2))   # 0    → 零 = 垂直（恰好 90°）print(np.dot(a, b3))   # -6   → 负数 = 钝角（&gt; 90°）
+判断规则：
+
+
+
+点积
+cos(θ)
+θ 范围
+含义
+
+
+
+
+&gt; 0
+&gt; 0
+0° ~ 90°
+大致同向
+
+
+= 0
+= 0
+恰好 90°
+垂直
+
+
+&lt; 0
+&lt; 0
+90° ~ 180°
+大致反向
+
+
+
+最重要的几何直觉：投影
+
+a 在 b 方向上的投影长度 = (a·b) / |b|
+
+a = np.array([3, 2])       # 任意方向b = np.array([3, 0])       # x 轴方向b_hat = b / np.linalg.norm(b)   # x 轴单位向量 = [1, 0]proj_len = np.dot(a, b_hat)      # = 3×1 + 2×0 = 3proj_vector = proj_len * b_hat   # = [3, 0]
+画在纸上：a=(3,2) 是一个从原点出发指到 (3,2) 的箭头。把它投影到 x 轴（即 b 的方向），投影点就是 (3,0)。投影长度 = 3 恰等于 a 在 x 轴上的分量。
+这就是投影的全部：a·b̂ 算出&quot;a 在 b 指向的方向上走了多远&quot;。
+3DGS 中怎么用点积？
+场景1：判断高斯在不在相机视野里
+相机的视线方向是 d（单位向量），从相机到高斯的向量是 v。如果 d·v &gt; 0，说明高斯在相机前方；如果 &lt; 0，在身后（扔掉不渲染）。
+场景2：球谐函数计算
+球谐函数本质是视线方向 d 和球谐基函数 Y_lm 的某种&quot;方向相似度&quot;计算，内积形式。
+
+4 叉积 —— 造出一个垂直于两个向量的新向量
+定义（仅限 3D 空间）
+a = np.array([2, 0, 0])    # x 轴方向b = np.array([0, 2, 0])    # y 轴方向c = np.cross(a, b)print(c)   # [0, 0, 4]    ← z 轴方向，垂直于 xy 平面
+手算公式（用行列式记忆）
+a × b = det( | i   j   k |             | a₁  a₂  a₃ |             | b₁  b₂  b₃ | )     = i(a₂b₃ - a₃b₂) - j(a₁b₃ - a₃b₁) + k(a₁b₂ - a₂b₁)
+一步一步算 a=(2,-1,3), b=(1,4,-2)：
+i 分量：a₂b₃ - a₃b₂ = (-1)×(-2) - 3×4 = 2 - 12 = -10j 分量：a₁b₃ - a₃b₁ = 2×(-2) - 3×1 = -4 - 3 = -7  → 前面有负号 → +7k 分量：a₁b₂ - a₂b₁ = 2×4 - (-1)×1 = 8 + 1 = 9a × b = (-10, 7, 9)
+验证：结果垂直于 a 和 b
+a = np.array([2, -1, 3])b = np.array([1, 4, -2])c = np.cross(a, b)# 验证垂直性：两个垂直向量的点积 = 0print(np.dot(c, a))   # -10×2 + 7×(-1) + 9×3 = -20-7+27 = 0 ✓print(np.dot(c, b))   # -10×1 + 7×4 + 9×(-2) = -10+28-18 = 0 ✓
+几何意义
+方向：右手定则
+右手食指 = a，中指 = b，拇指 = a×b。它永远指向 a 和 b 所在平面的法向量方向。
+大小：平行四边形面积
+|a × b| = |a|·|b|·sin(θ) = a 和 b 张成的平行四边形面积
+验证 a=(2,0,0), b=(0,2,0)：|a|×|b|×sin(90°) = 2×2×1 = 4，而 |c| = |(0,0,4)| = 4 ✓
+关键性质
+# 1. 自己叉自己 = 零向量np.cross(a, a)   # [0, 0, 0]# 2. 反交换律：a×b = -(b×a)np.allclose(np.cross(a, b), -np.cross(b, a))   # True
+3DGS 中怎么用叉积？
+计算平面法向量：建筑场景中，给定墙面上的三个点 p1, p2, p3，墙面的法向量方向 = (p2-p1) × (p3-p1)。这对于判断高斯椭球是否应该&quot;躺平&quot;贴在墙面上非常关键。
+
+5 点积 vs 叉积 — 对比总结
+           点积 a·b                    叉积 a×b           ────────                   ────────结果类型    标量（一个数）              向量（有方向有长度）计算       a₁b₁ + a₂b₂ + a₃b₃         见行列式展开几何意义   度量&quot;对齐程度&quot;              造法向量 + 算面积方向信息   cos(θ) → 同向/垂直/反向     垂直于 a 和 b（右手定则）等于零时   垂直                        平行或一个向量为零3DGS用途   视野判断、球谐投影           法向量计算
+矩阵——线性变换的语言
+板块四是今天最重要的一节。它回答一个问题：矩阵到底是什么？ 答案是：矩阵不是&quot;数字表格&quot;，它是空间变形操作的编码。
+
+1 从已知的概念出发
+你现在是 Python 水平。一个 2×2 矩阵在代码里长这样：
+A = np.array([[a, b],              [c, d]])
+这是数据的表示。但它的几何含义是什么？
+把矩阵 A 作用于向量 v：
+v = np.array([x, y])result = A @ v       # 结果是一个新向量
+A @ v 的效果：把 v 从原来的位置&quot;搬运&quot;到新位置。搬运的规则由矩阵 A 定义。
+A 是一台&quot;空间变形机&quot;：输入任意向量 → 输出被变形后的向量。
+
+2 矩阵的每一列 = 基向量变换后的位置——这是理解矩阵最重要的直觉
+什么是基向量？
+在 2D 空间中，有两个&quot;标准方向&quot;：
+e1 = np.array([1, 0])    # x 轴方向的单位向量e2 = np.array([0, 1])    # y 轴方向的单位向量
+任意向量都可以用这两个基向量表示：
+v = np.array([3, 2])# 等价于：v = 3 * e1 + 2 * e2#            = 3 * [1,0] + 2 * [0,1]#            = [3, 2]
+关键定理
+
+矩阵 A 的每一列，是原来基向量经过 A 变换后的新位置。
+
+A = [[a, b],     [c, d]]第一列 (a, c) = e₁=(1,0) 变换后去了哪里第二列 (b, d) = e₂=(0,1) 变换后去了哪里
+验证：为什么这个定理是对的？
+A = np.array([[a, b],              [c, d]])# e₁ = [1, 0]，作用 A：A @ np.array([1, 0])# = [[a, b],    @ [1,#    [c, d]]       0]# = [a×1 + b×0, c×1 + d×0]# = [a, c]            ← 正好是第一列！# e₂ = [0, 1]，作用 A：A @ np.array([0, 1])# = [a×0 + b×1, c×0 + d×1]# = [b, d]            ← 正好是第二列！
+任何向量 v = v₁e₁ + v₂e₂ 变换后：
+A @ v = A @ (v₁e₁ + v₂e₂)      = v₁·(A@e₁) + v₂·(A@e₂)      = v₁·(第一列) + v₂·(第二列)
+这就是线性变换的全部：你只需要知道基向量 e₁ 和 e₂ 被搬到了哪里，就能推知任意向量被搬到了哪里。
+
+3 六种基本变换——对照 demo_01 理解
+demo_01 的 demo_matrix_as_transform() 函数展示了六种矩阵对单位正方形的影响。单位正方形 [0,0]→[1,0]→[1,1]→[0,1] 是观察变换的标准参考物。
+变换1：单位矩阵——不变
+I = np.array([[1, 0],              [0, 1]])# 第一列 = (1,0) = e₁ 原位不动# 第二列 = (0,1) = e₂ 原位不动
+正方形纹丝不动。就像乘以 1。
+变换2：水平拉伸 ×2
+A = np.array([[2, 0],              [0, 1]])# 第一列 = (2,0) → e₁ 被水平拉到原来 2 倍# 第二列 = (0,1) → e₂ 不变
+效果：正方形在 x 方向被拉成原来的 2 倍宽度。det(A) = 2×1 = 2，面积变为原来的 2 倍。
+变换3：垂直拉伸 ×2
+A = np.array([[1, 0],              [0, 2]])# 第一列 = (1,0) → e₁ 不变# 第二列 = (0,2) → e₂ 被垂直拉到 2 倍
+效果：正方形在 y 方向变高。det = 2。
+变换4：旋转 90°（逆时针）
+theta = np.radians(90)A = np.array([[0, -1],              [1,  0]])# cos90°=0, sin90°=1 代入旋转矩阵公式# 第一列 = (0, 1)    → e₁ 从指向右变成指向上# 第二列 = (-1, 0)   → e₂ 从指向上变成指向左
+效果：整个正方形绕原点转了 90°。det = 0×0 - (-1)×1 = 1，旋转不改变面积。
+通用旋转矩阵公式：
+theta = np.radians(angle)R = np.array([[np.cos(theta), -np.sin(theta)],              [np.sin(theta),  np.cos(theta)]])
+变换5：水平剪切
+A = np.array([[1, 0.5],              [0, 1  ]])# 第一列 = (1, 0) → e₁ 不变# 第二列 = (0.5, 1) → e₂ 向右倾斜！
+效果：正方形变成平行四边形——顶边向右偏了 0.5。注意：det = 1×1 - 0.5×0 = 1，剪切不改变面积！
+变换6：复合变换
+A = np.array([[2, 0.5],              [0.3, 1.5]])# 同时包含拉伸 + 剪切 + 旋转
+det = 2×1.5 - 0.5×0.3 = 3 - 0.15 = 2.85，面积扩大了 2.85 倍。
+整个 3DGS 的线性代数基础可以浓缩为一条变换链：
+向量 v ──[ R @ S ]──→ 旋转+缩放后的向量             │     R = 旋转矩阵（四元数转换而来）     S = 对角缩放矩阵（diag(s₁, s₂, s₃)）             │协方差 Σ = (R·S) @ (R·S)ᵀ         = R @ S @ Sᵀ @ Rᵀ
+这条链上的每一步都对应今天学的一个 numpy 操作：
+s = np.array([2.0, 0.5, 1.0])                   # 缩放向量S = np.diag(s)                                    # 缩放矩阵（板块二 diag）theta = np.radians(45)                            # 角度→弧度（板块二 radians）R = np.array([[np.cos(theta), -np.sin(theta), 0], # 旋转矩阵              [np.sin(theta),  np.cos(theta), 0],              [0,              0,             1]])M = R @ S                                         # 复合变换（板块一 @）Sigma = M @ M.T                                   # 协方差矩阵（板块一 @ + .T）eigenvalues, Q = np.linalg.eigh(Sigma)             # 验证正定性（板块一 eigh）print(eigenvalues)   # 应全为正 → [4. 0.25 1.] 对应 (sx², sy², sz²)
 ]]></content>
       <categories>
-        <category>编程与工具</category>
+        <category>计算机图形学</category>
       </categories>
       <tags>
-        <tag>Python</tag>
-        <tag>标准库</tag>
+        <tag>3DGS</tag>
       </tags>
   </entry>
   <entry>
@@ -1832,6 +2168,19 @@ dir ./my_data/sparse/0
       </tags>
   </entry>
   <entry>
+    <title>[本博客]博客维护指南</title>
+    <url>/2026/06/03/%E5%8D%9A%E5%AE%A2%E7%BB%B4%E6%8A%A4%E6%8C%87%E5%8D%97/</url>
+    <content><![CDATA[cd &quot;G:\Personal_information\my-blog&quot;hexo new &quot;文章标题&quot;hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy
+到 source\_posts\ 里用记事本打开 .md 文件写内容，写完跑第三条部署
+]]></content>
+      <categories>
+        <category>杂谈</category>
+      </categories>
+      <tags>
+        <tag>本博客</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[3DGS]链式法则、计算图、反向传播、梯度下降推导、损失函数 L 的本质、协方差矩阵 Σ=RSSᵀRᵀ 的几何含义、雅可比投影</title>
     <url>/2026/06/25/3DGS-%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E3%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%8E%A8%E5%AF%BC%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-L-%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5-%CE%A3-RSS%E1%B5%80R%E1%B5%80-%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89%E3%80%81%E9%9B%85%E5%8F%AF%E6%AF%94%E6%8A%95%E5%BD%B1/</url>
     <content><![CDATA[
@@ -1894,161 +2243,6 @@ J = [fx/Z,    0,   -fx·X/Z²]    ← ∂π/∂(X,Y,Z) 在 μ₃D 处取值    [
 
 五、关键公式速记
 链式法则：∂L/∂x = Σ 各路径 (∂L/∂out × ∂out/∂x)梯度下降：θ ← θ - α·∇LAdam：     m=β₁m+(1-β₁)g, v=β₂v+(1-β₂)g², θ-=α·m̂/(√v̂+ε)损失：     L=0.8·L₁+0.2·(1-SSIM)协方差：   Σ=R·S·Sᵀ·Rᵀ投影：     Σ&#x27;=J·Σ·Jᵀ
-]]></content>
-      <categories>
-        <category>计算机图形学</category>
-      </categories>
-      <tags>
-        <tag>3DGS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[Python]os、sys、pathlib — 系统操作</title>
-    <url>/2026/06/16/08_01_os_sys_pathlib/</url>
-    <content><![CDATA[os、sys、pathlib — 系统操作
-os 模块
-import os# 路径操作path = os.path.join(&#x27;folder&#x27;, &#x27;subfolder&#x27;, &#x27;file.txt&#x27;)  # 跨平台路径拼接print(os.path.dirname(path))   # folder\subfolder（目录）print(os.path.basename(path))  # file.txt（文件名）print(os.path.splitext(path))  # (&#x27;folder/subfolder/file&#x27;, &#x27;.txt&#x27;)（扩展名分离）print(os.path.exists(path))    # 路径是否存在print(os.path.isfile(path))    # 是否为文件print(os.path.isdir(path))     # 是否为目录print(os.path.getsize(path))   # 文件大小（字节）# 目录操作os.makedirs(&#x27;deep/nested/folder&#x27;, exist_ok=True)  # 递归创建目录os.mkdir(&#x27;new_folder&#x27;)          # 创建单个目录（父目录必须存在）files = os.listdir(&#x27;.&#x27;)         # 列出目录内容for f in files:    print(f)# 遍历目录树for root, dirs, files in os.walk(&#x27;.&#x27;):    for file in files:        if file.endswith(&#x27;.py&#x27;):            print(os.path.join(root, file))# 环境变量home = os.environ.get(&#x27;HOME&#x27;)path_var = os.environ.get(&#x27;PATH&#x27;)# 执行系统命令# os.system(&#x27;dir&#x27;)               # 简单执行（不推荐）result = os.popen(&#x27;git --version&#x27;).read()  # 捕获输出# 文件操作os.rename(&#x27;old.txt&#x27;, &#x27;new.txt&#x27;)  # 重命名os.remove(&#x27;temp.txt&#x27;)            # 删除文件os.rmdir(&#x27;empty_folder&#x27;)         # 删除空目录
-pathlib（3.4+，推荐替代 os.path）
-from pathlib import Path# 路径创建p = Path(&#x27;data/images/photo.jpg&#x27;)data_dir = Path(&#x27;data&#x27;) / &#x27;processed&#x27;  # / 运算符拼接路径# 路径信息print(p.name)        # photo.jpgprint(p.stem)        # photo（不含扩展名）print(p.suffix)      # .jpgprint(p.parent)      # data/imagesprint(p.parts)       # (&#x27;data&#x27;, &#x27;images&#x27;, &#x27;photo.jpg&#x27;)print(p.exists())    # 是否存在print(p.is_file())   # 是否文件# 目录遍历data = Path(&#x27;my_big_project&#x27;)for py_file in data.rglob(&#x27;*.py&#x27;):    print(py_file)   # 递归查找所有 .py 文件# 读写文件content = Path(&#x27;file.txt&#x27;).read_text(encoding=&#x27;utf-8&#x27;)Path(&#x27;output.txt&#x27;).write_text(&#x27;Hello&#x27;, encoding=&#x27;utf-8&#x27;)data = Path(&#x27;data.bin&#x27;).read_bytes()# 创建目录Path(&#x27;deep/nested/folder&#x27;).mkdir(parents=True, exist_ok=True)# 路径解析abs_path = Path(&#x27;.&#x27;).resolve()  # 绝对路径rel_path = Path(&#x27;/a/b/c&#x27;).relative_to(&#x27;/a&#x27;)  # b/c
-sys 模块
-import sys# 命令行参数print(sys.argv)        # [&#x27;script.py&#x27;, &#x27;arg1&#x27;, &#x27;arg2&#x27;]if len(sys.argv) &gt; 1:    print(f&quot;参数: &#123;sys.argv[1]&#125;&quot;)# Python 搜索路径sys.path.append(&#x27;/custom/path&#x27;)  # 添加模块搜索路径# 退出程序# sys.exit(0)          # 正常退出# sys.exit(1)          # 异常退出# 标准输入/输出/错误sys.stdout.write(&quot;标准输出\n&quot;)sys.stderr.write(&quot;错误输出\n&quot;)# user_input = sys.stdin.readline().strip()# 平台信息print(sys.platform)    # win32 / linux / darwinprint(sys.version)     # Python 版本print(sys.maxsize)     # 最大整数print(sys.getrecursionlimit())  # 递归深度限制# 模块信息print(sys.modules.keys())  # 已加载的所有模块
-subprocess — 推荐替代 os.system
-import subprocess# 运行命令并捕获输出result = subprocess.run(    [&#x27;python&#x27;, &#x27;--version&#x27;],    capture_output=True,    text=True)print(result.stdout)     # Python 3.x.xprint(result.returncode) # 0（成功）# 管道连接proc1 = subprocess.Popen([&#x27;echo&#x27;, &#x27;hello&#x27;], stdout=subprocess.PIPE)proc2 = subprocess.Popen([&#x27;wc&#x27;, &#x27;-c&#x27;], stdin=proc1.stdout,                         stdout=subprocess.PIPE, text=True)output = proc2.communicate()[0]
-]]></content>
-      <categories>
-        <category>编程与工具</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>标准库</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[3DGS]Adam与损失函数</title>
-    <url>/2026/06/25/3DGS-Adam%E4%B8%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[一、Adam 优化器
-1.1 从 SGD 到 Adam 的递进
-SGD：    θ = θ - lr·g                     ← 裸梯度，震荡Momentum：v = β·v + lr·g, θ = θ - v       ← 加惯性Adam：   m = β₁·m + (1-β₁)·g              ← 动量（平滑方向）         v = β₂·v + (1-β₂)·g²             ← 梯度平方（自适应步长）         θ = θ - α·m̂/(√v̂ + ε)             ← 每参数独立调节
-1.2 Adam 完整算法
-初始化：m₀=0, v₀=0, t=0, α=0.001, β₁=0.9, β₂=0.999, ε=1e-8每步：  g = ∇L(θ)                              —— 计算梯度  m = β₁·m + (1-β₁)·g                    —— 一阶矩（动量）  v = β₂·v + (1-β₂)·g²                   —— 二阶矩（梯度幅度估计）  m̂ = m / (1-β₁ᵗ),  v̂ = v / (1-β₂ᵗ)     —— 偏差修正  θ = θ - α·m̂/(√v̂ + ε)                   —— 更新
-1.3 三个核心机制
-
-
-
-机制
-作用
-关键参数
-
-
-
-
-动量 m
-平滑梯度方向，消除震荡
-β₁=0.9，历史占90%
-
-
-自适应 v
-每参数独立调步长，陡坡小步平路大步
-β₂=0.999，有效lr=α/√v̂
-
-
-偏差修正
-修正初始 m=v=0 导致的早期低估
-t=1 时修正因子=1/(1-β₁)=10
-
-
-
-1.4 手写 Adam
-class MyAdam:    def __init__(self, lr=0.001, beta1=0.9, beta2=0.999, eps=1e-8):        self.lr = lr; self.beta1 = beta1; self.beta2 = beta2; self.eps = eps        self.m = 0.0; self.v = 0.0; self.t = 0    def step(self, param, grad):        self.t += 1        self.m = self.beta1 * self.m + (1 - self.beta1) * grad        self.v = self.beta2 * self.v + (1 - self.beta2) * grad**2        m_hat = self.m / (1 - self.beta1 ** self.t)        v_hat = self.v / (1 - self.beta2 ** self.t)        return param - self.lr * m_hat / (self.v_hat ** 0.5 + self.eps)
-1.5 3DGS 中 Adam 的配置
-# train.pyl = [    &#123;&#x27;params&#x27;: [self._xyz],           &#x27;lr&#x27;: 0.00016&#125;,   # 位置 — 最小    &#123;&#x27;params&#x27;: [self._opacity],       &#x27;lr&#x27;: 0.05&#125;,      # 不透明度 — 最大(300倍!)    &#123;&#x27;params&#x27;: [self._scaling],       &#x27;lr&#x27;: 0.005&#125;,     # 缩放    &#123;&#x27;params&#x27;: [self._rotation],      &#x27;lr&#x27;: 0.001&#125;,     # 旋转]self.optimizer = torch.optim.Adam(l, lr=0.0, eps=1e-15)
-lr=0.0：每组自己指定 lr，不需要默认。eps=1e-15：极小的值，不干扰梯度更新。
-三文件联动：
-
-gaussian_model.py — 定义优化变量（requires_grad_(True)）
-train.py — loss.backward() 算梯度，optimizer.step() Adam 更新
-CUDA 扩展 — 渲染梯度的实际计算
-
-
-二、损失函数
-2.1 L1（MAE）— 绝对值
-L₁ = (1/N) Σ |yᵢ - ŷᵢ|梯度 = ±1/N（恒定，与误差大小无关）
-特点：对大小误差一视同仁，不敏感异常值（如镜面反射）。
-2.2 L2（MSE）— 平方
-L₂ = (1/N) Σ (yᵢ - ŷᵢ)²梯度 = -2(yᵢ-ŷᵢ)/N（与误差成正比）
-特点：对大误差惩罚极重（平方放大），对小误差几乎无视。一个异常像素就能绑架整个优化。
-
-
-
-误差
-L1 贡献
-L2 贡献
-
-
-
-
-0.5
-0.5
-0.25
-
-
-0.1
-0.1
-0.01
-
-
-0.02
-0.02
-0.0004
-
-
-
-2.3 SSIM — 结构相似度（三因子）
-SSIM(x,y) = l(x,y) × c(x,y) × s(x,y)            亮度      对比度     结构
-
-
-
-因子
-计算
-衡量什么
-
-
-
-
-亮度 l
-(2μₓμᵧ+C₁)/(μₓ²+μᵧ²+C₁)
-整体亮度是否一致
-
-
-对比度 c
-(2σₓσᵧ+C₂)/(σₓ²+σᵧ²+C₂)
-纹理强弱是否一致
-
-
-结构 s
-(σₓᵧ+C₃)/(σₓσᵧ+C₃)
-纹理模式是否一致
-
-
-
-SSIM 的核心洞察：不看单个像素，看局部窗口（11×11）的统计量。
-例子——整体亮度偏移：
-
-真图：平均像素 0.5。渲染：平均像素 0.6（偏亮 0.1）
-L2：每个像素 0.1² = 0.01 → 大惩罚
-SSIM：l ≈ (2×0.5×0.6)/(0.25+0.36) ≈ 0.98 → 几乎不惩罚
-
-因为人眼对整体亮度偏移不敏感，SSIM 也不敏感——这恰好是符合感知的评估方式。
-2.4 3DGS 组合损失
-L = 0.8 × L₁ + 0.2 × (1 - SSIM)     └──┬──┘    └──┬──┘   颜色主导    纹理/结构修正
-
-只用 L1 → 模糊（颜色对但纹理没了）
-只用 SSIM → 结构对但可能偏色
-组合：颜色准 + 纹理清晰 + 边缘锐利
-
-
-三、关键公式速记
-Adam:    m=β₁m+(1-β₁)g, v=β₂v+(1-β₂)g², θ-=α·m̂/(√v̂+ε)L1:      梯度=±1（恒定）L2:      梯度∝误差（大误差大梯度）SSIM:    l×c×s（亮度×对比度×结构）组合损失: 0.8·L1 + 0.2·(1-SSIM)
 ]]></content>
       <categories>
         <category>计算机图形学</category>
@@ -2326,19 +2520,6 @@ conda activate 3dgs-studycd E:\Code\GitHub\gaussian-splash\01_foundation_phase\d
       </tags>
   </entry>
   <entry>
-    <title>[本博客]博客维护指南</title>
-    <url>/2026/06/03/%E5%8D%9A%E5%AE%A2%E7%BB%B4%E6%8A%A4%E6%8C%87%E5%8D%97/</url>
-    <content><![CDATA[cd &quot;G:\Personal_information\my-blog&quot;hexo new &quot;文章标题&quot;hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy
-到 source\_posts\ 里用记事本打开 .md 文件写内容，写完跑第三条部署
-]]></content>
-      <categories>
-        <category>杂谈</category>
-      </categories>
-      <tags>
-        <tag>本博客</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[Architecture]Graduation project</title>
     <url>/2026/06/03/Architecture-Graduation-project/</url>
     <content><![CDATA[1.前期分析_场地
@@ -2366,673 +2547,553 @@ conda activate 3dgs-studycd E:\Code\GitHub\gaussian-splash\01_foundation_phase\d
       </tags>
   </entry>
   <entry>
-    <title>[3DGS]3DGS_数学基础_向量&amp;矩阵</title>
-    <url>/2026/06/03/3DGS-%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80-%E5%90%91%E9%87%8F-%E7%9F%A9%E9%98%B5/</url>
-    <content><![CDATA[向量——点积与叉积
-1 先理清：什么是向量？
-你已经会在 Python 中写 np.array([x, y, z])。但这只是向量的数据表示。向量本身到底是什么？
-向量的两种视角：
+    <title>[考研]计算机网络全书知识框架</title>
+    <url>/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[[toc]
+根据谢希仁《计算机网络》第8版内容，按分层体系结构为主线串联全书 9 章。
 
-
-
-视角
-理解
-例子
-
-
-
-
-几何
-空间中一个有方向、有长度的箭头
-从原点指向点 (2, 3, 5)
-
-
-代数
-一组有序数 (x, y, z)
-np.array([2, 3, 5])
-
-
-
-在 3DGS 中，每个高斯基元的位置 μ 就是一个 3D 向量：
-mu = np.array([1.5, 0.3, 4.2])   # 椭球中心在空间中的位置
-
-2 向量的长度（模）
-v = np.array([3, 4])norm = np.linalg.norm(v)    # = 5.0
-公式就是勾股定理：|v| = √(3² + 4²) = √(9+16) = 5
-单位向量：长度为 1 的向量，只保留方向信息：
-v = np.array([3, 4])v_hat = v / np.linalg.norm(v)# v_hat = [0.6, 0.8]# 验证：0.6² + 0.8² = 0.36 + 0.64 = 1.0 ✓
-为什么需要单位向量？ 当你想&quot;往某个方向走&quot;，你需要一个纯方向（长度 1），然后乘以步长。3DGS 中视线方向就是单位向量——只关心往哪看，不关心看多远。
-
-3 点积 —— 两个向量的&quot;对齐程度&quot;
-两个定义（数学上等价）
-代数定义：a·b = a₁b₁ + a₂b₂ + a₃b₃      ← 代码里实际算的几何定义：a·b = |a|·|b|·cos(θ)         ← 用来理解的
-等价性证明（这是理解点积的关键）
-已知：|a|, |b|, 夹角 θ
-用余弦定理：
-|c|² = |a|² + |b|² - 2|a||b|·cos(θ)     ← c = a - b
-用代数定义展开 |c|²：
-|c|² = (a-b)·(a-b)        ← 代数的点积     = a·a - a·b - b·a + b·b     = |a|² - 2(a·b) + |b|²
-对比两个表达式：
-|a|² + |b|² - 2|a||b|cos(θ)  =  |a|² - 2(a·b) + |b|²                        -2|a||b|cos(θ)  =  -2(a·b)                           |a||b|cos(θ)  =  a·b   ✓
-这个证明告诉你：点积的两种定义不是巧合，是余弦定理的必然推论。
-点积告诉你什么？
-a = np.array([3, 0])       # 指向正右方b1 = np.array([2, 1])      # 右上，夹角小b2 = np.array([0, 2])      # 正上，垂直b3 = np.array([-2, 1])     # 左上，夹角大print(np.dot(a, b1))   # 6    → 正数 = 锐角（&lt; 90°）print(np.dot(a, b2))   # 0    → 零 = 垂直（恰好 90°）print(np.dot(a, b3))   # -6   → 负数 = 钝角（&gt; 90°）
-判断规则：
-
-
-
-点积
-cos(θ)
-θ 范围
-含义
-
-
-
-
-&gt; 0
-&gt; 0
-0° ~ 90°
-大致同向
-
-
-= 0
-= 0
-恰好 90°
-垂直
-
-
-&lt; 0
-&lt; 0
-90° ~ 180°
-大致反向
-
-
-
-最重要的几何直觉：投影
-
-a 在 b 方向上的投影长度 = (a·b) / |b|
-
-a = np.array([3, 2])       # 任意方向b = np.array([3, 0])       # x 轴方向b_hat = b / np.linalg.norm(b)   # x 轴单位向量 = [1, 0]proj_len = np.dot(a, b_hat)      # = 3×1 + 2×0 = 3proj_vector = proj_len * b_hat   # = [3, 0]
-画在纸上：a=(3,2) 是一个从原点出发指到 (3,2) 的箭头。把它投影到 x 轴（即 b 的方向），投影点就是 (3,0)。投影长度 = 3 恰等于 a 在 x 轴上的分量。
-这就是投影的全部：a·b̂ 算出&quot;a 在 b 指向的方向上走了多远&quot;。
-3DGS 中怎么用点积？
-场景1：判断高斯在不在相机视野里
-相机的视线方向是 d（单位向量），从相机到高斯的向量是 v。如果 d·v &gt; 0，说明高斯在相机前方；如果 &lt; 0，在身后（扔掉不渲染）。
-场景2：球谐函数计算
-球谐函数本质是视线方向 d 和球谐基函数 Y_lm 的某种&quot;方向相似度&quot;计算，内积形式。
-
-4 叉积 —— 造出一个垂直于两个向量的新向量
-定义（仅限 3D 空间）
-a = np.array([2, 0, 0])    # x 轴方向b = np.array([0, 2, 0])    # y 轴方向c = np.cross(a, b)print(c)   # [0, 0, 4]    ← z 轴方向，垂直于 xy 平面
-手算公式（用行列式记忆）
-a × b = det( | i   j   k |             | a₁  a₂  a₃ |             | b₁  b₂  b₃ | )     = i(a₂b₃ - a₃b₂) - j(a₁b₃ - a₃b₁) + k(a₁b₂ - a₂b₁)
-一步一步算 a=(2,-1,3), b=(1,4,-2)：
-i 分量：a₂b₃ - a₃b₂ = (-1)×(-2) - 3×4 = 2 - 12 = -10j 分量：a₁b₃ - a₃b₁ = 2×(-2) - 3×1 = -4 - 3 = -7  → 前面有负号 → +7k 分量：a₁b₂ - a₂b₁ = 2×4 - (-1)×1 = 8 + 1 = 9a × b = (-10, 7, 9)
-验证：结果垂直于 a 和 b
-a = np.array([2, -1, 3])b = np.array([1, 4, -2])c = np.cross(a, b)# 验证垂直性：两个垂直向量的点积 = 0print(np.dot(c, a))   # -10×2 + 7×(-1) + 9×3 = -20-7+27 = 0 ✓print(np.dot(c, b))   # -10×1 + 7×4 + 9×(-2) = -10+28-18 = 0 ✓
-几何意义
-方向：右手定则
-右手食指 = a，中指 = b，拇指 = a×b。它永远指向 a 和 b 所在平面的法向量方向。
-大小：平行四边形面积
-|a × b| = |a|·|b|·sin(θ) = a 和 b 张成的平行四边形面积
-验证 a=(2,0,0), b=(0,2,0)：|a|×|b|×sin(90°) = 2×2×1 = 4，而 |c| = |(0,0,4)| = 4 ✓
-关键性质
-# 1. 自己叉自己 = 零向量np.cross(a, a)   # [0, 0, 0]# 2. 反交换律：a×b = -(b×a)np.allclose(np.cross(a, b), -np.cross(b, a))   # True
-3DGS 中怎么用叉积？
-计算平面法向量：建筑场景中，给定墙面上的三个点 p1, p2, p3，墙面的法向量方向 = (p2-p1) × (p3-p1)。这对于判断高斯椭球是否应该&quot;躺平&quot;贴在墙面上非常关键。
-
-5 点积 vs 叉积 — 对比总结
-           点积 a·b                    叉积 a×b           ────────                   ────────结果类型    标量（一个数）              向量（有方向有长度）计算       a₁b₁ + a₂b₂ + a₃b₃         见行列式展开几何意义   度量&quot;对齐程度&quot;              造法向量 + 算面积方向信息   cos(θ) → 同向/垂直/反向     垂直于 a 和 b（右手定则）等于零时   垂直                        平行或一个向量为零3DGS用途   视野判断、球谐投影           法向量计算
-矩阵——线性变换的语言
-板块四是今天最重要的一节。它回答一个问题：矩阵到底是什么？ 答案是：矩阵不是&quot;数字表格&quot;，它是空间变形操作的编码。
-
-1 从已知的概念出发
-你现在是 Python 水平。一个 2×2 矩阵在代码里长这样：
-A = np.array([[a, b],              [c, d]])
-这是数据的表示。但它的几何含义是什么？
-把矩阵 A 作用于向量 v：
-v = np.array([x, y])result = A @ v       # 结果是一个新向量
-A @ v 的效果：把 v 从原来的位置&quot;搬运&quot;到新位置。搬运的规则由矩阵 A 定义。
-A 是一台&quot;空间变形机&quot;：输入任意向量 → 输出被变形后的向量。
-
-2 矩阵的每一列 = 基向量变换后的位置——这是理解矩阵最重要的直觉
-什么是基向量？
-在 2D 空间中，有两个&quot;标准方向&quot;：
-e1 = np.array([1, 0])    # x 轴方向的单位向量e2 = np.array([0, 1])    # y 轴方向的单位向量
-任意向量都可以用这两个基向量表示：
-v = np.array([3, 2])# 等价于：v = 3 * e1 + 2 * e2#            = 3 * [1,0] + 2 * [0,1]#            = [3, 2]
-关键定理
-
-矩阵 A 的每一列，是原来基向量经过 A 变换后的新位置。
-
-A = [[a, b],     [c, d]]第一列 (a, c) = e₁=(1,0) 变换后去了哪里第二列 (b, d) = e₂=(0,1) 变换后去了哪里
-验证：为什么这个定理是对的？
-A = np.array([[a, b],              [c, d]])# e₁ = [1, 0]，作用 A：A @ np.array([1, 0])# = [[a, b],    @ [1,#    [c, d]]       0]# = [a×1 + b×0, c×1 + d×0]# = [a, c]            ← 正好是第一列！# e₂ = [0, 1]，作用 A：A @ np.array([0, 1])# = [a×0 + b×1, c×0 + d×1]# = [b, d]            ← 正好是第二列！
-任何向量 v = v₁e₁ + v₂e₂ 变换后：
-A @ v = A @ (v₁e₁ + v₂e₂)      = v₁·(A@e₁) + v₂·(A@e₂)      = v₁·(第一列) + v₂·(第二列)
-这就是线性变换的全部：你只需要知道基向量 e₁ 和 e₂ 被搬到了哪里，就能推知任意向量被搬到了哪里。
-
-3 六种基本变换——对照 demo_01 理解
-demo_01 的 demo_matrix_as_transform() 函数展示了六种矩阵对单位正方形的影响。单位正方形 [0,0]→[1,0]→[1,1]→[0,1] 是观察变换的标准参考物。
-变换1：单位矩阵——不变
-I = np.array([[1, 0],              [0, 1]])# 第一列 = (1,0) = e₁ 原位不动# 第二列 = (0,1) = e₂ 原位不动
-正方形纹丝不动。就像乘以 1。
-变换2：水平拉伸 ×2
-A = np.array([[2, 0],              [0, 1]])# 第一列 = (2,0) → e₁ 被水平拉到原来 2 倍# 第二列 = (0,1) → e₂ 不变
-效果：正方形在 x 方向被拉成原来的 2 倍宽度。det(A) = 2×1 = 2，面积变为原来的 2 倍。
-变换3：垂直拉伸 ×2
-A = np.array([[1, 0],              [0, 2]])# 第一列 = (1,0) → e₁ 不变# 第二列 = (0,2) → e₂ 被垂直拉到 2 倍
-效果：正方形在 y 方向变高。det = 2。
-变换4：旋转 90°（逆时针）
-theta = np.radians(90)A = np.array([[0, -1],              [1,  0]])# cos90°=0, sin90°=1 代入旋转矩阵公式# 第一列 = (0, 1)    → e₁ 从指向右变成指向上# 第二列 = (-1, 0)   → e₂ 从指向上变成指向左
-效果：整个正方形绕原点转了 90°。det = 0×0 - (-1)×1 = 1，旋转不改变面积。
-通用旋转矩阵公式：
-theta = np.radians(angle)R = np.array([[np.cos(theta), -np.sin(theta)],              [np.sin(theta),  np.cos(theta)]])
-变换5：水平剪切
-A = np.array([[1, 0.5],              [0, 1  ]])# 第一列 = (1, 0) → e₁ 不变# 第二列 = (0.5, 1) → e₂ 向右倾斜！
-效果：正方形变成平行四边形——顶边向右偏了 0.5。注意：det = 1×1 - 0.5×0 = 1，剪切不改变面积！
-变换6：复合变换
-A = np.array([[2, 0.5],              [0.3, 1.5]])# 同时包含拉伸 + 剪切 + 旋转
-det = 2×1.5 - 0.5×0.3 = 3 - 0.15 = 2.85，面积扩大了 2.85 倍。
-整个 3DGS 的线性代数基础可以浓缩为一条变换链：
-向量 v ──[ R @ S ]──→ 旋转+缩放后的向量             │     R = 旋转矩阵（四元数转换而来）     S = 对角缩放矩阵（diag(s₁, s₂, s₃)）             │协方差 Σ = (R·S) @ (R·S)ᵀ         = R @ S @ Sᵀ @ Rᵀ
-这条链上的每一步都对应今天学的一个 numpy 操作：
-s = np.array([2.0, 0.5, 1.0])                   # 缩放向量S = np.diag(s)                                    # 缩放矩阵（板块二 diag）theta = np.radians(45)                            # 角度→弧度（板块二 radians）R = np.array([[np.cos(theta), -np.sin(theta), 0], # 旋转矩阵              [np.sin(theta),  np.cos(theta), 0],              [0,              0,             1]])M = R @ S                                         # 复合变换（板块一 @）Sigma = M @ M.T                                   # 协方差矩阵（板块一 @ + .T）eigenvalues, Q = np.linalg.eigh(Sigma)             # 验证正定性（板块一 eigh）print(eigenvalues)   # 应全为正 → [4. 0.25 1.] 对应 (sx², sy², sz²)
-]]></content>
-      <categories>
-        <category>计算机图形学</category>
-      </categories>
-      <tags>
-        <tag>3DGS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[慢漫聊]再见——苏科大，你好——...</title>
-    <url>/2026/06/18/%E6%85%A2%E6%BC%AB%E8%81%8A-%E5%86%8D%E8%A7%81%E2%80%94%E2%80%94%E8%8B%8F%E7%A7%91%E5%A4%A7%EF%BC%8C%E4%BD%A0%E5%A5%BD%E2%80%94%E2%80%94/</url>
-    <content><![CDATA[
-“In the end, we are but collectors of fragmented light, rendering a past that we can no longer return to.”
-
-过去的光影总像一场未完的重构。
-纵使拼劲全力，也只是将无数碎散的光斑勉强拟合，在虚无中拼凑出微茫的轮廓；而更多真实的存在，终究在一次次的剔除中被算法裁剪、淡去。在管线与矩阵里奔波，早已无暇再去提笔画那些曾经的立面与剖面——此刻暗下来的屏幕上，那束被反复计算、折腾了许久的手工光源，终于在虚拟的空间里微微亮起，它应该不是特地来安慰我的吧。
-但从指尖触碰的砖石，到虚无缥缈的坐标系，那个转折点早已将过去推得极远。
-我无法假装还能记起画硫酸纸时的笃定，所以只能站在黑色的终端前，看着光线折射，安静回望。
-
-择路
-校园的那栋旧专教，水汽终年不散。
-在那些被铅笔灰和硫酸纸填满的日子里，我曾以为自己的一生都会与重力妥协。泥土、砖石、钢筋，这些承载着实体重量的物质，曾是我试图用来对抗虚无的所有凭借。然而，在那些为了绘制立面图而熬过的一千个深夜里，当窗外城市的灯火在雾气中晕染开来，我脑海中浮现的却并非某种坚固的宏伟，而是那些光影背后的隐形脉络——那些无法被物理尺度度量、却又真实存在的某种无形结构。
-于是，在临近终点的时候，我决定折返，走向另一片没有重力的旷野。
-我想用一行行代码，在不占用一寸土地的虚拟维度里，重新建起我心中的塔。为此，我收起尺规，将习惯于解构美学的大脑强行扭转为由离散数学和数据结构组成的精密齿轮。那一整年，伴随我的只有屏幕冷色的光和机械键盘单调的敲击声。我天真地以为，只要将逻辑推演到极致，就能在年底的那张试卷上，平整地铺开我人生的第二张蓝图。
-
-崩塌
-然而，系统底层的规则，从来不以个人的意志为转移。
-初试的成绩公布，我原以为自己终于站在了那座大厦的门槛前。可几乎是在一夜之间，那个原本笃定的入口，因为冰冷政策的调整，只留下一道勉强透出微光的、极其狭窄的缝隙。
-在这个庞大而突然的宏观变动面前，个人的所有挣扎与孤注一掷，都被无情地过滤、舍弃。无缘复试。这四个字像是一个在计算中无法被修复的致命溢出错误，直接宣告了我那一整年努力的失效。
-那种感觉，就像是耗尽心血、推演了无数遍力学荷载的设计，在即将封顶的一刻，遭遇了地基的无声陷落。你甚至找不到一个可以去质问、去妥协的实体，只能眼睁睁看着那些关于未来的构想，在虚空中碎成无数无法重组的像素。我站在空无一人的走廊里，看着窗外依旧流淌的河水，第一次感知到时代洪流的冰冷与荒诞。在数据的庞大筛选中，我那充满温度的挣扎，甚至未能在这个系统里留下一声轻微的报错。
-
-重构
-毕业的钟声已经隐隐作响，而我，正站在自己亲手造成的这场废墟之上。
-可也正是在这片没有任何退路的废墟里，我反倒获得了一种前所未有的自由。我开始明白，这并不意味着我无法亲手构筑那个属于我自己的虚拟世界。
-我将目光投向了那些能将空间感知与数字逻辑完美交织的领域。
-我不再去理会那些带有筛选目的的考核指标，而是关掉所有嘈杂的声音，沉浸在底层的渲染管线中。在黑底的窗口里，我从最基础的点、线、面开始，亲手去推算一束光在虚拟材质上的折射与漫反射；我尝试着将千万个碎散在虚空中的模糊光斑重新聚拢，在嘈杂的噪声里，去拟合、去复原一个曾经消逝的、带有温度的场景。
-这个在算法中重建空间的过程，何尝不是在重新拟合我自己？
-看着那些原本杂乱无章的散点，在一次次算法的迭代中，逐渐靠拢、凝聚，最终在屏幕上渲染出逼真而深邃的光影，我突然感到了一阵释怀。那些失败的经历，何尝不是这些散落在各处的嘈杂点云？
-而我此刻键盘上敲下的每一行指令，就是那最底层的优化算法，它们正在将我破碎的过去，慢慢重塑成一个更加完整、更具厚度的形体。
-
-远行
-今天，我终于拿到了那张用五年时间换来的毕业证书。
-窗外，运河的水汽依旧如初。我的行李箱里，装着的是曾经在这里生活的证明；而我的电脑硬盘里，则运行着由自己亲手编写的底层光源和无数个在虚拟中重塑的场景。我无法假装这次失败从未发生，那些在深夜里被冷风吹醒的无助、那些在代码报错前的绝望，都已如同刻痕一般，留在了我这个主体的底层。
-但这并不是一个结束。
-相反，我感到了一种从未有过的辽阔。没有了考纲的桎梏，没有了名额的焦虑，我终于可以以一个纯粹建造者的姿态，在无边无际的图形世界里，去构筑我所理解的、超越重力的美。
-那些未能接纳我的大门，反而逼迫我走向了更广阔的荒野。
-此去经年，风尘仆仆，我将不再寻找某种既定的庇护所。因为我知道，在代码与光影的无限坐标系里，任何一个我所站立的此刻，皆是我的殿堂。
-未来的某日某天，也许我将如愿进入梦想的院校发挥热情。虽然此时此刻舍不得这片庇护了我五年执拗与失意的苏科大，但在明年的寒冬里，我仍会带着这不熄的光，重新走向那场属于我的、未完的远征。
-于 2026.6.18 凌晨
-GodY
-苏州科技大学江枫校区
-附图：
-
-]]></content>
-      <categories>
-        <category>杂谈</category>
-      </categories>
-      <tags>
-        <tag>慢漫聊</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[校园杂谈] 苏州科技大学（江枫）宿舍夜晚设施升级</title>
-    <url>/2026/06/18/%E6%A0%A1%E5%9B%AD%E6%9D%82%E8%B0%88-%E8%8B%8F%E5%B7%9E%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%EF%BC%88%E6%B1%9F%E6%9E%AB%EF%BC%89%E5%AE%BF%E8%88%8D%E5%A4%9C%E6%99%9A%E8%AE%BE%E6%96%BD%E5%8D%87%E7%BA%A7/</url>
-    <content><![CDATA[写在前面
-
-本文章来自几年来朋友同学的实践所得，且仅限于江枫校区，仅供个人学习使用，任何不合理使用与本文无关。
-
-
-关于夜晚用电详情
-学校为了各位同学的身体健康着想，制定了合理的作息时间，但作为建筑学专业的一名学生（且拥有拖延症）深知正图周时间的紧迫。
-为了各位同学熬夜加班绘制图纸，或有其他学习需要使用点与校园网，本文发布一份有关于夜晚用电操作指南：
-1.预备
-我们将正常到点断电简称为：自然断电；
-我们将电费用尽断电简称为：归零断电；
-我们将一天中可以在系统中充值电费的时间称为：可充时段；
-2.操作流程
-
-卡电流程：在自然断电后保持归零断电15min，再次充值电费可恢复夜晚供电（包括灯光，插座，校园网）
-
-
-首先，在自然断电前先归零断电（电费用尽）。断电后需要耐心等待，例如：周日至周四23:03熄灯自然断电，需要在此之前先将电费用尽。
-接着，等待15mins后在校园一卡通平台为宿舍购电，1-5mins内将恢复供电。例如：周日至周四23:03熄灯自然断电，从该时刻延长至少15mins（可以更久）充电费。
-
-当然，实际卡电也没那么多限制条件。接下来介绍一下“原理”：
-前文提到了可充时段：除去凌晨十二点到一点半的所有时间段均可以在系统中充电费；
-实际上，只需要在自然断电后让电费是用尽的，此时充电都可以恢复供电；
-若自然断电**，而宿舍的电费还没用完，其实大可以等待电费用完，然后在可充时段充值电费即可。
-例如：周一晚自然断电后电费还没用尽，此时你们打开空调，迅速用掉剩余电费。在23:20-00：30或1:30-6:00充值电费，那么你们的供电就回来了。
-3.注意事项
-
-上文提到了，如何判断电费用尽？看空调是否停止即可。空调停了代表宿舍没电（系统中显示的电量有延迟，有时候显示2.几也会断电，有时候显示0.几也不会断电）
-如何控制电费呢？据测试，夏天开启空调1h用掉0.5元电费。冬天将会更多一点。为了每天都可以用电“学习”则需要精准卡好每日充电的量。根据经验，充值3元可供夜晚开空调至第二天中午，充值5元可供差不多晚上8-10点。如果在很尴尬的时间点归零断电，例如10点，可以充值0.5不开空调，或者0.3等等。
-网络一般比电晚1-2mins来（因为通电后后台需要重启对应路由器）。
-操作如上，细节也已经讲明白，关键点在于何时用尽电费以及何时充值电费。多实践几次就能熟练应用。
-
-再次声明
-学校的断电机制很合理，保护了学生们的正常作息和身体健康，本文只为好学者以及临时需要电量供应的同学准备，以备不时之需。
-]]></content>
-      <categories>
-        <category>杂谈</category>
-      </categories>
-      <tags>
-        <tag>校园杂谈</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[考研]计算机组成原理的层级结构</title>
-    <url>/2026/06/26/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E7%9A%84%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[计算机组成原理的层级结构
-从应用到底层晶体管的完整层次梳理清楚。
-
-📊 全貌总览：7 层抽象层级
-flowchart TD
-    subgraph L0[&quot;第0层：应用/算法层&quot;]
-        A[&quot;你写的C代码&lt;br/&gt;（排序算法、操作系统等）&quot;]
-    end
-
-    subgraph L1[&quot;第1层：高级语言 / 操作系统&quot;]
-        B[&quot;编译器翻译成&lt;br/&gt;汇编/机器指令&quot;]
-        B2[&quot;操作系统提供&lt;br/&gt;系统调用接口&quot;]
-    end
-
-    subgraph L2[&quot;第2层：指令系统（ISA）&quot;]
-        C[&quot;指令集体系结构&lt;br/&gt;ADD, LW, SW, BEQ…&lt;br/&gt;—— 软硬件分界线&quot;]
-    end
-
-    subgraph L3[&quot;第3层：微架构&quot;]
-        D1[&quot;流水线设计&lt;br/&gt;（IF/ID/EX/MEM/WB）&quot;]
-        D2[&quot;控制器&lt;br/&gt;（硬连线/微程序）&quot;]
-        D3[&quot;数据通路&lt;br/&gt;（ALU/寄存器堆/总线）&quot;]
-        D4[&quot;超标量/乱序执行&quot;]
-    end
-
-    subgraph L4[&quot;第4层：数字逻辑电路&quot;]
-        E1[&quot;组合逻辑&lt;br/&gt;（加法器/译码器/多路选择器）&quot;]
-        E2[&quot;时序逻辑&lt;br/&gt;（寄存器/计数器/状态机）&quot;]
-        E3[&quot;时钟同步&quot;]
-    end
-
-    subgraph L5[&quot;第5层：晶体管/门电路&quot;]
-        F[&quot;CMOS 与非门、或非门&lt;br/&gt;触发器、锁存器&quot;]
-    end
-
-    subgraph L6[&quot;第6层：物理层&quot;]
-        G[&quot;硅半导体物理&lt;br/&gt;芯片制造工艺&quot;]
-    end
-
-    A --&gt; B --&gt; C
-    C --&gt; D1 &amp; D2 &amp; D3 &amp; D4
-    D1 &amp; D2 &amp; D3 &amp; D4 --&gt; E1 &amp; E2 &amp; E3
-    E1 &amp; E2 &amp; E3 --&gt; F
-    F --&gt; G
-
-    style C fill:#F44336,color:#fff,stroke-width:3px
-    style L2 fill:#F44336,color:#fff
-
-
-核心分界线：软硬件分界 = ISA
-这是计组中最重要的一条线，没有之一。
+一、核心骨架：两种分层体系
+教材第1章（1.5节）给出了两种参考模型，这是理解全书的总纲：
 flowchart LR
-    subgraph Software[&quot;软件范畴（程序员可见）&quot;]
-        SW1[&quot;应用软件&quot;]
-        SW2[&quot;操作系统&quot;]
-        SW3[&quot;编译器&quot;]
+    subgraph OSI[&quot;OSI 七层模型&lt;br/&gt;（教材1.5.2节）&quot;]
+        O7[&quot;7 应用层&quot;]
+        O6[&quot;6 表示层&quot;]
+        O5[&quot;5 会话层&quot;]
+        O4[&quot;4 传输层&quot;]
+        O3[&quot;3 网络层&quot;]
+        O2[&quot;2 数据链路层&quot;]
+        O1[&quot;1 物理层&quot;]
     end
 
-    subgraph ISA_Layer[&quot;软硬件分界线 === ISA&quot;]
-        ISA_Content[&quot;指令格式 / 寻址方式 / 寄存器&lt;br/&gt;异常处理 / 中断机制&quot;]
+    subgraph TCP_IP[&quot;TCP/IP 四层模型&lt;br/&gt;（教材1.5.3节）&quot;]
+        T4[&quot;应用层&lt;br/&gt;HTTP/DNS/SMTP&quot;]
+        T3[&quot;传输层&lt;br/&gt;TCP/UDP&quot;]
+        T2[&quot;网际层&lt;br/&gt;IP/ICMP/路由协议&quot;]
+        T1[&quot;网络接口层&lt;br/&gt;以太网/WiFi&quot;]
     end
 
-    subgraph Hardware[&quot;硬件范畴（对程序员透明）&quot;]
-        HW1[&quot;流水线&quot;]
-        HW2[&quot;Cache 具体实现&quot;]
-        HW3[&quot;超标量/乱序&quot;]
-        HW4[&quot;乘除法器实现&quot;]
-        HW5[&quot;总线协议&quot;]
+    subgraph Five[&quot;五层教学模型&lt;br/&gt;（教材采用）&quot;]
+        F5[&quot;第5层 应用层&lt;br/&gt;第6章&quot;]
+        F4[&quot;第4层 传输层&lt;br/&gt;第5章&quot;]
+        F3[&quot;第3层 网络层&lt;br/&gt;第4章&quot;]
+        F2[&quot;第2层 数据链路层&lt;br/&gt;第3章&quot;]
+        F1[&quot;第1层 物理层&lt;br/&gt;第2章&quot;]
     end
 
-    Software --&gt; ISA_Layer
-    ISA_Layer --&gt; Hardware
+    OSI --&gt; Five --&gt; TCP_IP
 
-    style ISA_Layer fill:#F44336,color:#fff,stroke-width:3px
+    style Five fill:#F44336,color:#fff,stroke-width:3px
 
 
-
-
-侧
-包含
-谁关心
-
-
-
-
-软件侧（ISA 以上）
-高级语言、汇编、OS
-程序员、编译器编写者
-
-
-硬件侧（ISA 以下）
-微架构、逻辑电路、晶体管
-硬件工程师
-
-
-
-
-各层详解与 408 考点
-第2层：ISA（指令系统）🔥🔥🔥
-408 核心考点：
-
-
-
-知识点
-考察形式
-
-
-
-
-MIPS / RISC-V 指令格式
-R-type、I-type、S-type 的二进制划分
-
-
-寻址方式
-立即数/基址/PC相对/寄存器直接/寄存器间接
-
-
-数据通路对应的指令
-每条指令在数据通路上怎么走
-
-
-控制器信号
-哪些控制信号在哪个阶段有效
-
-
-
-关键理解：
-
-ISA = 计算机的&quot;机器语言词典&quot;
-它规定了 CPU 能理解的所有&quot;单词&quot;（指令）和&quot;语法&quot;（格式）
-它是硬件设计者必须实现、软件编写者必须遵守的契约
-
-
-第3层：微架构（Microarchitecture）🔥🔥🔥
-408 核心考点：
-
-
-
-知识点
-考察形式
-
-
-
-
-单周期 CPU
-一条指令一个时钟周期，CPI=1，但时钟频率低
-
-
-多周期 CPU
-一条指令多个时钟周期，共享硬件资源
-
-
-流水线 CPU
-5 级经典流水线（IF/ID/EX/MEM/WB），CPI≈1
-
-
-数据冒险
-RAW 冒险的解决：转发（forwarding）+ 插入气泡
-
-
-控制冒险
-分支预测、延迟槽
-
-
-结构冒险
-硬件资源冲突
-
-
-
-三层 CPU 设计的对比：
-flowchart LR
-    subgraph Single[&quot;单周期&quot;]
-        S0[&quot;取指&quot;] --&gt; S1[&quot;执行&quot;]
-        S1 --&gt; S2[&quot;写回&quot;]
-        S2 --&gt; S0
-        S_note[&quot;CPI = 1&lt;br/&gt;但时钟周期长&lt;br/&gt;= 最慢指令的耗时&quot;]
-    end
-
-    subgraph Multi[&quot;多周期&quot;]
-        M0[&quot;取指&quot;] --&gt; M1[&quot;译码&quot;]
-        M1 --&gt; M2[&quot;执行&quot;]
-        M2 --&gt; M3[&quot;访存&quot;]
-        M3 --&gt; M4[&quot;写回&quot;]
-        M4 --&gt; M0
-        M_note[&quot;CPI = 3~5&lt;br/&gt;时钟周期短&lt;br/&gt;不同指令不同周期数&quot;]
-    end
-
-    subgraph Pipeline[&quot;流水线&quot;]
-        P0[&quot;取指&quot;] --&gt; P1[&quot;译码&quot;] --&gt; P2[&quot;执行&quot;] --&gt; P3[&quot;访存&quot;] --&gt; P4[&quot;写回&quot;]
-        P_note[&quot;CPI ≈ 1（理想）&lt;br/&gt;吞吐率高&lt;br/&gt;但有冒险问题&quot;]
-    end
-
-    Single -.- Multi -.- Pipeline
-
-
-第4层：数字逻辑电路
-408 核心考点：
-
-
-
-知识点
-考察形式
-
-
-
-
-加法器
-串行进位、先行进位（CLA）的区别，计算时间
-
-
-多路选择器（MUX）
-数据通路中选择信号来源
-
-
-译码器
-指令译码、地址译码
-
-
-寄存器
-边沿触发、建立时间/保持时间
-
-
-状态机
-控制器的实现方式（硬连线 vs 微程序）
-
-
-
-这层是&quot;如何用电路实现微架构&quot;的问题。
-
-各层之间的’翻译’过程
-一个 a = b + c 到了计算机里是怎么变成物理信号的？
+二、数据在层间的流动
+教材P13 图1.13 是全书最核心的图之一，展示了数据在各层之间的封装与解封装过程：
 flowchart TD
-    subgraph Step1[&quot;① C 代码层&quot;]
-        T1[&quot;a = b + c;&quot;]
+    subgraph 发送方[&quot;发送方&quot;]
+        S5[&quot;应用层：生成数据&lt;br/&gt;例：HTTP GET 请求&quot;]
+        S4[&quot;传输层：加TCP/UDP首部&lt;br/&gt;形成报文段（Segment）&quot;]
+        S3[&quot;网络层：加IP首部&lt;br/&gt;形成数据报（Datagram）&quot;]
+        S2[&quot;数据链路层：加帧头帧尾&lt;br/&gt;形成帧（Frame）&quot;]
+        S1[&quot;物理层：变成比特流&lt;br/&gt;在介质上传输&quot;]
     end
 
-    subgraph Step2[&quot;② 编译 — ISA 层&quot;]
-        T2[&quot;ADD R1, R2, R3&lt;br/&gt;（R1 = R2 + R3）&quot;]
+    subgraph 接收方[&quot;接收方&quot;]
+        R1[&quot;物理层：接收比特流&quot;]
+        R2[&quot;数据链路层：检错，解出IP数据报&quot;]
+        R3[&quot;网络层：提取路由信息，解出TCP报文段&quot;]
+        R4[&quot;传输层：重组数据，解出HTTP请求&quot;]
+        R5[&quot;应用层：交给HTTP服务器处理&quot;]
     end
 
-    subgraph Step3[&quot;③ 数据通路 — 微架构层&quot;]
-        T3_a[&quot;控制信号：&lt;br/&gt;RegWrite=1, ALUSrc=0,&lt;br/&gt;ALUSignal=ADD&quot;]
-        T3_b[&quot;数据流：&lt;br/&gt;Reg[242] → ALU_A&lt;br/&gt;Reg[243] → ALU_B&lt;br/&gt;Reg[241] ← ALU_Out&quot;]
-    end
+    发送方 --&gt; 传输介质 --&gt; 接收方
 
-    subgraph Step4[&quot;④ 逻辑门层&quot;]
-        T4_a[&quot;加法器进位传递&quot;]
-        T4_b[&quot;MUX 选择信号&quot;]
-        T4_c[&quot;寄存器读/写使能&quot;]
-    end
+    S5 -. &quot;data&quot; .-&gt; S4 -. &quot;TCP-header + data&quot; .-&gt; S3
+    S3 -. &quot;IP-header + TCP-header + data&quot; .-&gt; S2
+    S2 -. &quot;帧头+IP数据报+帧尾&quot; .-&gt; S1
+    R1 -.-&gt; R2 -.-&gt; R3 -.-&gt; R4 -.-&gt; R5
 
-    subgraph Step5[&quot;⑤ 晶体管 → 物理&quot;]
-        T5[&quot;MOS 管导通/截止&lt;br/&gt;电流充放电 → 保存结果&quot;]
-    end
+封装的关键：每层在数据前加上自己的首部（Header），逐层包裹。教材P13：
 
-    T1 --&gt; Step2
-    Step2 --&gt; Step3
-    Step3 --&gt; Step4
-    Step4 --&gt; Step5
-
-    style T1 fill:#4CAF50,color:#fff
-    style T2 fill:#F44336,color:#fff
-    style T3_a fill:#2196F3,color:#fff
-    style T3_b fill:#2196F3,color:#fff
-    style T4_a fill:#FF9800,color:#fff
-    style T4_b fill:#FF9800,color:#fff
-    style T4_c fill:#FF9800,color:#fff
-    style T5 fill:#9E9E9E,color:#fff
+“数据在传输过程中，每层都要加上本层的协议控制信息，构成新的数据单元，交给下一层。”
 
 
-层与层的实际对应关系（408 高频题）
-CPU 设计的三步演进
-层次之间的关系在 CPU 设计中体现得最清楚：
-指令系统（ISA）——你要实现什么指令    ↓ 设计翻译控制器（状态机）+ 数据通路（运算器+寄存器）    ↓ 实现时序逻辑 + 组合逻辑（数字电路）    ↓ 制造CMOS 晶体管（半导体物理）
-控制器设计的两种方式
-
-
-
-方式
-本质
-对应的层
-
-
-
-
-硬连线控制器
-用组合逻辑+状态机直接生成控制信号
-第4层（数字逻辑）
-
-
-微程序控制器
-用 ROM 存储微指令，逐条执行微指令
-第3-4层之间（微程序本身就是&quot;微架构的软件&quot;）
-
-
-
-408 易错点 ⚠️：
-
-微程序控制器中的微指令 ≠ 机器指令
-微指令是硬件设计者定义的，对程序员透明
-一条机器指令 = 一段微程序的执行
-
-
-408 高频真题方向
-题型1：判断某个特性属于哪一层
-例题：“时钟周期长度（100MHz vs 3GHz）属于哪个层级的设计范畴？”
-答案：微架构层（第3层）和数字逻辑层（第4层）的交界。时钟频率由电路延时决定，属于物理实现。
-题型2：层次与透明性
-
-408 必考概念：透明（Transparent）
-
-
-
-
-概念
-对谁透明
-属于哪层
-
-
-
-
-流水线
-对程序员透明
-第3层 → 第2层以下
-
-
-Cache
-对程序员透明
-第3层
-
-
-虚拟地址
-对应用程序员透明
-第2层
-
-
-寄存器编号
-对程序员不透明
-第2层（ISA规定）
-
-
-
-题型3：综合应用题
-408 的大题经常跨层考查同一个概念。比如：
-题：给出 MIPS 指令 ADD R1, R2, R3    (1) 写出指令格式 → 第2层（ISA）    (2) 画出数据通路中该指令的路径 → 第3层（微架构）    (3) 分析关键路径延时 → 第4层（数字逻辑）    (4) 若采用流水线，可能有什么冒险 → 第3层（微架构）
-
-各层之间的关系总结
+三、各层总览
 mindmap
-  root((计算机组成&lt;br/&gt;层级结构))
-    应用软件
-      算法设计
-      高级语言编程
-    操作系统
-      进程/线程
-      虚拟内存
-      文件系统
-    ISA_指令系统
-      指令格式
-      寻址方式
-      寄存器定义
-      异常中断
-      软硬件分界线
-    微架构
-      数据通路
-      控制器
-      流水线
-      冒险与转发
-      超标量
-    数字逻辑
-      组合逻辑
-      时序逻辑
-      时钟同步
-    晶体管物理
-      CMOS
-      门电路
-      半导体制造
+  root((计算机网络&lt;br/&gt;谢希仁第8版))
+    第1章_概述
+      计算机网络定义
+      电路交换_报文交换_分组交换
+      分层体系结构_OSI_TCP/IP
+      性能指标_速率_带宽_吞吐量
+    第2章_物理层
+      信号_码元_数据率
+      传输介质_双绞线_光纤
+      信道复用_FDM_TDM_WDM_CDM
+      宽带接入_ADSL_FTTH
+    第3章_数据链路层
+      组帧_字节填充_零比特填充
+      差错控制_CRC_海明码
+      流量控制_GBN_SR
+      CSMA_CD_以太网_交换机
+      PPP_协议_VLAN
+    第4章_网络层
+      IP协议_IPv4地址_分类
+      子网划分_CIDR
+      ICMP_ping_traceroute
+      路由协议_RIP_OSPF_BGP
+      IPv6_DHCP_NAT
+    第5章_传输层
+      UDP_用户数据报协议
+      TCP_可靠传输_滑动窗口
+      流量控制_拥塞控制
+      三次握手_四次挥手
+    第6章_应用层
+      DNS_域名解析
+      FTP_电子邮件
+      WWW_HTTP_HTTPS
+    第7章_网络安全
+      对称加密_DES_AES
+      非对称加密_RSA
+      数字签名_CA证书
+      SSL_TLS_防火墙
+    第8章_多媒体_无线
+      VoIP_流媒体_QoS
+      无线局域网_WiFi
+    第9章_移动网络
+      4G_5G_移动IP
 
-记忆口诀
-七层结构一条线，ISA 是分界线往上软件往下硬，各管各的别越界编译把代码变指令，微架构把指令变信号数字电路把信号变电平，晶体管把电平变电流软硬件分界最核心，408 最爱考区分透明与否记清楚，过关斩将拿高分
-这个层级框架是理解整个计组的&quot;思维导图&quot;。每学一个具体知识点，先问自己：这属于哪一层？这一层和相邻层怎么连接？ 学到最后你就会发现所有知识点都是串起来的。
+
+四、按层展开详细框架
+第1章 概述（P1-30）—— 全书总纲
+flowchart TD
+    subgraph 概述[&quot;第1章 概述&quot;]
+        A[&quot;计算机网络定义&quot;] --&gt; B[&quot;功能：数据通信+资源共享&quot;]
+        A --&gt; C[&quot;分类：WAN/MAN/LAN/PAN&quot;]
+        
+        D[&quot;三种交换方式&quot;] --&gt; D1[&quot;电路交换&lt;br/&gt;建立连接→通话→释放&lt;br/&gt;电话网&quot;]
+        D --&gt; D2[&quot;报文交换&lt;br/&gt;存储转发&lt;br/&gt;电报&quot;]
+        D --&gt; D3[&quot;分组交换&lt;br/&gt;存储转发+分组&lt;br/&gt;✅ 计算机网络主流&quot;]
+        
+        E[&quot;分层体系&quot;] --&gt; E1[&quot;OSI七层&lt;br/&gt;法定标准&quot;]
+        E --&gt; E2[&quot;TCP/IP四层&lt;br/&gt;事实标准&quot;]
+        E --&gt; E3[&quot;五层教学模型&lt;br/&gt;教材采用&quot;]
+        
+        F[&quot;性能指标&quot;] --&gt; F1[&quot;速率(b/s)&quot;]
+        F --&gt; F2[&quot;带宽&quot;]
+        F --&gt; F3[&quot;吞吐量&quot;]
+        F --&gt; F4[&quot;时延=发送+传播+处理+排队&quot;]
+        F --&gt; F5[&quot;RTT 往返时间&quot;]
+    end
+
+    style D3 fill:#4CAF50,color:#fff
+    style E3 fill:#F44336,color:#fff
+
+
+第2章 物理层（P31-50）
+核心问题：怎样在传输介质上传输比特？
+
+
+
+知识点
+关键内容
+408频率
+
+
+
+
+信号分类
+模拟信号/数字信号
+⭐
+
+
+码元
+一个固定时长的信号波形
+⭐⭐
+
+
+奈氏准则
+无噪声下码元传输率 ≤ 2W（带宽）
+⭐⭐⭐
+
+
+香农公式
+有噪声下速率上限 = W log₂(1+S/N)
+⭐⭐⭐
+
+
+传输介质
+双绞线/同轴/光纤/无线
+⭐
+
+
+信道复用
+FDM/TDM/WDM/CDM
+⭐⭐
+
+
+宽带接入
+ADSL/FTTH/HFC
+⭐
+
+
+
+
+第3章 数据链路层（P51-100）⭐⭐⭐
+flowchart TD
+    subgraph DL[&quot;第3章 数据链路层&quot;]
+        Basic[&quot;基本功能&lt;br/&gt;组帧 + 差错控制 + 流量控制&quot;]
+        
+        Frames[&quot;组帧方法&quot;] --&gt; FC[&quot;字符计数法&quot;]
+        Frames --&gt; FB[&quot;字节填充法&lt;br/&gt;PPP: 7D 5E&quot;]
+        Frames --&gt; FZ[&quot;零比特填充法&lt;br/&gt;HDLC: 0111110&quot;]
+        Frames --&gt; FV[&quot;违规编码法&quot;]
+        
+        Error[&quot;差错控制&quot;] --&gt; CRC[&quot;CRC循环冗余校验&quot;]
+        Error --&gt; Hamming[&quot;海明码&lt;br/&gt;能纠1位错&quot;]
+        
+        Flow[&quot;流量控制&quot;] --&gt; SW[&quot;停止-等待&lt;br/&gt;信道利用率低&quot;]
+        Flow --&gt; GBN[&quot;后退N帧 GBN&lt;br/&gt;累计确认&quot;]
+        Flow --&gt; SR[&quot;选择重传 SR&lt;br/&gt;只重传出错帧&quot;]
+        
+        Media[&quot;介质访问&quot;] --&gt; CSMACD[&quot;CSMA/CD&lt;br/&gt;以太网&lt;br/&gt;半双工：先听后发，边发边听&quot;]
+        Media --&gt; CSMACA[&quot;CSMA/CA&lt;br/&gt;无线局域网&quot;]
+        
+        Ethernet[&quot;以太网&quot;] --&gt; MAC[&quot;MAC地址 48位&quot;]
+        Ethernet --&gt; Switch[&quot;交换机&lt;br/&gt;自学习+转发&quot;]
+        Ethernet --&gt; VLAN[&quot;VLAN 虚拟局域网&quot;]
+        
+        PPP[&quot;PPP协议&quot;] --&gt; PP[&quot;点对点&lt;br/&gt;字节填充实现透明传输&quot;]
+    end
+
+    style CSMACD fill:#FF9800,color:#fff
+    style CRC fill:#2196F3,color:#fff
+    style GBN fill:#4CAF50,color:#fff
+    style SR fill:#4CAF50,color:#fff
+
+
+第4章 网络层（P101-170）⭐⭐⭐
+核心：IP协议 + 路由选择，这是408分值最高的一章。
+flowchart TD
+    subgraph NL[&quot;第4章 网络层&quot;]
+        IP[&quot;IP协议&quot;] --&gt; IPv4[&quot;IPv4数据报格式&lt;br/&gt;20字节固定首部&quot;]
+        IP --&gt; IPFrag[&quot;IP分片&lt;br/&gt;标识+标志+片偏移&quot;]
+        IP --&gt; IPAddr[&quot;IP地址&quot;]
+        
+        IPAddr --&gt; Classful[&quot;分类编址&lt;br/&gt;A/B/C/D/E类&quot;]
+        IPAddr --&gt; Subnet[&quot;子网划分&lt;br/&gt;子网掩码&quot;]
+        IPAddr --&gt; CIDR[&quot;无分类编址CIDR&lt;br/&gt;IP/前缀长度&lt;br/&gt;⭐⭐⭐最高频&quot;]
+        
+        ARP[&quot;ARP协议&lt;br/&gt;IP→MAC解析&quot;] --&gt; ARP_P[&quot;同一局域网内&quot;]
+        
+        ICMP[&quot;ICMP协议&lt;br/&gt;差错报告+查询&quot;] --&gt; Ping[&quot;Ping (echo请求/应答)&quot;]
+        ICMP --&gt; Tracert[&quot;Traceroute&lt;br/&gt;利用TTL超时&quot;]
+        
+        Routing[&quot;路由协议&quot;] --&gt; RIP[&quot;RIP&lt;br/&gt;距离向量&lt;br/&gt;UDP 520&lt;br/&gt;跳数≤15&quot;]
+        Routing --&gt; OSPF[&quot;OSPF&lt;br/&gt;链路状态&lt;br/&gt;Dijkstra算法&lt;br/&gt;区域划分&quot;]
+        Routing --&gt; BGP[&quot;BGP&lt;br/&gt;路径向量&lt;br/&gt;AS之间&quot;]
+        
+        DHCP[&quot;DHCP&lt;br/&gt;动态主机配置&quot;] --&gt; DHCP_P[&quot;应用层，UDP 67/68&quot;]
+        NAT[&quot;NAT&lt;br/&gt;网络地址转换&quot;] --&gt; NAT_P[&quot;缓解IP短缺&quot;]
+        
+        IPv6[&quot;IPv6&quot;] --&gt; V6_F[&quot;128位地址&lt;br/&gt;首部固定40字节&quot;]
+        IPv6 --&gt; V6_V4[&quot;IPv4→IPv6过渡&lt;br/&gt;双栈+隧道&quot;]
+    end
+
+    style CIDR fill:#F44336,color:#fff
+    style RIP fill:#2196F3,color:#fff
+    style OSPF fill:#4CAF50,color:#fff
+    style BGP fill:#FF9800,color:#fff
+
+子网划分的核心公式（教材4.3节）：
+flowchart LR
+    A[&quot;IP地址: 192.168.1.0/24&quot;] --&gt; B[&quot;划分4个子网&lt;br/&gt;借2位主机号&quot;]
+    B --&gt; C[&quot;子网掩码: 255.255.255.192&lt;br/&gt;= /26&quot;]
+    C --&gt; D[&quot;子网1: 192.168.1.0/26&lt;br/&gt;子网2: 192.168.1.64/26&lt;br/&gt;子网3: 192.168.1.128/26&lt;br/&gt;子网4: 192.168.1.192/26&quot;]
+
+
+第5章 传输层（P171-220）⭐⭐⭐
+核心：TCP的可靠传输、流量控制、拥塞控制、三次握手四次挥手。
+flowchart TD
+    subgraph TL[&quot;第5章 传输层&quot;]
+        Port[&quot;端口号&lt;br/&gt;应用层进程标识&lt;br/&gt;TCP/UDP各65535个&quot;]
+        
+        UDP[&quot;UDP协议&quot;] --&gt; UDP_F[&quot;首部8字节&lt;br/&gt;源端口+目的端口+长度+校验和&quot;]
+        UDP --&gt; UDP_C[&quot;无连接、不可靠&lt;br/&gt;不保证顺序&lt;br/&gt;低开销&quot;]
+        
+        TCP[&quot;TCP协议&quot;] --&gt; TCP_H[&quot;首部20字节固定&lt;br/&gt;⭐⭐⭐&quot;]
+        TCP --&gt; TCP_R[&quot;可靠传输&lt;br/&gt;序号+确认+超时重传&quot;]
+        TCP --&gt; TCP_F[&quot;流量控制&lt;br/&gt;滑动窗口&lt;br/&gt;接收方控制发送方速率&quot;]
+        TCP --&gt; TCP_C[&quot;拥塞控制&lt;br/&gt;⭐⭐⭐&quot;]
+        TCP --&gt; TCP_Conn[&quot;连接管理&lt;br/&gt;⭐⭐⭐&quot;]
+        
+        TCP_C --&gt; SS[&quot;慢开始&lt;br/&gt;cwnd从1开始&lt;br/&gt;指数增长&quot;]
+        TCP_C --&gt; CA[&quot;拥塞避免&lt;br/&gt;加法增&lt;br/&gt;线性增长&quot;]
+        TCP_C --&gt; FR[&quot;快重传&lt;br/&gt;收到3个冗余ACK&lt;br/&gt;立即重传&quot;]
+        TCP_C --&gt; FREC[&quot;快恢复&lt;br/&gt;cwnd减半+加法增&quot;]
+        
+        TCP_Conn --&gt; Syn[&quot;三次握手&lt;br/&gt;SYN→SYN+ACK→ACK&quot;]
+        TCP_Conn --&gt; Fin[&quot;四次挥手&lt;br/&gt;FIN→ACK→FIN→ACK&quot;]
+        TCP_Conn --&gt; State[&quot;TCP状态转换图&lt;br/&gt;⭐⭐⭐&quot;]
+    end
+
+    style TCP_H fill:#F44336,color:#fff
+    style TCP_C fill:#FF9800,color:#fff
+    style TCP_Conn fill:#4CAF50,color:#fff
+
+三次握手与四次挥手（教材5.9节）：
+sequenceDiagram
+    participant C as 客户端
+    participant S as 服务器
+    
+    Note over C,S: 三次握手
+    C-&gt;&gt;S: SYN=1, seq=x&lt;br/&gt;(SYN_SENT)
+    S-&gt;&gt;C: SYN=1, ACK=1, seq=y, ack=x+1&lt;br/&gt;(SYN_RCVD)
+    C-&gt;&gt;S: ACK=1, seq=x+1, ack=y+1&lt;br/&gt;(ESTABLISHED)
+    
+    Note over C,S: 数据传输...
+    
+    Note over C,S: 四次挥手
+    C-&gt;&gt;S: FIN=1, seq=u&lt;br/&gt;(FIN_WAIT_1)
+    S-&gt;&gt;C: ACK=1, seq=v, ack=u+1&lt;br/&gt;(CLOSE_WAIT)
+    S-&gt;&gt;C: FIN=1, ACK=1, seq=w, ack=u+1&lt;br/&gt;(LAST_ACK)
+    C-&gt;&gt;S: ACK=1, seq=u+1, ack=w+1&lt;br/&gt;(TIME_WAIT → 2MSL后关闭)
+
+拥塞控制四种算法图示（教材5.10节）：
+flowchart LR
+    subgraph CongCtrl[&quot;TCP拥塞控制全过程&quot;]
+        A[&quot;cwnd=1&lt;br/&gt;慢开始&quot;] --&gt;|&quot;每RTT×2&quot;| B[&quot;超时&lt;br/&gt;ssthresh=cwnd/2&lt;br/&gt;cwnd=1&quot;]
+        B --&gt;|&quot;慢开始&quot;| C&#123;&quot;cwnd≥ssthresh?&quot;&#125;
+        C --&gt;|&quot;否&quot;| A
+        C --&gt;|&quot;是&quot;| D[&quot;拥塞避免&lt;br/&gt;每RTT cwnd+1&quot;]
+        D --&gt;|&quot;收到3次冗余ACK&quot;| E[&quot;快重传+快恢复&lt;br/&gt;ssthresh=cwnd/2&lt;br/&gt;cwnd=ssthresh&quot;]
+        E --&gt; D
+        D --&gt;|&quot;超时&quot;| B
+    end
+
+
+第6章 应用层（P221-260）
+flowchart TD
+    subgraph AL[&quot;第6章 应用层&quot;]
+        HTTP[&quot;HTTP&quot;] --&gt; HTTP_V[&quot;HTTP/1.0 非持久连接&lt;br/&gt;HTTP/1.1 持久连接（流水线）&quot;]
+        HTTP --&gt; HTTP_M[&quot;GET POST PUT DELETE&quot;]
+        HTTP --&gt; HTTP_S[&quot;状态码：&lt;br/&gt;1xx信息 2xx成功&lt;br/&gt;3xx重定向 4xx客户端错误 5xx服务器错误&quot;]
+        HTTP --&gt; HTTPS[&quot;HTTPS = HTTP + SSL/TLS&lt;br/&gt;443端口&quot;]
+        
+        DNS[&quot;DNS&quot;] --&gt; DNS_H[&quot;层次命名&lt;br/&gt;根→顶级→权威&quot;]
+        DNS --&gt; DNS_Q[&quot;递归查询+迭代查询&quot;]
+        DNS --&gt; DNS_C[&quot;本地缓存&lt;br/&gt;提高效率&quot;]
+        
+        FTP[&quot;FTP&quot;] --&gt; FTP_C[&quot;控制连接 21端口&lt;br/&gt;数据连接 20端口&quot;]
+        FTP --&gt; FTP_M[&quot;主动模式/被动模式&quot;]
+        
+        Email[&quot;电子邮件&quot;] --&gt; SMTP[&quot;SMTP 25端口&lt;br/&gt;发送邮件&quot;]
+        Email --&gt; POP3[&quot;POP3 110端口&lt;br/&gt;接收邮件&quot;]
+        Email --&gt; IMAP[&quot;IMAP 143端口&lt;br/&gt;在线管理&quot;]
+        Email --&gt; MIME[&quot;MIME 多媒体扩展&quot;]
+    end
+
+    style HTTP fill:#F44336,color:#fff
+    style DNS fill:#2196F3,color:#fff
+    style SMTP fill:#4CAF50,color:#fff
+
+
+五、跨层关联的核心概念
+教材中多个概念是跨多章的，这是408综合题的热门出题方式：
+flowchart TD
+    DataFlow[&quot;一次网络请求的完整数据流动&quot;]
+    
+    Step1[&quot;第6章 应用层&lt;br/&gt;浏览器发起HTTP GET请求&quot;]
+    Step2[&quot;第5章 传输层&lt;br/&gt;TCP三次握手建立连接&lt;br/&gt;HTTP请求被封装成TCP报文段&quot;]
+    Step3[&quot;第4章 网络层&lt;br/&gt;IP数据报封装&lt;br/&gt;路由选择（RIP/OSPF）&lt;br/&gt;可能在NAT网关做地址转换&quot;]
+    Step4[&quot;第3章 数据链路层&lt;br/&gt;封装成帧&lt;br/&gt;通过交换机转发&lt;br/&gt;CSMA/CD发送&quot;]
+    Step5[&quot;第2章 物理层&lt;br/&gt;变成电信号/光信号&lt;br/&gt;在线路上传输&quot;]
+    Step6[&quot;第7章 网络安全&lt;br/&gt;HTTPS涉及SSL/TLS&lt;br/&gt;可能通过防火墙&quot;]
+    
+    Step1 --&gt; Step2 --&gt; Step3 --&gt; Step4 --&gt; Step5
+    Step5 -. &quot;反向逐层解封装&quot; .-&gt; Step6
+
+
+六、全书核心协议端口速查表
+
+
+
+协议
+端口
+传输层
+章节
+
+
+
+
+HTTP
+80
+TCP
+第6章
+
+
+HTTPS
+443
+TCP
+第6章
+
+
+FTP 控制
+21
+TCP
+第6章
+
+
+FTP 数据
+20
+TCP
+第6章
+
+
+SMTP
+25
+TCP
+第6章
+
+
+POP3
+110
+TCP
+第6章
+
+
+IMAP
+143
+TCP
+第6章
+
+
+DNS
+53
+UDP/TCP
+第6章
+
+
+DHCP
+67/68
+UDP
+第4章
+
+
+RIP
+520
+UDP
+第4章
+
+
+OSPF
+89 (IP协议号)
+直接封装于IP
+第4章
+
+
+BGP
+179
+TCP
+第4章
+
+
+Telnet
+23
+TCP
+第6章
+
+
+SSH
+22
+TCP
+第6章
+
+
+
+
+七、各章408分值占比
+
+
+
+章节
+分值占比
+核心题型
+重要程度
+
+
+
+
+第1章 概述
+~8%
+性能计算（时延/RTT）
+⭐⭐
+
+
+第2章 物理层
+~5%
+奈氏/香农公式、复用
+⭐⭐
+
+
+第3章 数据链路层
+~15%
+CRC计算、CSMA/CD、GBN/SR
+⭐⭐⭐
+
+
+第4章 网络层
+~30%
+IP地址/CIDR/子网划分、路由协议
+⭐⭐⭐
+
+
+第5章 传输层
+~25%
+TCP拥塞控制、三次握手、流量控制
+⭐⭐⭐
+
+
+第6章 应用层
+~10%
+HTTP/DNS/FTP协议特点
+⭐⭐
+
+
+第7章 网络安全
+~5%
+DES/RSA/数字签名
+⭐
+
+
+第8-9章 扩展
+~2%
+了解性内容
+⭐
+
+
+
+
+八、全书总结
+flowchart TD
+    K[&quot;计算机网络知识体系&lt;br/&gt;谢希仁第8版&quot;] --&gt; H1[&quot;一条主线&lt;br/&gt;分层体系结构&quot;]
+    K --&gt; H2[&quot;两个模型&lt;br/&gt;OSI七层 / TCP/IP四层&quot;]
+    K --&gt; H3[&quot;三个核心协议&lt;br/&gt;IP + TCP + HTTP&quot;]
+    K --&gt; H4[&quot;四个关键算法&lt;br/&gt;路由选择(Dijkstra)&lt;br/&gt;拥塞控制&lt;br/&gt;CRC校验&lt;br/&gt;CSMA/CD退避&quot;]
+    K --&gt; H5[&quot;五个必会计算&lt;br/&gt;① 时延计算&lt;br/&gt;② 子网划分&lt;br/&gt;③ CRC生成多项式&lt;br/&gt;④ 拥塞窗口变化&lt;br/&gt;⑤ 信道利用率&quot;]
+
+    style H1 fill:#F44336,color:#fff
+    style H3 fill:#FF9800,color:#fff
+    style H4 fill:#4CAF50,color:#fff
+    style H5 fill:#2196F3,color:#fff
+
+
+一句话串联全书：计算机网络解决的核心问题是如何将数据从源主机可靠地传递到目的主机，采用分层结构将复杂问题分解为各层的子问题，每层为上层提供服务、对上层屏蔽实现细节。从最底层的物理介质（物理层），到无差错的帧传输（数据链路层），到任意两点的路由寻址（网络层），再到端到端的可靠通信（传输层），最终支撑各种应用服务（应用层）。
+
 ]]></content>
       <categories>
         <category>计算机基础</category>
       </categories>
       <tags>
-        <tag>计算机组成原理</tag>
+        <tag>计算机网络</tag>
       </tags>
   </entry>
   <entry>
@@ -4209,6 +4270,495 @@ Flynn分类/SIMD
       </categories>
       <tags>
         <tag>计算机组成原理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[考研]计算机组成原理的层级结构</title>
+    <url>/2026/06/26/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E7%9A%84%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[计算机组成原理的层级结构
+从应用到底层晶体管的完整层次梳理清楚。
+
+📊 全貌总览：7 层抽象层级
+flowchart TD
+    subgraph L0[&quot;第0层：应用/算法层&quot;]
+        A[&quot;你写的C代码&lt;br/&gt;（排序算法、操作系统等）&quot;]
+    end
+
+    subgraph L1[&quot;第1层：高级语言 / 操作系统&quot;]
+        B[&quot;编译器翻译成&lt;br/&gt;汇编/机器指令&quot;]
+        B2[&quot;操作系统提供&lt;br/&gt;系统调用接口&quot;]
+    end
+
+    subgraph L2[&quot;第2层：指令系统（ISA）&quot;]
+        C[&quot;指令集体系结构&lt;br/&gt;ADD, LW, SW, BEQ…&lt;br/&gt;—— 软硬件分界线&quot;]
+    end
+
+    subgraph L3[&quot;第3层：微架构&quot;]
+        D1[&quot;流水线设计&lt;br/&gt;（IF/ID/EX/MEM/WB）&quot;]
+        D2[&quot;控制器&lt;br/&gt;（硬连线/微程序）&quot;]
+        D3[&quot;数据通路&lt;br/&gt;（ALU/寄存器堆/总线）&quot;]
+        D4[&quot;超标量/乱序执行&quot;]
+    end
+
+    subgraph L4[&quot;第4层：数字逻辑电路&quot;]
+        E1[&quot;组合逻辑&lt;br/&gt;（加法器/译码器/多路选择器）&quot;]
+        E2[&quot;时序逻辑&lt;br/&gt;（寄存器/计数器/状态机）&quot;]
+        E3[&quot;时钟同步&quot;]
+    end
+
+    subgraph L5[&quot;第5层：晶体管/门电路&quot;]
+        F[&quot;CMOS 与非门、或非门&lt;br/&gt;触发器、锁存器&quot;]
+    end
+
+    subgraph L6[&quot;第6层：物理层&quot;]
+        G[&quot;硅半导体物理&lt;br/&gt;芯片制造工艺&quot;]
+    end
+
+    A --&gt; B --&gt; C
+    C --&gt; D1 &amp; D2 &amp; D3 &amp; D4
+    D1 &amp; D2 &amp; D3 &amp; D4 --&gt; E1 &amp; E2 &amp; E3
+    E1 &amp; E2 &amp; E3 --&gt; F
+    F --&gt; G
+
+    style C fill:#F44336,color:#fff,stroke-width:3px
+    style L2 fill:#F44336,color:#fff
+
+
+核心分界线：软硬件分界 = ISA
+这是计组中最重要的一条线，没有之一。
+flowchart LR
+    subgraph Software[&quot;软件范畴（程序员可见）&quot;]
+        SW1[&quot;应用软件&quot;]
+        SW2[&quot;操作系统&quot;]
+        SW3[&quot;编译器&quot;]
+    end
+
+    subgraph ISA_Layer[&quot;软硬件分界线 === ISA&quot;]
+        ISA_Content[&quot;指令格式 / 寻址方式 / 寄存器&lt;br/&gt;异常处理 / 中断机制&quot;]
+    end
+
+    subgraph Hardware[&quot;硬件范畴（对程序员透明）&quot;]
+        HW1[&quot;流水线&quot;]
+        HW2[&quot;Cache 具体实现&quot;]
+        HW3[&quot;超标量/乱序&quot;]
+        HW4[&quot;乘除法器实现&quot;]
+        HW5[&quot;总线协议&quot;]
+    end
+
+    Software --&gt; ISA_Layer
+    ISA_Layer --&gt; Hardware
+
+    style ISA_Layer fill:#F44336,color:#fff,stroke-width:3px
+
+
+
+
+侧
+包含
+谁关心
+
+
+
+
+软件侧（ISA 以上）
+高级语言、汇编、OS
+程序员、编译器编写者
+
+
+硬件侧（ISA 以下）
+微架构、逻辑电路、晶体管
+硬件工程师
+
+
+
+
+各层详解与 408 考点
+第2层：ISA（指令系统）🔥🔥🔥
+408 核心考点：
+
+
+
+知识点
+考察形式
+
+
+
+
+MIPS / RISC-V 指令格式
+R-type、I-type、S-type 的二进制划分
+
+
+寻址方式
+立即数/基址/PC相对/寄存器直接/寄存器间接
+
+
+数据通路对应的指令
+每条指令在数据通路上怎么走
+
+
+控制器信号
+哪些控制信号在哪个阶段有效
+
+
+
+关键理解：
+
+ISA = 计算机的&quot;机器语言词典&quot;
+它规定了 CPU 能理解的所有&quot;单词&quot;（指令）和&quot;语法&quot;（格式）
+它是硬件设计者必须实现、软件编写者必须遵守的契约
+
+
+第3层：微架构（Microarchitecture）🔥🔥🔥
+408 核心考点：
+
+
+
+知识点
+考察形式
+
+
+
+
+单周期 CPU
+一条指令一个时钟周期，CPI=1，但时钟频率低
+
+
+多周期 CPU
+一条指令多个时钟周期，共享硬件资源
+
+
+流水线 CPU
+5 级经典流水线（IF/ID/EX/MEM/WB），CPI≈1
+
+
+数据冒险
+RAW 冒险的解决：转发（forwarding）+ 插入气泡
+
+
+控制冒险
+分支预测、延迟槽
+
+
+结构冒险
+硬件资源冲突
+
+
+
+三层 CPU 设计的对比：
+flowchart LR
+    subgraph Single[&quot;单周期&quot;]
+        S0[&quot;取指&quot;] --&gt; S1[&quot;执行&quot;]
+        S1 --&gt; S2[&quot;写回&quot;]
+        S2 --&gt; S0
+        S_note[&quot;CPI = 1&lt;br/&gt;但时钟周期长&lt;br/&gt;= 最慢指令的耗时&quot;]
+    end
+
+    subgraph Multi[&quot;多周期&quot;]
+        M0[&quot;取指&quot;] --&gt; M1[&quot;译码&quot;]
+        M1 --&gt; M2[&quot;执行&quot;]
+        M2 --&gt; M3[&quot;访存&quot;]
+        M3 --&gt; M4[&quot;写回&quot;]
+        M4 --&gt; M0
+        M_note[&quot;CPI = 3~5&lt;br/&gt;时钟周期短&lt;br/&gt;不同指令不同周期数&quot;]
+    end
+
+    subgraph Pipeline[&quot;流水线&quot;]
+        P0[&quot;取指&quot;] --&gt; P1[&quot;译码&quot;] --&gt; P2[&quot;执行&quot;] --&gt; P3[&quot;访存&quot;] --&gt; P4[&quot;写回&quot;]
+        P_note[&quot;CPI ≈ 1（理想）&lt;br/&gt;吞吐率高&lt;br/&gt;但有冒险问题&quot;]
+    end
+
+    Single -.- Multi -.- Pipeline
+
+
+第4层：数字逻辑电路
+408 核心考点：
+
+
+
+知识点
+考察形式
+
+
+
+
+加法器
+串行进位、先行进位（CLA）的区别，计算时间
+
+
+多路选择器（MUX）
+数据通路中选择信号来源
+
+
+译码器
+指令译码、地址译码
+
+
+寄存器
+边沿触发、建立时间/保持时间
+
+
+状态机
+控制器的实现方式（硬连线 vs 微程序）
+
+
+
+这层是&quot;如何用电路实现微架构&quot;的问题。
+
+各层之间的’翻译’过程
+一个 a = b + c 到了计算机里是怎么变成物理信号的？
+flowchart TD
+    subgraph Step1[&quot;① C 代码层&quot;]
+        T1[&quot;a = b + c;&quot;]
+    end
+
+    subgraph Step2[&quot;② 编译 — ISA 层&quot;]
+        T2[&quot;ADD R1, R2, R3&lt;br/&gt;（R1 = R2 + R3）&quot;]
+    end
+
+    subgraph Step3[&quot;③ 数据通路 — 微架构层&quot;]
+        T3_a[&quot;控制信号：&lt;br/&gt;RegWrite=1, ALUSrc=0,&lt;br/&gt;ALUSignal=ADD&quot;]
+        T3_b[&quot;数据流：&lt;br/&gt;Reg[242] → ALU_A&lt;br/&gt;Reg[243] → ALU_B&lt;br/&gt;Reg[241] ← ALU_Out&quot;]
+    end
+
+    subgraph Step4[&quot;④ 逻辑门层&quot;]
+        T4_a[&quot;加法器进位传递&quot;]
+        T4_b[&quot;MUX 选择信号&quot;]
+        T4_c[&quot;寄存器读/写使能&quot;]
+    end
+
+    subgraph Step5[&quot;⑤ 晶体管 → 物理&quot;]
+        T5[&quot;MOS 管导通/截止&lt;br/&gt;电流充放电 → 保存结果&quot;]
+    end
+
+    T1 --&gt; Step2
+    Step2 --&gt; Step3
+    Step3 --&gt; Step4
+    Step4 --&gt; Step5
+
+    style T1 fill:#4CAF50,color:#fff
+    style T2 fill:#F44336,color:#fff
+    style T3_a fill:#2196F3,color:#fff
+    style T3_b fill:#2196F3,color:#fff
+    style T4_a fill:#FF9800,color:#fff
+    style T4_b fill:#FF9800,color:#fff
+    style T4_c fill:#FF9800,color:#fff
+    style T5 fill:#9E9E9E,color:#fff
+
+
+层与层的实际对应关系（408 高频题）
+CPU 设计的三步演进
+层次之间的关系在 CPU 设计中体现得最清楚：
+指令系统（ISA）——你要实现什么指令    ↓ 设计翻译控制器（状态机）+ 数据通路（运算器+寄存器）    ↓ 实现时序逻辑 + 组合逻辑（数字电路）    ↓ 制造CMOS 晶体管（半导体物理）
+控制器设计的两种方式
+
+
+
+方式
+本质
+对应的层
+
+
+
+
+硬连线控制器
+用组合逻辑+状态机直接生成控制信号
+第4层（数字逻辑）
+
+
+微程序控制器
+用 ROM 存储微指令，逐条执行微指令
+第3-4层之间（微程序本身就是&quot;微架构的软件&quot;）
+
+
+
+408 易错点 ⚠️：
+
+微程序控制器中的微指令 ≠ 机器指令
+微指令是硬件设计者定义的，对程序员透明
+一条机器指令 = 一段微程序的执行
+
+
+408 高频真题方向
+题型1：判断某个特性属于哪一层
+例题：“时钟周期长度（100MHz vs 3GHz）属于哪个层级的设计范畴？”
+答案：微架构层（第3层）和数字逻辑层（第4层）的交界。时钟频率由电路延时决定，属于物理实现。
+题型2：层次与透明性
+
+408 必考概念：透明（Transparent）
+
+
+
+
+概念
+对谁透明
+属于哪层
+
+
+
+
+流水线
+对程序员透明
+第3层 → 第2层以下
+
+
+Cache
+对程序员透明
+第3层
+
+
+虚拟地址
+对应用程序员透明
+第2层
+
+
+寄存器编号
+对程序员不透明
+第2层（ISA规定）
+
+
+
+题型3：综合应用题
+408 的大题经常跨层考查同一个概念。比如：
+题：给出 MIPS 指令 ADD R1, R2, R3    (1) 写出指令格式 → 第2层（ISA）    (2) 画出数据通路中该指令的路径 → 第3层（微架构）    (3) 分析关键路径延时 → 第4层（数字逻辑）    (4) 若采用流水线，可能有什么冒险 → 第3层（微架构）
+
+各层之间的关系总结
+mindmap
+  root((计算机组成&lt;br/&gt;层级结构))
+    应用软件
+      算法设计
+      高级语言编程
+    操作系统
+      进程/线程
+      虚拟内存
+      文件系统
+    ISA_指令系统
+      指令格式
+      寻址方式
+      寄存器定义
+      异常中断
+      软硬件分界线
+    微架构
+      数据通路
+      控制器
+      流水线
+      冒险与转发
+      超标量
+    数字逻辑
+      组合逻辑
+      时序逻辑
+      时钟同步
+    晶体管物理
+      CMOS
+      门电路
+      半导体制造
+
+记忆口诀
+七层结构一条线，ISA 是分界线往上软件往下硬，各管各的别越界编译把代码变指令，微架构把指令变信号数字电路把信号变电平，晶体管把电平变电流软硬件分界最核心，408 最爱考区分透明与否记清楚，过关斩将拿高分
+这个层级框架是理解整个计组的&quot;思维导图&quot;。每学一个具体知识点，先问自己：这属于哪一层？这一层和相邻层怎么连接？ 学到最后你就会发现所有知识点都是串起来的。
+]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>计算机组成原理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[慢漫聊]再见——苏科大，你好——...</title>
+    <url>/2026/06/18/%E6%85%A2%E6%BC%AB%E8%81%8A-%E5%86%8D%E8%A7%81%E2%80%94%E2%80%94%E8%8B%8F%E7%A7%91%E5%A4%A7%EF%BC%8C%E4%BD%A0%E5%A5%BD%E2%80%94%E2%80%94/</url>
+    <content><![CDATA[
+“In the end, we are but collectors of fragmented light, rendering a past that we can no longer return to.”
+
+过去的光影总像一场未完的重构。
+纵使拼劲全力，也只是将无数碎散的光斑勉强拟合，在虚无中拼凑出微茫的轮廓；而更多真实的存在，终究在一次次的剔除中被算法裁剪、淡去。在管线与矩阵里奔波，早已无暇再去提笔画那些曾经的立面与剖面——此刻暗下来的屏幕上，那束被反复计算、折腾了许久的手工光源，终于在虚拟的空间里微微亮起，它应该不是特地来安慰我的吧。
+但从指尖触碰的砖石，到虚无缥缈的坐标系，那个转折点早已将过去推得极远。
+我无法假装还能记起画硫酸纸时的笃定，所以只能站在黑色的终端前，看着光线折射，安静回望。
+
+择路
+校园的那栋旧专教，水汽终年不散。
+在那些被铅笔灰和硫酸纸填满的日子里，我曾以为自己的一生都会与重力妥协。泥土、砖石、钢筋，这些承载着实体重量的物质，曾是我试图用来对抗虚无的所有凭借。然而，在那些为了绘制立面图而熬过的一千个深夜里，当窗外城市的灯火在雾气中晕染开来，我脑海中浮现的却并非某种坚固的宏伟，而是那些光影背后的隐形脉络——那些无法被物理尺度度量、却又真实存在的某种无形结构。
+于是，在临近终点的时候，我决定折返，走向另一片没有重力的旷野。
+我想用一行行代码，在不占用一寸土地的虚拟维度里，重新建起我心中的塔。为此，我收起尺规，将习惯于解构美学的大脑强行扭转为由离散数学和数据结构组成的精密齿轮。那一整年，伴随我的只有屏幕冷色的光和机械键盘单调的敲击声。我天真地以为，只要将逻辑推演到极致，就能在年底的那张试卷上，平整地铺开我人生的第二张蓝图。
+
+崩塌
+然而，系统底层的规则，从来不以个人的意志为转移。
+初试的成绩公布，我原以为自己终于站在了那座大厦的门槛前。可几乎是在一夜之间，那个原本笃定的入口，因为冰冷政策的调整，只留下一道勉强透出微光的、极其狭窄的缝隙。
+在这个庞大而突然的宏观变动面前，个人的所有挣扎与孤注一掷，都被无情地过滤、舍弃。无缘复试。这四个字像是一个在计算中无法被修复的致命溢出错误，直接宣告了我那一整年努力的失效。
+那种感觉，就像是耗尽心血、推演了无数遍力学荷载的设计，在即将封顶的一刻，遭遇了地基的无声陷落。你甚至找不到一个可以去质问、去妥协的实体，只能眼睁睁看着那些关于未来的构想，在虚空中碎成无数无法重组的像素。我站在空无一人的走廊里，看着窗外依旧流淌的河水，第一次感知到时代洪流的冰冷与荒诞。在数据的庞大筛选中，我那充满温度的挣扎，甚至未能在这个系统里留下一声轻微的报错。
+
+重构
+毕业的钟声已经隐隐作响，而我，正站在自己亲手造成的这场废墟之上。
+可也正是在这片没有任何退路的废墟里，我反倒获得了一种前所未有的自由。我开始明白，这并不意味着我无法亲手构筑那个属于我自己的虚拟世界。
+我将目光投向了那些能将空间感知与数字逻辑完美交织的领域。
+我不再去理会那些带有筛选目的的考核指标，而是关掉所有嘈杂的声音，沉浸在底层的渲染管线中。在黑底的窗口里，我从最基础的点、线、面开始，亲手去推算一束光在虚拟材质上的折射与漫反射；我尝试着将千万个碎散在虚空中的模糊光斑重新聚拢，在嘈杂的噪声里，去拟合、去复原一个曾经消逝的、带有温度的场景。
+这个在算法中重建空间的过程，何尝不是在重新拟合我自己？
+看着那些原本杂乱无章的散点，在一次次算法的迭代中，逐渐靠拢、凝聚，最终在屏幕上渲染出逼真而深邃的光影，我突然感到了一阵释怀。那些失败的经历，何尝不是这些散落在各处的嘈杂点云？
+而我此刻键盘上敲下的每一行指令，就是那最底层的优化算法，它们正在将我破碎的过去，慢慢重塑成一个更加完整、更具厚度的形体。
+
+远行
+今天，我终于拿到了那张用五年时间换来的毕业证书。
+窗外，运河的水汽依旧如初。我的行李箱里，装着的是曾经在这里生活的证明；而我的电脑硬盘里，则运行着由自己亲手编写的底层光源和无数个在虚拟中重塑的场景。我无法假装这次失败从未发生，那些在深夜里被冷风吹醒的无助、那些在代码报错前的绝望，都已如同刻痕一般，留在了我这个主体的底层。
+但这并不是一个结束。
+相反，我感到了一种从未有过的辽阔。没有了考纲的桎梏，没有了名额的焦虑，我终于可以以一个纯粹建造者的姿态，在无边无际的图形世界里，去构筑我所理解的、超越重力的美。
+那些未能接纳我的大门，反而逼迫我走向了更广阔的荒野。
+此去经年，风尘仆仆，我将不再寻找某种既定的庇护所。因为我知道，在代码与光影的无限坐标系里，任何一个我所站立的此刻，皆是我的殿堂。
+未来的某日某天，也许我将如愿进入梦想的院校发挥热情。虽然此时此刻舍不得这片庇护了我五年执拗与失意的苏科大，但在明年的寒冬里，我仍会带着这不熄的光，重新走向那场属于我的、未完的远征。
+于 2026.6.18 凌晨
+GodY
+苏州科技大学江枫校区
+附图：
+
+]]></content>
+      <categories>
+        <category>杂谈</category>
+      </categories>
+      <tags>
+        <tag>慢漫聊</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[校园杂谈] 苏州科技大学（江枫）宿舍夜晚设施升级</title>
+    <url>/2026/06/18/%E6%A0%A1%E5%9B%AD%E6%9D%82%E8%B0%88-%E8%8B%8F%E5%B7%9E%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%EF%BC%88%E6%B1%9F%E6%9E%AB%EF%BC%89%E5%AE%BF%E8%88%8D%E5%A4%9C%E6%99%9A%E8%AE%BE%E6%96%BD%E5%8D%87%E7%BA%A7/</url>
+    <content><![CDATA[写在前面
+
+本文章来自几年来朋友同学的实践所得，且仅限于江枫校区，仅供个人学习使用，任何不合理使用与本文无关。
+
+
+关于夜晚用电详情
+学校为了各位同学的身体健康着想，制定了合理的作息时间，但作为建筑学专业的一名学生（且拥有拖延症）深知正图周时间的紧迫。
+为了各位同学熬夜加班绘制图纸，或有其他学习需要使用点与校园网，本文发布一份有关于夜晚用电操作指南：
+1.预备
+我们将正常到点断电简称为：自然断电；
+我们将电费用尽断电简称为：归零断电；
+我们将一天中可以在系统中充值电费的时间称为：可充时段；
+2.操作流程
+
+卡电流程：在自然断电后保持归零断电15min，再次充值电费可恢复夜晚供电（包括灯光，插座，校园网）
+
+
+首先，在自然断电前先归零断电（电费用尽）。断电后需要耐心等待，例如：周日至周四23:03熄灯自然断电，需要在此之前先将电费用尽。
+接着，等待15mins后在校园一卡通平台为宿舍购电，1-5mins内将恢复供电。例如：周日至周四23:03熄灯自然断电，从该时刻延长至少15mins（可以更久）充电费。
+
+当然，实际卡电也没那么多限制条件。接下来介绍一下“原理”：
+前文提到了可充时段：除去凌晨十二点到一点半的所有时间段均可以在系统中充电费；
+实际上，只需要在自然断电后让电费是用尽的，此时充电都可以恢复供电；
+若自然断电**，而宿舍的电费还没用完，其实大可以等待电费用完，然后在可充时段充值电费即可。
+例如：周一晚自然断电后电费还没用尽，此时你们打开空调，迅速用掉剩余电费。在23:20-00：30或1:30-6:00充值电费，那么你们的供电就回来了。
+3.注意事项
+
+上文提到了，如何判断电费用尽？看空调是否停止即可。空调停了代表宿舍没电（系统中显示的电量有延迟，有时候显示2.几也会断电，有时候显示0.几也不会断电）
+如何控制电费呢？据测试，夏天开启空调1h用掉0.5元电费。冬天将会更多一点。为了每天都可以用电“学习”则需要精准卡好每日充电的量。根据经验，充值3元可供夜晚开空调至第二天中午，充值5元可供差不多晚上8-10点。如果在很尴尬的时间点归零断电，例如10点，可以充值0.5不开空调，或者0.3等等。
+网络一般比电晚1-2mins来（因为通电后后台需要重启对应路由器）。
+操作如上，细节也已经讲明白，关键点在于何时用尽电费以及何时充值电费。多实践几次就能熟练应用。
+
+再次声明
+学校的断电机制很合理，保护了学生们的正常作息和身体健康，本文只为好学者以及临时需要电量供应的同学准备，以备不时之需。
+]]></content>
+      <categories>
+        <category>杂谈</category>
+      </categories>
+      <tags>
+        <tag>校园杂谈</tag>
       </tags>
   </entry>
 </search>

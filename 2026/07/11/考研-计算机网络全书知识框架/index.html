@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="[toc] 根据谢希仁《计算机网络》第8版内容，按分层体系结构为主线串联全书 9 章。  一、核心骨架：两种分层体系 教材第1章（1.5节）给出了两种参考模型，这是理解全书的总纲： 1234567891011121314151617181920212223242526272829flowchart LR     subgraph OSI[&quot;OSI 七层模型&lt;br&#x2F;&gt;（教材1.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[考研]计算机网络全书知识框架">
+<meta property="og:url" content="https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:site_name" content="GodY">
+<meta property="og:description" content="[toc] 根据谢希仁《计算机网络》第8版内容，按分层体系结构为主线串联全书 9 章。  一、核心骨架：两种分层体系 教材第1章（1.5节）给出了两种参考模型，这是理解全书的总纲： 1234567891011121314151617181920212223242526272829flowchart LR     subgraph OSI[&quot;OSI 七层模型&lt;br&#x2F;&gt;（教材1.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-07-11T08:51:48.000Z">
+<meta property="article:modified_time" content="2026-07-11T08:53:21.077Z">
+<meta property="article:author" content="GodY-G">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/img/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/img/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>[考研]计算机网络全书知识框架</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <style>
+    /* === Premium Overrides === */
+    body { font-family: "Inter", -apple-system, "Microsoft YaHei", sans-serif; background: #FAFAFA; }
+    .content { padding-top: 0; }
+    #header { padding: 56px 0 32px; border: none; }
+    #title h1 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+    #nav a { font-size: 13px; color: #888; letter-spacing: .01em; padding: 0 10px; }
+    #nav a:hover { color: #1A1A1A; }
+    .home-arrow { font-size: 14px; margin-right: 6px; opacity: .25; font-weight: 400; }
+
+    /* Home post list */
+    #writing .h1 { font-size: 11px; font-weight: 600; color: #B0B0B0; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 28px; display: block; }
+    .post-item { margin-bottom: 28px; display: flex; align-items: baseline; gap: 16px; }
+    .post-item .meta { flex: 0 0 110px; text-align: right; font-size: 12px; color: #C0C0C0; letter-spacing: .02em; }
+    .post-item .article-title { font-size: 15px; font-weight: 500; line-height: 1.45; }
+    .post-item .article-title a { color: #2A2A2A; text-decoration: none; transition: opacity .2s; }
+    .post-item .article-title a:hover { opacity: .4; }
+    .post-item .article-category { font-size: 11px; color: #CCC; letter-spacing: .03em; margin-top: 3px; display: block; }
+    .post-item .article-category a { color: #CCC; text-decoration: none; }
+    .post-item .article-category a:hover { color: #888; }
+
+    /* Pagination */
+    .pagination { margin-top: 40px; padding-top: 16px; border-top: 1px solid #E8E8E8; font-size: 13px; }
+    .pagination a { color: #888; }
+
+    /* Search */
+    #header-search { text-align: right; margin-top: 4px; }
+    #header-search-input { border: none; border-bottom: 1px solid #D0D0D0; background: transparent; font-size: 12px; padding: 4px 0; width: 150px; outline: none; color: #555; font-family: inherit; }
+    #header-search-input:focus { border-bottom-color: #1A1A1A; }
+    @media (max-width: 600px) { #header-search { display: none; } }
+
+    /* Tags */
+    #tags-page {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .tag-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 18px;
+      border: 1px solid #E8E8E8; border-radius: 4px;
+      text-decoration: none; color: #444;
+      font-size: 13px; letter-spacing: .02em;
+      transition: all .2s; background: #FFF;
+    }
+    .tag-item:hover { border-color: #BBB; color: #1A1A1A; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+    .tag-name { font-weight: 500; }
+    .tag-count { color: #C0C0C0; font-size: 12px; font-weight: 400; }
+    .tag-item:hover .tag-count { color: #999; }
+    .tags-link { margin-top: 32px; font-size: 13px; }
+    .tags-link a { color: #BBB; text-decoration: none; transition: color .2s; }
+    .tags-link a:hover { color: #666; }
+
+    /* === Bento Grid === */
+    .bento {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .bento-card {
+      background: #FFF; border: 1px solid #EEE; border-radius: 12px;
+      padding: 20px; transition: transform .35s cubic-bezier(.25,.8,.25,1.2), box-shadow .35s ease, border-color .35s ease;
+      animation: bentoIn .6s ease both;
+    }
+    .bento-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.05); }
+    .bento-card:nth-child(1) { animation-delay: 0s; }
+    .bento-card:nth-child(2) { animation-delay: .08s; }
+    .bento-card:nth-child(3) { animation-delay: .16s; }
+    .bento-card:nth-child(4) { animation-delay: .24s; }
+    @keyframes bentoIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Stats - full width row */
+    .bento-stats { grid-column: 1 / -1; display: flex; gap: 32px; justify-content: center; padding: 24px 20px; }
+    .bento-stat { text-align: center; }
+    .bento-num { display: block; font-size: 36px; font-weight: 700; color: #1A1A1A; letter-spacing: -.03em; transition: transform .3s; }
+    .bento-card:hover .bento-num { transform: scale(1.05); }
+    .bento-label { display: block; font-size: 11px; color: #C0C0C0; letter-spacing: .06em; margin-top: 2px; text-transform: uppercase; }
+
+    /* GitHub - full width */
+    .bento-gh { grid-column: 1 / -1; padding: 0; overflow: hidden; border-radius: 12px; }
+    .bento-gh-img { width: 100%; display: block; }
+
+    /* Recent & Categories - side by side */
+    .bento-recent, .bento-cats { min-height: 200px; }
+    .bento-h3 { font-size: 11px; font-weight: 600; color: #C0C0C0; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 14px 0; }
+    .bento-list { display: flex; flex-direction: column; }
+    .bento-row { display: flex; gap: 12px; padding: 8px 0; text-decoration: none; border-bottom: 1px solid #F8F8F8; transition: all .25s; }
+    .bento-row:last-child { border-bottom: none; }
+    .bento-row:hover { padding-left: 6px; }
+    .bento-date { flex: 0 0 50px; font-size: 12px; color: #D0D0D0; letter-spacing: .02em; padding-top: 1px; }
+    .bento-title { flex: 1; font-size: 13px; color: #555; font-weight: 500; transition: color .25s; }
+
+    /* Category pills */
+    .bento-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .bento-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: #FAFAFA; border: 1px solid #EEE; border-radius: 20px; text-decoration: none; font-size: 12px; color: #555; transition: all .25s; }
+    .bento-pill:hover { border-color: #BBB; background: #FFF; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+    .bento-pill small { font-size: 10px; color: #CCC; }
+    .bento-pill-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    @media (max-width: 600px) { .bento { grid-template-columns: 1fr; }
+      .bento-stats { gap: 16px; } .bento-num { font-size: 26px; } }
+
+    /* === Mermaid fallback === */
+    .mermaid { background: #FAFAFA; border: 1px solid #EEE; border-radius: 4px; padding: 20px; overflow-x: auto; min-height: 40px; }
+    .mermaid svg { max-width: 100%; }
+
+    /* Typora highlight */
+    mark { background: #FFF3A3; color: #333; padding: 1px 3px; border-radius: 2px; }
+
+    /* Post detail */
+    .post-back { margin-bottom: 16px; }
+    .post-back a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid #DDD; color: #BBB;
+      text-decoration: none; font-size: 16px;
+      transition: all .2s;
+    }
+    .post-back a:hover { border-color: #888; color: #555; }
+
+    article.post header .posttitle {
+      font-size: 26px; font-weight: 700; letter-spacing: -.03em;
+    }
+    article.post header .posttitle::after {
+      content: ""; display: block;
+      width: 50%; height: 2px;
+      margin: 32px auto 32px;
+      background: #D0D0D0;
+      border-radius: 1px;
+    }
+
+    article.post .e-content { font-size: 15px; line-height: 1.85; color: #333; }
+    article.post .e-content h2 { font-size: 18px; font-weight: 600; margin-top: 36px; }
+    article.post .e-content h3 { font-size: 15px; font-weight: 600; }
+
+    /* Post footer */
+    .post-footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #ECECEC; }
+    .post-footer .post-meta-bottom { font-size: 13px; color: #B0B0B0; letter-spacing: .02em; }
+    .post-footer .post-meta-bottom a { color: #B0B0B0; text-decoration: none; }
+    .post-footer .post-meta-bottom a:hover { color: #777; }
+    .post-tags-bottom { margin-top: 8px; font-size: 12px; color: #CCC; letter-spacing: .03em; }
+    .post-tags-bottom a { color: #CCC; text-decoration: none; margin-right: 8px; }
+    .post-tags-bottom a:hover { color: #999; }
+
+    /* Footer */
+    .footer { border-top: 1px solid #E8E8E8; padding: 24px 0; color: #B0B0B0; font-size: 12px; margin-top: 48px; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 2px; }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+      script.onerror = function() {
+        // fallback CDN
+        var s2 = document.createElement('script');
+        s2.src = 'https://unpkg.com/mermaid@10/dist/mermaid.min.js';
+        s2.onload = function() { mermaid.initialize({ startOnLoad: true, theme: 'default' }); };
+        document.head.appendChild(s2);
+      };
+      script.onload = function() {
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+      };
+      document.head.appendChild(script);
+    });
+    </script>
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Categories</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Archives</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/graph/">Graph</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2026/06/30/3DGS-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%EF%BC%9A%E4%BB%8E%E4%B8%80%E7%BB%B4%E5%88%B0%E4%B8%89%E7%BB%B4/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&text=[考研]计算机网络全书知识框架"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&title=[考研]计算机网络全书知识框架"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&is_video=false&description=[考研]计算机网络全书知识框架"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=[考研]计算机网络全书知识框架&body=Check out this article: https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&title=[考研]计算机网络全书知识框架"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&title=[考研]计算机网络全书知识框架"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&title=[考研]计算机网络全书知识框架"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&title=[考研]计算机网络全书知识框架"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&name=[考研]计算机网络全书知识框架&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&t=[考研]计算机网络全书知识框架"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83%E9%AA%A8%E6%9E%B6%EF%BC%9A%E4%B8%A4%E7%A7%8D%E5%88%86%E5%B1%82%E4%BD%93%E7%B3%BB"><span class="toc-number">1.</span> <span class="toc-text">一、核心骨架：两种分层体系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%95%B0%E6%8D%AE%E5%9C%A8%E5%B1%82%E9%97%B4%E7%9A%84%E6%B5%81%E5%8A%A8"><span class="toc-number">2.</span> <span class="toc-text">二、数据在层间的流动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%90%84%E5%B1%82%E6%80%BB%E8%A7%88"><span class="toc-number">3.</span> <span class="toc-text">三、各层总览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%8C%89%E5%B1%82%E5%B1%95%E5%BC%80%E8%AF%A6%E7%BB%86%E6%A1%86%E6%9E%B6"><span class="toc-number">4.</span> <span class="toc-text">四、按层展开详细框架</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC1%E7%AB%A0-%E6%A6%82%E8%BF%B0%EF%BC%88P1-30%EF%BC%89%E2%80%94%E2%80%94-%E5%85%A8%E4%B9%A6%E6%80%BB%E7%BA%B2"><span class="toc-number">4.1.</span> <span class="toc-text">第1章 概述（P1-30）—— 全书总纲</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC2%E7%AB%A0-%E7%89%A9%E7%90%86%E5%B1%82%EF%BC%88P31-50%EF%BC%89"><span class="toc-number">4.2.</span> <span class="toc-text">第2章 物理层（P31-50）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC3%E7%AB%A0-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%EF%BC%88P51-100%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-number">4.3.</span> <span class="toc-text">第3章 数据链路层（P51-100）⭐⭐⭐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC4%E7%AB%A0-%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%88P101-170%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-number">4.4.</span> <span class="toc-text">第4章 网络层（P101-170）⭐⭐⭐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC5%E7%AB%A0-%E4%BC%A0%E8%BE%93%E5%B1%82%EF%BC%88P171-220%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-number">4.5.</span> <span class="toc-text">第5章 传输层（P171-220）⭐⭐⭐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC6%E7%AB%A0-%E5%BA%94%E7%94%A8%E5%B1%82%EF%BC%88P221-260%EF%BC%89"><span class="toc-number">4.6.</span> <span class="toc-text">第6章 应用层（P221-260）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E8%B7%A8%E5%B1%82%E5%85%B3%E8%81%94%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-number">5.</span> <span class="toc-text">五、跨层关联的核心概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%85%A8%E4%B9%A6%E6%A0%B8%E5%BF%83%E5%8D%8F%E8%AE%AE%E7%AB%AF%E5%8F%A3%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-number">6.</span> <span class="toc-text">六、全书核心协议端口速查表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%90%84%E7%AB%A0408%E5%88%86%E5%80%BC%E5%8D%A0%E6%AF%94"><span class="toc-number">7.</span> <span class="toc-text">七、各章408分值占比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%85%A8%E4%B9%A6%E6%80%BB%E7%BB%93"><span class="toc-number">8.</span> <span class="toc-text">八、全书总结</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <div class="post-back"><a href="/">&#8592;</a></div>
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        [考研]计算机网络全书知识框架
+    </h1>
+
+
+
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>[toc]</p>
+<p>根据谢希仁《计算机网络》第8版内容，按<strong>分层体系结构</strong>为主线串联全书 9 章。</p>
+<hr>
+<h3 id="一、核心骨架：两种分层体系">一、核心骨架：两种分层体系</h3>
+<p>教材第1章（1.5节）给出了两种参考模型，这是理解全书的<strong>总纲</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    subgraph OSI[&quot;OSI 七层模型&lt;br/&gt;（教材1.5.2节）&quot;]
+        O7[&quot;7 应用层&quot;]
+        O6[&quot;6 表示层&quot;]
+        O5[&quot;5 会话层&quot;]
+        O4[&quot;4 传输层&quot;]
+        O3[&quot;3 网络层&quot;]
+        O2[&quot;2 数据链路层&quot;]
+        O1[&quot;1 物理层&quot;]
+    end
+
+    subgraph TCP_IP[&quot;TCP/IP 四层模型&lt;br/&gt;（教材1.5.3节）&quot;]
+        T4[&quot;应用层&lt;br/&gt;HTTP/DNS/SMTP&quot;]
+        T3[&quot;传输层&lt;br/&gt;TCP/UDP&quot;]
+        T2[&quot;网际层&lt;br/&gt;IP/ICMP/路由协议&quot;]
+        T1[&quot;网络接口层&lt;br/&gt;以太网/WiFi&quot;]
+    end
+
+    subgraph Five[&quot;五层教学模型&lt;br/&gt;（教材采用）&quot;]
+        F5[&quot;第5层 应用层&lt;br/&gt;第6章&quot;]
+        F4[&quot;第4层 传输层&lt;br/&gt;第5章&quot;]
+        F3[&quot;第3层 网络层&lt;br/&gt;第4章&quot;]
+        F2[&quot;第2层 数据链路层&lt;br/&gt;第3章&quot;]
+        F1[&quot;第1层 物理层&lt;br/&gt;第2章&quot;]
+    end
+
+    OSI --&gt; Five --&gt; TCP_IP
+
+    style Five fill:#F44336,color:#fff,stroke-width:3px
+</div></td></tr></table></figure>
+<hr>
+<h3 id="二、数据在层间的流动">二、数据在层间的流动</h3>
+<p>教材P13 图1.13 是全书最核心的图之一，展示了数据在各层之间的<strong>封装与解封装</strong>过程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph 发送方[&quot;发送方&quot;]
+        S5[&quot;应用层：生成数据&lt;br/&gt;例：HTTP GET 请求&quot;]
+        S4[&quot;传输层：加TCP/UDP首部&lt;br/&gt;形成报文段（Segment）&quot;]
+        S3[&quot;网络层：加IP首部&lt;br/&gt;形成数据报（Datagram）&quot;]
+        S2[&quot;数据链路层：加帧头帧尾&lt;br/&gt;形成帧（Frame）&quot;]
+        S1[&quot;物理层：变成比特流&lt;br/&gt;在介质上传输&quot;]
+    end
+
+    subgraph 接收方[&quot;接收方&quot;]
+        R1[&quot;物理层：接收比特流&quot;]
+        R2[&quot;数据链路层：检错，解出IP数据报&quot;]
+        R3[&quot;网络层：提取路由信息，解出TCP报文段&quot;]
+        R4[&quot;传输层：重组数据，解出HTTP请求&quot;]
+        R5[&quot;应用层：交给HTTP服务器处理&quot;]
+    end
+
+    发送方 --&gt; 传输介质 --&gt; 接收方
+
+    S5 -. &quot;data&quot; .-&gt; S4 -. &quot;TCP-header + data&quot; .-&gt; S3
+    S3 -. &quot;IP-header + TCP-header + data&quot; .-&gt; S2
+    S2 -. &quot;帧头+IP数据报+帧尾&quot; .-&gt; S1
+    R1 -.-&gt; R2 -.-&gt; R3 -.-&gt; R4 -.-&gt; R5
+</div></td></tr></table></figure>
+<p><strong>封装的关键</strong>：每层在数据前加上自己的首部（Header），逐层包裹。教材P13：</p>
+<blockquote>
+<p>“数据在传输过程中，每层都要加上本层的协议控制信息，构成新的数据单元，交给下一层。”</p>
+</blockquote>
+<hr>
+<h3 id="三、各层总览">三、各层总览</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><div class="mermaid">mindmap
+  root((计算机网络&lt;br/&gt;谢希仁第8版))
+    第1章_概述
+      计算机网络定义
+      电路交换_报文交换_分组交换
+      分层体系结构_OSI_TCP/IP
+      性能指标_速率_带宽_吞吐量
+    第2章_物理层
+      信号_码元_数据率
+      传输介质_双绞线_光纤
+      信道复用_FDM_TDM_WDM_CDM
+      宽带接入_ADSL_FTTH
+    第3章_数据链路层
+      组帧_字节填充_零比特填充
+      差错控制_CRC_海明码
+      流量控制_GBN_SR
+      CSMA_CD_以太网_交换机
+      PPP_协议_VLAN
+    第4章_网络层
+      IP协议_IPv4地址_分类
+      子网划分_CIDR
+      ICMP_ping_traceroute
+      路由协议_RIP_OSPF_BGP
+      IPv6_DHCP_NAT
+    第5章_传输层
+      UDP_用户数据报协议
+      TCP_可靠传输_滑动窗口
+      流量控制_拥塞控制
+      三次握手_四次挥手
+    第6章_应用层
+      DNS_域名解析
+      FTP_电子邮件
+      WWW_HTTP_HTTPS
+    第7章_网络安全
+      对称加密_DES_AES
+      非对称加密_RSA
+      数字签名_CA证书
+      SSL_TLS_防火墙
+    第8章_多媒体_无线
+      VoIP_流媒体_QoS
+      无线局域网_WiFi
+    第9章_移动网络
+      4G_5G_移动IP
+</div></td></tr></table></figure>
+<hr>
+<h3 id="四、按层展开详细框架">四、按层展开详细框架</h3>
+<h4 id="第1章-概述（P1-30）——-全书总纲">第1章 概述（P1-30）—— 全书总纲</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph 概述[&quot;第1章 概述&quot;]
+        A[&quot;计算机网络定义&quot;] --&gt; B[&quot;功能：数据通信+资源共享&quot;]
+        A --&gt; C[&quot;分类：WAN/MAN/LAN/PAN&quot;]
+        
+        D[&quot;三种交换方式&quot;] --&gt; D1[&quot;电路交换&lt;br/&gt;建立连接→通话→释放&lt;br/&gt;电话网&quot;]
+        D --&gt; D2[&quot;报文交换&lt;br/&gt;存储转发&lt;br/&gt;电报&quot;]
+        D --&gt; D3[&quot;分组交换&lt;br/&gt;存储转发+分组&lt;br/&gt;✅ 计算机网络主流&quot;]
+        
+        E[&quot;分层体系&quot;] --&gt; E1[&quot;OSI七层&lt;br/&gt;法定标准&quot;]
+        E --&gt; E2[&quot;TCP/IP四层&lt;br/&gt;事实标准&quot;]
+        E --&gt; E3[&quot;五层教学模型&lt;br/&gt;教材采用&quot;]
+        
+        F[&quot;性能指标&quot;] --&gt; F1[&quot;速率(b/s)&quot;]
+        F --&gt; F2[&quot;带宽&quot;]
+        F --&gt; F3[&quot;吞吐量&quot;]
+        F --&gt; F4[&quot;时延=发送+传播+处理+排队&quot;]
+        F --&gt; F5[&quot;RTT 往返时间&quot;]
+    end
+
+    style D3 fill:#4CAF50,color:#fff
+    style E3 fill:#F44336,color:#fff
+</div></td></tr></table></figure>
+<hr>
+<h4 id="第2章-物理层（P31-50）">第2章 物理层（P31-50）</h4>
+<p><strong>核心问题</strong>：怎样在传输介质上传输比特？</p>
+<table>
+<thead>
+<tr>
+<th>知识点</th>
+<th>关键内容</th>
+<th>408频率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>信号分类</td>
+<td>模拟信号/数字信号</td>
+<td>⭐</td>
+</tr>
+<tr>
+<td>码元</td>
+<td>一个固定时长的信号波形</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>奈氏准则</td>
+<td>无噪声下码元传输率 ≤ 2W（带宽）</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>香农公式</td>
+<td>有噪声下速率上限 = W log₂(1+S/N)</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>传输介质</td>
+<td>双绞线/同轴/光纤/无线</td>
+<td>⭐</td>
+</tr>
+<tr>
+<td>信道复用</td>
+<td>FDM/TDM/WDM/CDM</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>宽带接入</td>
+<td>ADSL/FTTH/HFC</td>
+<td>⭐</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="第3章-数据链路层（P51-100）⭐⭐⭐">第3章 数据链路层（P51-100）⭐⭐⭐</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph DL[&quot;第3章 数据链路层&quot;]
+        Basic[&quot;基本功能&lt;br/&gt;组帧 + 差错控制 + 流量控制&quot;]
+        
+        Frames[&quot;组帧方法&quot;] --&gt; FC[&quot;字符计数法&quot;]
+        Frames --&gt; FB[&quot;字节填充法&lt;br/&gt;PPP: 7D 5E&quot;]
+        Frames --&gt; FZ[&quot;零比特填充法&lt;br/&gt;HDLC: 0111110&quot;]
+        Frames --&gt; FV[&quot;违规编码法&quot;]
+        
+        Error[&quot;差错控制&quot;] --&gt; CRC[&quot;CRC循环冗余校验&quot;]
+        Error --&gt; Hamming[&quot;海明码&lt;br/&gt;能纠1位错&quot;]
+        
+        Flow[&quot;流量控制&quot;] --&gt; SW[&quot;停止-等待&lt;br/&gt;信道利用率低&quot;]
+        Flow --&gt; GBN[&quot;后退N帧 GBN&lt;br/&gt;累计确认&quot;]
+        Flow --&gt; SR[&quot;选择重传 SR&lt;br/&gt;只重传出错帧&quot;]
+        
+        Media[&quot;介质访问&quot;] --&gt; CSMACD[&quot;CSMA/CD&lt;br/&gt;以太网&lt;br/&gt;半双工：先听后发，边发边听&quot;]
+        Media --&gt; CSMACA[&quot;CSMA/CA&lt;br/&gt;无线局域网&quot;]
+        
+        Ethernet[&quot;以太网&quot;] --&gt; MAC[&quot;MAC地址 48位&quot;]
+        Ethernet --&gt; Switch[&quot;交换机&lt;br/&gt;自学习+转发&quot;]
+        Ethernet --&gt; VLAN[&quot;VLAN 虚拟局域网&quot;]
+        
+        PPP[&quot;PPP协议&quot;] --&gt; PP[&quot;点对点&lt;br/&gt;字节填充实现透明传输&quot;]
+    end
+
+    style CSMACD fill:#FF9800,color:#fff
+    style CRC fill:#2196F3,color:#fff
+    style GBN fill:#4CAF50,color:#fff
+    style SR fill:#4CAF50,color:#fff
+</div></td></tr></table></figure>
+<hr>
+<h4 id="第4章-网络层（P101-170）⭐⭐⭐">第4章 网络层（P101-170）⭐⭐⭐</h4>
+<p><strong>核心</strong>：IP协议 + 路由选择，这是408分值最高的一章。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph NL[&quot;第4章 网络层&quot;]
+        IP[&quot;IP协议&quot;] --&gt; IPv4[&quot;IPv4数据报格式&lt;br/&gt;20字节固定首部&quot;]
+        IP --&gt; IPFrag[&quot;IP分片&lt;br/&gt;标识+标志+片偏移&quot;]
+        IP --&gt; IPAddr[&quot;IP地址&quot;]
+        
+        IPAddr --&gt; Classful[&quot;分类编址&lt;br/&gt;A/B/C/D/E类&quot;]
+        IPAddr --&gt; Subnet[&quot;子网划分&lt;br/&gt;子网掩码&quot;]
+        IPAddr --&gt; CIDR[&quot;无分类编址CIDR&lt;br/&gt;IP/前缀长度&lt;br/&gt;⭐⭐⭐最高频&quot;]
+        
+        ARP[&quot;ARP协议&lt;br/&gt;IP→MAC解析&quot;] --&gt; ARP_P[&quot;同一局域网内&quot;]
+        
+        ICMP[&quot;ICMP协议&lt;br/&gt;差错报告+查询&quot;] --&gt; Ping[&quot;Ping (echo请求/应答)&quot;]
+        ICMP --&gt; Tracert[&quot;Traceroute&lt;br/&gt;利用TTL超时&quot;]
+        
+        Routing[&quot;路由协议&quot;] --&gt; RIP[&quot;RIP&lt;br/&gt;距离向量&lt;br/&gt;UDP 520&lt;br/&gt;跳数≤15&quot;]
+        Routing --&gt; OSPF[&quot;OSPF&lt;br/&gt;链路状态&lt;br/&gt;Dijkstra算法&lt;br/&gt;区域划分&quot;]
+        Routing --&gt; BGP[&quot;BGP&lt;br/&gt;路径向量&lt;br/&gt;AS之间&quot;]
+        
+        DHCP[&quot;DHCP&lt;br/&gt;动态主机配置&quot;] --&gt; DHCP_P[&quot;应用层，UDP 67/68&quot;]
+        NAT[&quot;NAT&lt;br/&gt;网络地址转换&quot;] --&gt; NAT_P[&quot;缓解IP短缺&quot;]
+        
+        IPv6[&quot;IPv6&quot;] --&gt; V6_F[&quot;128位地址&lt;br/&gt;首部固定40字节&quot;]
+        IPv6 --&gt; V6_V4[&quot;IPv4→IPv6过渡&lt;br/&gt;双栈+隧道&quot;]
+    end
+
+    style CIDR fill:#F44336,color:#fff
+    style RIP fill:#2196F3,color:#fff
+    style OSPF fill:#4CAF50,color:#fff
+    style BGP fill:#FF9800,color:#fff
+</div></td></tr></table></figure>
+<p><strong>子网划分的核心公式</strong>（教材4.3节）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    A[&quot;IP地址: 192.168.1.0/24&quot;] --&gt; B[&quot;划分4个子网&lt;br/&gt;借2位主机号&quot;]
+    B --&gt; C[&quot;子网掩码: 255.255.255.192&lt;br/&gt;= /26&quot;]
+    C --&gt; D[&quot;子网1: 192.168.1.0/26&lt;br/&gt;子网2: 192.168.1.64/26&lt;br/&gt;子网3: 192.168.1.128/26&lt;br/&gt;子网4: 192.168.1.192/26&quot;]
+</div></td></tr></table></figure>
+<hr>
+<h4 id="第5章-传输层（P171-220）⭐⭐⭐">第5章 传输层（P171-220）⭐⭐⭐</h4>
+<p><strong>核心</strong>：TCP的可靠传输、流量控制、拥塞控制、三次握手四次挥手。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph TL[&quot;第5章 传输层&quot;]
+        Port[&quot;端口号&lt;br/&gt;应用层进程标识&lt;br/&gt;TCP/UDP各65535个&quot;]
+        
+        UDP[&quot;UDP协议&quot;] --&gt; UDP_F[&quot;首部8字节&lt;br/&gt;源端口+目的端口+长度+校验和&quot;]
+        UDP --&gt; UDP_C[&quot;无连接、不可靠&lt;br/&gt;不保证顺序&lt;br/&gt;低开销&quot;]
+        
+        TCP[&quot;TCP协议&quot;] --&gt; TCP_H[&quot;首部20字节固定&lt;br/&gt;⭐⭐⭐&quot;]
+        TCP --&gt; TCP_R[&quot;可靠传输&lt;br/&gt;序号+确认+超时重传&quot;]
+        TCP --&gt; TCP_F[&quot;流量控制&lt;br/&gt;滑动窗口&lt;br/&gt;接收方控制发送方速率&quot;]
+        TCP --&gt; TCP_C[&quot;拥塞控制&lt;br/&gt;⭐⭐⭐&quot;]
+        TCP --&gt; TCP_Conn[&quot;连接管理&lt;br/&gt;⭐⭐⭐&quot;]
+        
+        TCP_C --&gt; SS[&quot;慢开始&lt;br/&gt;cwnd从1开始&lt;br/&gt;指数增长&quot;]
+        TCP_C --&gt; CA[&quot;拥塞避免&lt;br/&gt;加法增&lt;br/&gt;线性增长&quot;]
+        TCP_C --&gt; FR[&quot;快重传&lt;br/&gt;收到3个冗余ACK&lt;br/&gt;立即重传&quot;]
+        TCP_C --&gt; FREC[&quot;快恢复&lt;br/&gt;cwnd减半+加法增&quot;]
+        
+        TCP_Conn --&gt; Syn[&quot;三次握手&lt;br/&gt;SYN→SYN+ACK→ACK&quot;]
+        TCP_Conn --&gt; Fin[&quot;四次挥手&lt;br/&gt;FIN→ACK→FIN→ACK&quot;]
+        TCP_Conn --&gt; State[&quot;TCP状态转换图&lt;br/&gt;⭐⭐⭐&quot;]
+    end
+
+    style TCP_H fill:#F44336,color:#fff
+    style TCP_C fill:#FF9800,color:#fff
+    style TCP_Conn fill:#4CAF50,color:#fff
+</div></td></tr></table></figure>
+<p><strong>三次握手与四次挥手</strong>（教材5.9节）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><div class="mermaid">sequenceDiagram
+    participant C as 客户端
+    participant S as 服务器
+    
+    Note over C,S: 三次握手
+    C-&gt;&gt;S: SYN=1, seq=x&lt;br/&gt;(SYN_SENT)
+    S-&gt;&gt;C: SYN=1, ACK=1, seq=y, ack=x+1&lt;br/&gt;(SYN_RCVD)
+    C-&gt;&gt;S: ACK=1, seq=x+1, ack=y+1&lt;br/&gt;(ESTABLISHED)
+    
+    Note over C,S: 数据传输...
+    
+    Note over C,S: 四次挥手
+    C-&gt;&gt;S: FIN=1, seq=u&lt;br/&gt;(FIN_WAIT_1)
+    S-&gt;&gt;C: ACK=1, seq=v, ack=u+1&lt;br/&gt;(CLOSE_WAIT)
+    S-&gt;&gt;C: FIN=1, ACK=1, seq=w, ack=u+1&lt;br/&gt;(LAST_ACK)
+    C-&gt;&gt;S: ACK=1, seq=u+1, ack=w+1&lt;br/&gt;(TIME_WAIT → 2MSL后关闭)
+</div></td></tr></table></figure>
+<p><strong>拥塞控制四种算法图示</strong>（教材5.10节）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><div class="mermaid">flowchart LR
+    subgraph CongCtrl[&quot;TCP拥塞控制全过程&quot;]
+        A[&quot;cwnd=1&lt;br/&gt;慢开始&quot;] --&gt;|&quot;每RTT×2&quot;| B[&quot;超时&lt;br/&gt;ssthresh=cwnd/2&lt;br/&gt;cwnd=1&quot;]
+        B --&gt;|&quot;慢开始&quot;| C&#123;&quot;cwnd≥ssthresh?&quot;&#125;
+        C --&gt;|&quot;否&quot;| A
+        C --&gt;|&quot;是&quot;| D[&quot;拥塞避免&lt;br/&gt;每RTT cwnd+1&quot;]
+        D --&gt;|&quot;收到3次冗余ACK&quot;| E[&quot;快重传+快恢复&lt;br/&gt;ssthresh=cwnd/2&lt;br/&gt;cwnd=ssthresh&quot;]
+        E --&gt; D
+        D --&gt;|&quot;超时&quot;| B
+    end
+</div></td></tr></table></figure>
+<hr>
+<h4 id="第6章-应用层（P221-260）">第6章 应用层（P221-260）</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    subgraph AL[&quot;第6章 应用层&quot;]
+        HTTP[&quot;HTTP&quot;] --&gt; HTTP_V[&quot;HTTP/1.0 非持久连接&lt;br/&gt;HTTP/1.1 持久连接（流水线）&quot;]
+        HTTP --&gt; HTTP_M[&quot;GET POST PUT DELETE&quot;]
+        HTTP --&gt; HTTP_S[&quot;状态码：&lt;br/&gt;1xx信息 2xx成功&lt;br/&gt;3xx重定向 4xx客户端错误 5xx服务器错误&quot;]
+        HTTP --&gt; HTTPS[&quot;HTTPS = HTTP + SSL/TLS&lt;br/&gt;443端口&quot;]
+        
+        DNS[&quot;DNS&quot;] --&gt; DNS_H[&quot;层次命名&lt;br/&gt;根→顶级→权威&quot;]
+        DNS --&gt; DNS_Q[&quot;递归查询+迭代查询&quot;]
+        DNS --&gt; DNS_C[&quot;本地缓存&lt;br/&gt;提高效率&quot;]
+        
+        FTP[&quot;FTP&quot;] --&gt; FTP_C[&quot;控制连接 21端口&lt;br/&gt;数据连接 20端口&quot;]
+        FTP --&gt; FTP_M[&quot;主动模式/被动模式&quot;]
+        
+        Email[&quot;电子邮件&quot;] --&gt; SMTP[&quot;SMTP 25端口&lt;br/&gt;发送邮件&quot;]
+        Email --&gt; POP3[&quot;POP3 110端口&lt;br/&gt;接收邮件&quot;]
+        Email --&gt; IMAP[&quot;IMAP 143端口&lt;br/&gt;在线管理&quot;]
+        Email --&gt; MIME[&quot;MIME 多媒体扩展&quot;]
+    end
+
+    style HTTP fill:#F44336,color:#fff
+    style DNS fill:#2196F3,color:#fff
+    style SMTP fill:#4CAF50,color:#fff
+</div></td></tr></table></figure>
+<hr>
+<h3 id="五、跨层关联的核心概念">五、跨层关联的核心概念</h3>
+<p>教材中多个概念是<strong>跨多章</strong>的，这是408综合题的热门出题方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    DataFlow[&quot;一次网络请求的完整数据流动&quot;]
+    
+    Step1[&quot;第6章 应用层&lt;br/&gt;浏览器发起HTTP GET请求&quot;]
+    Step2[&quot;第5章 传输层&lt;br/&gt;TCP三次握手建立连接&lt;br/&gt;HTTP请求被封装成TCP报文段&quot;]
+    Step3[&quot;第4章 网络层&lt;br/&gt;IP数据报封装&lt;br/&gt;路由选择（RIP/OSPF）&lt;br/&gt;可能在NAT网关做地址转换&quot;]
+    Step4[&quot;第3章 数据链路层&lt;br/&gt;封装成帧&lt;br/&gt;通过交换机转发&lt;br/&gt;CSMA/CD发送&quot;]
+    Step5[&quot;第2章 物理层&lt;br/&gt;变成电信号/光信号&lt;br/&gt;在线路上传输&quot;]
+    Step6[&quot;第7章 网络安全&lt;br/&gt;HTTPS涉及SSL/TLS&lt;br/&gt;可能通过防火墙&quot;]
+    
+    Step1 --&gt; Step2 --&gt; Step3 --&gt; Step4 --&gt; Step5
+    Step5 -. &quot;反向逐层解封装&quot; .-&gt; Step6
+</div></td></tr></table></figure>
+<hr>
+<h3 id="六、全书核心协议端口速查表">六、全书核心协议端口速查表</h3>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>端口</th>
+<th>传输层</th>
+<th>章节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP</td>
+<td>80</td>
+<td>TCP</td>
+<td>第6章</td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td>443</td>
+<td>TCP</td>
+<td>第6章</td>
+</tr>
+<tr>
+<td>FTP 控制</td>
+<td>21</td>
+<td>TCP</td>
+<td>第6章</td>
+</tr>
+<tr>
+<td>FTP 数据</td>
+<td>20</td>
+<td>TCP</td>
+<td>第6章</td>
+</tr>
+<tr>
+<td>SMTP</td>
+<td>25</td>
+<td>TCP</td>
+<td>第6章</td>
+</tr>
+<tr>
+<td>POP3</td>
+<td>110</td>
+<td>TCP</td>
+<td>第6章</td>
+</tr>
+<tr>
+<td>IMAP</td>
+<td>143</td>
+<td>TCP</td>
+<td>第6章</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>53</td>
+<td>UDP/TCP</td>
+<td>第6章</td>
+</tr>
+<tr>
+<td>DHCP</td>
+<td>67/68</td>
+<td>UDP</td>
+<td>第4章</td>
+</tr>
+<tr>
+<td>RIP</td>
+<td>520</td>
+<td>UDP</td>
+<td>第4章</td>
+</tr>
+<tr>
+<td>OSPF</td>
+<td>89 (IP协议号)</td>
+<td>直接封装于IP</td>
+<td>第4章</td>
+</tr>
+<tr>
+<td>BGP</td>
+<td>179</td>
+<td>TCP</td>
+<td>第4章</td>
+</tr>
+<tr>
+<td>Telnet</td>
+<td>23</td>
+<td>TCP</td>
+<td>第6章</td>
+</tr>
+<tr>
+<td>SSH</td>
+<td>22</td>
+<td>TCP</td>
+<td>第6章</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="七、各章408分值占比">七、各章408分值占比</h3>
+<table>
+<thead>
+<tr>
+<th>章节</th>
+<th>分值占比</th>
+<th>核心题型</th>
+<th>重要程度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第1章 概述</td>
+<td>~8%</td>
+<td>性能计算（时延/RTT）</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>第2章 物理层</td>
+<td>~5%</td>
+<td>奈氏/香农公式、复用</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td><strong>第3章 数据链路层</strong></td>
+<td><strong>~15%</strong></td>
+<td><strong>CRC计算、CSMA/CD、GBN/SR</strong></td>
+<td><strong>⭐⭐⭐</strong></td>
+</tr>
+<tr>
+<td><strong>第4章 网络层</strong></td>
+<td><strong>~30%</strong></td>
+<td><strong>IP地址/CIDR/子网划分、路由协议</strong></td>
+<td><strong>⭐⭐⭐</strong></td>
+</tr>
+<tr>
+<td><strong>第5章 传输层</strong></td>
+<td><strong>~25%</strong></td>
+<td><strong>TCP拥塞控制、三次握手、流量控制</strong></td>
+<td><strong>⭐⭐⭐</strong></td>
+</tr>
+<tr>
+<td>第6章 应用层</td>
+<td>~10%</td>
+<td>HTTP/DNS/FTP协议特点</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>第7章 网络安全</td>
+<td>~5%</td>
+<td>DES/RSA/数字签名</td>
+<td>⭐</td>
+</tr>
+<tr>
+<td>第8-9章 扩展</td>
+<td>~2%</td>
+<td>了解性内容</td>
+<td>⭐</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="八、全书总结">八、全书总结</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><div class="mermaid">flowchart TD
+    K[&quot;计算机网络知识体系&lt;br/&gt;谢希仁第8版&quot;] --&gt; H1[&quot;一条主线&lt;br/&gt;分层体系结构&quot;]
+    K --&gt; H2[&quot;两个模型&lt;br/&gt;OSI七层 / TCP/IP四层&quot;]
+    K --&gt; H3[&quot;三个核心协议&lt;br/&gt;IP + TCP + HTTP&quot;]
+    K --&gt; H4[&quot;四个关键算法&lt;br/&gt;路由选择(Dijkstra)&lt;br/&gt;拥塞控制&lt;br/&gt;CRC校验&lt;br/&gt;CSMA/CD退避&quot;]
+    K --&gt; H5[&quot;五个必会计算&lt;br/&gt;① 时延计算&lt;br/&gt;② 子网划分&lt;br/&gt;③ CRC生成多项式&lt;br/&gt;④ 拥塞窗口变化&lt;br/&gt;⑤ 信道利用率&quot;]
+
+    style H1 fill:#F44336,color:#fff
+    style H3 fill:#FF9800,color:#fff
+    style H4 fill:#4CAF50,color:#fff
+    style H5 fill:#2196F3,color:#fff
+</div></td></tr></table></figure>
+<blockquote>
+<p><strong>一句话串联全书</strong>：计算机网络解决的核心问题是<strong>如何将数据从源主机可靠地传递到目的主机</strong>，采用<strong>分层结构</strong>将复杂问题分解为各层的子问题，每层为上层提供服务、对上层屏蔽实现细节。从最底层的物理介质（物理层），到无差错的帧传输（数据链路层），到任意两点的路由寻址（网络层），再到端到端的可靠通信（传输层），最终支撑各种应用服务（应用层）。</p>
+</blockquote>
+
+  </div>
+  <footer class="post-footer">
+    <div class="post-meta-bottom">
+      <span class="post-author">GodY-G</span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-07-11T08:51:48.000Z" class="dt-published" itemprop="datePublished">2026-07-11</time>
+        
+      
+    </div>
+
+
+    </div>
+    <div class="post-tags-bottom">
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a>
+    </div>
+
+
+    </div>
+  </footer>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/categories/">Categories</a></li>
+        
+          <li><a href="/archives/">Archives</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/graph/">Graph</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83%E9%AA%A8%E6%9E%B6%EF%BC%9A%E4%B8%A4%E7%A7%8D%E5%88%86%E5%B1%82%E4%BD%93%E7%B3%BB"><span class="toc-number">1.</span> <span class="toc-text">一、核心骨架：两种分层体系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%95%B0%E6%8D%AE%E5%9C%A8%E5%B1%82%E9%97%B4%E7%9A%84%E6%B5%81%E5%8A%A8"><span class="toc-number">2.</span> <span class="toc-text">二、数据在层间的流动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%90%84%E5%B1%82%E6%80%BB%E8%A7%88"><span class="toc-number">3.</span> <span class="toc-text">三、各层总览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%8C%89%E5%B1%82%E5%B1%95%E5%BC%80%E8%AF%A6%E7%BB%86%E6%A1%86%E6%9E%B6"><span class="toc-number">4.</span> <span class="toc-text">四、按层展开详细框架</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC1%E7%AB%A0-%E6%A6%82%E8%BF%B0%EF%BC%88P1-30%EF%BC%89%E2%80%94%E2%80%94-%E5%85%A8%E4%B9%A6%E6%80%BB%E7%BA%B2"><span class="toc-number">4.1.</span> <span class="toc-text">第1章 概述（P1-30）—— 全书总纲</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC2%E7%AB%A0-%E7%89%A9%E7%90%86%E5%B1%82%EF%BC%88P31-50%EF%BC%89"><span class="toc-number">4.2.</span> <span class="toc-text">第2章 物理层（P31-50）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC3%E7%AB%A0-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%EF%BC%88P51-100%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-number">4.3.</span> <span class="toc-text">第3章 数据链路层（P51-100）⭐⭐⭐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC4%E7%AB%A0-%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%88P101-170%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-number">4.4.</span> <span class="toc-text">第4章 网络层（P101-170）⭐⭐⭐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC5%E7%AB%A0-%E4%BC%A0%E8%BE%93%E5%B1%82%EF%BC%88P171-220%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-number">4.5.</span> <span class="toc-text">第5章 传输层（P171-220）⭐⭐⭐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC6%E7%AB%A0-%E5%BA%94%E7%94%A8%E5%B1%82%EF%BC%88P221-260%EF%BC%89"><span class="toc-number">4.6.</span> <span class="toc-text">第6章 应用层（P221-260）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E8%B7%A8%E5%B1%82%E5%85%B3%E8%81%94%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-number">5.</span> <span class="toc-text">五、跨层关联的核心概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%85%A8%E4%B9%A6%E6%A0%B8%E5%BF%83%E5%8D%8F%E8%AE%AE%E7%AB%AF%E5%8F%A3%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-number">6.</span> <span class="toc-text">六、全书核心协议端口速查表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%90%84%E7%AB%A0408%E5%88%86%E5%80%BC%E5%8D%A0%E6%AF%94"><span class="toc-number">7.</span> <span class="toc-text">七、各章408分值占比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%85%A8%E4%B9%A6%E6%80%BB%E7%BB%93"><span class="toc-number">8.</span> <span class="toc-text">八、全书总结</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&text=[考研]计算机网络全书知识框架"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&title=[考研]计算机网络全书知识框架"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&is_video=false&description=[考研]计算机网络全书知识框架"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=[考研]计算机网络全书知识框架&body=Check out this article: https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&title=[考研]计算机网络全书知识框架"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&title=[考研]计算机网络全书知识框架"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&title=[考研]计算机网络全书知识框架"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&title=[考研]计算机网络全书知识框架"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&name=[考研]计算机网络全书知识框架&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gody-g.github.io/2026/07/11/%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%A8%E4%B9%A6%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/&t=[考研]计算机网络全书知识框架"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2026
+    GodY-G
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Categories</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Archives</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/graph/">Graph</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
